@@ -1,0 +1,22 @@
+# Project-local Codex configuration.
+# Codex also reads ~/.codex/config.toml. Keep secrets in environment variables, not here.
+
+model = "gpt-5.5"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[mcp_servers.canva_dev]
+command = "npx"
+args = ["-y", "@canva/cli@latest", "mcp"]
+startup_timeout_sec = 30
+tool_timeout_sec = 60
+default_tools_approval_mode = "prompt"
+
+# The Canva Dev MCP server helps with Canva app/integration development.
+# For a production design-automation MCP server, expose your own remote MCP
+# endpoint and add it here after security review.
+#
+# [mcp_servers.canva_remote]
+# url = "https://your-canva-mcp-server.example/mcp"
+# bearer_token_env_var = "CANVA_MCP_BEARER_TOKEN"
+# default_tools_approval_mode = "prompt"
