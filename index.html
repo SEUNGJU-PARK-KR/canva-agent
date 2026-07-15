@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>실권주 레이더 불러오는 중</title>
+  <style>
+    :root { font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, sans-serif; color: #17212b; background: #f5f8f7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    main { width: min(560px, 100%); background: #fff; border: 1px solid #e3e8ed; border-radius: 24px; padding: 34px; box-shadow: 0 18px 45px rgba(16,44,39,.09); }
+    .mark { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: #123b35; color: #fff; font-weight: 800; font-size: 22px; }
+    h1 { margin: 22px 0 8px; font-size: 26px; }
+    p { margin: 0; color: #65727f; line-height: 1.7; }
+    .bar { height: 9px; margin-top: 26px; overflow: hidden; border-radius: 999px; background: #e5f5ee; }
+    .bar::after { content: ""; display: block; width: 42%; height: 100%; border-radius: inherit; background: #1f8a66; animation: move 1.15s ease-in-out infinite alternate; }
+    .error { margin-top: 20px; padding: 15px; border-radius: 14px; background: #fdeaea; color: #8b2f2f; white-space: pre-wrap; }
+    @keyframes move { from { transform: translateX(-15%); } to { transform: translateX(155%); } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">R</div>
+    <h1>실권주 레이더를 불러오고 있습니다</h1>
+    <p>대시보드와 캘린더, 브라우저 설정 저장 기능을 준비하는 중입니다.</p>
+    <div class="bar" aria-hidden="true"></div>
+    <div id="error" class="error" hidden></div>
+  </main>
+  <script>
+    (async () => {
+      const files = Array.from({ length: 9 }, (_, i) => `rights-radar-public/payload/part-${String(i).padStart(2, "0")}.txt`);
+      try {
+        if (!("DecompressionStream" in window)) {
+          throw new Error("이 브라우저는 압축 해제를 지원하지 않습니다. 최신 Chrome, Edge, Firefox 또는 Safari에서 열어 주세요.");
+        }
+        const chunks = await Promise.all(files.map(async (file) => {
+          const response = await fetch(file, { cache: "no-cache" });
+          if (!response.ok) throw new Error(`${file}을 불러오지 못했습니다. HTTP ${response.status}`);
+          return (await response.text()).trim();
+        }));
+        const binary = Uint8Array.from(atob(chunks.join("")), (char) => char.charCodeAt(0));
+        const stream = new Blob([binary]).stream().pipeThrough(new DecompressionStream("gzip"));
+        const html = await new Response(stream).text();
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (error) {
+        const box = document.getElementById("error");
+        box.hidden = false;
+        box.textContent = `사이트를 불러오지 못했습니다.\n${error.message}`;
+      }
+    })();
+  </script>
+</body>
+</html>
