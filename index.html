@@ -42,8 +42,100 @@
         const binary = Uint8Array.from(atob(chunks.join("")), (char) => char.charCodeAt(0));
         const stream = new Blob([binary]).stream().pipeThrough(new DecompressionStream("gzip"));
         const html = await new Response(stream).text();
+
+        const patchCode = String.raw`
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "rightsRadar.publicApiSecrets.v1";
+  const fields = [
+    { key: "openDartKey", input: "#open-dart-key", clear: "#clear-open-dart-key", hint: "#dart-key-hint", label: "OpenDART 인증키" },
+    { key: "krxAuthKey", input: "#krx-auth-key", clear: "#clear-krx-auth-key", hint: "#krx-key-hint", label: "KRX 인증키" },
+    { key: "alertWebhookUrl", input: "#alert-webhook-url", clear: "#clear-alert-webhook-url", hint: "#webhook-hint", label: "웹훅 주소" },
+  ];
+
+  function readSecrets() {
+    try {
+      return JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "{}") || {};
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function writeSecrets(next) {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    } catch (_) {
+      // 브라우저 저장소가 막혀 있으면 현재 화면에서만 유지됩니다.
+    }
+  }
+
+  function saveSecrets() {
+    const next = readSecrets();
+    fields.forEach((field) => {
+      const input = document.querySelector(field.input);
+      const clear = document.querySelector(field.clear);
+      if (clear?.checked) {
+        delete next[field.key];
+      } else if (input?.value.trim()) {
+        next[field.key] = input.value.trim();
+      }
+    });
+    writeSecrets(next);
+    window.setTimeout(restoreSecrets, 30);
+    window.setTimeout(restoreSecrets, 350);
+    window.setTimeout(restoreSecrets, 1100);
+  }
+
+  function restoreSecrets() {
+    const saved = readSecrets();
+    fields.forEach((field) => {
+      const input = document.querySelector(field.input);
+      const clear = document.querySelector(field.clear);
+      const hint = document.querySelector(field.hint);
+      const value = saved[field.key] || "";
+      if (input && value && !clear?.checked && !input.value) input.value = value;
+      if (hint && value) hint.textContent = field.label + "는 이 브라우저의 로컬 저장소에 보관되어 있습니다.";
+    });
+
+    const message = document.querySelector("#settings-message span:last-child");
+    if (message?.textContent.includes("비밀값 원문을 저장하지 않고")) {
+      message.textContent = "공개 버전에서는 입력값을 이 브라우저의 로컬 저장소에 보관합니다.";
+    }
+
+    const form = document.querySelector(".settings-form");
+    if (form && !document.querySelector("#public-storage-note")) {
+      const note = document.createElement("p");
+      note.id = "public-storage-note";
+      note.className = "settings-note settings-note--secure";
+      note.textContent = "공개 정적 버전입니다. API 입력값은 서버가 아니라 이 브라우저의 localStorage에 저장됩니다. 공용 PC에서는 저장하지 마세요.";
+      form.prepend(note);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    restoreSecrets();
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("#settings-save-button")) saveSecrets();
+      if (event.target.closest('[data-view-tab="settings"], a[href="#settings"]')) {
+        window.setTimeout(restoreSecrets, 50);
+        window.setTimeout(restoreSecrets, 500);
+      }
+    }, true);
+
+    document.addEventListener("submit", (event) => {
+      if (event.target.matches(".settings-form")) saveSecrets();
+    }, true);
+
+    const observer = new MutationObserver(() => restoreSecrets());
+    observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["hidden", "class"] });
+  });
+})();`;
+        const patch = "<script>" + patchCode + "</scr" + "ipt>";
+        const patchedHtml = html.includes("</body>") ? html.replace("</body>", patch + "</body>") : html + patch;
         document.open();
-        document.write(html);
+        document.write(patchedHtml);
         document.close();
       } catch (error) {
         const box = document.getElementById("error");
