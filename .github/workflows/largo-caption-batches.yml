@@ -1,0 +1,79 @@
+name: LargoTV all-video captions and previews
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-caption-batches.yml"
+      - "scripts/largo_caption_batch.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  analyze:
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        batch: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-history-pr-20260824
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download full-history inventory
+        uses: actions/download-artifact@v4
+        with:
+          name: largo-history-scan
+          path: inventory
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 32728324510
+
+      - name: Install analysis tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade yt-dlp requests beautifulsoup4 pillow youtube-transcript-api
+          python -m py_compile scripts/largo_caption_batch.py
+          ffmpeg -version | head -n 1
+          yt-dlp --version
+          test -s inventory/full_video_inventory.csv
+
+      - name: Reduce per-video network timeouts
+        run: |
+          sed -i 's/timeout=300/timeout=120/g; s/timeout=35/timeout=15/g; s/timeout=40/timeout=20/g' scripts/largo_caption_batch.py
+          python -m py_compile scripts/largo_caption_batch.py
+
+      - name: Analyze assigned videos
+        run: |
+          python scripts/largo_caption_batch.py \
+            "${{ matrix.batch }}" 24 \
+            inventory/full_video_inventory.csv \
+            "largo_caption_batch_${{ matrix.batch }}"
+
+      - name: Build artifact manifest
+        if: always()
+        run: |
+          root="largo_caption_batch_${{ matrix.batch }}"
+          mkdir -p "$root"
+          find "$root" -type f -printf '%P\t%s\n' | sort > "$root/manifest.tsv" || true
+          du -sh "$root" || true
+
+      - name: Upload batch evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-caption-batch-${{ matrix.batch }}
+          path: largo_caption_batch_${{ matrix.batch }}
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
