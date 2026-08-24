@@ -1,0 +1,54 @@
+name: LargoTV Lilys transcript discovery probe
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-lilys-probe.yml"
+      - "scripts/largo_lilys_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-history-pr-20260824
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download full-history inventory
+        uses: actions/download-artifact@v4
+        with:
+          name: largo-history-scan
+          path: inventory
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 32728324510
+
+      - name: Install parser
+        run: |
+          python -m pip install --upgrade requests beautifulsoup4
+          python -m py_compile scripts/largo_lilys_probe.py
+
+      - name: Discover cached transcripts
+        run: |
+          python scripts/largo_lilys_probe.py inventory/full_video_inventory.csv largo_lilys_probe_output
+
+      - name: Upload probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-lilys-probe
+          path: largo_lilys_probe_output
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
