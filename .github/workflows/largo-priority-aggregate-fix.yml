@@ -1,0 +1,126 @@
+name: LargoTV priority strategy corpus aggregation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-priority-aggregate-fix.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Download every artifact from the completed priority run
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: SEUNGJU-PARK-KR/canva-agent
+          run-id: 32808328470
+          pattern: largo-priority-*
+          path: downloaded
+          merge-multiple: false
+
+      - name: Build corrected transcript and frame corpus
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+          import csv, html, json, shutil
+          from collections import Counter
+          from pathlib import Path
+
+          source=Path('downloaded')
+          out=Path('priority-corpus')
+          out.mkdir(parents=True,exist_ok=True)
+          status=[]; transcripts=[]; events=[]
+          category_counts=Counter()
+
+          def read_csv(path):
+              if not path.exists(): return []
+              with path.open(encoding='utf-8-sig',newline='') as f: return list(csv.DictReader(f))
+
+          def write_csv(path,rows):
+              path.parent.mkdir(parents=True,exist_ok=True)
+              if not rows:
+                  path.write_text('',encoding='utf-8-sig'); return
+              fields=[]
+              for row in rows:
+                  for key in row:
+                      if key not in fields: fields.append(key)
+              with path.open('w',encoding='utf-8-sig',newline='') as f:
+                  w=csv.DictWriter(f,fieldnames=fields,extrasaction='ignore');w.writeheader();w.writerows(rows)
+
+          for artifact in sorted(p for p in source.iterdir() if p.is_dir() and p.name!='largo-priority-status'):
+              parts=artifact.name.split('-',3)
+              category=parts[2] if len(parts)>3 else 'unknown'
+              video_id=parts[3] if len(parts)>3 else artifact.name
+              summaries=list(artifact.rglob('summary.json'))
+              transcript_files=list(artifact.rglob('transcript.csv'))
+              event_files=list(artifact.rglob('strategy_events.csv'))
+              complete=bool(summaries and transcript_files and event_files)
+              row={'artifact':artifact.name,'category':category,'video_id':video_id,'complete':complete}
+              if not complete:
+                  failure=list(artifact.rglob('failure.json'))
+                  if failure:
+                      try: row['failure']=json.loads(failure[0].read_text()).get('error')
+                      except Exception: row['failure']='failure.json parse error'
+                  else: row['failure']='원본 분석 산출물 없음'
+                  status.append(row); continue
+              summary=json.loads(summaries[0].read_text())
+              row.update({'title':summary.get('title'),'duration':(summary.get('file_probe') or {}).get('duration',summary.get('duration')),'strategy_events':summary.get('strategy_events'),'frame_summary':summary.get('frame_summary')})
+              status.append(row); category_counts[category]+=1
+              for item in read_csv(transcript_files[0]):
+                  transcripts.append({'category':category,'video_id':video_id,'title':summary.get('title'),'start':item.get('start'),'end':item.get('end'),'start_label':item.get('start_label'),'end_label':item.get('end_label'),'text':item.get('text'),'avg_logprob':item.get('avg_logprob')})
+              for item in read_csv(event_files[0]):
+                  events.append({'category':category,'video_id':video_id,'title':summary.get('title'),'start':item.get('start'),'end':item.get('end'),'time_label':item.get('time_label'),'groups':item.get('groups'),'keywords':item.get('keywords'),'text':item.get('text'),'priority':item.get('priority')})
+
+              evidence=out/'evidence'/category/video_id
+              evidence.mkdir(parents=True,exist_ok=True)
+              for name in ['summary.json','source_verification.json','transcript.csv','transcript.srt','strategy_events.csv','dense_windows.csv','contact_sheet_scene.jpg','contact_sheet_orderbook.jpg','report.html']:
+                  files=list(artifact.rglob(name))
+                  if files: shutil.copy2(files[0],evidence/name)
+              event_frames=sorted(artifact.rglob('event_frames/*.jpg'))[:6]
+              if event_frames:
+                  target=evidence/'event_frames';target.mkdir(exist_ok=True)
+                  for frame in event_frames: shutil.copy2(frame,target/frame.name)
+              dense_sheets=sorted(artifact.rglob('dense_windows/*/contact_sheet.jpg'))[:4]
+              if dense_sheets:
+                  target=evidence/'dense_sheets';target.mkdir(exist_ok=True)
+                  for index,sheet in enumerate(dense_sheets,1): shutil.copy2(sheet,target/f'dense_{index:02d}.jpg')
+
+          write_csv(out/'priority_status.csv',status)
+          write_csv(out/'all_transcript.csv',transcripts)
+          write_csv(out/'all_strategy_events.csv',events)
+          for category in ['opening','closing','selection']:
+              write_csv(out/f'{category}_transcript.csv',[r for r in transcripts if r['category']==category])
+              write_csv(out/f'{category}_strategy_events.csv',[r for r in events if r['category']==category])
+
+          report={'source_run_id':32808328470,'requested':len(status),'completed':sum(r['complete'] for r in status),'blocked':sum(not r['complete'] for r in status),'category_completed':dict(category_counts),'results':status,'transcript_rows':len(transcripts),'strategy_event_rows':len(events)}
+          (out/'priority_status.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          rows_html=''.join(f"<tr><td>{html.escape(str(r['category']))}</td><td>{html.escape(str(r['video_id']))}</td><td>{'완료' if r['complete'] else '제외'}</td><td>{html.escape(str(r.get('title') or ''))}</td><td>{html.escape(str(r.get('duration') or ''))}</td><td>{html.escape(str(r.get('failure') or ''))}</td></tr>" for r in status)
+          doc=f"""<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>라르고TV 우선 전략 분석</title><style>body{{margin:0;background:#eef3f8;color:#142033;font-family:Arial,'Malgun Gothic',sans-serif}}main{{max-width:1400px;margin:24px auto;background:#fff;border-radius:16px;padding:28px}}.cards{{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}}.card{{padding:16px;border:1px solid #dbe4ed;border-radius:12px;background:#f8fafc}}.card b{{display:block;font-size:28px;color:#1463d6}}table{{width:100%;border-collapse:collapse;margin-top:20px;font-size:12px}}th,td{{border:1px solid #dfe6ee;padding:7px;text-align:left}}th{{background:#f1f5f9}}</style></head><body><main><h1>라르고TV 시초가·종가·종목선정 우선 분석</h1><div class='cards'><div class='card'>요청<b>{report['requested']}</b></div><div class='card'>완료<b>{report['completed']}</b></div><div class='card'>전사 행<b>{report['transcript_rows']}</b></div><div class='card'>전략 발언<b>{report['strategy_event_rows']}</b></div></div><table><tr><th>분류</th><th>영상 ID</th><th>상태</th><th>제목</th><th>길이</th><th>제외 사유</th></tr>{rows_html}</table></main></body></html>"""
+          (out/'priority_status.html').write_text(doc)
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          find priority-corpus -type f -printf '%P\t%s\n' | sort > priority-corpus/manifest.tsv
+          du -sh priority-corpus
+
+      - name: Upload corrected priority corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-priority-corpus-corrected
+          path: priority-corpus
+          if-no-files-found: error
+          retention-days: 2
+          compression-level: 6
