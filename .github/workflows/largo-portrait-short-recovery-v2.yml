@@ -1,0 +1,127 @@
+name: LargoTV portrait and low-resolution recovery v2
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/largo-portrait-short-recovery-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recover:
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Patch the verified analyzer for portrait sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/patch_largo_fullscan_analyzer.py scripts/openbot_full_video_analyzer.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/openbot_full_video_analyzer.py')
+          text=p.read_text(encoding='utf-8')
+          old='if probe and probe.get("width", 0) >= 640 and probe.get("duration", 0) > 1:'
+          new='if probe and max(probe.get("width", 0), probe.get("height", 0)) >= 480 and probe.get("duration", 0) > 1:'
+          if old not in text: raise SystemExit('choose_source threshold not found')
+          text=text.replace(old,new,1)
+          old2='if file_probe["duration"] < 2 or file_probe["width"] < 320:'
+          new2='if file_probe["duration"] < 2 or max(file_probe["width"], file_probe["height"]) < 320:'
+          if old2 not in text: raise SystemExit('file verification threshold not found')
+          text=text.replace(old2,new2,1)
+          p.write_text(text,encoding='utf-8')
+          PY
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py
+
+      - name: Build OpenBot portrait analyzer
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:portrait-base -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.portrait <<'DOCKERFILE'
+          FROM openbot-agent-computer:portrait-base
+          USER root
+          RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+              ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+              && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models \
+              && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-portrait:${{ matrix.shard }} -f Dockerfile.portrait .
+
+      - name: Analyze four recovery targets on this OpenBot computer
+        shell: bash
+        run: |
+          set +e
+          mkdir -p output
+          case '${{ matrix.shard }}' in
+            0) ids=(634hKbAcLws 6yApWcQN3KQ E-5tzfLS1R4 F4KikG5sx4s) ;;
+            1) ids=(FL_MVpwhPpk HSh6YIZKVHc HrK2jQ50W54 IDhtOtvWziQ) ;;
+            2) ids=(Ks7lkefm9OM Ofiau-HC2KM QdIhpk8GtKg fHxlBLpMfpk) ;;
+            3) ids=(fU2TgeF9y3c k9CaB_r1QnE osIhrnZbxPE rnt0fKjJTUE) ;;
+            4) ids=(tT2NfXHokOU u7Jytd4Jpp4 v_ZqDlcMwh8 8TfLcC4CDuU) ;;
+          esac
+          for id in "${ids[@]}"; do
+            mkdir -p "output/$id"
+            docker run --rm --shm-size=1g \
+              -e COMPUTER_TOKEN=largo-portrait-token \
+              -e COMPUTER_BOT_ID="portrait-${{ matrix.shard }}-$id" \
+              -e VIDEO_ID="$id" \
+              -e OUT="/workspace/$id" \
+              -e WHISPER_MODEL=small \
+              -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+              -e SPARSE_INTERVAL=2 \
+              -e DENSE_WINDOWS=10 \
+              -e EVENT_FRAME_LIMIT=80 \
+              -v "$PWD/output:/workspace" \
+              openbot-largo-portrait:${{ matrix.shard }} \
+              python3 /app/openbot_full_video_analyzer.py \
+              > "output/$id/container.log" 2>&1
+            echo $? > "output/$id/exit.txt"
+            rm -rf "output/$id/work"
+          done
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('output'); rows=[]
+          for d in sorted(p for p in root.iterdir() if p.is_dir()):
+              row={'video_id':d.name,'complete':all((d/n).exists() for n in ['summary.json','transcript.csv','strategy_events.csv','sparse_frame_metrics.csv','report.html'])}
+              if (d/'summary.json').exists():
+                  try: row['summary']=json.loads((d/'summary.json').read_text())
+                  except Exception as e: row['summary_error']=str(e)
+              if (d/'failure.json').exists():
+                  try: row['failure']=json.loads((d/'failure.json').read_text())
+                  except Exception as e: row['failure_error']=str(e)
+              rows.append(row)
+          report={'shard':${{ matrix.shard }},'requested':len(rows),'completed':sum(x['complete'] for x in rows),'results':rows}
+          (root/'recovery_status.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          find output -type f -printf '%P\t%s\n' | sort > output/manifest.tsv
+          exit 0
+
+      - name: Upload recovered portrait evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-portrait-recovery-v2-${{ matrix.shard }}
+          path: output
+          if-no-files-found: warn
+          retention-days: 2
+          compression-level: 6
