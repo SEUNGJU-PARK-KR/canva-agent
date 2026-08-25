@@ -1,0 +1,42 @@
+name: LargoTV full-scan patch validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-fullscan-patch-test.yml"
+      - "scripts/openbot_full_video_analyzer.py"
+      - "scripts/patch_largo_fullscan_analyzer.py"
+      - "scripts/largo_fullscan_runner.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+      - name: Patch and compile the analyzer
+        run: |
+          python3 scripts/patch_largo_fullscan_analyzer.py scripts/openbot_full_video_analyzer.py
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py
+          python3 -m py_compile scripts/largo_fullscan_runner.py
+          grep -n '"시초가"\|"종가"\|SPARSE_INTERVAL\|DENSE_WINDOWS' scripts/openbot_full_video_analyzer.py
+      - name: Decode and validate the 451-video inventory
+        run: |
+          python3 - <<'PY'
+          import base64,gzip,json
+          from pathlib import Path
+          p=Path('data/largo_fullscan_inventory.json.gz.b64')
+          data=json.loads(gzip.decompress(base64.b64decode(p.read_text().strip())).decode())
+          assert len(data['items']) == 451, len(data['items'])
+          assert {int(x['shard']) for x in data['items']} == set(range(16))
+          assert sum(bool(x.get('already_completed')) for x in data['items']) == 4
+          print(data['counts'])
+          PY
