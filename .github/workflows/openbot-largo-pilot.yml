@@ -60,6 +60,25 @@ jobs:
             done
           done
 
+      - name: Verify network access from each OpenBot computer
+        shell: bash
+        run: |
+          set +e
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-largo-$index"
+            docker exec "$name" bash -lc '
+              echo "=== DNS ==="
+              getent hosts www.youtube.com || true
+              echo "=== YouTube generate_204 ==="
+              curl -I -L --max-time 20 https://www.youtube.com/generate_204 || true
+              echo "=== Google generate_204 ==="
+              curl -I -L --max-time 20 https://www.google.com/generate_204 || true
+            ' > "openbot-pilot-output/$id/network.log" 2>&1
+          done
+          exit 0
+
       - name: Run four playback workers concurrently
         shell: bash
         run: |
@@ -70,7 +89,7 @@ jobs:
             id="${videos[$index]}"
             name="openbot-largo-$index"
             (
-              timeout 230s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/pilot "$name" \
+              timeout 140s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/pilot "$name" \
                 xvfb-run -a bun /app/openbot_youtube_pilot.ts \
                 > "openbot-pilot-output/$id/worker.log" 2>&1
               echo $? > "openbot-pilot-output/$id/worker.exit"
@@ -105,10 +124,11 @@ jobs:
                       row['attempts']=[{
                           'name':a.get('name'),'time_delta':a.get('timeDelta'),'duration':a.get('duration'),
                           'max_pixels':a.get('maxPixels'),'media_url_count':a.get('mediaUrlCount'),
-                          'markers':a.get('markers'),'error':a.get('error')
+                          'markers':a.get('markers'),'navigation_error':a.get('navigationError'),'error':a.get('error')
                       } for a in data.get('attempts',[])]
                   except Exception as e: row['parse_error']=str(e)
               q=d/'worker.exit'; row['worker_exit']=q.read_text().strip() if q.exists() else None
+              n=d/'network.log'; row['network_log']=n.read_text(errors='replace')[:4000] if n.exists() else None
               rows.append(row)
           report={'runtime':'CopilotKit/OpenBot agent-computer','parallel_computers':len(rows),
                   'successful_videos':[r['video_id'] for r in rows if r.get('success')],'results':rows}
