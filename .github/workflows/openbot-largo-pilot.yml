@@ -6,13 +6,13 @@ on:
       - openbot-largo-pilot-20260825-b
     paths:
       - ".github/workflows/openbot-largo-pilot.yml"
-      - "scripts/openbot_youtube_pilot.ts"
+      - "scripts/openbot_embed_probe.ts"
   pull_request:
     branches:
       - main
     paths:
       - ".github/workflows/openbot-largo-pilot.yml"
-      - "scripts/openbot_youtube_pilot.ts"
+      - "scripts/openbot_embed_probe.ts"
   workflow_dispatch:
 
 permissions:
@@ -48,7 +48,7 @@ jobs:
               -e COMPUTER_BOT_ID="largo$index" \
               -v "$PWD/openbot-pilot-output/$id:/workspace" \
               openbot-agent-computer:largo-pilot
-            docker cp scripts/openbot_youtube_pilot.ts "$name:/app/openbot_youtube_pilot.ts"
+            docker cp scripts/openbot_embed_probe.ts "$name:/app/openbot_embed_probe.ts"
           done
           for index in "${!videos[@]}"; do
             name="openbot-largo-$index"
@@ -60,7 +60,7 @@ jobs:
             done
           done
 
-      - name: Verify network access from each OpenBot computer
+      - name: Verify network and public watch responses
         shell: bash
         run: |
           set +e
@@ -68,18 +68,21 @@ jobs:
           for index in "${!videos[@]}"; do
             id="${videos[$index]}"
             name="openbot-largo-$index"
-            docker exec "$name" bash -lc '
-              echo "=== DNS ==="
+            docker exec "$name" bash -lc "
+              echo '=== DNS ==='
               getent hosts www.youtube.com || true
-              echo "=== YouTube generate_204 ==="
-              curl -I -L --max-time 20 https://www.youtube.com/generate_204 || true
-              echo "=== Google generate_204 ==="
-              curl -I -L --max-time 20 https://www.google.com/generate_204 || true
-            ' > "openbot-pilot-output/$id/network.log" 2>&1
+              echo '=== YouTube 204 ==='
+              curl -4 -I -L --max-time 20 https://www.youtube.com/generate_204 || true
+              echo '=== Watch page ==='
+              curl -4 -L --compressed --max-time 25 -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/145 Safari/537.36' \
+                -o /workspace/watch-response.html -w 'status=%{http_code} bytes=%{size_download} time=%{time_total}\\n' \
+                'https://www.youtube.com/watch?v=$id&hl=ko&gl=KR' || true
+              grep -Eo 'LOGIN_REQUIRED|Sign in to confirm|로그인하여 본인 확인|playabilityStatus|storyboards' /workspace/watch-response.html 2>/dev/null | head -30 || true
+            " > "openbot-pilot-output/$id/network.log" 2>&1
           done
           exit 0
 
-      - name: Run four playback workers concurrently
+      - name: Run four bounded embedded-player workers concurrently
         shell: bash
         run: |
           set +e
@@ -89,8 +92,8 @@ jobs:
             id="${videos[$index]}"
             name="openbot-largo-$index"
             (
-              timeout 140s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/pilot "$name" \
-                xvfb-run -a bun /app/openbot_youtube_pilot.ts \
+              timeout 190s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/embed-probe "$name" \
+                xvfb-run -a bun /app/openbot_embed_probe.ts \
                 > "openbot-pilot-output/$id/worker.log" 2>&1
               echo $? > "openbot-pilot-output/$id/worker.exit"
             ) &
@@ -114,7 +117,7 @@ jobs:
           root=Path('openbot-pilot-output')
           rows=[]
           for d in sorted(p for p in root.iterdir() if p.is_dir()):
-              p=d/'pilot'/'summary.json'
+              p=d/'embed-probe'/'summary.json'
               row={'video_id':d.name,'summary_exists':p.exists()}
               if p.exists():
                   try:
@@ -124,11 +127,12 @@ jobs:
                       row['attempts']=[{
                           'name':a.get('name'),'time_delta':a.get('timeDelta'),'duration':a.get('duration'),
                           'max_pixels':a.get('maxPixels'),'media_url_count':a.get('mediaUrlCount'),
-                          'markers':a.get('markers'),'navigation_error':a.get('navigationError'),'error':a.get('error')
-                      } for a in data.get('attempts',[])]
+                          'navigation_committed':a.get('navigationCommitted'),'frame_urls':a.get('frameUrls'),
+                          'visible_texts':a.get('visibleTexts'),'error':a.get('error')
+                      } for a in data.get('results',[])]
                   except Exception as e: row['parse_error']=str(e)
               q=d/'worker.exit'; row['worker_exit']=q.read_text().strip() if q.exists() else None
-              n=d/'network.log'; row['network_log']=n.read_text(errors='replace')[:4000] if n.exists() else None
+              n=d/'network.log'; row['network_log']=n.read_text(errors='replace')[:6000] if n.exists() else None
               rows.append(row)
           report={'runtime':'CopilotKit/OpenBot agent-computer','parallel_computers':len(rows),
                   'successful_videos':[r['video_id'] for r in rows if r.get('success')],'results':rows}
