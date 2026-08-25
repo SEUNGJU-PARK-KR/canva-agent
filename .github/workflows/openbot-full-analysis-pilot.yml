@@ -1,0 +1,193 @@
+name: OpenBot LargoTV complete analysis pilot
+
+on:
+  push:
+    branches:
+      - openbot-largo-full-pilot-run-20260825
+    paths:
+      - ".github/workflows/openbot-full-analysis-pilot.yml"
+      - "scripts/openbot_full_video_analyzer.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        video_id:
+          - nucIUdFTkZY
+          - rYLFvo7LPfc
+          - 0u8MIJVpa-4
+          - zGpBq2PCv4M
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: openbot-largo-full-pilot-run-20260825
+
+      - name: Build a full analyzer on the official OpenBot computer image
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build \
+            -t openbot-agent-computer:base \
+            -f OpenBot/agent-computer/Dockerfile \
+            OpenBot
+
+          cat > Dockerfile.openbot-analysis <<'DOCKERFILE'
+          FROM openbot-agent-computer:base
+          USER root
+          RUN apt-get update \
+            && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+                 ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+            && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models \
+            && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+
+          docker build -t openbot-largo-full-analyzer:${{ matrix.video_id }} -f Dockerfile.openbot-analysis .
+          docker image inspect openbot-largo-full-analyzer:${{ matrix.video_id }} > openbot-image-inspect.json
+
+      - name: Run the complete video, transcript, frame and order-book analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          docker run --rm \
+            --name openbot-full-${{ matrix.video_id }} \
+            --shm-size=2g \
+            -e COMPUTER_TOKEN=openbot-full-pilot-token \
+            -e COMPUTER_BOT_ID=full${{ strategy.job-index }} \
+            -e VIDEO_ID=${{ matrix.video_id }} \
+            -e OUT=/workspace/analysis \
+            -e WHISPER_MODEL=small \
+            -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-full-analyzer:${{ matrix.video_id }} \
+            python3 /app/openbot_full_video_analyzer.py
+
+      - name: Validate result and build manifest
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          mkdir -p output/analysis
+          find output/analysis -type f -printf '%P\t%s\n' | sort > output/analysis/manifest.tsv
+          du -sh output/analysis > output/analysis/size.txt 2>&1 || true
+          find output/analysis -type f ! -path '*/work/*' -exec sha256sum {} \; > output/analysis/sha256.txt 2>/dev/null || true
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('output/analysis')
+          summary=root/'summary.json'
+          failure=root/'failure.json'
+          result={
+              'video_id':'${{ matrix.video_id }}',
+              'summary_exists':summary.exists(),
+              'failure_exists':failure.exists(),
+              'report_exists':(root/'report.html').exists(),
+              'transcript_exists':(root/'transcript.csv').exists(),
+              'frame_metrics_exists':(root/'sparse_frame_metrics.csv').exists(),
+          }
+          if summary.exists():
+              try: result['summary']=json.loads(summary.read_text())
+              except Exception as e: result['summary_parse_error']=str(e)
+          if failure.exists():
+              try: result['failure']=json.loads(failure.read_text())
+              except Exception as e: result['failure_parse_error']=str(e)
+          (root/'validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+          rm -rf output/analysis/work
+          exit 0
+
+      - name: Upload this video's verified evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-full-${{ matrix.video_id }}
+          path: |
+            output/analysis
+            openbot-image-inspect.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
+
+  aggregate:
+    if: always()
+    needs: analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Download every video artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: openbot-full-*
+          path: pilot-artifacts
+          merge-multiple: false
+
+      - name: Create pilot completion report
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import html, json
+          root=Path('pilot-artifacts')
+          rows=[]
+          for artifact in sorted(p for p in root.iterdir() if p.is_dir()):
+              candidates=list(artifact.rglob('validation.json'))
+              if not candidates:
+                  rows.append({'artifact':artifact.name,'video_id':artifact.name.replace('openbot-full-',''),'complete':False,'reason':'validation.json 없음'})
+                  continue
+              p=candidates[0]
+              try: data=json.loads(p.read_text())
+              except Exception as e:
+                  rows.append({'artifact':artifact.name,'video_id':artifact.name.replace('openbot-full-',''),'complete':False,'reason':str(e)})
+                  continue
+              summary=data.get('summary') or {}
+              rows.append({
+                  'artifact':artifact.name,
+                  'video_id':data.get('video_id'),
+                  'complete':bool(data.get('summary_exists') and data.get('report_exists') and data.get('transcript_exists') and data.get('frame_metrics_exists')),
+                  'title':summary.get('title'),
+                  'duration':(summary.get('file_probe') or {}).get('duration'),
+                  'resolution':f"{(summary.get('file_probe') or {}).get('width','')}×{(summary.get('file_probe') or {}).get('height','')}",
+                  'transcript_segments':(summary.get('transcript') or {}).get('segments') if isinstance(summary.get('transcript'),dict) else None,
+                  'strategy_events':summary.get('strategy_events'),
+                  'frame_summary':summary.get('frame_summary'),
+                  'elapsed_seconds':summary.get('elapsed_seconds'),
+                  'failure':data.get('failure'),
+              })
+          report={
+              'runtime':'CopilotKit/OpenBot agent-computer',
+              'requested_videos':4,
+              'completed_videos':sum(1 for r in rows if r.get('complete')),
+              'failed_videos':[r.get('video_id') for r in rows if not r.get('complete')],
+              'results':rows,
+          }
+          Path('pilot-status.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          trs=''.join(f"<tr><td>{html.escape(str(r.get('video_id') or ''))}</td><td>{'완료' if r.get('complete') else '실패'}</td><td>{html.escape(str(r.get('title') or ''))}</td><td>{html.escape(str(r.get('duration') or ''))}</td><td>{html.escape(str(r.get('resolution') or ''))}</td><td>{html.escape(str(r.get('strategy_events') or ''))}</td><td>{html.escape(str(r.get('frame_summary') or ''))}</td></tr>" for r in rows)
+          doc=f"""<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>OpenBot 라르고TV 완주 파일럿</title><style>body{{margin:0;background:#eef3f8;color:#152238;font-family:Arial,'Malgun Gothic',sans-serif}}main{{max-width:1350px;margin:24px auto;background:white;border:1px solid #d7e0ea;border-radius:16px;padding:28px}}.stats{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}.card{{border:1px solid #d7e0ea;border-radius:12px;padding:16px;background:#f8fafc}}.card b{{font-size:30px;color:#1463d6;display:block}}table{{border-collapse:collapse;width:100%;font-size:12px;margin-top:24px}}th,td{{border:1px solid #dfe6ee;padding:8px;text-align:left;vertical-align:top}}th{{background:#f1f5f9}}</style></head><body><main><h1>OpenBot 라르고TV 원본 완주 분석 파일럿</h1><div class='stats'><div class='card'>요청 영상<b>4</b></div><div class='card'>완료 영상<b>{report['completed_videos']}</b></div><div class='card'>실패 영상<b>{len(report['failed_videos'])}</b></div></div><table><thead><tr><th>영상 ID</th><th>상태</th><th>제목</th><th>길이</th><th>해상도</th><th>전략 발언</th><th>프레임 분석</th></tr></thead><tbody>{trs}</tbody></table></main></body></html>"""
+          Path('pilot-status.html').write_text(doc)
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload aggregate pilot report
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-full-pilot-status
+          path: |
+            pilot-status.json
+            pilot-status.html
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6
