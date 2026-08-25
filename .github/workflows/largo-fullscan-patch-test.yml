@@ -31,7 +31,9 @@ jobs:
           grep -n '"시초가"\|"종가"\|SPARSE_INTERVAL\|DENSE_WINDOWS' scripts/openbot_full_video_analyzer.py
       - name: Decode and validate the 451-video inventory
         run: |
-          cat data/largo_fullscan_inventory_parts/part_*.txt > /tmp/largo_inventory.b64
+          cat data/largo_fullscan_inventory_parts/part_00.txt > /tmp/largo_inventory.b64
+          head -c -1 data/largo_fullscan_inventory_parts/part_01.txt >> /tmp/largo_inventory.b64
+          cat data/largo_fullscan_inventory_parts/part_02.txt data/largo_fullscan_inventory_parts/part_03.txt data/largo_fullscan_inventory_parts/part_04.txt data/largo_fullscan_inventory_parts/part_05.txt data/largo_fullscan_inventory_parts/part_06.txt >> /tmp/largo_inventory.b64
           python3 - <<'PY'
           import base64,gzip,json
           from pathlib import Path
