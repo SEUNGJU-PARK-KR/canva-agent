@@ -1,0 +1,135 @@
+name: OpenBot LargoTV Piped source pilot
+
+on:
+  push:
+    branches:
+      - openbot-largo-pilot-20260825-b
+    paths:
+      - ".github/workflows/openbot-piped-pilot.yml"
+      - "scripts/openbot_piped_probe.ts"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/openbot-piped-pilot.yml"
+      - "scripts/openbot_piped_probe.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: openbot-largo-pilot-20260825-b
+
+      - name: Build CopilotKit OpenBot computer image
+        run: |
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:largo-piped -f OpenBot/agent-computer/Dockerfile OpenBot
+
+      - name: Start four isolated OpenBot computers
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p openbot-piped-output
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-piped-$index"
+            mkdir -p "openbot-piped-output/$id"
+            docker run -d --name "$name" --shm-size=1g \
+              -e COMPUTER_TOKEN=largo-piped-token \
+              -e COMPUTER_BOT_ID="piped$index" \
+              -v "$PWD/openbot-piped-output/$id:/workspace" \
+              openbot-agent-computer:largo-piped
+            docker cp scripts/openbot_piped_probe.ts "$name:/app/openbot_piped_probe.ts"
+          done
+          for index in "${!videos[@]}"; do
+            name="openbot-piped-$index"
+            for attempt in $(seq 1 60); do
+              status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$name" 2>/dev/null || true)"
+              [[ "$status" == healthy ]] && break
+              [[ "$status" == unhealthy ]] && { docker logs "$name"; exit 1; }
+              sleep 2
+            done
+          done
+
+      - name: Run four Piped source probes concurrently
+        shell: bash
+        run: |
+          set +e
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          pids=()
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-piped-$index"
+            (
+              timeout 420s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/piped-probe "$name" \
+                xvfb-run -a bun /app/openbot_piped_probe.ts \
+                > "openbot-piped-output/$id/worker.log" 2>&1
+              echo $? > "openbot-piped-output/$id/worker.exit"
+            ) &
+            pids+=("$!")
+          done
+          for pid in "${pids[@]}"; do wait "$pid" || true; done
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-piped-$index"
+            docker logs "$name" > "openbot-piped-output/$id/computer.log" 2>&1 || true
+            docker stop -t 10 "$name" >/dev/null 2>&1 || true
+          done
+          exit 0
+
+      - name: Summarize verified sources
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('openbot-piped-output')
+          rows=[]
+          for d in sorted(p for p in root.iterdir() if p.is_dir()):
+              p=d/'piped-probe'/'summary.json'
+              row={'video_id':d.name,'summary_exists':p.exists()}
+              if p.exists():
+                  try:
+                      data=json.loads(p.read_text())
+                      row.update({
+                          'source_found':data.get('sourceFound'),
+                          'playback_success':data.get('success'),
+                          'selected':data.get('selected'),
+                          'playback':data.get('playback'),
+                          'tested_instances':data.get('testedInstances'),
+                          'instances':[{
+                              'instance':x.get('instance'),'status':x.get('status'),'bytes':x.get('bytes'),
+                              'title':x.get('title'),'duration':x.get('duration'),'candidate_count':x.get('candidateCount'),
+                              'error':x.get('error')
+                          } for x in data.get('instanceResults',[])]
+                      })
+                  except Exception as e: row['parse_error']=str(e)
+              q=d/'worker.exit'; row['worker_exit']=q.read_text().strip() if q.exists() else None
+              rows.append(row)
+          report={'runtime':'CopilotKit/OpenBot agent-computer','parallel_computers':len(rows),
+                  'source_verified_videos':[r['video_id'] for r in rows if r.get('source_found')],
+                  'playback_verified_videos':[r['video_id'] for r in rows if r.get('playback_success')],
+                  'results':rows}
+          (root/'pilot-summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          find openbot-piped-output -type f -printf '%P\t%s\n' | sort > openbot-piped-output/manifest.tsv
+          du -sh openbot-piped-output || true
+
+      - name: Upload source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-largotv-piped-pilot
+          path: openbot-piped-output
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
