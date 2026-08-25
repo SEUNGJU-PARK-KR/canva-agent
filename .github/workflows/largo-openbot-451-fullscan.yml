@@ -1,0 +1,156 @@
+name: LargoTV OpenBot 451-video full scan
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-openbot-451-fullscan.yml"
+      - "scripts/openbot_full_video_analyzer.py"
+      - "scripts/patch_largo_fullscan_analyzer.py"
+      - "scripts/largo_fullscan_runner.py"
+      - "scripts/largo_fullscan_aggregate.py"
+      - "data/largo_fullscan_inventory_parts/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Reassemble inventory and patch the verified analyzer
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat data/largo_fullscan_inventory_parts/part_00.txt > data/largo_inventory_runtime.b64
+          head -c -1 data/largo_fullscan_inventory_parts/part_01.txt >> data/largo_inventory_runtime.b64
+          cat data/largo_fullscan_inventory_parts/part_02.txt data/largo_fullscan_inventory_parts/part_03.txt data/largo_fullscan_inventory_parts/part_04.txt data/largo_fullscan_inventory_parts/part_05.txt data/largo_fullscan_inventory_parts/part_06.txt >> data/largo_inventory_runtime.b64
+          python3 scripts/patch_largo_fullscan_analyzer.py scripts/openbot_full_video_analyzer.py
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py scripts/largo_fullscan_runner.py scripts/largo_fullscan_aggregate.py
+          python3 - <<'PY'
+          import base64,gzip,json
+          from pathlib import Path
+          data=json.loads(gzip.decompress(base64.b64decode(Path('data/largo_inventory_runtime.b64').read_text().strip())).decode())
+          assert len(data['items']) == 451
+          assert sum(bool(x.get('already_completed')) for x in data['items']) == 4
+          print('inventory ok', len(data['items']))
+          PY
+
+      - name: Build the official OpenBot computer with analysis tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:largo-base -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.largo-fullscan <<'DOCKERFILE'
+          FROM openbot-agent-computer:largo-base
+          USER root
+          RUN apt-get update \
+            && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+                 ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+            && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          COPY scripts/largo_fullscan_runner.py /app/largo_fullscan_runner.py
+          COPY data/largo_inventory_runtime.b64 /app/largo_inventory_runtime.b64
+          RUN mkdir -p /opt/whisper-models \
+            && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-fullscan:shard-${{ matrix.shard }} -f Dockerfile.largo-fullscan .
+
+      - name: Analyze every unblocked video assigned to this OpenBot computer
+        id: scan_step
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          docker run --rm --shm-size=2g \
+            --name largo-fullscan-${{ matrix.shard }} \
+            -e COMPUTER_TOKEN=largo-fullscan-token \
+            -e COMPUTER_BOT_ID=largoshard${{ matrix.shard }} \
+            -e VIDEO_TIMEOUT_SECONDS=5400 \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-fullscan:shard-${{ matrix.shard }} \
+            python3 /app/largo_fullscan_runner.py \
+              --inventory /app/largo_inventory_runtime.b64 \
+              --shard ${{ matrix.shard }} \
+              --shards 16 \
+              --analyzer /app/openbot_full_video_analyzer.py \
+              --output /workspace/results \
+              --model-root /opt/whisper-models
+
+      - name: Preserve shard manifest and execution outcome
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          mkdir -p output/results
+          printf '%s\n' '${{ steps.scan_step.outcome }}' > output/results/workflow_step_outcome.txt
+          find output/results -type f -printf '%P\t%s\n' | sort > output/results/manifest.tsv
+          du -sh output/results > output/results/size.txt 2>&1 || true
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('output/results')
+          path=root/'shard_summary.json'
+          data=json.loads(path.read_text()) if path.exists() else {'shard':${{ matrix.shard }},'requested':0,'completed':0,'blocked':0,'fatal':'shard_summary.json 없음'}
+          data['workflow_step_outcome']='${{ steps.scan_step.outcome }}'
+          (root/'workflow_validation.json').write_text(json.dumps(data,ensure_ascii=False,indent=2))
+          print(json.dumps(data,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload this shard's verified results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-fullscan-shard-${{ matrix.shard }}
+          path: output/results
+          if-no-files-found: warn
+          retention-days: 2
+          compression-level: 6
+
+  aggregate:
+    if: always()
+    needs: scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Download every shard artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: largo-fullscan-shard-*
+          path: shard-artifacts
+          merge-multiple: false
+
+      - name: Merge transcripts, strategy evidence, blocked videos and representative frames
+        run: |
+          python3 scripts/largo_fullscan_aggregate.py --input shard-artifacts --output aggregate
+          find aggregate -type f -printf '%P\t%s\n' | sort > aggregate/manifest.tsv
+          du -sh aggregate > aggregate/size.txt
+
+      - name: Upload the complete channel-level evidence index
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-fullscan-aggregate
+          path: aggregate
+          if-no-files-found: error
+          retention-days: 2
+          compression-level: 6
