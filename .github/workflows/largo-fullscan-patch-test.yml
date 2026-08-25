@@ -9,6 +9,7 @@ on:
       - "scripts/openbot_full_video_analyzer.py"
       - "scripts/patch_largo_fullscan_analyzer.py"
       - "scripts/largo_fullscan_runner.py"
+      - "data/largo_fullscan_inventory_parts/**"
   workflow_dispatch:
 
 permissions:
@@ -30,10 +31,11 @@ jobs:
           grep -n '"시초가"\|"종가"\|SPARSE_INTERVAL\|DENSE_WINDOWS' scripts/openbot_full_video_analyzer.py
       - name: Decode and validate the 451-video inventory
         run: |
+          cat data/largo_fullscan_inventory_parts/part_*.txt > /tmp/largo_inventory.b64
           python3 - <<'PY'
           import base64,gzip,json
           from pathlib import Path
-          p=Path('data/largo_fullscan_inventory.json.gz.b64')
+          p=Path('/tmp/largo_inventory.b64')
           data=json.loads(gzip.decompress(base64.b64decode(p.read_text().strip())).decode())
           assert len(data['items']) == 451, len(data['items'])
           assert {int(x['shard']) for x in data['items']} == set(range(16))
