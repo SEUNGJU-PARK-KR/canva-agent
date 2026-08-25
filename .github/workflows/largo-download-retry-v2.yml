@@ -1,0 +1,123 @@
+name: LargoTV verified stream download retry v2
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/largo-download-retry-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        video_id: [-lss5p4gkbo, H6IxZSqLJCM, JP4AF2qF2yk]
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Patch analyzer with Bun source fetch and ffmpeg download fallback
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/patch_largo_fullscan_analyzer.py scripts/openbot_full_video_analyzer.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('scripts/openbot_full_video_analyzer.py')
+          text=p.read_text(encoding='utf-8')
+          replacement=r'''def download_source(url: str, output: Path) -> None:
+              proc = run([
+                  "curl", "-L", "--fail", "--retry", "8", "--retry-all-errors", "--connect-timeout", "30",
+                  "--max-time", "7200", "-A", UA_BROWSER, "-o", str(output), url,
+              ], timeout=7400, check=False)
+              if proc.returncode == 0 and output.exists() and output.stat().st_size >= 1_000_000:
+                  return
+              output.unlink(missing_ok=True)
+              proc2 = run([
+                  "ffmpeg", "-hide_banner", "-loglevel", "warning", "-y", "-user_agent", UA_BROWSER,
+                  "-rw_timeout", "60000000", "-i", url, "-map", "0:v:0", "-map", "0:a:0?",
+                  "-c", "copy", "-movflags", "+faststart", str(output),
+              ], timeout=7400, check=False)
+              if proc2.returncode != 0 or not output.exists() or output.stat().st_size < 1_000_000:
+                  raise RuntimeError("Downloaded source file is missing or too small after curl and ffmpeg retries")
+
+
+def probe_file'''
+          text2,count=re.subn(r'def download_source\(url: str, output: Path\).*?\n\ndef probe_file',replacement,text,flags=re.S)
+          if count!=1: raise SystemExit(f'download patch count={count}')
+          p.write_text(text2,encoding='utf-8')
+          PY
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py
+
+      - name: Build OpenBot retry analyzer
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:retry-base -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.retry <<'DOCKERFILE'
+          FROM openbot-agent-computer:retry-base
+          USER root
+          RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+              ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+              && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models \
+              && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-retry:${{ matrix.video_id }} -f Dockerfile.retry .
+
+      - name: Analyze retry target
+        shell: bash
+        run: |
+          set +e
+          mkdir -p output
+          docker run --rm --shm-size=2g \
+            -e COMPUTER_TOKEN=largo-retry-token \
+            -e COMPUTER_BOT_ID=retry-${{ strategy.job-index }} \
+            -e VIDEO_ID=${{ matrix.video_id }} \
+            -e OUT=/workspace/analysis \
+            -e WHISPER_MODEL=small \
+            -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+            -e SPARSE_INTERVAL=10 \
+            -e DENSE_WINDOWS=5 \
+            -e EVENT_FRAME_LIMIT=40 \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-retry:${{ matrix.video_id }} \
+            python3 /app/openbot_full_video_analyzer.py \
+            > output/container.log 2>&1
+          echo $? > output/exit.txt
+          rm -rf output/analysis/work
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('output/analysis')
+          result={'video_id':'${{ matrix.video_id }}','complete':all((root/n).exists() for n in ['summary.json','transcript.csv','strategy_events.csv','sparse_frame_metrics.csv','report.html'])}
+          if (root/'summary.json').exists(): result['summary']=json.loads((root/'summary.json').read_text())
+          if (root/'failure.json').exists(): result['failure']=json.loads((root/'failure.json').read_text())
+          Path('output/retry_status.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+          find output -type f -printf '%P\t%s\n' | sort > output/manifest.tsv
+          exit 0
+
+      - name: Upload retry evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-download-retry-v2-${{ matrix.video_id }}
+          path: output
+          if-no-files-found: warn
+          retention-days: 2
+          compression-level: 6
