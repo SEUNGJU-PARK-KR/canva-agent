@@ -1,0 +1,130 @@
+name: OpenBot LargoTV embed-fix source pilot
+
+on:
+  push:
+    branches:
+      - openbot-largo-pilot-20260825-b
+    paths:
+      - ".github/workflows/openbot-embedfix-pilot.yml"
+      - "scripts/openbot_embedfix_probe.ts"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/openbot-embedfix-pilot.yml"
+      - "scripts/openbot_embedfix_probe.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: openbot-largo-pilot-20260825-b
+
+      - name: Build CopilotKit OpenBot computer image
+        run: |
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:largo-embedfix -f OpenBot/agent-computer/Dockerfile OpenBot
+
+      - name: Start four isolated OpenBot computers
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p openbot-embedfix-output
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-embedfix-$index"
+            mkdir -p "openbot-embedfix-output/$id"
+            docker run -d --name "$name" --shm-size=1g \
+              -e COMPUTER_TOKEN=largo-embedfix-token \
+              -e COMPUTER_BOT_ID="embedfix$index" \
+              -v "$PWD/openbot-embedfix-output/$id:/workspace" \
+              openbot-agent-computer:largo-embedfix
+            docker cp scripts/openbot_embedfix_probe.ts "$name:/app/openbot_embedfix_probe.ts"
+          done
+          for index in "${!videos[@]}"; do
+            name="openbot-embedfix-$index"
+            for attempt in $(seq 1 60); do
+              status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$name" 2>/dev/null || true)"
+              [[ "$status" == healthy ]] && break
+              [[ "$status" == unhealthy ]] && { docker logs "$name"; exit 1; }
+              sleep 2
+            done
+          done
+
+      - name: Run four embed-fix source probes concurrently
+        shell: bash
+        run: |
+          set +e
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          pids=()
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-embedfix-$index"
+            (
+              timeout 300s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/embedfix-probe "$name" \
+                xvfb-run -a bun /app/openbot_embedfix_probe.ts \
+                > "openbot-embedfix-output/$id/worker.log" 2>&1
+              echo $? > "openbot-embedfix-output/$id/worker.exit"
+            ) &
+            pids+=("$!")
+          done
+          for pid in "${pids[@]}"; do wait "$pid" || true; done
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-embedfix-$index"
+            docker logs "$name" > "openbot-embedfix-output/$id/computer.log" 2>&1 || true
+            docker stop -t 10 "$name" >/dev/null 2>&1 || true
+          done
+          exit 0
+
+      - name: Summarize verified media
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('openbot-embedfix-output')
+          rows=[]
+          for d in sorted(p for p in root.iterdir() if p.is_dir()):
+              p=d/'embedfix-probe'/'summary.json'
+              row={'video_id':d.name,'summary_exists':p.exists()}
+              if p.exists():
+                  try:
+                      data=json.loads(p.read_text())
+                      row.update({'source_found':data.get('sourceFound'),'playback_success':data.get('success'),
+                                  'selected':data.get('selected'),'playback':data.get('playback'),
+                                  'responses':[{'page_url':x.get('pageUrl'),'user_agent':x.get('userAgent'),
+                                                'status':x.get('status'),'final_url':x.get('finalUrl'),
+                                                'content_type':x.get('contentType'),'bytes':x.get('bytes'),
+                                                'candidate_count':x.get('candidateCount'),'error':x.get('error')}
+                                               for x in data.get('responses',[])]})
+                  except Exception as e: row['parse_error']=str(e)
+              q=d/'worker.exit';row['worker_exit']=q.read_text().strip() if q.exists() else None
+              rows.append(row)
+          report={'runtime':'CopilotKit/OpenBot agent-computer','parallel_computers':len(rows),
+                  'source_verified_videos':[r['video_id'] for r in rows if r.get('source_found')],
+                  'playback_verified_videos':[r['video_id'] for r in rows if r.get('playback_success')],
+                  'results':rows}
+          (root/'pilot-summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          find openbot-embedfix-output -type f -printf '%P\t%s\n' | sort > openbot-embedfix-output/manifest.tsv
+          du -sh openbot-embedfix-output || true
+
+      - name: Upload embed-fix evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-largotv-embedfix-pilot
+          path: openbot-embedfix-output
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
