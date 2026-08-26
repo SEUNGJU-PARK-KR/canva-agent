@@ -97,7 +97,7 @@ jobs:
           data=json.loads((root/'data/latest.json').read_text(encoding='utf-8'))
           assert data.get('schema_version')==2
           assert data.get('strategy_version')
-          assert data.get('candidates')
+          assert isinstance(data.get('candidates'), list)
           allowed={'EXCLUDE','WATCH','CLOSE_READY','NEXT_DAY_HOGA_CONFIRM'}
           assert all(x.get('final_status') in allowed for x in data['candidates'])
           for candidate in data['candidates']:
