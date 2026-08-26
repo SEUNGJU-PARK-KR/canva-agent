@@ -6,13 +6,13 @@ on:
       - main
       - largo-close-screener-site-20260826
     paths:
-      - "bundles/largo_close_site_bundle.zip"
+      - "bundles/largo_close_site_v2/**"
       - ".github/workflows/largo-close-site.yml"
   pull_request:
     branches:
       - main
     paths:
-      - "bundles/largo_close_site_bundle.zip"
+      - "bundles/largo_close_site_v2/**"
       - ".github/workflows/largo-close-site.yml"
   schedule:
     # KST 14:40, 15:00, 15:10, 15:18, 15:28, 15:35 on weekdays.
@@ -32,47 +32,102 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
-      - name: Unpack the reviewed site bundle
+
+      - name: Restore the reviewed v2 site bundle and verify checksum
+        shell: bash
         run: |
+          set -euo pipefail
           rm -rf build-source public
           mkdir -p build-source
-          unzip -q bundles/largo_close_site_bundle.zip -d build-source
-          python -m py_compile build-source/tools/scrape_naver_close.py
-      - name: Refresh Naver Stock read-only snapshots
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json, zipfile
+          root=Path('bundles/largo_close_site_v2')
+          manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+          encoded=''.join((root/name).read_text(encoding='ascii') for name in manifest['parts'])
+          raw=base64.b64decode(encoded)
+          assert len(raw)==manifest['size'], (len(raw), manifest['size'])
+          digest=hashlib.sha256(raw).hexdigest()
+          assert digest==manifest['sha256'], (digest, manifest['sha256'])
+          archive=Path('build-source')/manifest['archive']
+          archive.write_bytes(raw)
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              z.extractall('build-source')
+          print({'archive':str(archive),'size':len(raw),'sha256':digest})
+          PY
+          python3 -m py_compile build-source/tools/scrape_naver_close.py
+
+      - name: Recover prior public history when available
+        shell: bash
         run: |
-          python build-source/tools/scrape_naver_close.py \
+          mkdir -p build-source/site/data
+          curl -fsSL --max-time 20 \
+            https://seungju-park-kr.github.io/canva-agent/data/history.json \
+            -o build-source/site/data/history.json || true
+
+      - name: Refresh bounded Naver Stock read-only snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          history_args=()
+          if [ -s build-source/site/data/history.json ]; then
+            history_args=(--history build-source/site/data/history.json)
+          fi
+          python3 build-source/tools/scrape_naver_close.py \
             --output build-source/site/data/latest.json \
-            --history-dir build-source/site/data/history \
-            --max-candidates 12 \
-            --catalyst-candidates 6 \
-            --rank-size 50 \
-            --theme-size 20 \
-            --delay 0.30
-      - name: Validate screen results
+            --history-out build-source/site/data/history.json \
+            "${history_args[@]}" \
+            --max-candidates 24 \
+            --rank-size 80 \
+            --theme-size 25 \
+            --delay 0.25 \
+            --timeout 25
+
+      - name: Validate strict Largo screening output
+        shell: bash
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           from pathlib import Path
           import json
-          data=json.loads(Path('build-source/site/data/latest.json').read_text(encoding='utf-8'))
-          assert data.get('schema_version') == 1
+          root=Path('build-source/site')
+          data=json.loads((root/'data/latest.json').read_text(encoding='utf-8'))
+          assert data.get('schema_version')==2
+          assert data.get('strategy_version')
           assert data.get('candidates')
-          assert all(x.get('final_status') in {'EXCLUDE','WATCH','READY','MANUAL_CONFIRM'} for x in data['candidates'])
-          assert Path('build-source/site/index.html').stat().st_size > 20000
-          print({'candidates':len(data['candidates']),'counts':data.get('counts'),'source_errors':len(data.get('source',{}).get('errors',[]))})
+          allowed={'EXCLUDE','WATCH','CLOSE_READY','NEXT_DAY_HOGA_CONFIRM'}
+          assert all(x.get('final_status') in allowed for x in data['candidates'])
+          for candidate in data['candidates']:
+              assert candidate.get('checks')
+              assert candidate.get('plan')
+              assert candidate.get('pattern')
+              assert candidate.get('catalyst')
+          assert (root/'index.html').stat().st_size > 15000
+          assert (root/'analysis.html').stat().st_size > 3000
+          assert (root/'data/methodology.json').stat().st_size > 5000
+          print({
+            'candidates':len(data['candidates']),
+            'counts':data.get('counts'),
+            'source_errors':len(data.get('source',{}).get('errors',[])),
+            'analysis':data.get('analysis')
+          })
           PY
+
       - name: Prepare public directory
         run: |
           cp -a build-source/site public
           touch public/.nojekyll
+
       - name: Upload test artifact
         uses: actions/upload-artifact@v4
         with:
-          name: largo-close-screener-site
+          name: largo-close-screener-site-v2
           path: public
-          retention-days: 7
+          retention-days: 14
+
       - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
@@ -95,8 +150,7 @@ jobs:
           if ! gh api -H "Accept: application/vnd.github+json" "/repos/${GITHUB_REPOSITORY}/pages" --silent >/dev/null 2>&1; then
             gh api --method POST -H "Accept: application/vnd.github+json" "/repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || true
           fi
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v5
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
