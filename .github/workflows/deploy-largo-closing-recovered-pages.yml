@@ -1,0 +1,79 @@
+name: Deploy restored Largo closing screener Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/deploy-largo-closing-recovered-pages.yml"
+      - "largo-close-screener/site/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: largo-close-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Validate the committed site
+        run: |
+          set -euo pipefail
+          test -s largo-close-screener/site/index.html
+          test -s largo-close-screener/site/analysis.html
+          test -s largo-close-screener/site/data.json
+          test -s largo-close-screener/site/strict_closing_rules.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          root=Path('largo-close-screener/site')
+          html=(root/'index.html').read_text(encoding='utf-8')
+          assert '</html>' in html.lower()
+          rules=json.loads((root/'strict_closing_rules.json').read_text(encoding='utf-8'))
+          assert rules.get('corpus',{}).get('completed') == 10
+          with (root/'evidence_index.csv').open(encoding='utf-8-sig',newline='') as f:
+              assert sum(1 for _ in csv.DictReader(f)) == 346
+          with (root/'corpus.csv').open(encoding='utf-8-sig',newline='') as f:
+              assert sum(1 for _ in csv.DictReader(f)) == 10
+          print({'html_bytes':(root/'index.html').stat().st_size,'rules_version':rules.get('version')})
+          PY
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: largo-close-screener/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Enable workflow-based GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh api -H 'Accept: application/vnd.github+json' "/repos/${GITHUB_REPOSITORY}/pages" --silent >/dev/null 2>&1; then
+            gh api --method PUT -H 'Accept: application/vnd.github+json' "/repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow >/dev/null || true
+          else
+            gh api --method POST -H 'Accept: application/vnd.github+json' "/repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow >/dev/null
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
