@@ -1,0 +1,294 @@
+name: Restore Largo closing-analysis deliverables
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - ".github/workflows/restore-largo-closing-deliverables.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+
+      - name: Rebuild the nine published deliverables
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import csv
+          import hashlib
+          import html
+          import json
+          import shutil
+          import zipfile
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from typing import Any
+
+          root = Path.cwd()
+          src = root / "largo-close-screener"
+          evidence = src / "evidence"
+          site = src / "site"
+          out = root / "restored-deliverables"
+          if out.exists():
+              shutil.rmtree(out)
+          out.mkdir(parents=True)
+
+          names = {
+              "report": "라르고TV_종가매매_OpenBot_엄격분석_보고서.html",
+              "site": "라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html",
+              "rules": "라르고TV_종가매매_엄격판정규칙.json",
+              "support": "라르고TV_종가매매_규칙별_OpenBot근거.csv",
+              "index": "라르고TV_종가매매_영상시각_근거인덱스.csv",
+              "videos": "라르고TV_명시적_종가매매영상_10편_전수목록.csv",
+              "bundle": "라르고TV_종가매매_OpenBot_엄격스크리너_자료.zip",
+              "snapshot": "라르고TV_종가매매_스크리너_실데이터검증.json",
+              "integrity": "라르고TV_종가매매_OpenBot_엄격분석_산출물검증.json",
+          }
+
+          required_sources = {
+              evidence / "analysis_status.json",
+              evidence / "strict_closing_rules.json",
+              evidence / "rule_support_v3.csv",
+              evidence / "evidence_index.csv",
+              evidence / "corpus_split_v3.csv",
+              evidence / "openbot_v3_analysis.md",
+              evidence / "OPENBOT_CLOSING_ANALYSIS.md",
+              site / "index.html",
+              site / "data.json",
+          }
+          missing = [str(p) for p in sorted(required_sources) if not p.exists()]
+          if missing:
+              raise SystemExit("missing source files: " + ", ".join(missing))
+
+          shutil.copy2(site / "index.html", out / names["site"])
+          shutil.copy2(evidence / "strict_closing_rules.json", out / names["rules"])
+          shutil.copy2(evidence / "rule_support_v3.csv", out / names["support"])
+          shutil.copy2(evidence / "evidence_index.csv", out / names["index"])
+          shutil.copy2(evidence / "corpus_split_v3.csv", out / names["videos"])
+
+          status = json.loads((evidence / "analysis_status.json").read_text(encoding="utf-8"))
+          rules = json.loads((evidence / "strict_closing_rules.json").read_text(encoding="utf-8"))
+
+          with (evidence / "rule_support_v3.csv").open(encoding="utf-8-sig", newline="") as f:
+              support_rows = list(csv.DictReader(f))
+          with (evidence / "evidence_index.csv").open(encoding="utf-8-sig", newline="") as f:
+              evidence_rows = list(csv.DictReader(f))
+          with (evidence / "corpus_split_v3.csv").open(encoding="utf-8-sig", newline="") as f:
+              video_rows = list(csv.DictReader(f))
+
+          def e(value: Any) -> str:
+              return html.escape(str(value if value is not None else ""))
+
+          principles = rules.get("principles", []) if isinstance(rules, dict) else []
+          patterns = rules.get("patterns", {}) if isinstance(rules, dict) else {}
+          principles_html = "".join(f"<li>{e(x)}</li>" for x in principles)
+          video_html = "".join(
+              f"<tr><td>{e(r.get('video_id'))}</td><td>{e(r.get('role'))}</td><td>{e(r.get('title'))}</td></tr>"
+              for r in video_rows
+          )
+          pattern_html = ""
+          if isinstance(patterns, dict):
+              for key, value in patterns.items():
+                  if not isinstance(value, dict):
+                      continue
+                  required = value.get("required", [])
+                  screening = value.get("screening", [])
+                  pattern_html += (
+                      f"<article class='card'><span class='code'>{e(key)}</span><h3>{e(value.get('name', key))}</h3>"
+                      f"<p>{e(value.get('note', ''))}</p>"
+                      f"<h4>직접 조건</h4><ul>{''.join(f'<li>{e(x)}</li>' for x in required)}</ul>"
+                      f"<h4>스크리너 대응식</h4><ul>{''.join(f'<li><code>{e(x)}</code></li>' for x in screening)}</ul></article>"
+                  )
+          support_headers = list(support_rows[0].keys()) if support_rows else []
+          support_table = ""
+          if support_headers:
+              support_table = (
+                  "<table><thead><tr>" + "".join(f"<th>{e(h)}</th>" for h in support_headers) + "</tr></thead><tbody>" +
+                  "".join("<tr>" + "".join(f"<td>{e(row.get(h))}</td>" for h in support_headers) + "</tr>" for row in support_rows) +
+                  "</tbody></table>"
+              )
+
+          report = f"""<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>라르고TV 종가매매 OpenBot 엄격분석</title><style>
+          :root{{--bg:#edf2f7;--paper:#fff;--line:#d9e2ec;--ink:#182538;--muted:#64748b;--blue:#1764c0;--green:#16764b}}*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,'Malgun Gothic',sans-serif;line-height:1.65}}main{{max-width:1480px;margin:24px auto;background:var(--paper);padding:32px;border:1px solid var(--line);border-radius:18px}}h1{{margin:0}}.lead{{color:var(--muted)}}.metrics{{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:22px 0}}.metric{{border:1px solid var(--line);border-radius:13px;padding:14px;background:#f9fbfd}}.metric b{{display:block;color:var(--blue);font-size:26px}}.metric span{{font-size:11px;color:var(--muted)}}.cards{{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}}.card{{border:1px solid var(--line);border-radius:14px;padding:16px}}.code{{font-size:10px;color:var(--blue);font-weight:900}}table{{width:100%;border-collapse:collapse;font-size:12px}}th,td{{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}}th{{background:#eef5fd}}code{{background:#edf3f8;padding:2px 5px;border-radius:5px}}.notice{{background:#fff7e8;border:1px solid #ead39e;border-radius:12px;padding:14px}}@media(max-width:900px){{main{{margin:0;border-radius:0;padding:15px}}.metrics,.cards{{grid-template-columns:1fr}}}}</style></head><body><main>
+          <h1>라르고TV 종가매매 OpenBot 엄격분석</h1><p class='lead'>명시적 종가매매·장마감 후보선정 영상 10편을 종가진입교육 5편과 장마감후보선정 5편으로 분리해 분석한 공개용 파생 보고서입니다.</p>
+          <div class='metrics'><div class='metric'><b>{e(status.get('requested'))}</b><span>요청 영상</span></div><div class='metric'><b>{e(status.get('completed'))}</b><span>완료 영상</span></div><div class='metric'><b>{e(status.get('frames_analyzed'))}</b><span>분석 프레임</span></div><div class='metric'><b>{e(status.get('evidence_rows'))}</b><span>근거 행</span></div><div class='metric'><b>{e(status.get('rules'))}</b><span>판정 규칙</span></div></div>
+          <section><h2>엄격 분석 원칙</h2><ul>{principles_html}</ul><p class='notice'>점수는 필수 조건 실패를 상쇄하지 않습니다. 특히 윗꼬리는 무조건 제외가 아니라 패턴별로 해석하며, 장마감 후보선정과 당일 종가 진입을 같은 규칙으로 합치지 않습니다.</p></section>
+          <section><h2>패턴별 조건화</h2><div class='cards'>{pattern_html}</div></section>
+          <section><h2>규칙별 OpenBot 근거 집계</h2>{support_table}</section>
+          <section><h2>분석 영상 10편</h2><table><thead><tr><th>영상 ID</th><th>역할</th><th>제목</th></tr></thead><tbody>{video_html}</tbody></table></section>
+          <section><h2>검증 범위</h2><p>원본 영상과 전체 전사는 배포하지 않습니다. 영상 ID·시각·규칙 ID와 파생 집계만 배포합니다. 공개 사이트의 호가와 체결은 최종 수동 확인용이며 자동 주문 신호가 아닙니다.</p></section>
+          </main></body></html>"""
+          (out / names["report"]).write_text(report, encoding="utf-8")
+
+          site_data = json.loads((site / "data.json").read_text(encoding="utf-8"))
+
+          def walk(value: Any):
+              if isinstance(value, dict):
+                  for k, v in value.items():
+                      yield (str(k), v)
+                      yield from walk(v)
+              elif isinstance(value, list):
+                  for item in value:
+                      yield from walk(item)
+
+          pairs = list(walk(site_data))
+          strings = [str(v) for _, v in pairs if isinstance(v, (str, int, float, bool))]
+          joined = "\n".join(strings).casefold()
+          naver_markers = [s for s in strings if "naver" in s.casefold()][:20]
+          demo_markers = [s for s in strings if "demo" in s.casefold() or "데모" in s][:20]
+          generated = next((v for k, v in pairs if k.casefold() in {"generated_at", "generatedat", "generated", "updated_at", "updatedat"}), None)
+          source_mode = next((v for k, v in pairs if k.casefold() in {"source_mode", "sourcemode", "mode", "data_source", "datasource"}), None)
+
+          list_candidates = []
+          def collect_lists(value: Any, path: str = "root"):
+              if isinstance(value, dict):
+                  for k, v in value.items():
+                      collect_lists(v, f"{path}.{k}")
+              elif isinstance(value, list):
+                  dict_items = [x for x in value if isinstance(x, dict)]
+                  if dict_items:
+                      list_candidates.append((path, len(value), sorted({str(k) for x in dict_items[:5] for k in x.keys()})[:30]))
+                  for i, item in enumerate(value[:10]):
+                      collect_lists(item, f"{path}[{i}]")
+          collect_lists(site_data)
+          list_candidates.sort(key=lambda x: x[1], reverse=True)
+
+          snapshot_validation = {
+              "validated_at_utc": datetime.now(timezone.utc).isoformat(),
+              "source_file": "largo-close-screener/site/data.json",
+              "source_bytes": (site / "data.json").stat().st_size,
+              "source_mode_detected": source_mode,
+              "generated_at_detected": generated,
+              "naver_markers_detected": naver_markers,
+              "demo_markers_detected": demo_markers,
+              "contains_naver_marker": bool(naver_markers),
+              "contains_demo_marker": bool(demo_markers),
+              "largest_candidate_lists": [
+                  {"path": p, "count": c, "sample_keys": keys} for p, c, keys in list_candidates[:10]
+              ],
+              "site_html_bytes": (site / "index.html").stat().st_size,
+              "json_parse_passed": True,
+              "site_html_present": True,
+              "validation_scope": "저장소에 게시된 네이버 스냅샷 파생 JSON과 정적 사이트 구조 검증. 원격 시세 정확도·지연시간은 포함하지 않음.",
+              "verdict": "NAVER_SNAPSHOT_CONFIRMED" if naver_markers and not demo_markers else ("MIXED_OR_DEMO_MARKERS" if demo_markers else "STRUCTURE_CONFIRMED_SOURCE_MARKER_NOT_FOUND"),
+          }
+          (out / names["snapshot"]).write_text(json.dumps(snapshot_validation, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          support_dir = out / "supporting"
+          support_dir.mkdir()
+          for p in [
+              evidence / "analysis_status.json",
+              evidence / "openbot_v3_analysis.md",
+              evidence / "OPENBOT_CLOSING_ANALYSIS.md",
+              evidence / "corpus_split_v3.csv",
+              evidence / "sequence_matrix.csv",
+              site / "data.json",
+              site / "PUBLIC_URL.txt",
+          ]:
+              if p.exists():
+                  shutil.copy2(p, support_dir / p.name)
+
+          def sha256(path: Path) -> str:
+              h = hashlib.sha256()
+              with path.open("rb") as f:
+                  for block in iter(lambda: f.read(1024 * 1024), b""):
+                      h.update(block)
+              return h.hexdigest()
+
+          core_keys = ["report", "site", "rules", "support", "index", "videos", "snapshot"]
+          checks = []
+          for key in core_keys:
+              p = out / names[key]
+              checks.append({
+                  "label": key,
+                  "file": p.name,
+                  "exists": p.exists(),
+                  "bytes": p.stat().st_size if p.exists() else 0,
+                  "sha256": sha256(p) if p.exists() else None,
+              })
+          integrity = {
+              "validated_at_utc": datetime.now(timezone.utc).isoformat(),
+              "expected_core_files": len(core_keys),
+              "all_core_files_present": all(x["exists"] and x["bytes"] > 0 for x in checks),
+              "files": checks,
+              "json_validation": {
+                  names["rules"]: isinstance(json.loads((out / names["rules"]).read_text(encoding="utf-8")), dict),
+                  names["snapshot"]: isinstance(json.loads((out / names["snapshot"]).read_text(encoding="utf-8")), dict),
+              },
+              "csv_validation": {
+                  names["support"]: len(support_rows),
+                  names["index"]: len(evidence_rows),
+                  names["videos"]: len(video_rows),
+              },
+              "html_validation": {
+                  names["report"]: "</html>" in (out / names["report"]).read_text(encoding="utf-8").lower(),
+                  names["site"]: "</html>" in (out / names["site"]).read_text(encoding="utf-8").lower(),
+              },
+          }
+          (out / names["integrity"]).write_text(json.dumps(integrity, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          bundle_path = out / names["bundle"]
+          with zipfile.ZipFile(bundle_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+              for p in sorted(out.rglob("*")):
+                  if p.is_file() and p != bundle_path:
+                      z.write(p, p.relative_to(out))
+          with zipfile.ZipFile(bundle_path) as z:
+              bad = z.testzip()
+              zip_entries = z.namelist()
+          integrity["bundle"] = {
+              "file": bundle_path.name,
+              "bytes": bundle_path.stat().st_size,
+              "sha256": sha256(bundle_path),
+              "zip_test_passed": bad is None,
+              "entry_count": len(zip_entries),
+              "entries": zip_entries,
+          }
+          integrity["all_valid"] = bool(
+              integrity["all_core_files_present"]
+              and all(integrity["json_validation"].values())
+              and all(v > 0 for v in integrity["csv_validation"].values())
+              and all(integrity["html_validation"].values())
+              and integrity["bundle"]["zip_test_passed"]
+          )
+          (out / names["integrity"]).write_text(json.dumps(integrity, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          # Rebuild once so the bundle includes the final integrity JSON.
+          with zipfile.ZipFile(bundle_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as z:
+              for p in sorted(out.rglob("*")):
+                  if p.is_file() and p != bundle_path:
+                      z.write(p, p.relative_to(out))
+          with zipfile.ZipFile(bundle_path) as z:
+              if z.testzip() is not None:
+                  raise SystemExit("rebuilt bundle failed CRC test")
+
+          manifest = []
+          for p in sorted(out.rglob("*")):
+              if p.is_file():
+                  manifest.append(f"{p.relative_to(out)}\t{p.stat().st_size}\t{sha256(p)}")
+          (out / "manifest.tsv").write_text("\n".join(manifest) + "\n", encoding="utf-8")
+          print(json.dumps({"files": len(manifest), "bundle_bytes": bundle_path.stat().st_size, "out": str(out)}, ensure_ascii=False, indent=2))
+          PY
+
+      - name: List restored files
+        run: find restored-deliverables -type f -printf '%P\t%s\n' | sort
+
+      - name: Upload restored deliverables
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-closing-nine-deliverables-restored
+          path: restored-deliverables
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
