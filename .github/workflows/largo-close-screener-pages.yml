@@ -1,0 +1,59 @@
+name: Deploy LargoTV closing screener site
+
+on:
+  push:
+    branches:
+      - main
+      - largo-close-screener-site-20260826
+    paths:
+      - "largo-close-screener/**"
+      - "scripts/build_largo_close_screener.py"
+      - ".github/workflows/largo-close-screener-pages.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "35 5 * * 1-5"
+    - cron: "0 6 * * 1-5"
+    - cron: "15 6 * * 1-5"
+    - cron: "28 6 * * 1-5"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build public screener snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf public
+          cp -R largo-close-screener public
+          mkdir -p public/data
+          python scripts/build_largo_close_screener.py --output public/data/screener.json --limit 30
+          touch public/.nojekyll
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
