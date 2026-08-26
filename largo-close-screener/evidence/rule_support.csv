@@ -1,0 +1,16 @@
+﻿rule_id,name,group,required,events,videos,strength,median_normalized_time
+U01_TRADE_VALUE,거래대금·거래량 주도성,종목 자격,True,42,10,strong,0.4191
+U02_LEADER,섹터 대장·주도주 유지,종목 자격,True,25,5,moderate,0.5363
+U03_CATALYST,재료의 신규성·직접성,종목 자격,True,23,6,strong,0.4027
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,차트 자격,True,47,10,strong,0.3557
+C02_RESISTANCE,전고점·박스·월봉 매물대,차트 자격,True,33,9,strong,0.4842
+I01_INTRADAY_LEAD,장중 주도성 유지·재회복,장중 전개,True,22,6,strong,0.4187
+I02_ABSORPTION,장중 매도·차익물량 소화,장중 전개,True,20,6,strong,0.4803
+I03_STRUCTURE,핵심 구조선 유지,장중 전개,True,27,8,strong,0.4198
+L01_HIGH_CLOSE,당일 고가권 마감,종가 구조,True,38,10,strong,0.379
+L02_RECLAIM,눌림 뒤 고가·박스 재회복,종가 구조,True,2,2,limited,0.4468
+L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,종가 구조,True,7,5,moderate,0.3154
+E01_ENTRY,종가 진입·분할 접근,실행 계획,True,9,5,moderate,0.6246
+R01_STOP,구조 무효화·손절선,실행 계획,True,12,8,strong,0.3849
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,실행 계획,True,36,10,strong,0.4686
+O01_ORDERBOOK,호가·체결 최종 확인,수동 확인,False,3,2,limited,0.7879

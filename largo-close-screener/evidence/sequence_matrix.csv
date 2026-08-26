@@ -1,0 +1,65 @@
+﻿from_rule,from_name,to_rule,to_name,video_count
+U01_TRADE_VALUE,거래대금·거래량 주도성,U03_CATALYST,재료의 신규성·직접성,3
+U02_LEADER,섹터 대장·주도주 유지,C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,3
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,C02_RESISTANCE,전고점·박스·월봉 매물대,3
+C02_RESISTANCE,전고점·박스·월봉 매물대,I03_STRUCTURE,핵심 구조선 유지,3
+I01_INTRADAY_LEAD,장중 주도성 유지·재회복,L01_HIGH_CLOSE,당일 고가권 마감,3
+L01_HIGH_CLOSE,당일 고가권 마감,U01_TRADE_VALUE,거래대금·거래량 주도성,3
+I03_STRUCTURE,핵심 구조선 유지,R01_STOP,구조 무효화·손절선,3
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,2
+L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,X01_NEXT_DAY,익일 시초가·1파 청산 계획,2
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,C02_RESISTANCE,전고점·박스·월봉 매물대,2
+U02_LEADER,섹터 대장·주도주 유지,X01_NEXT_DAY,익일 시초가·1파 청산 계획,2
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,U01_TRADE_VALUE,거래대금·거래량 주도성,2
+U01_TRADE_VALUE,거래대금·거래량 주도성,C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,2
+U03_CATALYST,재료의 신규성·직접성,R01_STOP,구조 무효화·손절선,2
+R01_STOP,구조 무효화·손절선,C02_RESISTANCE,전고점·박스·월봉 매물대,2
+L01_HIGH_CLOSE,당일 고가권 마감,X01_NEXT_DAY,익일 시초가·1파 청산 계획,2
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,I02_ABSORPTION,장중 매도·차익물량 소화,2
+I02_ABSORPTION,장중 매도·차익물량 소화,R01_STOP,구조 무효화·손절선,2
+E01_ENTRY,종가 진입·분할 접근,L01_HIGH_CLOSE,당일 고가권 마감,2
+C02_RESISTANCE,전고점·박스·월봉 매물대,U01_TRADE_VALUE,거래대금·거래량 주도성,2
+U03_CATALYST,재료의 신규성·직접성,U02_LEADER,섹터 대장·주도주 유지,2
+U03_CATALYST,재료의 신규성·직접성,X01_NEXT_DAY,익일 시초가·1파 청산 계획,1
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,U02_LEADER,섹터 대장·주도주 유지,1
+I03_STRUCTURE,핵심 구조선 유지,I01_INTRADAY_LEAD,장중 주도성 유지·재회복,1
+U03_CATALYST,재료의 신규성·직접성,I03_STRUCTURE,핵심 구조선 유지,1
+I03_STRUCTURE,핵심 구조선 유지,C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,1
+C02_RESISTANCE,전고점·박스·월봉 매물대,I01_INTRADAY_LEAD,장중 주도성 유지·재회복,1
+I01_INTRADAY_LEAD,장중 주도성 유지·재회복,R01_STOP,구조 무효화·손절선,1
+L01_HIGH_CLOSE,당일 고가권 마감,U02_LEADER,섹터 대장·주도주 유지,1
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,U03_CATALYST,재료의 신규성·직접성,1
+C02_RESISTANCE,전고점·박스·월봉 매물대,I02_ABSORPTION,장중 매도·차익물량 소화,1
+I02_ABSORPTION,장중 매도·차익물량 소화,O01_ORDERBOOK,호가·체결 최종 확인,1
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,1
+C02_RESISTANCE,전고점·박스·월봉 매물대,L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,1
+L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,U01_TRADE_VALUE,거래대금·거래량 주도성,1
+U01_TRADE_VALUE,거래대금·거래량 주도성,I03_STRUCTURE,핵심 구조선 유지,1
+I03_STRUCTURE,핵심 구조선 유지,E01_ENTRY,종가 진입·분할 접근,1
+I03_STRUCTURE,핵심 구조선 유지,L01_HIGH_CLOSE,당일 고가권 마감,1
+U01_TRADE_VALUE,거래대금·거래량 주도성,U02_LEADER,섹터 대장·주도주 유지,1
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,I02_ABSORPTION,장중 매도·차익물량 소화,1
+I02_ABSORPTION,장중 매도·차익물량 소화,C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,1
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,I01_INTRADAY_LEAD,장중 주도성 유지·재회복,1
+I01_INTRADAY_LEAD,장중 주도성 유지·재회복,C02_RESISTANCE,전고점·박스·월봉 매물대,1
+C02_RESISTANCE,전고점·박스·월봉 매물대,E01_ENTRY,종가 진입·분할 접근,1
+L01_HIGH_CLOSE,당일 고가권 마감,I01_INTRADAY_LEAD,장중 주도성 유지·재회복,1
+I01_INTRADAY_LEAD,장중 주도성 유지·재회복,U01_TRADE_VALUE,거래대금·거래량 주도성,1
+L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,I02_ABSORPTION,장중 매도·차익물량 소화,1
+I02_ABSORPTION,장중 매도·차익물량 소화,X01_NEXT_DAY,익일 시초가·1파 청산 계획,1
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,U03_CATALYST,재료의 신규성·직접성,1
+L01_HIGH_CLOSE,당일 고가권 마감,C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,1
+U01_TRADE_VALUE,거래대금·거래량 주도성,X01_NEXT_DAY,익일 시초가·1파 청산 계획,1
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,I03_STRUCTURE,핵심 구조선 유지,1
+I03_STRUCTURE,핵심 구조선 유지,I02_ABSORPTION,장중 매도·차익물량 소화,1
+R01_STOP,구조 무효화·손절선,L02_RECLAIM,눌림 뒤 고가·박스 재회복,1
+C01_REFERENCE_CANDLE,기준봉·강한 거래대금 봉,I03_STRUCTURE,핵심 구조선 유지,1
+R01_STOP,구조 무효화·손절선,X01_NEXT_DAY,익일 시초가·1파 청산 계획,1
+U01_TRADE_VALUE,거래대금·거래량 주도성,L01_HIGH_CLOSE,당일 고가권 마감,1
+L01_HIGH_CLOSE,당일 고가권 마감,L02_RECLAIM,눌림 뒤 고가·박스 재회복,1
+L02_RECLAIM,눌림 뒤 고가·박스 재회복,L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,1
+L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,E01_ENTRY,종가 진입·분할 접근,1
+R01_STOP,구조 무효화·손절선,E01_ENTRY,종가 진입·분할 접근,1
+I02_ABSORPTION,장중 매도·차익물량 소화,L03_NO_WICK,긴 윗꼬리·상승폭 반납 배제,1
+X01_NEXT_DAY,익일 시초가·1파 청산 계획,O01_ORDERBOOK,호가·체결 최종 확인,1
+O01_ORDERBOOK,호가·체결 최종 확인,C02_RESISTANCE,전고점·박스·월봉 매물대,1

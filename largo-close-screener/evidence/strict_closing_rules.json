@@ -1,0 +1,585 @@
+{
+  "version": "openbot-closing-v2-safe",
+  "corpus": {
+    "requested": 10,
+    "completed": 10,
+    "frames_analyzed": 25192,
+    "failures": []
+  },
+  "principle": "필수 게이트 실패를 점수가 상쇄하지 못한다. 점수는 통과 종목의 우선순위에만 사용한다.",
+  "stages": [
+    {
+      "id": "S1",
+      "name": "종목 자격",
+      "rules": [
+        "U01_TRADE_VALUE",
+        "U02_LEADER",
+        "U03_CATALYST",
+        "C01_REFERENCE_CANDLE",
+        "C02_RESISTANCE"
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "장중 전개",
+      "rules": [
+        "I01_INTRADAY_LEAD",
+        "I02_ABSORPTION",
+        "I03_STRUCTURE"
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "종가 구조",
+      "rules": [
+        "L01_HIGH_CLOSE",
+        "L02_RECLAIM",
+        "L03_NO_WICK"
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "실행 계획",
+      "rules": [
+        "E01_ENTRY",
+        "R01_STOP",
+        "X01_NEXT_DAY"
+      ]
+    },
+    {
+      "id": "S5",
+      "name": "수동 최종 확인",
+      "rules": [
+        "O01_ORDERBOOK"
+      ]
+    }
+  ],
+  "thresholds": {
+    "trade_value_pass_krw": {
+      "value": 50000000000,
+      "source": "반복 사례 기반 초기값",
+      "tunable": true
+    },
+    "trade_value_warn_krw": {
+      "value": 30000000000,
+      "source": "운영 보완값",
+      "tunable": true
+    },
+    "close_location_pass": {
+      "value": 0.75,
+      "source": "고가권 마감 대리변수",
+      "tunable": true
+    },
+    "close_location_fail": {
+      "value": 0.65,
+      "source": "운영 보완값",
+      "tunable": true
+    },
+    "upper_wick_pass": {
+      "value": 0.3,
+      "source": "긴 윗꼬리 배제 대리변수",
+      "tunable": true
+    },
+    "upper_wick_fail": {
+      "value": 0.45,
+      "source": "운영 보완값",
+      "tunable": true
+    },
+    "high_giveback_pass": {
+      "value": 0.25,
+      "source": "고가 유지 대리변수",
+      "tunable": true
+    },
+    "late_snapshots": {
+      "value": [
+        "15:10",
+        "15:18"
+      ],
+      "source": "막판 순간 급등 배제 운영 규칙",
+      "tunable": true
+    },
+    "max_stop_distance": {
+      "value": 0.045,
+      "source": "위험관리 운영값",
+      "tunable": true
+    }
+  },
+  "rule_support": {
+    "U01_TRADE_VALUE": {
+      "rule_id": "U01_TRADE_VALUE",
+      "name": "거래대금·거래량 주도성",
+      "group": "종목 자격",
+      "required": true,
+      "events": 42,
+      "videos": 10,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "e4fHw1uADI4",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4191,
+      "strength": "strong",
+      "naver_mapping": [
+        "거래대금 랭킹",
+        "누적 거래대금",
+        "시간대별 순위"
+      ]
+    },
+    "U02_LEADER": {
+      "rule_id": "U02_LEADER",
+      "name": "섹터 대장·주도주 유지",
+      "group": "종목 자격",
+      "required": true,
+      "events": 25,
+      "videos": 5,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "65Hl6i_4poE",
+        "M9rBXtlIQe0",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.5363,
+      "strength": "moderate",
+      "naver_mapping": [
+        "테마·업종 랭킹",
+        "테마 구성 종목",
+        "테마 내 상대순위"
+      ]
+    },
+    "U03_CATALYST": {
+      "rule_id": "U03_CATALYST",
+      "name": "재료의 신규성·직접성",
+      "group": "종목 자격",
+      "required": true,
+      "events": 23,
+      "videos": 6,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "e4fHw1uADI4",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4027,
+      "strength": "strong",
+      "naver_mapping": [
+        "종목 뉴스",
+        "공시",
+        "IR",
+        "발행시각·반복 여부"
+      ]
+    },
+    "C01_REFERENCE_CANDLE": {
+      "rule_id": "C01_REFERENCE_CANDLE",
+      "name": "기준봉·강한 거래대금 봉",
+      "group": "차트 자격",
+      "required": true,
+      "events": 47,
+      "videos": 10,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "e4fHw1uADI4",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.3557,
+      "strength": "strong",
+      "naver_mapping": [
+        "일봉 OHLCV",
+        "거래량 배수",
+        "기준봉 종가·저가"
+      ]
+    },
+    "C02_RESISTANCE": {
+      "rule_id": "C02_RESISTANCE",
+      "name": "전고점·박스·월봉 매물대",
+      "group": "차트 자격",
+      "required": true,
+      "events": 33,
+      "videos": 9,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4842,
+      "strength": "strong",
+      "naver_mapping": [
+        "20·60일 고점",
+        "박스 상단",
+        "일·주·월봉"
+      ]
+    },
+    "I01_INTRADAY_LEAD": {
+      "rule_id": "I01_INTRADAY_LEAD",
+      "name": "장중 주도성 유지·재회복",
+      "group": "장중 전개",
+      "required": true,
+      "events": 22,
+      "videos": 6,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "M9rBXtlIQe0",
+        "e4fHw1uADI4",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4187,
+      "strength": "strong",
+      "naver_mapping": [
+        "09:10~15:18 순위 스냅샷",
+        "고가 재회복 시각"
+      ]
+    },
+    "I02_ABSORPTION": {
+      "rule_id": "I02_ABSORPTION",
+      "name": "장중 매도·차익물량 소화",
+      "group": "장중 전개",
+      "required": true,
+      "events": 20,
+      "videos": 6,
+      "video_ids": [
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "e4fHw1uADI4",
+        "eG4Wf_mPR84",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4803,
+      "strength": "strong",
+      "naver_mapping": [
+        "장중 틱",
+        "오후 저점",
+        "고점 반납 뒤 안정"
+      ]
+    },
+    "I03_STRUCTURE": {
+      "rule_id": "I03_STRUCTURE",
+      "name": "핵심 구조선 유지",
+      "group": "장중 전개",
+      "required": true,
+      "events": 27,
+      "videos": 8,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4198,
+      "strength": "strong",
+      "naver_mapping": [
+        "기준봉 종가·저점",
+        "마지막 눌림 저점",
+        "5일선·VWAP 보조"
+      ]
+    },
+    "L01_HIGH_CLOSE": {
+      "rule_id": "L01_HIGH_CLOSE",
+      "name": "당일 고가권 마감",
+      "group": "종가 구조",
+      "required": true,
+      "events": 38,
+      "videos": 10,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "e4fHw1uADI4",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.379,
+      "strength": "strong",
+      "naver_mapping": [
+        "당일 고저 범위 내 위치",
+        "15:10·15:18 연속 위치"
+      ]
+    },
+    "L02_RECLAIM": {
+      "rule_id": "L02_RECLAIM",
+      "name": "눌림 뒤 고가·박스 재회복",
+      "group": "종가 구조",
+      "required": true,
+      "events": 2,
+      "videos": 2,
+      "video_ids": [
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM"
+      ],
+      "median_normalized_time": 0.4468,
+      "strength": "limited",
+      "naver_mapping": [
+        "14시 이후 저점",
+        "고가·박스 재회복"
+      ]
+    },
+    "L03_NO_WICK": {
+      "rule_id": "L03_NO_WICK",
+      "name": "긴 윗꼬리·상승폭 반납 배제",
+      "group": "종가 구조",
+      "required": true,
+      "events": 7,
+      "videos": 5,
+      "video_ids": [
+        "3DyDaIdJuWU",
+        "DWzMWH8enJA",
+        "e4fHw1uADI4",
+        "hWhuTQjGHhM",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.3154,
+      "strength": "moderate",
+      "naver_mapping": [
+        "윗꼬리 비율",
+        "고점 반납률",
+        "막판 수직 급등"
+      ]
+    },
+    "E01_ENTRY": {
+      "rule_id": "E01_ENTRY",
+      "name": "종가 진입·분할 접근",
+      "group": "실행 계획",
+      "required": true,
+      "events": 9,
+      "videos": 5,
+      "video_ids": [
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M"
+      ],
+      "median_normalized_time": 0.6246,
+      "strength": "moderate",
+      "naver_mapping": [
+        "15:10·15:18 연속 통과",
+        "단일가 전 수동 확인"
+      ]
+    },
+    "R01_STOP": {
+      "rule_id": "R01_STOP",
+      "name": "구조 무효화·손절선",
+      "group": "실행 계획",
+      "required": true,
+      "events": 12,
+      "videos": 8,
+      "video_ids": [
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "e4fHw1uADI4",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.3849,
+      "strength": "strong",
+      "naver_mapping": [
+        "기준봉 종가·저점",
+        "마지막 눌림 저점",
+        "손절 거리"
+      ]
+    },
+    "X01_NEXT_DAY": {
+      "rule_id": "X01_NEXT_DAY",
+      "name": "익일 시초가·1파 청산 계획",
+      "group": "실행 계획",
+      "required": true,
+      "events": 36,
+      "videos": 10,
+      "video_ids": [
+        "03-AcIXuUpI",
+        "3DyDaIdJuWU",
+        "65Hl6i_4poE",
+        "DWzMWH8enJA",
+        "M9rBXtlIQe0",
+        "e4fHw1uADI4",
+        "eG4Wf_mPR84",
+        "hWhuTQjGHhM",
+        "sZgu4Dmc77M",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.4686,
+      "strength": "strong",
+      "naver_mapping": [
+        "익일 시가·첫 고저",
+        "전일 종가선 회복"
+      ]
+    },
+    "O01_ORDERBOOK": {
+      "rule_id": "O01_ORDERBOOK",
+      "name": "호가·체결 최종 확인",
+      "group": "수동 확인",
+      "required": false,
+      "events": 3,
+      "videos": 2,
+      "video_ids": [
+        "65Hl6i_4poE",
+        "wrTvBlDpYYQ"
+      ],
+      "median_normalized_time": 0.7879,
+      "strength": "limited",
+      "naver_mapping": [
+        "호가·틱 표시시각",
+        "지연 확인 뒤 참고"
+      ]
+    }
+  },
+  "video_sequences": {
+    "03-AcIXuUpI": [
+      "U01_TRADE_VALUE",
+      "U03_CATALYST",
+      "X01_NEXT_DAY",
+      "U02_LEADER",
+      "C01_REFERENCE_CANDLE",
+      "C02_RESISTANCE",
+      "I03_STRUCTURE",
+      "I01_INTRADAY_LEAD",
+      "L01_HIGH_CLOSE"
+    ],
+    "3DyDaIdJuWU": [
+      "L01_HIGH_CLOSE",
+      "U01_TRADE_VALUE",
+      "U03_CATALYST",
+      "I03_STRUCTURE",
+      "C01_REFERENCE_CANDLE",
+      "L03_NO_WICK",
+      "X01_NEXT_DAY",
+      "C02_RESISTANCE",
+      "I01_INTRADAY_LEAD",
+      "R01_STOP"
+    ],
+    "65Hl6i_4poE": [
+      "I01_INTRADAY_LEAD",
+      "L01_HIGH_CLOSE",
+      "U02_LEADER",
+      "X01_NEXT_DAY",
+      "U01_TRADE_VALUE",
+      "C01_REFERENCE_CANDLE",
+      "U03_CATALYST",
+      "R01_STOP",
+      "C02_RESISTANCE",
+      "I02_ABSORPTION",
+      "O01_ORDERBOOK"
+    ],
+    "DWzMWH8enJA": [
+      "L01_HIGH_CLOSE",
+      "X01_NEXT_DAY",
+      "C01_REFERENCE_CANDLE",
+      "I02_ABSORPTION",
+      "R01_STOP",
+      "C02_RESISTANCE",
+      "L03_NO_WICK",
+      "U01_TRADE_VALUE",
+      "I03_STRUCTURE",
+      "E01_ENTRY"
+    ],
+    "M9rBXtlIQe0": [
+      "I03_STRUCTURE",
+      "L01_HIGH_CLOSE",
+      "U01_TRADE_VALUE",
+      "U02_LEADER",
+      "X01_NEXT_DAY",
+      "I02_ABSORPTION",
+      "C01_REFERENCE_CANDLE",
+      "I01_INTRADAY_LEAD",
+      "C02_RESISTANCE",
+      "E01_ENTRY"
+    ],
+    "e4fHw1uADI4": [
+      "L01_HIGH_CLOSE",
+      "I01_INTRADAY_LEAD",
+      "U01_TRADE_VALUE",
+      "C01_REFERENCE_CANDLE",
+      "L03_NO_WICK",
+      "I02_ABSORPTION",
+      "X01_NEXT_DAY",
+      "U03_CATALYST",
+      "R01_STOP"
+    ],
+    "eG4Wf_mPR84": [
+      "E01_ENTRY",
+      "L01_HIGH_CLOSE",
+      "C01_REFERENCE_CANDLE",
+      "C02_RESISTANCE",
+      "U01_TRADE_VALUE",
+      "X01_NEXT_DAY",
+      "I03_STRUCTURE",
+      "I02_ABSORPTION",
+      "R01_STOP",
+      "L02_RECLAIM"
+    ],
+    "hWhuTQjGHhM": [
+      "C01_REFERENCE_CANDLE",
+      "I03_STRUCTURE",
+      "R01_STOP",
+      "X01_NEXT_DAY",
+      "C02_RESISTANCE",
+      "U01_TRADE_VALUE",
+      "L01_HIGH_CLOSE",
+      "L02_RECLAIM",
+      "L03_NO_WICK",
+      "E01_ENTRY"
+    ],
+    "sZgu4Dmc77M": [
+      "U03_CATALYST",
+      "U02_LEADER",
+      "C01_REFERENCE_CANDLE",
+      "C02_RESISTANCE",
+      "I03_STRUCTURE",
+      "R01_STOP",
+      "E01_ENTRY",
+      "L01_HIGH_CLOSE",
+      "X01_NEXT_DAY",
+      "U01_TRADE_VALUE"
+    ],
+    "wrTvBlDpYYQ": [
+      "I01_INTRADAY_LEAD",
+      "L01_HIGH_CLOSE",
+      "U01_TRADE_VALUE",
+      "U03_CATALYST",
+      "U02_LEADER",
+      "C01_REFERENCE_CANDLE",
+      "I02_ABSORPTION",
+      "L03_NO_WICK",
+      "X01_NEXT_DAY",
+      "O01_ORDERBOOK",
+      "C02_RESISTANCE",
+      "I03_STRUCTURE",
+      "R01_STOP"
+    ]
+  }
+}
