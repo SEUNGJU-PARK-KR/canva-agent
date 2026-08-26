@@ -1,0 +1,102 @@
+name: Deploy Largo closing screener v2
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - "scripts/build_largo_close_screener_v2.py"
+      - "largo-close-screener/evidence/**"
+      - ".github/workflows/largo-close-screener-pages-v2.yml"
+  workflow_dispatch:
+  schedule:
+    # KST 14:35, 15:00, 15:10, 15:18, 15:28 on weekdays
+    - cron: "35 5 * * 1-5"
+    - cron: "0 6 * * 1-5"
+    - cron: "10 6 * * 1-5"
+    - cron: "18 6 * * 1-5"
+    - cron: "28 6 * * 1-5"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
+
+concurrency:
+  group: largo-close-screener-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+          fetch-depth: 0
+
+      - name: Validate Python source
+        run: python -m py_compile scripts/build_largo_close_screener_v2.py
+
+      - name: Build the strict Naver snapshot site
+        run: |
+          python scripts/build_largo_close_screener_v2.py \
+            --output site-output \
+            --history largo-close-screener/data/history.json \
+            --candidate-limit 36
+
+      - name: Validate generated site and decision contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('site-output')
+          assert (root/'index.html').exists()
+          payload=json.loads((root/'data.json').read_text())
+          assert payload['meta']['candidate_count'] >= 1
+          assert payload['results']
+          allowed={'READY','WATCH','EXCLUDE'}
+          assert all(row['state'] in allowed for row in payload['results'])
+          assert all('checks' in row for row in payload['results'])
+          html=(root/'index.html').read_text()
+          for phrase in ['OpenBot 10편','25,192','점수가 아니라 시간순 필수 게이트','실제 HTS 확인']:
+              assert phrase in html, phrase
+          print(json.dumps(payload['meta'],ensure_ascii=False,indent=2))
+          PY
+
+      - name: Save snapshot history on the working branch
+        run: |
+          if git diff --quiet -- largo-close-screener/data/history.json && [ -z "$(git status --porcelain -- largo-close-screener/data/history.json)" ]; then
+            echo "No history change"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add largo-close-screener/data/history.json
+            git commit -m "Record Largo closing screener snapshot [skip ci]"
+            git push origin HEAD:largo-close-screener-site-20260826
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site-output
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Upload reproducibility package
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-close-screener-v2-site
+          path: |
+            site-output
+            largo-close-screener/evidence
+            largo-close-screener/data/history.json
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 6
