@@ -1,0 +1,84 @@
+name: Refresh Largo closing evidence
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - "scripts/derive_largo_closing_rules.py"
+      - ".github/workflows/largo-closing-evidence-refresh.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: largo-closing-evidence-refresh
+  cancel-in-progress: false
+
+jobs:
+  derive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+          fetch-depth: 0
+
+      - name: Download the five successful OpenBot analysis shards
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 32984947302
+          pattern: openbot-closing-[0-4]
+          path: openbot-input
+          merge-multiple: true
+
+      - name: Install image dependency
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Derive strict rules, evidence index and frame sheet
+        run: python scripts/derive_largo_closing_rules.py
+
+      - name: Validate derived outputs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import csv, json
+          root=Path('largo-close-screener/evidence')
+          status=json.loads((root/'analysis_status.json').read_text())
+          assert status['completed']==10, status
+          assert status['frames_analyzed']==25192, status
+          assert status['failures']==[], status
+          rules=json.loads((root/'strict_closing_rules.json').read_text())
+          assert len(rules['stages'])==5
+          assert all((root/name).exists() for name in [
+              'OPENBOT_CLOSING_ANALYSIS.md','closing_evidence.csv','rule_support.csv',
+              'sequence_matrix.csv','strict_closing_rules.json','closing_strategy_frames.jpg'])
+          with (root/'closing_evidence.csv').open(encoding='utf-8-sig') as fh:
+              assert sum(1 for _ in csv.DictReader(fh)) > 0
+          print(json.dumps(status,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Commit the evidence package to the working branch
+        run: |
+          if git diff --quiet -- largo-close-screener/evidence && [ -z "$(git status --porcelain -- largo-close-screener/evidence)" ]; then
+            echo "No evidence changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add largo-close-screener/evidence
+          git commit -m "Update OpenBot-derived Largo closing strategy evidence"
+          git push origin HEAD:largo-close-screener-site-20260826
+
+      - name: Upload full evidence package
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-closing-strict-evidence
+          path: largo-close-screener/evidence
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 6
