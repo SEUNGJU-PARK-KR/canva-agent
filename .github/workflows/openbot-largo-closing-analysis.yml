@@ -1,0 +1,218 @@
+name: OpenBot Largo closing strategy frame analysis
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - ".github/workflows/openbot-largo-closing-analysis.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/openbot-largo-closing-analysis.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        shard:
+          - "03-AcIXuUpI,3DyDaIdJuWU"
+          - "65Hl6i_4poE,DWzMWH8enJA"
+          - "M9rBXtlIQe0,e4fHw1uADI4"
+          - "eG4Wf_mPR84,hWhuTQjGHhM"
+          - "sZgu4Dmc77M,wrTvBlDpYYQ"
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+
+      - name: Build official OpenBot computer with full-frame analyzer
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:base -f OpenBot/agent-computer/Dockerfile OpenBot
+          curl -fsSL \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/openbot-largo-pilot-20260825-b/scripts/openbot_full_video_analyzer.py \
+            -o openbot_full_video_analyzer.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('openbot_full_video_analyzer.py')
+          text=p.read_text()
+          replacement=r'''def koutu_source(video_id: str) -> tuple[str, dict[str, Any]]:
+              url = f"https://koutu.be/{video_id}"
+              js = (
+                  "const u=" + json.dumps(url) + ";"
+                  "const r=await fetch(u,{headers:{'user-agent':" + json.dumps(UA_DISCORD) + ",'accept':'text/html,application/xhtml+xml'}});"
+                  "const t=await r.text();"
+                  "if(!r.ok){console.error('HTTP '+r.status+' '+t.slice(0,500));process.exit(2)};"
+                  "process.stdout.write(t);"
+              )
+              proc = run(["bun", "-e", js], timeout=90, check=False)
+              body = proc.stdout
+              if proc.returncode != 0 or "twitter:player:stream" not in body:
+                  proc = run(["curl", "-sS", "-L", "--fail", "--retry", "3", "--max-time", "60", "-A", UA_DISCORD, url], timeout=90, check=False)
+                  body = proc.stdout
+              if proc.returncode != 0:
+                  raise RuntimeError(f"Koutube source page failed: {body[-1500:]}")
+              soup = BeautifulSoup(body, "html.parser")
+              stream = ""
+              for selector in [
+                  ('meta[name="twitter:player:stream"]', "content"),
+                  ('meta[property="og:video"]', "content"),
+                  ('meta[property="og:video:secure_url"]', "content"),
+              ]:
+                  node = soup.select_one(selector[0])
+                  if node and node.get(selector[1]):
+                      stream = str(node.get(selector[1]))
+                      break
+              if not stream:
+                  raise RuntimeError("Koutube response did not contain a media stream URL")
+              title_node = soup.select_one('meta[name="twitter:title"]')
+              description_node = soup.select_one('meta[name="twitter:description"]')
+              return stream, {
+                  "source_page": url,
+                  "media_host": urlparse(stream).netloc,
+                  "title": title_node.get("content") if title_node else "",
+                  "description": description_node.get("content") if description_node else "",
+                  "html_bytes": len(body.encode("utf-8")),
+                  "source_page_fetcher": "OpenBot Bun fetch",
+              }
+
+
+          def set_itag'''
+          text,count=re.subn(r'def koutu_source\(video_id: str\).*?\n\ndef set_itag',replacement,text,flags=re.S)
+          if count!=1: raise SystemExit(f'koutu patch count={count}')
+          text=text.replace('for itag in [22, 18]:','for itag in [18, 22]:')
+          text=text.replace('beam_size=1, best_of=1, vad_filter=True,','beam_size=5, best_of=5, vad_filter=False,')
+          text=text.replace('condition_on_previous_text=True,','condition_on_previous_text=False,')
+          text=text.replace('interval: float = 5.0','interval: float = 0.5')
+          text=text.replace('extract_sparse_frames(source, sparse_dir, interval=5.0)','extract_sparse_frames(source, sparse_dir, interval=0.5)')
+          text=text.replace('"평가발언": [', '"종가전략": ["종가", "장마감", "익일", "내일", "윗꼬리", "장대양봉", "양음양", "재료의 연속", "거래대금 상위", "등락률 상위"],\n    "평가발언": [')
+          text=text.replace('IMPORTANT_GROUPS = {', 'IMPORTANT_GROUPS = {"종가전략", ')
+          text=text.replace('"-vf", "fps=2,scale=640:-2"', '"-vf", "fps=4,scale=640:-2"')
+          p.write_text(text)
+          PY
+          python3 -m py_compile openbot_full_video_analyzer.py
+          cat > Dockerfile.closing <<'DOCKERFILE'
+          FROM openbot-agent-computer:base
+          USER root
+          RUN apt-get update \
+            && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+               ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+            && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+               requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models \
+            && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small',device='cpu',compute_type='int8',download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-closing -f Dockerfile.closing .
+
+      - name: Analyze two closing-strategy videos in parallel OpenBot computers
+        shell: bash
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set +e
+          mkdir -p output
+          IFS=',' read -r first second <<< "$SHARD"
+          pids=()
+          for id in "$first" "$second"; do
+            mkdir -p "output/$id"
+            (
+              timeout 9000s docker run --rm --shm-size=2g \
+                -e COMPUTER_TOKEN=largo-closing-token \
+                -e COMPUTER_BOT_ID="closing-$id" \
+                -e VIDEO_ID="$id" \
+                -e OUT=/workspace/analysis \
+                -e WHISPER_MODEL=small \
+                -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+                -v "$PWD/output/$id:/workspace" \
+                openbot-largo-closing \
+                python3 /app/openbot_full_video_analyzer.py \
+                > "output/$id/runner.log" 2>&1
+              echo $? > "output/$id/runner.exit"
+            ) &
+            pids+=("$!")
+          done
+          for pid in "${pids[@]}"; do wait "$pid" || true; done
+          for id in "$first" "$second"; do
+            rm -rf "output/$id/analysis/work" || true
+            find "output/$id" -type f -printf '%P\t%s\n' | sort > "output/$id/manifest.tsv" || true
+          done
+          exit 0
+
+      - name: Upload shard evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-closing-${{ strategy.job-index }}
+          path: output
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 6
+
+  aggregate:
+    if: always()
+    needs: analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: openbot-closing-*
+          path: all-results
+          merge-multiple: true
+      - name: Aggregate completion and rule evidence
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from collections import Counter,defaultdict
+          import json,html
+          root=Path('all-results')
+          videos=[]; groups=Counter(); evidence=defaultdict(list); failures=[]
+          for summary_path in sorted(root.rglob('analysis/summary.json')):
+            data=json.loads(summary_path.read_text())
+            frame=data.get('frame_summary') or {}
+            videos.append({
+              'video_id':data.get('video_id'),'title':data.get('title'),'duration':(data.get('file_probe') or {}).get('duration'),
+              'strategy_events':data.get('strategy_events'),'sparse_frames':frame.get('sparse_frames'),
+              'dense_frames':frame.get('dense_frames'),'orderbook_candidates':frame.get('orderbook_candidates'),
+              'elapsed_seconds':data.get('elapsed_seconds')})
+            event_path=summary_path.parent/'strategy_events.json'
+            if event_path.exists():
+              for event in json.loads(event_path.read_text()):
+                for group in str(event.get('groups','')).split('|'):
+                  if group: groups[group]+=1
+                if '종가전략' in str(event.get('groups','')):
+                  evidence['종가전략'].append({'video_id':data.get('video_id'),**event})
+          for p in root.rglob('analysis/failure.json'):
+            failures.append(json.loads(p.read_text()))
+          report={'runtime':'CopilotKit/OpenBot agent-computer','requested':10,'completed':len(videos),'failures':failures,
+                  'frames_analyzed':sum(int(x.get('sparse_frames') or 0)+int(x.get('dense_frames') or 0) for x in videos),
+                  'videos':videos,'group_counts':dict(groups),'closing_evidence':evidence['종가전략']}
+          Path('openbot-closing-aggregate.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          rows=''.join(f"<tr><td>{html.escape(str(x['video_id']))}</td><td>{html.escape(str(x['title']))}</td><td>{x['duration']}</td><td>{x['strategy_events']}</td><td>{x['sparse_frames']}</td><td>{x['dense_frames']}</td></tr>" for x in videos)
+          Path('openbot-closing-aggregate.html').write_text(f"<!doctype html><html lang='ko'><head><meta charset='utf-8'><style>body{{font-family:Arial,'Malgun Gothic';background:#edf2f7}}main{{max-width:1400px;margin:24px auto;background:white;padding:28px}}table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #d7e0ea;padding:8px;text-align:left}}th{{background:#eef5fd}}</style></head><body><main><h1>OpenBot 종가매매 영상 병렬 프레임 분석</h1><p>완료 {len(videos)}/10 · 프레임 {report['frames_analyzed']:,}</p><table><tr><th>ID</th><th>제목</th><th>길이</th><th>전략발언</th><th>전구간 2fps</th><th>핵심구간 4fps</th></tr>{rows}</table></main></body></html>")
+          print(json.dumps({'completed':len(videos),'frames':report['frames_analyzed'],'failures':failures},ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openbot-closing-aggregate
+          path: |
+            openbot-closing-aggregate.json
+            openbot-closing-aggregate.html
+          retention-days: 14
+          compression-level: 6
