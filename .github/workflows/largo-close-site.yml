@@ -1,0 +1,102 @@
+name: Largo closing screener public site
+
+on:
+  push:
+    branches:
+      - main
+      - largo-close-screener-site-20260826
+    paths:
+      - "bundles/largo_close_site_bundle.zip"
+      - ".github/workflows/largo-close-site.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "bundles/largo_close_site_bundle.zip"
+      - ".github/workflows/largo-close-site.yml"
+  schedule:
+    # KST 14:40, 15:00, 15:10, 15:18, 15:28, 15:35 on weekdays.
+    - cron: "40 5 * * 1-5"
+    - cron: "0,10,18,28,35 6 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: largo-close-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack the reviewed site bundle
+        run: |
+          rm -rf build-source public
+          mkdir -p build-source
+          unzip -q bundles/largo_close_site_bundle.zip -d build-source
+          python -m py_compile build-source/tools/scrape_naver_close.py
+      - name: Refresh Naver Stock read-only snapshots
+        run: |
+          python build-source/tools/scrape_naver_close.py \
+            --output build-source/site/data/latest.json \
+            --history-dir build-source/site/data/history \
+            --max-candidates 12 \
+            --catalyst-candidates 6 \
+            --rank-size 50 \
+            --theme-size 20 \
+            --delay 0.30
+      - name: Validate screen results
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          data=json.loads(Path('build-source/site/data/latest.json').read_text(encoding='utf-8'))
+          assert data.get('schema_version') == 1
+          assert data.get('candidates')
+          assert all(x.get('final_status') in {'EXCLUDE','WATCH','READY','MANUAL_CONFIRM'} for x in data['candidates'])
+          assert Path('build-source/site/index.html').stat().st_size > 20000
+          print({'candidates':len(data['candidates']),'counts':data.get('counts'),'source_errors':len(data.get('source',{}).get('errors',[]))})
+          PY
+      - name: Prepare public directory
+        run: |
+          cp -a build-source/site public
+          touch public/.nojekyll
+      - name: Upload test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-close-screener-site
+          path: public
+          retention-days: 7
+      - name: Upload GitHub Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Enable workflow-based GitHub Pages when needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api -H "Accept: application/vnd.github+json" "/repos/${GITHUB_REPOSITORY}/pages" --silent >/dev/null 2>&1; then
+            gh api --method POST -H "Accept: application/vnd.github+json" "/repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || true
+          fi
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
