@@ -1,4 +1,4 @@
-name: Deploy Largo closing screener v3
+name: Build and publish Largo closing screener v3.2
 
 on:
   push:
@@ -8,12 +8,14 @@ on:
       - "scripts/build_largo_close_screener_v2.py"
       - "scripts/build_largo_close_screener_v3.py"
       - "scripts/build_largo_close_screener_v3_1.py"
+      - "scripts/build_largo_close_screener_v3_2.py"
       - "largo-close-screener/evidence/**"
+      - "largo-close-screener/data/seed_candidates_v3.json"
       - ".github/workflows/largo-close-screener-pages-v2.yml"
   workflow_dispatch:
   schedule:
     # KST 14:35, 15:00, 15:10, 15:18, 15:28 on weekdays.
-    # GitHub schedules execute from the default branch after this PR is merged.
+    # Scheduled workflows require this file to be merged into the default branch.
     - cron: "35 5 * * 1-5"
     - cron: "0 6 * * 1-5"
     - cron: "10 6 * * 1-5"
@@ -22,20 +24,15 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: largo-close-screener-pages
+  group: largo-close-screener-static
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build-and-publish:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,14 +44,15 @@ jobs:
           python -m py_compile \
             scripts/build_largo_close_screener_v2.py \
             scripts/build_largo_close_screener_v3.py \
-            scripts/build_largo_close_screener_v3_1.py
+            scripts/build_largo_close_screener_v3_1.py \
+            scripts/build_largo_close_screener_v3_2.py
 
       - name: Build the pattern-aware Naver snapshot site
         run: |
-          python scripts/build_largo_close_screener_v3_1.py \
+          python scripts/build_largo_close_screener_v3_2.py \
             --output site-output \
             --history largo-close-screener/data/history.json \
-            --candidate-limit 36
+            --candidate-limit 20
 
       - name: Validate generated site and decision contract
         run: |
@@ -67,6 +65,7 @@ jobs:
           assert (root / 'data.json').exists()
           payload = json.loads((root / 'data.json').read_text())
           assert payload['meta']['candidate_count'] >= 1
+          assert payload['meta']['mode'] != 'DEMO_FALLBACK'
           assert payload['results']
           allowed = {'READY', 'WATCH', 'EXCLUDE'}
           allowed_patterns = {
@@ -80,6 +79,7 @@ jobs:
           assert all(row['pattern'] in allowed_patterns for row in payload['results'])
           assert all('checks' in row and 'entry_plan' in row for row in payload['results'])
           assert all('wick_role' in row['checks'] for row in payload['results'])
+          assert all(row.get('code') and row.get('name') for row in payload['results'])
           html = (root / 'index.html').read_text()
           for phrase in [
               '종가 진입 교육 5편',
@@ -96,32 +96,32 @@ jobs:
           }, ensure_ascii=False, indent=2))
           PY
 
-      - name: Save snapshot history on the working branch
+      - name: Publish generated files to the working branch
         run: |
-          if git diff --quiet -- largo-close-screener/data/history.json && [ -z "$(git status --porcelain -- largo-close-screener/data/history.json)" ]; then
-            echo "No history change"
+          rm -rf largo-close-screener/site
+          mkdir -p largo-close-screener/site
+          cp -a site-output/. largo-close-screener/site/
+          cat > largo-close-screener/site/PUBLIC_URL.txt <<'EOF'
+          Stable development URL:
+          https://raw.githack.com/SEUNGJU-PARK-KR/canva-agent/largo-close-screener-site-20260826/largo-close-screener/site/index.html
+
+          GitHub HTML preview fallback:
+          https://htmlpreview.github.io/?https://github.com/SEUNGJU-PARK-KR/canva-agent/blob/largo-close-screener-site-20260826/largo-close-screener/site/index.html
+          EOF
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add largo-close-screener/data/history.json largo-close-screener/site
+          if git diff --cached --quiet; then
+            echo "No generated changes"
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add largo-close-screener/data/history.json
-            git commit -m "Record Largo closing screener v3 snapshot [skip ci]"
+            git commit -m "Publish Largo closing screener v3.2 snapshot [skip ci]"
             git push origin HEAD:largo-close-screener-site-20260826
           fi
-
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site-output
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
 
       - name: Upload reproducibility package
         uses: actions/upload-artifact@v4
         with:
-          name: largo-close-screener-v3-site
+          name: largo-close-screener-v3-2-site
           path: |
             site-output
             largo-close-screener/evidence
