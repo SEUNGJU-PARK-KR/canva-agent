@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/build_largo_close_screener_v2.py"
       - "scripts/build_largo_close_screener_v3.py"
+      - "scripts/build_largo_close_screener_v3_1.py"
       - "largo-close-screener/evidence/**"
       - ".github/workflows/largo-close-screener-pages-v2.yml"
   workflow_dispatch:
@@ -45,11 +46,12 @@ jobs:
         run: |
           python -m py_compile \
             scripts/build_largo_close_screener_v2.py \
-            scripts/build_largo_close_screener_v3.py
+            scripts/build_largo_close_screener_v3.py \
+            scripts/build_largo_close_screener_v3_1.py
 
       - name: Build the pattern-aware Naver snapshot site
         run: |
-          python scripts/build_largo_close_screener_v3.py \
+          python scripts/build_largo_close_screener_v3_1.py \
             --output site-output \
             --history largo-close-screener/data/history.json \
             --candidate-limit 36
