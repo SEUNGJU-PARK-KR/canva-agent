@@ -1,0 +1,156 @@
+name: Largo closing screener public site
+
+on:
+  push:
+    branches:
+      - main
+      - largo-close-screener-site-20260826
+    paths:
+      - "bundles/largo_close_site_v2/**"
+      - ".github/workflows/largo-close-site.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "bundles/largo_close_site_v2/**"
+      - ".github/workflows/largo-close-site.yml"
+  schedule:
+    # KST 14:40, 15:00, 15:10, 15:18, 15:28, 15:35 on weekdays.
+    - cron: "40 5 * * 1-5"
+    - cron: "0,10,18,28,35 6 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: largo-close-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore the reviewed v2 site bundle and verify checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build-source public
+          mkdir -p build-source
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json, zipfile
+          root=Path('bundles/largo_close_site_v2')
+          manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+          encoded=''.join((root/name).read_text(encoding='ascii') for name in manifest['parts'])
+          raw=base64.b64decode(encoded)
+          assert len(raw)==manifest['size'], (len(raw), manifest['size'])
+          digest=hashlib.sha256(raw).hexdigest()
+          assert digest==manifest['sha256'], (digest, manifest['sha256'])
+          archive=Path('build-source')/manifest['archive']
+          archive.write_bytes(raw)
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              z.extractall('build-source')
+          print({'archive':str(archive),'size':len(raw),'sha256':digest})
+          PY
+          python3 -m py_compile build-source/tools/scrape_naver_close.py
+
+      - name: Recover prior public history when available
+        shell: bash
+        run: |
+          mkdir -p build-source/site/data
+          curl -fsSL --max-time 20 \
+            https://seungju-park-kr.github.io/canva-agent/data/history.json \
+            -o build-source/site/data/history.json || true
+
+      - name: Refresh bounded Naver Stock read-only snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          history_args=()
+          if [ -s build-source/site/data/history.json ]; then
+            history_args=(--history build-source/site/data/history.json)
+          fi
+          python3 build-source/tools/scrape_naver_close.py \
+            --output build-source/site/data/latest.json \
+            --history-out build-source/site/data/history.json \
+            "${history_args[@]}" \
+            --max-candidates 24 \
+            --rank-size 80 \
+            --theme-size 25 \
+            --delay 0.25 \
+            --timeout 25
+
+      - name: Validate strict Largo screening output
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('build-source/site')
+          data=json.loads((root/'data/latest.json').read_text(encoding='utf-8'))
+          assert data.get('schema_version')==2
+          assert data.get('strategy_version')
+          assert isinstance(data.get('candidates'), list)
+          allowed={'EXCLUDE','WATCH','CLOSE_READY','NEXT_DAY_HOGA_CONFIRM'}
+          assert all(x.get('final_status') in allowed for x in data['candidates'])
+          for candidate in data['candidates']:
+              assert candidate.get('checks')
+              assert candidate.get('plan')
+              assert candidate.get('pattern')
+              assert candidate.get('catalyst')
+          assert (root/'index.html').stat().st_size > 15000
+          assert (root/'analysis.html').stat().st_size > 3000
+          assert (root/'data/methodology.json').stat().st_size > 5000
+          print({
+            'candidates':len(data['candidates']),
+            'counts':data.get('counts'),
+            'source_errors':len(data.get('source',{}).get('errors',[])),
+            'analysis':data.get('analysis')
+          })
+          PY
+
+      - name: Prepare public directory
+        run: |
+          cp -a build-source/site public
+          touch public/.nojekyll
+
+      - name: Upload test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-close-screener-site-v2
+          path: public
+          retention-days: 14
+
+      - name: Upload GitHub Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Enable workflow-based GitHub Pages when needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api -H "Accept: application/vnd.github+json" "/repos/${GITHUB_REPOSITORY}/pages" --silent >/dev/null 2>&1; then
+            gh api --method POST -H "Accept: application/vnd.github+json" "/repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || true
+          fi
+      - uses: actions/configure-pages@v5
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
