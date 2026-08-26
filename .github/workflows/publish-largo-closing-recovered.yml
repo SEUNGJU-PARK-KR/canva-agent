@@ -1,0 +1,151 @@
+name: Publish recovered Largo closing-analysis deliverables
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/publish-largo-closing-recovered.yml"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: largo-close-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download the restored nine-file deliverable artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf recovered
+          mkdir -p recovered
+          gh run download 33024594745 \
+            --repo "$GITHUB_REPOSITORY" \
+            --name largo-closing-nine-deliverables-restored \
+            --dir recovered
+          find recovered -maxdepth 3 -type f -printf '%P\t%s\n' | sort
+
+      - name: Install deliverables and public site
+        shell: bash
+        run: |
+          set -euo pipefail
+          deliverables='largo-close-screener/deliverables'
+          site='largo-close-screener/site'
+          rm -rf "$deliverables"
+          mkdir -p "$deliverables/supporting" "$site"
+
+          cp recovered/라르고TV_종가매매_OpenBot_엄격분석_보고서.html "$deliverables/"
+          cp recovered/라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html "$deliverables/"
+          cp recovered/라르고TV_종가매매_엄격판정규칙.json "$deliverables/"
+          cp recovered/라르고TV_종가매매_규칙별_OpenBot근거.csv "$deliverables/"
+          cp recovered/라르고TV_종가매매_영상시각_근거인덱스.csv "$deliverables/"
+          cp recovered/라르고TV_명시적_종가매매영상_10편_전수목록.csv "$deliverables/"
+          cp recovered/라르고TV_종가매매_OpenBot_엄격스크리너_자료.zip "$deliverables/"
+          cp recovered/라르고TV_종가매매_스크리너_실데이터검증.json "$deliverables/"
+          cp recovered/라르고TV_종가매매_OpenBot_엄격분석_산출물검증.json "$deliverables/"
+          cp -a recovered/supporting/. "$deliverables/supporting/"
+
+          cp recovered/라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html "$site/index.html"
+          cp recovered/라르고TV_종가매매_OpenBot_엄격분석_보고서.html "$site/analysis.html"
+          cp recovered/supporting/data.json "$site/data.json"
+          cp recovered/라르고TV_종가매매_엄격판정규칙.json "$site/strict_closing_rules.json"
+          cp recovered/라르고TV_종가매매_규칙별_OpenBot근거.csv "$site/rule_support.csv"
+          cp recovered/라르고TV_종가매매_영상시각_근거인덱스.csv "$site/evidence_index.csv"
+          cp recovered/라르고TV_명시적_종가매매영상_10편_전수목록.csv "$site/corpus.csv"
+          touch "$site/.nojekyll"
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, hashlib, json, zipfile
+
+          root = Path('largo-close-screener/deliverables')
+          expected = [
+              '라르고TV_종가매매_OpenBot_엄격분석_보고서.html',
+              '라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html',
+              '라르고TV_종가매매_엄격판정규칙.json',
+              '라르고TV_종가매매_규칙별_OpenBot근거.csv',
+              '라르고TV_종가매매_영상시각_근거인덱스.csv',
+              '라르고TV_명시적_종가매매영상_10편_전수목록.csv',
+              '라르고TV_종가매매_OpenBot_엄격스크리너_자료.zip',
+              '라르고TV_종가매매_스크리너_실데이터검증.json',
+              '라르고TV_종가매매_OpenBot_엄격분석_산출물검증.json',
+          ]
+          rows=[]
+          for name in expected:
+              path=root/name
+              assert path.exists() and path.stat().st_size > 0, name
+              rows.append({'name':name,'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+          with zipfile.ZipFile(root/'라르고TV_종가매매_OpenBot_엄격스크리너_자료.zip') as z:
+              assert z.testzip() is None
+          rules=json.loads((root/'라르고TV_종가매매_엄격판정규칙.json').read_text(encoding='utf-8'))
+          validation=json.loads((root/'라르고TV_종가매매_OpenBot_엄격분석_산출물검증.json').read_text(encoding='utf-8'))
+          assert rules.get('corpus',{}).get('completed') == 10
+          assert validation.get('all_valid') is True
+          with (root/'라르고TV_종가매매_영상시각_근거인덱스.csv').open(encoding='utf-8-sig',newline='') as f:
+              evidence_count=sum(1 for _ in csv.DictReader(f))
+          with (root/'라르고TV_명시적_종가매매영상_10편_전수목록.csv').open(encoding='utf-8-sig',newline='') as f:
+              corpus_count=sum(1 for _ in csv.DictReader(f))
+          assert evidence_count == 346, evidence_count
+          assert corpus_count == 10, corpus_count
+          manifest={'deliverables':rows,'evidence_rows':evidence_count,'corpus_rows':corpus_count,'all_valid':True}
+          (root/'MANIFEST.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(manifest,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Commit the restored files to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add largo-close-screener/deliverables largo-close-screener/site
+          if git diff --cached --quiet; then
+            echo 'No repository changes to commit.'
+          else
+            git commit -m 'Publish restored Largo closing-analysis files and site'
+            git push origin HEAD:main
+          fi
+
+      - name: Upload repository backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-closing-published-deliverables
+          path: |
+            largo-close-screener/deliverables
+            largo-close-screener/site
+          retention-days: 30
+          compression-level: 6
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: largo-close-screener/site
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy the strict closing screener site
+        id: deployment
+        uses: actions/deploy-pages@v4
