@@ -7,6 +7,12 @@ on:
     paths:
       - "scripts/largo_naver_probe.py"
       - ".github/workflows/largo-naver-probe.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/largo_naver_probe.py"
+      - ".github/workflows/largo-naver-probe.yml"
   workflow_dispatch:
 
 permissions:
@@ -27,6 +33,7 @@ jobs:
       - name: Build manifest
         if: always()
         run: |
+          mkdir -p probe-output
           find probe-output -type f -printf '%P\t%s\n' | sort > probe-output/manifest.tsv || true
       - name: Upload probe evidence
         if: always()
