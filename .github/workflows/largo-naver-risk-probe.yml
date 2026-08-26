@@ -1,0 +1,32 @@
+name: Largo Naver candidate and risk probe
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - "scripts/largo_naver_risk_probe.py"
+      - ".github/workflows/largo-naver-risk-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+      - name: Run bounded public-read probe
+        env:
+          OUT: risk-probe-output
+        run: python scripts/largo_naver_risk_probe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-naver-risk-probe
+          path: risk-probe-output
+          if-no-files-found: error
+          retention-days: 7
