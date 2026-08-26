@@ -1,0 +1,94 @@
+{
+  "validated_at_utc": "2026-08-26T23:47:39.171647+00:00",
+  "expected_core_files": 7,
+  "all_core_files_present": true,
+  "files": [
+    {
+      "label": "report",
+      "file": "라르고TV_종가매매_OpenBot_엄격분석_보고서.html",
+      "exists": true,
+      "bytes": 10481,
+      "sha256": "2cf0545e44b2248e486c37b1a33fd63c10bb7b040c792bd6374ca2a0e03ba0a4"
+    },
+    {
+      "label": "site",
+      "file": "라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html",
+      "exists": true,
+      "bytes": 173932,
+      "sha256": "96f2d00be58ef984eeebe69a0d15b57e2719ad70ec01ea430b824934c47813ce"
+    },
+    {
+      "label": "rules",
+      "file": "라르고TV_종가매매_엄격판정규칙.json",
+      "exists": true,
+      "bytes": 7333,
+      "sha256": "17883868957e44d64fbbdb85e37d89d3a6a0e941c3f299a691588c44554fba33"
+    },
+    {
+      "label": "support",
+      "file": "라르고TV_종가매매_규칙별_OpenBot근거.csv",
+      "exists": true,
+      "bytes": 1797,
+      "sha256": "036de809bbb5d70b36c73cba41154a5b9e361bee8e7a98df8c320735467154cb"
+    },
+    {
+      "label": "index",
+      "file": "라르고TV_종가매매_영상시각_근거인덱스.csv",
+      "exists": true,
+      "bytes": 60029,
+      "sha256": "6a7265fd9b5b5bc69c026c3c0b74f52880d92a541a051aedc1d8b8d695806978"
+    },
+    {
+      "label": "videos",
+      "file": "라르고TV_명시적_종가매매영상_10편_전수목록.csv",
+      "exists": true,
+      "bytes": 1130,
+      "sha256": "82db7d17c2e9e19ef9f608405f18aab99c7f73ec80d3db6c4a4e06472e2fa719"
+    },
+    {
+      "label": "snapshot",
+      "file": "라르고TV_종가매매_스크리너_실데이터검증.json",
+      "exists": true,
+      "bytes": 2575,
+      "sha256": "2c2c19649103ff0d6c52f3c9652b44010ad66aa8405ca28954883b5d1b808ea7"
+    }
+  ],
+  "json_validation": {
+    "라르고TV_종가매매_엄격판정규칙.json": true,
+    "라르고TV_종가매매_스크리너_실데이터검증.json": true
+  },
+  "csv_validation": {
+    "라르고TV_종가매매_규칙별_OpenBot근거.csv": 14,
+    "라르고TV_종가매매_영상시각_근거인덱스.csv": 346,
+    "라르고TV_명시적_종가매매영상_10편_전수목록.csv": 10
+  },
+  "html_validation": {
+    "라르고TV_종가매매_OpenBot_엄격분석_보고서.html": true,
+    "라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html": true
+  },
+  "bundle": {
+    "file": "라르고TV_종가매매_OpenBot_엄격스크리너_자료.zip",
+    "bytes": 66667,
+    "sha256": "e7c1fb40edfd4c6d86c6d978d1280aa0f4babf1e1cc08fd5c8167ae0148f2ba9",
+    "zip_test_passed": true,
+    "entry_count": 15,
+    "entries": [
+      "supporting/OPENBOT_CLOSING_ANALYSIS.md",
+      "supporting/PUBLIC_URL.txt",
+      "supporting/analysis_status.json",
+      "supporting/corpus_split_v3.csv",
+      "supporting/data.json",
+      "supporting/openbot_v3_analysis.md",
+      "supporting/sequence_matrix.csv",
+      "라르고TV_명시적_종가매매영상_10편_전수목록.csv",
+      "라르고TV_종가매매_OpenBot_엄격분석_보고서.html",
+      "라르고TV_종가매매_OpenBot_엄격분석_산출물검증.json",
+      "라르고TV_종가매매_규칙별_OpenBot근거.csv",
+      "라르고TV_종가매매_스크리너_OpenBot_엄격판정_공개사이트.html",
+      "라르고TV_종가매매_스크리너_실데이터검증.json",
+      "라르고TV_종가매매_엄격판정규칙.json",
+      "라르고TV_종가매매_영상시각_근거인덱스.csv"
+    ]
+  },
+  "all_valid": true
+}

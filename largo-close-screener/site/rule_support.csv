@@ -1,0 +1,15 @@
+rule_id,name,scope,events,videos,video_ids
+SEL_GAINERS_VALUE,등락률·거래대금 상위에서 특징주 수집,review,32,5,03-AcIXuUpI|65Hl6i_4poE|M9rBXtlIQe0|sZgu4Dmc77M|wrTvBlDpYYQ
+SEL_GROUP_MATERIAL,뉴스로 재료를 확인하고 섹터별로 묶기,review,110,5,03-AcIXuUpI|65Hl6i_4poE|M9rBXtlIQe0|sZgu4Dmc77M|wrTvBlDpYYQ
+SEL_GRADE,관련주 확산으로 S/A/B 재료 등급 판정,review,36,2,03-AcIXuUpI|sZgu4Dmc77M
+SEL_LEADER,섹터 내 대장주와 2등주 구분,review,24,4,03-AcIXuUpI|65Hl6i_4poE|M9rBXtlIQe0|wrTvBlDpYYQ
+SEL_LIMIT_PATTERN,상한가 잠김·재잠김·반복해제 분봉 패턴 분류,review,24,4,03-AcIXuUpI|M9rBXtlIQe0|sZgu4Dmc77M|wrTvBlDpYYQ
+SEL_OVERHANG,일봉·주봉·월봉 전고점과 매물대 분석,all,23,8,03-AcIXuUpI|DWzMWH8enJA|M9rBXtlIQe0|e4fHw1uADI4|eG4Wf_mPR84|hWhuTQjGHhM|sZgu4Dmc77M|wrTvBlDpYYQ
+ENTRY_TURNOVER,거래대금이 실린 강한 기준봉,entry,36,5,3DyDaIdJuWU|DWzMWH8enJA|e4fHw1uADI4|eG4Wf_mPR84|hWhuTQjGHhM
+ENTRY_SLIGHT_WICK,고전형은 살짝 윗꼬리가 달린 장대양봉,entry,9,2,3DyDaIdJuWU|e4fHw1uADI4
+ENTRY_MA_BREAK,이동평균선 수렴·장기 저항 구간 돌파,entry,10,3,3DyDaIdJuWU|DWzMWH8enJA|eG4Wf_mPR84
+ENTRY_CATALYST_CONTINUITY,다음 날 수급 명분이 되는 재료의 연속성,entry,12,2,3DyDaIdJuWU|e4fHw1uADI4
+ENTRY_ACCUMULATION,과거 매집·물량소화 구조 확인,entry,36,3,DWzMWH8enJA|eG4Wf_mPR84|hWhuTQjGHhM
+ENTRY_PATTERN_SPLIT,패턴별 종가 1차 후 지지선 분할 접근,entry,21,3,DWzMWH8enJA|eG4Wf_mPR84|hWhuTQjGHhM
+EXIT_NEXT_DAY,익일 첫 상승파동·반등에서 청산 계획,entry,22,5,3DyDaIdJuWU|DWzMWH8enJA|e4fHw1uADI4|eG4Wf_mPR84|hWhuTQjGHhM
+RISK_PATTERN,패턴별 무효화선·손절 범위 사전 설정,entry,13,4,3DyDaIdJuWU|DWzMWH8enJA|eG4Wf_mPR84|hWhuTQjGHhM
