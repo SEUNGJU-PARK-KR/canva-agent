@@ -1,4 +1,4 @@
-name: Deploy Largo closing screener v2
+name: Deploy Largo closing screener v3
 
 on:
   push:
@@ -6,11 +6,13 @@ on:
       - largo-close-screener-site-20260826
     paths:
       - "scripts/build_largo_close_screener_v2.py"
+      - "scripts/build_largo_close_screener_v3.py"
       - "largo-close-screener/evidence/**"
       - ".github/workflows/largo-close-screener-pages-v2.yml"
   workflow_dispatch:
   schedule:
-    # KST 14:35, 15:00, 15:10, 15:18, 15:28 on weekdays
+    # KST 14:35, 15:00, 15:10, 15:18, 15:28 on weekdays.
+    # GitHub schedules execute from the default branch after this PR is merged.
     - cron: "35 5 * * 1-5"
     - cron: "0 6 * * 1-5"
     - cron: "10 6 * * 1-5"
@@ -33,19 +35,22 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
           ref: largo-close-screener-site-20260826
           fetch-depth: 0
 
-      - name: Validate Python source
-        run: python -m py_compile scripts/build_largo_close_screener_v2.py
-
-      - name: Build the strict Naver snapshot site
+      - name: Validate Python sources
         run: |
-          python scripts/build_largo_close_screener_v2.py \
+          python -m py_compile \
+            scripts/build_largo_close_screener_v2.py \
+            scripts/build_largo_close_screener_v3.py
+
+      - name: Build the pattern-aware Naver snapshot site
+        run: |
+          python scripts/build_largo_close_screener_v3.py \
             --output site-output \
             --history largo-close-screener/data/history.json \
             --candidate-limit 36
@@ -55,18 +60,39 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import json
-          root=Path('site-output')
-          assert (root/'index.html').exists()
-          payload=json.loads((root/'data.json').read_text())
+
+          root = Path('site-output')
+          assert (root / 'index.html').exists()
+          assert (root / 'data.json').exists()
+          payload = json.loads((root / 'data.json').read_text())
           assert payload['meta']['candidate_count'] >= 1
           assert payload['results']
-          allowed={'READY','WATCH','EXCLUDE'}
+          allowed = {'READY', 'WATCH', 'EXCLUDE'}
+          allowed_patterns = {
+              'CLASSIC_WICK_BREAKOUT',
+              'STRUCTURAL_BREAKOUT_SPLIT',
+              'ACCUMULATION_WICK_WATCH',
+              'LIMIT_UP_NEXT_DAY_REVIEW',
+              'AFTER_CLOSE_REVIEW',
+          }
           assert all(row['state'] in allowed for row in payload['results'])
-          assert all('checks' in row for row in payload['results'])
-          html=(root/'index.html').read_text()
-          for phrase in ['OpenBot 10편','25,192','점수가 아니라 시간순 필수 게이트','실제 HTS 확인']:
+          assert all(row['pattern'] in allowed_patterns for row in payload['results'])
+          assert all('checks' in row and 'entry_plan' in row for row in payload['results'])
+          assert all('wick_role' in row['checks'] for row in payload['results'])
+          html = (root / 'index.html').read_text()
+          for phrase in [
+              '종가 진입 교육 5편',
+              '윗꼬리는 무조건 악재가 아닙니다',
+              '25,192',
+              '고전형 윗꼬리 장대양봉',
+              '긴 윗꼬리 매집 관찰형',
+          ]:
               assert phrase in html, phrase
-          print(json.dumps(payload['meta'],ensure_ascii=False,indent=2))
+          print(json.dumps(payload['meta'], ensure_ascii=False, indent=2))
+          print(json.dumps({
+              'patterns': {p: sum(r['pattern'] == p for r in payload['results']) for p in sorted(allowed_patterns)},
+              'states': {s: sum(r['state'] == s for r in payload['results']) for s in sorted(allowed)},
+          }, ensure_ascii=False, indent=2))
           PY
 
       - name: Save snapshot history on the working branch
@@ -77,7 +103,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add largo-close-screener/data/history.json
-            git commit -m "Record Largo closing screener snapshot [skip ci]"
+            git commit -m "Record Largo closing screener v3 snapshot [skip ci]"
             git push origin HEAD:largo-close-screener-site-20260826
           fi
 
@@ -92,7 +118,7 @@ jobs:
       - name: Upload reproducibility package
         uses: actions/upload-artifact@v4
         with:
-          name: largo-close-screener-v2-site
+          name: largo-close-screener-v3-site
           path: |
             site-output
             largo-close-screener/evidence
