@@ -1,0 +1,23 @@
+{
+  "snapshots": [
+    {
+      "date": "2026-08-27",
+      "label": "08:03",
+      "generated_at": "2026-08-27T08:03:24.335286+09:00",
+      "stocks": {
+        "000001": {
+          "trade_value_rank": 6,
+          "late_pass": true,
+          "state": "READY",
+          "score": 91
+        },
+        "000002": {
+          "trade_value_rank": 31,
+          "late_pass": false,
+          "state": "EXCLUDE",
+          "score": 48
+        }
+      }
+    }
+  ]
+}
