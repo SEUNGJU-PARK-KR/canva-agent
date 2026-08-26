@@ -1,0 +1,85 @@
+name: Refresh publication-safe Largo closing evidence
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - "scripts/derive_largo_closing_rules_safe.py"
+      - ".github/workflows/largo-closing-evidence-refresh-safe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: largo-closing-evidence-safe
+  cancel-in-progress: false
+
+jobs:
+  derive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+          fetch-depth: 0
+
+      - name: Download the five successful OpenBot analysis shards
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 32984947302
+          pattern: openbot-closing-[0-4]
+          path: openbot-input
+          merge-multiple: true
+
+      - name: Derive publication-safe rules and evidence index
+        run: python scripts/derive_largo_closing_rules_safe.py
+
+      - name: Remove previously generated raw excerpts and frame sheet
+        run: |
+          rm -f largo-close-screener/evidence/closing_evidence.csv
+          rm -f largo-close-screener/evidence/closing_strategy_frames.jpg
+
+      - name: Validate publication-safe outputs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import csv, json
+          root=Path('largo-close-screener/evidence')
+          status=json.loads((root/'analysis_status.json').read_text())
+          assert status['completed']==10, status
+          assert status['frames_analyzed']==25192, status
+          assert status['publication_safe'] is True
+          assert not (root/'closing_evidence.csv').exists()
+          assert not (root/'closing_strategy_frames.jpg').exists()
+          with (root/'evidence_index.csv').open(encoding='utf-8-sig') as fh:
+              rows=list(csv.DictReader(fh))
+          assert rows
+          assert 'text' not in rows[0] and 'frame' not in rows[0]
+          print(json.dumps(status,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Commit derived indexes and remove raw publication artifacts
+        run: |
+          if git diff --quiet -- largo-close-screener/evidence && [ -z "$(git status --porcelain -- largo-close-screener/evidence)" ]; then
+            echo "No evidence changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A largo-close-screener/evidence
+          git commit -m "Publish safe OpenBot closing evidence index"
+          git push origin HEAD:largo-close-screener-site-20260826
+
+      - name: Upload safe evidence package
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-closing-safe-evidence
+          path: largo-close-screener/evidence
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 6
