@@ -154,3 +154,5 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+# Initial deployment trigger after OpenBot evidence review and bundle checksum verification.
