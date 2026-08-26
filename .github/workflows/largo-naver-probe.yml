@@ -1,0 +1,38 @@
+name: Largo closing screener Naver probe
+
+on:
+  push:
+    branches:
+      - largo-close-screener-site-20260826
+    paths:
+      - "scripts/largo_naver_probe.py"
+      - ".github/workflows/largo-naver-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-close-screener-site-20260826
+      - name: Probe public read-only Naver Stock endpoints
+        env:
+          OUT: probe-output
+        run: python scripts/largo_naver_probe.py
+      - name: Build manifest
+        if: always()
+        run: |
+          find probe-output -type f -printf '%P\t%s\n' | sort > probe-output/manifest.tsv || true
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-naver-probe
+          path: probe-output
+          if-no-files-found: warn
+          retention-days: 7
