@@ -1,0 +1,67 @@
+name: Audit alternative market sites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/audit-alternative-market-sites.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Probe Daum and Yahoo
+        run: |
+          set -euo pipefail
+          mkdir -p tools/web-confirmation-alternatives
+          python3 - <<'PY'
+          import json,time,urllib.error,urllib.request
+          from pathlib import Path
+          code='005930'; ua='Mozilla/5.0 Chrome/138 Safari/537.36'
+          urls={
+            'daum_quote':f'https://finance.daum.net/api/quotes/A{code}?summary=false&changeStatistics=true',
+            'daum_minutes':f'https://finance.daum.net/api/charts/A{code}/minutes/1?limit=10&adjusted=true',
+            'daum_days':f'https://finance.daum.net/api/charts/A{code}/days?limit=5&adjusted=true',
+            'daum_orderbook_guess':f'https://finance.daum.net/api/quotes/A{code}/orderbook',
+            'daum_trades_guess':f'https://finance.daum.net/api/quotes/A{code}/trades',
+            'yahoo_1m':f'https://query1.finance.yahoo.com/v8/finance/chart/{code}.KS?interval=1m&range=1d',
+          }
+          out={}
+          for name,url in urls.items():
+            ref='https://finance.daum.net/quotes/A005930' if name.startswith('daum') else 'https://finance.yahoo.com/'
+            req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json,text/plain,*/*','Referer':ref})
+            try:
+              with urllib.request.urlopen(req,timeout=15) as r:
+                raw=r.read();text=raw.decode('utf-8','replace')
+                try:data=json.loads(text)
+                except:data=None
+                out[name]={'ok':True,'status':r.status,'bytes':len(raw),'root_type':type(data).__name__ if data is not None else None,'root_keys':sorted(data.keys()) if isinstance(data,dict) else None,'sample':data,'text_head':None if data is not None else text[:500]}
+            except urllib.error.HTTPError as e:
+              raw=e.read();out[name]={'ok':False,'status':e.code,'bytes':len(raw),'text_head':raw.decode('utf-8','replace')[:500]}
+            except Exception as e:out[name]={'ok':False,'status':None,'error':repr(e)}
+          # Keep samples compact.
+          for name,item in out.items():
+            data=item.get('sample')
+            if name=='daum_quote' and isinstance(data,dict): item['sample']={k:data.get(k) for k in ['symbolCode','date','tradePrice','openingPrice','highPrice','lowPrice','accTradeVolume','accTradePrice','askPrice','bidPrice','marketStatus'] if k in data}
+            elif name in ('daum_minutes','daum_days') and isinstance(data,dict): item['sample']=(data.get('data') or [])[:3]
+            elif name=='yahoo_1m' and isinstance(data,dict):
+              result=((data.get('chart') or {}).get('result') or [{}])[0];meta=result.get('meta') or {};quote=((result.get('indicators') or {}).get('quote') or [{}])[0]
+              item['sample']={'meta':{k:meta.get(k) for k in ['symbol','exchangeName','regularMarketPrice','regularMarketTime','currentTradingPeriod','dataGranularity']},'timestamps':(result.get('timestamp') or [])[-3:],'quote_tail':{k:(v or [])[-3:] for k,v in quote.items()}}
+          path=Path('tools/web-confirmation-alternatives/latest-report.json');path.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8');print(path.stat().st_size)
+          PY
+      - name: Commit report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/web-confirmation-alternatives/latest-report.json
+          git commit -m 'Record alternative market site audit'
+          git push origin HEAD:main
