@@ -1,0 +1,688 @@
+{
+  "generated_at": "2026-08-27T14:37:04.609190+09:00",
+  "codes": {
+    "005930": {
+      "price": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "accumLower",
+          "accumUpper",
+          "askBuy",
+          "askSell",
+          "continualUpperLimit",
+          "continualUpperLower",
+          "debtTotal",
+          "deviationRate",
+          "deviationSign",
+          "dividend",
+          "dividendRate",
+          "eps",
+          "etfChseErnrtDbl",
+          "etfChseErnrtDblSmbl",
+          "etfType",
+          "frgnHoldCnt",
+          "frgnHoldRate",
+          "highPrice",
+          "inav",
+          "issuerNameKo",
+          "itemInfo",
+          "itemcode",
+          "itemname",
+          "listedDate",
+          "listedStockCnt",
+          "lowPrice",
+          "lowerLimitPrice",
+          "manageStatusGb",
+          "managementDate",
+          "managementReasonCode",
+          "marketAlertType",
+          "marketStatus",
+          "marketSum",
+          "nav",
+          "netIncome",
+          "nowPrice",
+          "oneMonthEarnRate",
+          "oneYearEarnRate",
+          "openPrice",
+          "operatingProfit",
+          "operatingProfitIncreasingRate",
+          "pbr",
+          "per",
+          "prevChangePrice",
+          "prevChangeRate",
+          "prevQuant",
+          "propertyTotal",
+          "quantDiff",
+          "quantDiffRate",
+          "refNidxLvgTpCd",
+          "reserveRatio",
+          "roa",
+          "roe",
+          "sales",
+          "salesIncreasingRate",
+          "sixMonthEarnRate",
+          "sosok",
+          "threeMonthEarnRate",
+          "totalBuyVolume",
+          "totalFee",
+          "totalNetAssets",
+          "totalSellVolume",
+          "tradableStatus",
+          "tradableStatusCode",
+          "tradableStatusUpdatedAt",
+          "tradeAmount",
+          "tradeStopYn",
+          "tradeVolume",
+          "tradingHaltDate",
+          "tradingHaltReasonCode",
+          "type",
+          "upDownGb",
+          "upperLimitPrice",
+          "week52HighPrice",
+          "week52LowPrice"
+        ],
+        "bytes": [
+          1640,
+          1639
+        ],
+        "sample": {
+          "marketStatus": "OPEN",
+          "nowPrice": "265250",
+          "openPrice": "270000",
+          "highPrice": "271000",
+          "lowPrice": "262500",
+          "askBuy": "264500",
+          "askSell": "265000",
+          "totalBuyVolume": "534842",
+          "totalSellVolume": "624866",
+          "tradeVolume": "13937663",
+          "tradeAmount": "3720334000000"
+        }
+      },
+      "hoga": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "bestBuyHoga",
+          "bestSellHoga",
+          "highPrice",
+          "hoga1",
+          "hoga10",
+          "hoga2",
+          "hoga3",
+          "hoga4",
+          "hoga5",
+          "hoga6",
+          "hoga7",
+          "hoga8",
+          "hoga9",
+          "itemCode",
+          "lowPrice",
+          "nowPrice",
+          "openPrice",
+          "prevClosePrice",
+          "totalBuyVolume",
+          "totalSellVolume"
+        ],
+        "bytes": [
+          690,
+          690
+        ],
+        "sample": {
+          "nowPrice": "265250",
+          "bestSellHoga": "265000",
+          "bestBuyHoga": "264500",
+          "totalSellVolume": "624866",
+          "totalBuyVolume": "534842",
+          "hoga1": "00265000:00264500:00020436:00075718",
+          "hoga2": "00265500:00264000:00036367:00046401",
+          "hoga3": "00266000:00263500:00025254:00052795",
+          "hoga10": "00269500:00260000:00154310:00060410",
+          "openPrice": "270000",
+          "highPrice": "271000",
+          "lowPrice": "262500"
+        }
+      },
+      "ticks": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": false,
+        "root_keys": null,
+        "bytes": [
+          22579,
+          22579
+        ],
+        "sample_rows": [
+          {
+            "tradeTime": "20260827143600",
+            "nowPrice": "265000",
+            "tradeVolume": "13902565",
+            "tradeAmount": "3711028",
+            "buyPrice": "265000",
+            "sellPrice": "265500",
+            "executedVolume": "517"
+          },
+          {
+            "tradeTime": "20260827143500",
+            "nowPrice": "265250",
+            "tradeVolume": "13902048",
+            "tradeAmount": "3710891",
+            "buyPrice": "265000",
+            "sellPrice": "265500",
+            "executedVolume": "31447"
+          },
+          {
+            "tradeTime": "20260827143400",
+            "nowPrice": "265000",
+            "tradeVolume": "13870601",
+            "tradeAmount": "3702552",
+            "buyPrice": "265000",
+            "sellPrice": "265500",
+            "executedVolume": "30119"
+          },
+          {
+            "tradeTime": "20260827143300",
+            "nowPrice": "265250",
+            "tradeVolume": "13840482",
+            "tradeAmount": "3694560",
+            "buyPrice": "265000",
+            "sellPrice": "265500",
+            "executedVolume": "43099"
+          },
+          {
+            "tradeTime": "20260827143200",
+            "nowPrice": "265500",
+            "tradeVolume": "13797383",
+            "tradeAmount": "3683120",
+            "buyPrice": "265000",
+            "sellPrice": "265500",
+            "executedVolume": "42175"
+          }
+        ]
+      },
+      "poll": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "datas",
+          "pollingInterval",
+          "time"
+        ],
+        "bytes": [
+          2406,
+          2406
+        ],
+        "sample": {
+          "pollingInterval": 7000,
+          "datas": [
+            {
+              "itemCode": "005930",
+              "localTradedAt": "2026-08-27T14:37:02.781305+09:00",
+              "marketStatus": "OPEN",
+              "closePrice": "265,000",
+              "openPrice": "270,000",
+              "highPrice": "271,000",
+              "lowPrice": "262,500",
+              "accumulatedTradingVolume": "13,937,710",
+              "accumulatedTradingValue": "3조 7,203억"
+            }
+          ]
+        }
+      },
+      "legacy": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "result",
+          "resultCode"
+        ],
+        "bytes": [
+          1277,
+          1277
+        ],
+        "sample_root_keys": [
+          "result",
+          "resultCode"
+        ]
+      },
+      "mobile": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "chartIqEndUrl",
+          "closePrice",
+          "compareToPreviousClosePrice",
+          "compareToPreviousPrice",
+          "delayTime",
+          "delayTimeName",
+          "endUrl",
+          "fluctuationsRatio",
+          "imageChartUrlInfo",
+          "imageCharts",
+          "itemCode",
+          "itemLogoPngUrl",
+          "itemLogoUrl",
+          "localTradedAt",
+          "marketStatus",
+          "nationName",
+          "nationType",
+          "newPcUrl",
+          "newlyListed",
+          "overMarketPriceInfo",
+          "reutersCode",
+          "scriptChartTypes",
+          "sosok",
+          "stockEndType",
+          "stockExchangeName",
+          "stockExchangeType",
+          "stockName",
+          "tradableStatus",
+          "tradableStatusCode",
+          "tradableStatusUpdatedAt",
+          "tradeStopType"
+        ],
+        "bytes": [
+          4200,
+          4200
+        ],
+        "sample": {
+          "stockName": "삼성전자",
+          "closePrice": "265,000",
+          "localTradedAt": "2026-08-27T14:36:21+09:00",
+          "delayTime": 0,
+          "delayTimeName": "실시간",
+          "marketStatus": "OPEN"
+        }
+      }
+    },
+    "000660": {
+      "price": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "accumLower",
+          "accumUpper",
+          "askBuy",
+          "askSell",
+          "continualUpperLimit",
+          "continualUpperLower",
+          "debtTotal",
+          "deviationRate",
+          "deviationSign",
+          "dividend",
+          "dividendRate",
+          "eps",
+          "etfChseErnrtDbl",
+          "etfChseErnrtDblSmbl",
+          "etfType",
+          "frgnHoldCnt",
+          "frgnHoldRate",
+          "highPrice",
+          "inav",
+          "issuerNameKo",
+          "itemInfo",
+          "itemcode",
+          "itemname",
+          "listedDate",
+          "listedStockCnt",
+          "lowPrice",
+          "lowerLimitPrice",
+          "manageStatusGb",
+          "managementDate",
+          "managementReasonCode",
+          "marketAlertType",
+          "marketStatus",
+          "marketSum",
+          "nav",
+          "netIncome",
+          "nowPrice",
+          "oneMonthEarnRate",
+          "oneYearEarnRate",
+          "openPrice",
+          "operatingProfit",
+          "operatingProfitIncreasingRate",
+          "pbr",
+          "per",
+          "prevChangePrice",
+          "prevChangeRate",
+          "prevQuant",
+          "propertyTotal",
+          "quantDiff",
+          "quantDiffRate",
+          "refNidxLvgTpCd",
+          "reserveRatio",
+          "roa",
+          "roe",
+          "sales",
+          "salesIncreasingRate",
+          "sixMonthEarnRate",
+          "sosok",
+          "threeMonthEarnRate",
+          "totalBuyVolume",
+          "totalFee",
+          "totalNetAssets",
+          "totalSellVolume",
+          "tradableStatus",
+          "tradableStatusCode",
+          "tradableStatusUpdatedAt",
+          "tradeAmount",
+          "tradeStopYn",
+          "tradeVolume",
+          "tradingHaltDate",
+          "tradingHaltReasonCode",
+          "type",
+          "upDownGb",
+          "upperLimitPrice",
+          "week52HighPrice",
+          "week52LowPrice"
+        ],
+        "bytes": [
+          1647,
+          1647
+        ],
+        "sample": {
+          "marketStatus": "OPEN",
+          "nowPrice": "1716000",
+          "openPrice": "1776000",
+          "highPrice": "1788000",
+          "lowPrice": "1708000",
+          "askBuy": "1724000",
+          "askSell": "1725000",
+          "totalBuyVolume": "19709",
+          "totalSellVolume": "6005",
+          "tradeVolume": "2718781",
+          "tradeAmount": "4742214000000"
+        }
+      },
+      "hoga": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": false,
+        "root_keys": [
+          "bestBuyHoga",
+          "bestSellHoga",
+          "highPrice",
+          "hoga1",
+          "hoga10",
+          "hoga2",
+          "hoga3",
+          "hoga4",
+          "hoga5",
+          "hoga6",
+          "hoga7",
+          "hoga8",
+          "hoga9",
+          "itemCode",
+          "lowPrice",
+          "nowPrice",
+          "openPrice",
+          "prevClosePrice",
+          "totalBuyVolume",
+          "totalSellVolume"
+        ],
+        "bytes": [
+          694,
+          694
+        ],
+        "sample": {
+          "nowPrice": "1716000",
+          "bestSellHoga": "1725000",
+          "bestBuyHoga": "1724000",
+          "totalSellVolume": "6005",
+          "totalBuyVolume": "19709",
+          "hoga1": "01725000:01724000:00000603:00000995",
+          "hoga2": "01726000:01723000:00000526:00003408",
+          "hoga3": "01727000:01722000:00000679:00002660",
+          "hoga10": "01734000:01715000:00000720:00001716",
+          "openPrice": "1776000",
+          "highPrice": "1788000",
+          "lowPrice": "1708000"
+        }
+      },
+      "ticks": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": false,
+        "root_keys": null,
+        "bytes": [
+          22802,
+          22802
+        ],
+        "sample_rows": [
+          {
+            "tradeTime": "20260827143600",
+            "nowPrice": "1717000",
+            "tradeVolume": "2707608",
+            "tradeAmount": "4723042",
+            "buyPrice": "1716000",
+            "sellPrice": "1717000",
+            "executedVolume": "72"
+          },
+          {
+            "tradeTime": "20260827143500",
+            "nowPrice": "1717000",
+            "tradeVolume": "2707536",
+            "tradeAmount": "4722919",
+            "buyPrice": "1716000",
+            "sellPrice": "1717000",
+            "executedVolume": "12994"
+          },
+          {
+            "tradeTime": "20260827143400",
+            "nowPrice": "1717000",
+            "tradeVolume": "2694542",
+            "tradeAmount": "4700613",
+            "buyPrice": "1717000",
+            "sellPrice": "1718000",
+            "executedVolume": "7316"
+          },
+          {
+            "tradeTime": "20260827143300",
+            "nowPrice": "1721000",
+            "tradeVolume": "2687226",
+            "tradeAmount": "4688030",
+            "buyPrice": "1721000",
+            "sellPrice": "1722000",
+            "executedVolume": "21077"
+          },
+          {
+            "tradeTime": "20260827143200",
+            "nowPrice": "1719000",
+            "tradeVolume": "2666149",
+            "tradeAmount": "4651768",
+            "buyPrice": "1719000",
+            "sellPrice": "1720000",
+            "executedVolume": "8265"
+          }
+        ]
+      },
+      "poll": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "datas",
+          "pollingInterval",
+          "time"
+        ],
+        "bytes": [
+          2430,
+          2431
+        ],
+        "sample": {
+          "pollingInterval": 7000,
+          "datas": [
+            {
+              "itemCode": "000660",
+              "localTradedAt": "2026-08-27T14:37:03.506185+09:00",
+              "marketStatus": "OPEN",
+              "closePrice": "1,716,000",
+              "openPrice": "1,776,000",
+              "highPrice": "1,788,000",
+              "lowPrice": "1,708,000",
+              "accumulatedTradingVolume": "2,718,983",
+              "accumulatedTradingValue": "4조 7,426억"
+            }
+          ]
+        }
+      },
+      "legacy": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "result",
+          "resultCode"
+        ],
+        "bytes": [
+          1299,
+          1299
+        ],
+        "sample_root_keys": [
+          "result",
+          "resultCode"
+        ]
+      },
+      "mobile": {
+        "ok": [
+          true,
+          true
+        ],
+        "status": [
+          200,
+          200
+        ],
+        "changed": true,
+        "root_keys": [
+          "chartIqEndUrl",
+          "closePrice",
+          "compareToPreviousClosePrice",
+          "compareToPreviousPrice",
+          "delayTime",
+          "delayTimeName",
+          "endUrl",
+          "fluctuationsRatio",
+          "imageChartUrlInfo",
+          "imageCharts",
+          "itemCode",
+          "itemLogoPngUrl",
+          "itemLogoUrl",
+          "localTradedAt",
+          "marketStatus",
+          "nationName",
+          "nationType",
+          "newPcUrl",
+          "newlyListed",
+          "overMarketPriceInfo",
+          "reutersCode",
+          "scriptChartTypes",
+          "sosok",
+          "stockDividendEvent",
+          "stockEndType",
+          "stockExchangeName",
+          "stockExchangeType",
+          "stockName",
+          "tradableStatus",
+          "tradableStatusCode",
+          "tradableStatusUpdatedAt",
+          "tradeStopType"
+        ],
+        "bytes": [
+          4377,
+          4377
+        ],
+        "sample": {
+          "stockName": "SK하이닉스",
+          "closePrice": "1,716,000",
+          "localTradedAt": "2026-08-27T14:36:21+09:00",
+          "delayTime": 0,
+          "delayTimeName": "실시간",
+          "marketStatus": "OPEN"
+        }
+      }
+    }
+  },
+  "conclusions": {
+    "naver_hoga_10_levels": true,
+    "naver_ticks_are_minute_buckets": true,
+    "polling_interval_ms": [
+      7000,
+      7000
+    ],
+    "aggressor_side_field_found": false,
+    "auction_expected_price_field_found_preauction": false
+  }
+}
