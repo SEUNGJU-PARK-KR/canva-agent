@@ -1,0 +1,29 @@
+name: Verify Largo closing screener public mirror
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/verify-largo-public-mirror.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify immutable GitHack deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://rawcdn.githack.com/SEUNGJU-PARK-KR/canva-agent/531cffa9eb4120b09ab1393a05e08e2162fd247c/largo-close-screener/site/index.html'
+          curl -fsSL --retry 3 --max-time 30 "$url" -o site.html
+          test "$(wc -c < site.html)" -gt 150000
+          grep -qi '</html>' site.html
+          grep -q 'OpenBot' site.html
+          grep -q '종가매매' site.html
+          printf 'verified_url=%s\nbytes=%s\n' "$url" "$(wc -c < site.html)"
