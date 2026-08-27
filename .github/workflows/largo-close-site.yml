@@ -26,9 +26,11 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
-  group: largo-close-static-site
+  group: largo-close-static-site-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -168,6 +170,14 @@ jobs:
           path: public
           retention-days: 14
 
+      # Deploy this run's verified artifact directly. A commit pushed with
+      # GITHUB_TOKEN does not recursively start the fallback Pages workflow.
+      - name: Upload GitHub Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
       - name: Publish generated static site into the repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         shell: bash
@@ -186,3 +196,25 @@ jobs:
           git commit -m 'Refresh Largo closing screener static site'
           git pull --rebase origin main
           git push origin HEAD:main
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure and enable GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Deploy verified site
+        id: deployment
+        uses: actions/deploy-pages@v4
