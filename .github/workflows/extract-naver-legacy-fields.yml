@@ -1,0 +1,50 @@
+name: Extract Naver legacy and mobile market fields
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/extract-naver-legacy-fields.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract compact payloads
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          source=json.loads(Path('tools/web-confirmation-fast/latest-report.json').read_text(encoding='utf-8'))
+          out={'generated_at':source.get('generated_at'),'codes':{}}
+          for code,groups in source.get('comparison',{}).items():
+              out['codes'][code]={}
+              for name in ('legacy','mobile','poll','price','hoga','ticks'):
+                  item=groups.get(name,{})
+                  out['codes'][code][name]={
+                      'changed':item.get('changed'),
+                      'sample':item.get('sample'),
+                      'root_keys':item.get('root_keys'),
+                      'text_head':item.get('text_head'),
+                  }
+          path=Path('tools/web-confirmation-fast/legacy-mobile-fields.json')
+          path.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(path.stat().st_size)
+          PY
+      - name: Commit field report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/web-confirmation-fast/legacy-mobile-fields.json
+          git commit -m 'Add Naver legacy and mobile field report'
+          git push origin HEAD:main
