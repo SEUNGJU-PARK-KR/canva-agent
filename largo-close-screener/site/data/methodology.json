@@ -1,0 +1,394 @@
+{
+  "schema_version": 2,
+  "strategy_version": "largo-close-openbot-v2",
+  "analysis": {
+    "runtime": "CopilotKit/OpenBot agent-computer",
+    "video_count": 10,
+    "duration_seconds": 5969.874,
+    "duration_minutes": 99.5,
+    "frames_analyzed": 25192,
+    "closing_evidence_segments": 96,
+    "group_counts": {
+      "종가전략": 96,
+      "종목선정": 101,
+      "진입": 57,
+      "평가발언": 25,
+      "차트": 110,
+      "수급": 75,
+      "물량소화": 144,
+      "청산": 17,
+      "손절": 18,
+      "호가창": 3
+    },
+    "videos": [
+      {
+        "video_id": "03-AcIXuUpI",
+        "title": "\"장마감 하고 이 훈련만 하세요\" 내일 매매할 종목이 보입니다",
+        "duration_seconds": 524.167,
+        "strategy_events": 32,
+        "full_timeline_frames": 1048,
+        "dense_frames": 1088,
+        "orderbook_candidates": 984
+      },
+      {
+        "video_id": "3DyDaIdJuWU",
+        "title": "[주식단타기법 1강] 하루만에 10% 수익나는 종가매매 비법 공개합니다.",
+        "duration_seconds": 520.916,
+        "strategy_events": 41,
+        "full_timeline_frames": 1042,
+        "dense_frames": 1088,
+        "orderbook_candidates": 438
+      },
+      {
+        "video_id": "65Hl6i_4poE",
+        "title": "\"장마감 이후 '이것만' 하세요\" 내일 단타 주도주가 보입니다",
+        "duration_seconds": 532.735,
+        "strategy_events": 57,
+        "full_timeline_frames": 1065,
+        "dense_frames": 1174,
+        "orderbook_candidates": 1046
+      },
+      {
+        "video_id": "DWzMWH8enJA",
+        "title": "오늘 사서 내일 바로 수익내는 종가매매 실전기법 총정리",
+        "duration_seconds": 624.965,
+        "strategy_events": 63,
+        "full_timeline_frames": 1250,
+        "dense_frames": 1568,
+        "orderbook_candidates": 1068
+      },
+      {
+        "video_id": "M9rBXtlIQe0",
+        "title": "단타 고수들은 장 마감 후 매일 이 훈련만 반복합니다",
+        "duration_seconds": 483.95,
+        "strategy_events": 56,
+        "full_timeline_frames": 968,
+        "dense_frames": 1200,
+        "orderbook_candidates": 947
+      },
+      {
+        "video_id": "e4fHw1uADI4",
+        "title": "직장인도 쉽게 따라할 수 있는 종가매매 기법 공개합니다.",
+        "duration_seconds": 330.606,
+        "strategy_events": 30,
+        "full_timeline_frames": 661,
+        "dense_frames": 792,
+        "orderbook_candidates": 527
+      },
+      {
+        "video_id": "eG4Wf_mPR84",
+        "title": "주식초보도 쉽게 수익낼 수 있는 종가베팅 노하우 전부 공개합니다",
+        "duration_seconds": 555.282,
+        "strategy_events": 64,
+        "full_timeline_frames": 1110,
+        "dense_frames": 1336,
+        "orderbook_candidates": 1090
+      },
+      {
+        "video_id": "hWhuTQjGHhM",
+        "title": "종가매매로 성공하려면 이 3가지 패턴만 외우세요",
+        "duration_seconds": 710.229,
+        "strategy_events": 69,
+        "full_timeline_frames": 1420,
+        "dense_frames": 1600,
+        "orderbook_candidates": 1401
+      },
+      {
+        "video_id": "sZgu4Dmc77M",
+        "title": "장마감 이후 단타고수들이 절대 빼먹지 않는 훈련 1가지",
+        "duration_seconds": 840.005,
+        "strategy_events": 53,
+        "full_timeline_frames": 1680,
+        "dense_frames": 1760,
+        "orderbook_candidates": 1649
+      },
+      {
+        "video_id": "wrTvBlDpYYQ",
+        "title": "장마감 후 매일 '이것만' 하면 주도주가 한 눈에 보입니다",
+        "duration_seconds": 847.018,
+        "strategy_events": 69,
+        "full_timeline_frames": 1694,
+        "dense_frames": 1648,
+        "orderbook_candidates": 1675
+      }
+    ]
+  },
+  "principle": "점수가 종목 자격을 만들지 않는다. 필수 게이트를 순서대로 통과한 종목끼리만 우선순위를 비교한다.",
+  "workflow": [
+    {
+      "id": "U",
+      "name": "후보 수집",
+      "rule": "거래대금 상위·등락률 상위·거래량 급증·52주 고가 근접의 합집합"
+    },
+    {
+      "id": "X",
+      "name": "하드 제외",
+      "rule": "시총 500억 미만·관리/거래정지/경보·당일 상장·정치 테마·동전주 제외"
+    },
+    {
+      "id": "S",
+      "name": "섹터·재료",
+      "rule": "종목을 재료/섹터로 묶고 S/A/B 등급과 현재 대장·2등주를 정함"
+    },
+    {
+      "id": "L",
+      "name": "상한가 분봉",
+      "rule": "상한가 종목은 1회 잠김·재잠김·반복 풀림 3패턴을 먼저 구분"
+    },
+    {
+      "id": "D",
+      "name": "일봉 위치",
+      "rule": "기준봉·전고점·상장일 고가·장기 이평·월봉 매물대 위치를 확인"
+    },
+    {
+      "id": "A",
+      "name": "매집·소화",
+      "rule": "과거 1파 거래대금과 현재 거래대금을 비교하고 박스·윗꼬리·양음양의 의미를 판정"
+    },
+    {
+      "id": "P",
+      "name": "종가 패턴",
+      "rule": "여섯 개 종가 패턴 중 하나에 배정하고 초기 비중과 추가 지지선을 정함"
+    },
+    {
+      "id": "C",
+      "name": "종가 유지",
+      "rule": "고가권·윗꼬리·오후 저점·마감 직전 거래를 확인"
+    },
+    {
+      "id": "R",
+      "name": "거래 계획",
+      "rule": "종가 진입, 분할 지지선, 무효화선, 다음날 1파 청산 계획을 기록"
+    },
+    {
+      "id": "H",
+      "name": "익일 호가",
+      "rule": "최종 매매는 다음날 실제 호가·체결·차트 확인 뒤 결정"
+    }
+  ],
+  "hard_exclusions": [
+    {
+      "id": "MARKET_CAP_500",
+      "name": "시가총액 500억원 이상",
+      "source": "sZgu4Dmc77M 07:04",
+      "naver": "marketSum",
+      "pass": ">= 50,000,000,000 KRW",
+      "type": "direct_rule"
+    },
+    {
+      "id": "TRADE_VALUE_500",
+      "name": "거래대금 500억원 이상",
+      "source": "3DyDaIdJuWU 01:34~01:40",
+      "naver": "tradeAmount",
+      "pass": ">= 50,000,000,000 KRW",
+      "type": "direct_rule"
+    },
+    {
+      "id": "RISK_STATUS",
+      "name": "관리·거래정지·투자경보 제외",
+      "source": "sZgu4Dmc77M 07:04",
+      "naver": "manageStatusGb/tradeStopYn/marketAlertType",
+      "pass": "normal",
+      "type": "direct_rule"
+    },
+    {
+      "id": "SAME_DAY_IPO",
+      "name": "당일 신규상장 제외",
+      "source": "sZgu4Dmc77M 07:04, M9rBXtlIQe0 00:26",
+      "naver": "listedDate",
+      "pass": "listed_days >= 1",
+      "type": "direct_rule"
+    },
+    {
+      "id": "POLITICAL_THEME",
+      "name": "정치테마 제외",
+      "source": "sZgu4Dmc77M 07:15",
+      "naver": "theme/news title classification",
+      "pass": "not political",
+      "type": "direct_rule_proxy"
+    },
+    {
+      "id": "PENNY_STOCK",
+      "name": "동전주 제외",
+      "source": "wrTvBlDpYYQ 10:16",
+      "naver": "nowPrice",
+      "pass": ">= 1,000 KRW",
+      "type": "direct_rule_proxy"
+    }
+  ],
+  "catalyst_grades": [
+    {
+      "grade": "S",
+      "definition": "관련주가 다수 동반 상승하고 2등·3등 주도주까지 생김",
+      "action": "종가·단타·단기/중기 스윙 후보"
+    },
+    {
+      "grade": "A",
+      "definition": "한두 종목 중심 상승 또는 강한 개별 직접 재료",
+      "action": "짧은 종가·단기 스윙 후보"
+    },
+    {
+      "grade": "B",
+      "definition": "상승 뒤 바로 소멸하거나 관련주 확산이 약함",
+      "action": "원칙적으로 제외"
+    }
+  ],
+  "limit_up_patterns": [
+    {
+      "id": "LOCKED",
+      "name": "상한가 잠김",
+      "definition": "상한가를 닫은 뒤 풀리지 않음",
+      "next_day": "시초가 후보"
+    },
+    {
+      "id": "RELOCKED",
+      "name": "빠른 재잠김",
+      "definition": "한 번 풀린 뒤 빠르게 다시 잠기고 종가까지 유지",
+      "next_day": "시초가 후보"
+    },
+    {
+      "id": "REPEATED",
+      "name": "반복 풀림",
+      "definition": "상한가가 여러 번 풀렸다 잠김",
+      "next_day": "시초가 추격 금지, 일봉 종가/스윙만 검토"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "C1",
+      "name": "이평 수렴 돌파",
+      "must": [
+        "거래대금 500억 이상",
+        "작은 윗꼬리 장대양봉",
+        "이평선 수렴·추세 저항 돌파",
+        "재료 연속성"
+      ],
+      "initial": "보통",
+      "adds": [
+        "돌파선",
+        "5·10·20일선 수렴부"
+      ],
+      "source": "3DyDaIdJuWU, e4fHw1uADI4"
+    },
+    {
+      "id": "C2",
+      "name": "매집 완료·신고가",
+      "must": [
+        "상한가/기준봉 이후 단기 추세 유지",
+        "5·11일선 이탈 없음",
+        "짧은 박스 소화",
+        "전고점 돌파 장대양봉"
+      ],
+      "initial": "보통",
+      "adds": [
+        "5·11일선",
+        "박스 상단"
+      ],
+      "source": "hWhuTQjGHhM"
+    },
+    {
+      "id": "C3",
+      "name": "매집 미완료·바닥",
+      "must": [
+        "바닥 상한가 또는 강한 첫 파동",
+        "상승 1파 매물대 잔존",
+        "60·120일선까지 조정 가능",
+        "반등 매도 전제"
+      ],
+      "initial": "매우 작게",
+      "adds": [
+        "20·60·120일선",
+        "초기 가격대"
+      ],
+      "source": "hWhuTQjGHhM, eG4Wf_mPR84"
+    },
+    {
+      "id": "C4",
+      "name": "신규상장 매집",
+      "must": [
+        "상장일 대량 거래",
+        "상장 뒤 도지/박스 매집",
+        "상한가 또는 단기 추세",
+        "상장일 고가 돌파"
+      ],
+      "initial": "작게",
+      "adds": [
+        "5·11일선",
+        "상장일 고가/박스 상단"
+      ],
+      "source": "DWzMWH8enJA"
+    },
+    {
+      "id": "C5",
+      "name": "초대량 매물대 박스",
+      "must": [
+        "과거 첫 파동 거래대금이 매우 큼",
+        "현재 거래대금만으로 매물 완전 소화 어려움",
+        "박스 횡보 소화 예상",
+        "종가부터 여러 번 분할"
+      ],
+      "initial": "매우 작게",
+      "adds": [
+        "박스 하단",
+        "20·60일선"
+      ],
+      "source": "DWzMWH8enJA, M9rBXtlIQe0"
+    },
+    {
+      "id": "C6",
+      "name": "양음양 저항 돌파",
+      "must": [
+        "앞선 매집 구간 확인",
+        "양봉-조정-재양봉",
+        "추세 저항 돌파",
+        "거래대금 동반"
+      ],
+      "initial": "보통",
+      "adds": [
+        "돌파 저항선",
+        "단기·장기 이평 지지"
+      ],
+      "source": "eG4Wf_mPR84"
+    }
+  ],
+  "reject_conditions": [
+    "거래대금이 의미 있게 들어오지 않음",
+    "윗꼬리가 너무 길어 종가가 고가권에서 이탈",
+    "재료가 B급이거나 연속성이 없음",
+    "상한가가 반복해서 풀려 시초가 추격형으로 부적합",
+    "장기 이평/과거 매물대를 해결하지 못했는데 돌파로 오판",
+    "과거 초대량 첫 파동 뒤 소화 박스가 없음",
+    "섹터 대장 교체 또는 관련주 확산 약화",
+    "분할 지지선과 무효화선을 정의할 수 없음"
+  ],
+  "naver_mapping": {
+    "candidate_rankings": [
+      "priceTop",
+      "up",
+      "upperQuantTop",
+      "high52week"
+    ],
+    "risk_fields": [
+      "manageStatusGb",
+      "tradeStopYn",
+      "marketAlertType",
+      "tradableStatus"
+    ],
+    "price_fields": [
+      "nowPrice",
+      "openPrice",
+      "highPrice",
+      "lowPrice",
+      "tradeVolume",
+      "tradeAmount",
+      "marketSum",
+      "listedDate"
+    ],
+    "daily": "/api/domestic/detail/{code}/siseDay",
+    "minute": "/api/domestic/detail/{code}/siseTick",
+    "orderbook": "/api/domestic/detail/{code}/hoga",
+    "news": "/api/domestic/detail/news",
+    "notice": "/api/domestic/detail/notice",
+    "themes": "/api/stockSecurity/rankings/v2/domestic/themes and /api/domestic/market/theme/{no}/stocklist"
+  }
+}
