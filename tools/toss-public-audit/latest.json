@@ -1,0 +1,753 @@
+{
+  "generated_at": "2026-08-27T15:29:51.264377+09:00",
+  "quote_root_keys": [
+    "bidPrices",
+    "bidVolume",
+    "bidVolumes",
+    "close",
+    "estimatedPrice",
+    "estimatedVolume",
+    "midBidVolumes",
+    "midOfferVolumes",
+    "midPrices",
+    "offerPrices",
+    "offerVolume",
+    "offerVolumes",
+    "singlePrice"
+  ],
+  "tick_count": 30,
+  "tick_samples": [
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 265000,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540512
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264500,
+      "base": 261500,
+      "volume": 3,
+      "tradeType": "SELL",
+      "cumulativeVolume": 15540511
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 5,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540508
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 100,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540503
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540403
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540402
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540401
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540400
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540399
+    },
+    {
+      "time": "15:19:59",
+      "code": "A005930",
+      "price": 264750,
+      "base": 261500,
+      "volume": 1,
+      "tradeType": "BUY",
+      "cumulativeVolume": 15540398
+    }
+  ],
+  "interesting_fields": [
+    {
+      "path": "root.quote.offerPrices",
+      "value": "<list:3>"
+    },
+    {
+      "path": "root.quote.offerPrices[0]",
+      "value": 267000
+    },
+    {
+      "path": "root.quote.offerPrices[1]",
+      "value": 266500
+    },
+    {
+      "path": "root.quote.offerPrices[2]",
+      "value": 266000
+    },
+    {
+      "path": "root.quote.offerVolumes",
+      "value": "<list:3>"
+    },
+    {
+      "path": "root.quote.offerVolumes[0]",
+      "value": 66707
+    },
+    {
+      "path": "root.quote.offerVolumes[1]",
+      "value": 35479
+    },
+    {
+      "path": "root.quote.offerVolumes[2]",
+      "value": 79507
+    },
+    {
+      "path": "root.quote.bidPrices",
+      "value": "<list:3>"
+    },
+    {
+      "path": "root.quote.bidPrices[0]",
+      "value": 265500
+    },
+    {
+      "path": "root.quote.bidPrices[1]",
+      "value": 265000
+    },
+    {
+      "path": "root.quote.bidPrices[2]",
+      "value": 264500
+    },
+    {
+      "path": "root.quote.bidVolumes",
+      "value": "<list:3>"
+    },
+    {
+      "path": "root.quote.bidVolumes[0]",
+      "value": 16623
+    },
+    {
+      "path": "root.quote.bidVolumes[1]",
+      "value": 23209
+    },
+    {
+      "path": "root.quote.bidVolumes[2]",
+      "value": 20700
+    },
+    {
+      "path": "root.quote.midPrices",
+      "value": "<list:2>"
+    },
+    {
+      "path": "root.quote.midPrices[0]",
+      "value": 0
+    },
+    {
+      "path": "root.quote.midPrices[1]",
+      "value": 0
+    },
+    {
+      "path": "root.quote.midOfferVolumes",
+      "value": "<list:2>"
+    },
+    {
+      "path": "root.quote.midOfferVolumes[0]",
+      "value": 0
+    },
+    {
+      "path": "root.quote.midOfferVolumes[1]",
+      "value": 0
+    },
+    {
+      "path": "root.quote.midBidVolumes",
+      "value": "<list:2>"
+    },
+    {
+      "path": "root.quote.midBidVolumes[0]",
+      "value": 0
+    },
+    {
+      "path": "root.quote.midBidVolumes[1]",
+      "value": 0
+    },
+    {
+      "path": "root.quote.singlePrice",
+      "value": true
+    },
+    {
+      "path": "root.quote.estimatedPrice",
+      "value": 266000
+    },
+    {
+      "path": "root.quote.estimatedVolume",
+      "value": 998986
+    },
+    {
+      "path": "root.quote.offerVolume",
+      "value": 181693
+    },
+    {
+      "path": "root.quote.bidVolume",
+      "value": 60532
+    },
+    {
+      "path": "root.ticks[0].price",
+      "value": 265000
+    },
+    {
+      "path": "root.ticks[0].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[0].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[0].cumulativeVolume",
+      "value": 15540512
+    },
+    {
+      "path": "root.ticks[1].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[1].volume",
+      "value": 3
+    },
+    {
+      "path": "root.ticks[1].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[1].cumulativeVolume",
+      "value": 15540511
+    },
+    {
+      "path": "root.ticks[2].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[2].volume",
+      "value": 5
+    },
+    {
+      "path": "root.ticks[2].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[2].cumulativeVolume",
+      "value": 15540508
+    },
+    {
+      "path": "root.ticks[3].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[3].volume",
+      "value": 100
+    },
+    {
+      "path": "root.ticks[3].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[3].cumulativeVolume",
+      "value": 15540503
+    },
+    {
+      "path": "root.ticks[4].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[4].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[4].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[4].cumulativeVolume",
+      "value": 15540403
+    },
+    {
+      "path": "root.ticks[5].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[5].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[5].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[5].cumulativeVolume",
+      "value": 15540402
+    },
+    {
+      "path": "root.ticks[6].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[6].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[6].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[6].cumulativeVolume",
+      "value": 15540401
+    },
+    {
+      "path": "root.ticks[7].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[7].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[7].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[7].cumulativeVolume",
+      "value": 15540400
+    },
+    {
+      "path": "root.ticks[8].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[8].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[8].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[8].cumulativeVolume",
+      "value": 15540399
+    },
+    {
+      "path": "root.ticks[9].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[9].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[9].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[9].cumulativeVolume",
+      "value": 15540398
+    },
+    {
+      "path": "root.ticks[10].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[10].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[10].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[10].cumulativeVolume",
+      "value": 15540397
+    },
+    {
+      "path": "root.ticks[11].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[11].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[11].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[11].cumulativeVolume",
+      "value": 15540396
+    },
+    {
+      "path": "root.ticks[12].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[12].volume",
+      "value": 4
+    },
+    {
+      "path": "root.ticks[12].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[12].cumulativeVolume",
+      "value": 15540395
+    },
+    {
+      "path": "root.ticks[13].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[13].volume",
+      "value": 1000
+    },
+    {
+      "path": "root.ticks[13].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[13].cumulativeVolume",
+      "value": 15540391
+    },
+    {
+      "path": "root.ticks[14].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[14].volume",
+      "value": 3
+    },
+    {
+      "path": "root.ticks[14].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[14].cumulativeVolume",
+      "value": 15539391
+    },
+    {
+      "path": "root.ticks[15].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[15].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[15].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[15].cumulativeVolume",
+      "value": 15539388
+    },
+    {
+      "path": "root.ticks[16].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[16].volume",
+      "value": 2
+    },
+    {
+      "path": "root.ticks[16].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[16].cumulativeVolume",
+      "value": 15539387
+    },
+    {
+      "path": "root.ticks[17].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[17].volume",
+      "value": 37
+    },
+    {
+      "path": "root.ticks[17].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[17].cumulativeVolume",
+      "value": 15539385
+    },
+    {
+      "path": "root.ticks[18].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[18].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[18].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[18].cumulativeVolume",
+      "value": 15539348
+    },
+    {
+      "path": "root.ticks[19].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[19].volume",
+      "value": 5
+    },
+    {
+      "path": "root.ticks[19].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[19].cumulativeVolume",
+      "value": 15539347
+    },
+    {
+      "path": "root.ticks[20].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[20].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[20].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[20].cumulativeVolume",
+      "value": 15539342
+    },
+    {
+      "path": "root.ticks[21].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[21].volume",
+      "value": 56
+    },
+    {
+      "path": "root.ticks[21].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[21].cumulativeVolume",
+      "value": 15539341
+    },
+    {
+      "path": "root.ticks[22].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[22].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[22].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[22].cumulativeVolume",
+      "value": 15539285
+    },
+    {
+      "path": "root.ticks[23].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[23].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[23].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[23].cumulativeVolume",
+      "value": 15539284
+    },
+    {
+      "path": "root.ticks[24].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[24].volume",
+      "value": 1
+    },
+    {
+      "path": "root.ticks[24].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[24].cumulativeVolume",
+      "value": 15539283
+    },
+    {
+      "path": "root.ticks[25].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[25].volume",
+      "value": 37
+    },
+    {
+      "path": "root.ticks[25].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[25].cumulativeVolume",
+      "value": 15539282
+    },
+    {
+      "path": "root.ticks[26].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[26].volume",
+      "value": 5
+    },
+    {
+      "path": "root.ticks[26].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[26].cumulativeVolume",
+      "value": 15539245
+    },
+    {
+      "path": "root.ticks[27].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[27].volume",
+      "value": 20
+    },
+    {
+      "path": "root.ticks[27].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[27].cumulativeVolume",
+      "value": 15539240
+    },
+    {
+      "path": "root.ticks[28].price",
+      "value": 264500
+    },
+    {
+      "path": "root.ticks[28].volume",
+      "value": 5
+    },
+    {
+      "path": "root.ticks[28].tradeType",
+      "value": "SELL"
+    },
+    {
+      "path": "root.ticks[28].cumulativeVolume",
+      "value": 15539220
+    },
+    {
+      "path": "root.ticks[29].price",
+      "value": 264750
+    },
+    {
+      "path": "root.ticks[29].volume",
+      "value": 10
+    },
+    {
+      "path": "root.ticks[29].tradeType",
+      "value": "BUY"
+    },
+    {
+      "path": "root.ticks[29].cumulativeVolume",
+      "value": 15539215
+    }
+  ],
+  "quote": {
+    "close": 265000,
+    "offerPrices": [
+      267000,
+      266500,
+      266000
+    ],
+    "offerVolumes": [
+      66707,
+      35479,
+      79507
+    ],
+    "bidPrices": [
+      265500,
+      265000,
+      264500
+    ],
+    "bidVolumes": [
+      16623,
+      23209,
+      20700
+    ],
+    "midPrices": [
+      0,
+      0
+    ],
+    "midOfferVolumes": [
+      0,
+      0
+    ],
+    "midBidVolumes": [
+      0,
+      0
+    ],
+    "singlePrice": true,
+    "estimatedPrice": 266000,
+    "estimatedVolume": 998986,
+    "offerVolume": 181693,
+    "bidVolume": 60532
+  }
+}
