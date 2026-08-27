@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-08-28T01:30:37.551505+09:00",
+  "generated_at": "2026-08-28T01:47:09.291033+09:00",
   "market_date": "2026-08-28",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1067,7 +1067,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1085,7 +1085,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-28T01:32:38.968699+09:00",
+              "captured_at": "2026-08-28T01:50:03.177828+09:00",
               "source_at": "2026-08-27T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 569000,
@@ -1097,7 +1097,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-28T01:33:50.071059+09:00",
+              "captured_at": "2026-08-28T01:51:14.736681+09:00",
               "source_at": "2026-08-27T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 569000,
@@ -1109,7 +1109,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-28T01:35:01.164056+09:00",
+              "captured_at": "2026-08-28T01:52:26.649269+09:00",
               "source_at": "2026-08-27T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 569000,
@@ -1730,7 +1730,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1748,7 +1748,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-28T01:32:38.967742+09:00",
+              "captured_at": "2026-08-28T01:50:03.182768+09:00",
               "source_at": "2026-08-27T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 219500,
@@ -1760,7 +1760,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-28T01:33:50.062714+09:00",
+              "captured_at": "2026-08-28T01:51:14.730455+09:00",
               "source_at": "2026-08-27T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 219500,
@@ -1772,7 +1772,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-28T01:35:01.168147+09:00",
+              "captured_at": "2026-08-28T01:52:26.640523+09:00",
               "source_at": "2026-08-27T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 219500,
@@ -2397,7 +2397,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3014,7 +3014,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3618,7 +3618,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3722,7 +3722,9 @@
       "catalyst": {
         "grade": "A",
         "reason": "반도체 대표주(생산) 관련주 3/3 상승",
-        "positive_titles": [],
+        "positive_titles": [
+          "인디애나 이어 美 2호 공장도?…SK “미국 내 투자 계속 확대할 것”"
+        ],
         "titles": [
           "조회공시답변",
           "에스케이하이닉스(주) 조회공시 요구(풍문 또는 보도)에 대한 답변(미확정)",
@@ -4238,7 +4240,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4333,6 +4335,7 @@
         "grade": "A",
         "reason": "반도체 대표주(생산) 관련주 3/3 상승",
         "positive_titles": [
+          "인디애나 이어 美 2호 공장도?…SK “미국 내 투자 계속 확대할 것”",
           "AI 투자 식지 않았다… 엔비디아 매출 106% 뛰어",
           "엔비디아 또 실적 신기록… “내년 매출도 70% 성장할 것”"
         ],
@@ -4851,7 +4854,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5479,7 +5482,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6091,7 +6094,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6695,7 +6698,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7302,7 +7305,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7927,7 +7930,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8529,7 +8532,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9129,7 +9132,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9713,7 +9716,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10305,7 +10308,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10915,7 +10918,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11504,7 +11507,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12092,7 +12095,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12708,7 +12711,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13326,7 +13329,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13940,7 +13943,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14559,7 +14562,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -15161,7 +15164,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-28T01:30:37.551505+09:00",
+      "updated_at": "2026-08-28T01:47:09.291033+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -15243,14 +15246,14 @@
     }
   ],
   "history_summary": {
-    "snapshots": 3,
+    "snapshots": 4,
     "first": "2026-08-27T01:00:08.688766+09:00",
-    "last": "2026-08-28T01:30:37.551505+09:00"
+    "last": "2026-08-28T01:47:09.291033+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "automation_356": {
     "version": "automation-356-v2",
-    "generated_at": "2026-08-28T01:35:01.169838+09:00",
+    "generated_at": "2026-08-28T01:52:26.650470+09:00",
     "automated_steps": [
       3,
       5,
