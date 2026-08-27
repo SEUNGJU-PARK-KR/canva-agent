@@ -7,12 +7,14 @@ on:
       - largo-close-screener-site-20260826
     paths:
       - "bundles/largo_close_site_v2/**"
+      - "scripts/augment_largo_close_site.py"
       - ".github/workflows/largo-close-site.yml"
   pull_request:
     branches:
       - main
     paths:
       - "bundles/largo_close_site_v2/**"
+      - "scripts/augment_largo_close_site.py"
       - ".github/workflows/largo-close-site.yml"
   schedule:
     # KST 14:40, 15:00, 15:10, 15:18, 15:28, 15:35 on weekdays.
@@ -32,7 +34,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -60,6 +62,7 @@ jobs:
           print({'archive':str(archive),'size':len(raw),'sha256':digest})
           PY
           python3 -m py_compile build-source/tools/scrape_naver_close.py
+          python3 -m py_compile scripts/augment_largo_close_site.py
 
       - name: Recover prior public history when available
         shell: bash
@@ -87,7 +90,19 @@ jobs:
             --delay 0.25 \
             --timeout 25
 
-      - name: Validate strict Largo screening output
+      - name: Automate steps 3 5 and 6
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/augment_largo_close_site.py \
+            --data build-source/site/data/latest.json \
+            --site build-source/site/index.html \
+            --audit build-source/site/data/automation-356.json \
+            --max-candidates 8 \
+            --rounds 3 \
+            --interval 7
+
+      - name: Validate strict Largo screening and automation output
         shell: bash
         run: |
           python3 - <<'PY'
@@ -95,24 +110,37 @@ jobs:
           import json
           root=Path('build-source/site')
           data=json.loads((root/'data/latest.json').read_text(encoding='utf-8'))
+          audit=json.loads((root/'data/automation-356.json').read_text(encoding='utf-8'))
           assert data.get('schema_version')==2
           assert data.get('strategy_version')
           assert isinstance(data.get('candidates'), list)
           allowed={'EXCLUDE','WATCH','CLOSE_READY','NEXT_DAY_HOGA_CONFIRM'}
           assert all(x.get('final_status') in allowed for x in data['candidates'])
+          auto=data.get('automation_356') or {}
+          assert auto.get('automated_steps') == [3,5,6]
+          assert audit.get('status') == 'PASS'
           for candidate in data['candidates']:
               assert candidate.get('checks')
               assert candidate.get('plan')
               assert candidate.get('pattern')
               assert candidate.get('catalyst')
-          assert (root/'index.html').stat().st_size > 15000
+              automation=candidate.get('automation_356')
+              assert automation
+              assert automation.get('best_bid')
+              assert automation.get('risk_plan')
+              assert automation.get('next_day_plan')
+          site=(root/'index.html').read_text(encoding='utf-8')
+          assert 'LARGO_AUTOMATION_356_START' in site
+          assert '자동화된 최종 확인 3·5·6' in site
+          assert len(site.encode('utf-8')) > 15000
           assert (root/'analysis.html').stat().st_size > 3000
           assert (root/'data/methodology.json').stat().st_size > 5000
           print({
             'candidates':len(data['candidates']),
             'counts':data.get('counts'),
+            'automation_counts':auto.get('counts'),
+            'best_bid_targets':audit.get('best_bid_target_count'),
             'source_errors':len(data.get('source',{}).get('errors',[])),
-            'analysis':data.get('analysis')
           })
           PY
 
@@ -124,7 +152,7 @@ jobs:
       - name: Upload test artifact
         uses: actions/upload-artifact@v4
         with:
-          name: largo-close-screener-site-v2
+          name: largo-close-screener-site-automation-356
           path: public
           retention-days: 14
 
@@ -154,5 +182,3 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-# Initial deployment trigger after OpenBot evidence review and bundle checksum verification.
