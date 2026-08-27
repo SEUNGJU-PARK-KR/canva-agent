@@ -1,0 +1,69 @@
+name: Normalize web market audit results
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/normalize-web-market-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build compact normalized report
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path('tools/web-confirmation-fast/latest-report.json')
+          data=json.loads(src.read_text(encoding='utf-8'))
+          out={'generated_at':data.get('generated_at'),'codes':{},'conclusions':{}}
+          for code, groups in data.get('comparison',{}).items():
+              out['codes'][code]={}
+              for name,item in groups.items():
+                  sample=item.get('sample')
+                  compact={'ok':item.get('ok'),'status':item.get('status'),'changed':item.get('changed'),'root_keys':item.get('root_keys'),'bytes':item.get('bytes')}
+                  if name=='hoga' and isinstance(sample,dict):
+                      compact['sample']={k:sample.get(k) for k in ['nowPrice','bestSellHoga','bestBuyHoga','totalSellVolume','totalBuyVolume','hoga1','hoga2','hoga3','hoga10','openPrice','highPrice','lowPrice'] if k in sample}
+                  elif name=='ticks' and isinstance(sample,list):
+                      compact['sample_rows']=[{k:r.get(k) for k in ['tradeTime','nowPrice','tradeVolume','tradeAmount','buyPrice','sellPrice','executedVolume'] if k in r} for r in sample[:5]]
+                  elif name=='poll' and isinstance(sample,dict):
+                      compact['sample']={'pollingInterval':sample.get('pollingInterval'),'datas':[ {k:d.get(k) for k in ['itemCode','localTradedAt','marketStatus','closePrice','openPrice','highPrice','lowPrice','accumulatedTradingVolume','accumulatedTradingValue','delayTime','delayTimeName'] if k in d} for d in (sample.get('datas') or [])[:3] ]}
+                  elif name=='mobile' and isinstance(sample,dict):
+                      compact['sample']={k:sample.get(k) for k in ['stockName','closePrice','openPrice','highPrice','lowPrice','accumulatedTradingVolume','accumulatedTradingValue','localTradedAt','delayTime','delayTimeName','marketStatus'] if k in sample}
+                  elif name=='price' and isinstance(sample,dict):
+                      compact['sample']={k:sample.get(k) for k in ['marketStatus','nowPrice','openPrice','highPrice','lowPrice','askBuy','askSell','totalBuyVolume','totalSellVolume','tradeVolume','tradeAmount'] if k in sample}
+                  elif name=='legacy' and isinstance(sample,dict):
+                      compact['sample_root_keys']=sorted(sample.keys())
+                  else:
+                      compact['sample_type']=type(sample).__name__ if sample is not None else None
+                      compact['text_head']=item.get('text_head')
+                  out['codes'][code][name]=compact
+          out['conclusions']={
+              'naver_hoga_10_levels':all('hoga1' in (g.get('hoga',{}).get('sample') or {}) for g in out['codes'].values()),
+              'naver_ticks_are_minute_buckets':all(bool(g.get('ticks',{}).get('sample_rows')) and all(str(r.get('tradeTime','')).endswith('00') for r in g['ticks']['sample_rows']) for g in out['codes'].values()),
+              'polling_interval_ms':[g.get('poll',{}).get('sample',{}).get('pollingInterval') for g in out['codes'].values()],
+              'aggressor_side_field_found':False,
+              'auction_expected_price_field_found_preauction':False,
+          }
+          dst=Path('tools/web-confirmation-fast/normalized-summary.json')
+          dst.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(dst.read_text(encoding='utf-8'))
+          PY
+      - name: Commit compact report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/web-confirmation-fast/normalized-summary.json
+          git commit -m 'Add compact web market audit summary'
+          git push origin HEAD:main
