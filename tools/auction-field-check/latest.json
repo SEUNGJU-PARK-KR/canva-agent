@@ -1,0 +1,303 @@
+{
+  "generated_at": "2026-08-27T15:23:30.946611+09:00",
+  "snapshots": [
+    {
+      "captured_at": "2026-08-27T15:23:09.118459+09:00",
+      "endpoints": {
+        "price": {
+          "marketStatus": "OPEN",
+          "nowPrice": "265000",
+          "askBuy": "264000",
+          "askSell": "264500",
+          "tradeVolume": "15540512",
+          "tradeAmount": "4145127000000"
+        },
+        "hoga": {
+          "nowPrice": "265000",
+          "bestSellHoga": "264500",
+          "bestBuyHoga": "264000",
+          "totalSellVolume": "502605",
+          "totalBuyVolume": "511015",
+          "hoga1": "00264500:00264000:00017195:00077354",
+          "hoga2": "00265000:00263500:00047662:00055324",
+          "hoga10": "00269000:00259500:00112483:00014844"
+        },
+        "poll": {
+          "pollingInterval": 7000,
+          "time": "20260827152307",
+          "data": {
+            "marketStatus": "OPEN",
+            "closePrice": "265,000",
+            "localTradedAt": "2026-08-27T15:23:07.878219+09:00",
+            "accumulatedTradingVolumeRaw": "15540512",
+            "accumulatedTradingValueRaw": "4145127000000",
+            "overMarketPriceInfo": {
+              "tradingSessionType": "REGULAR_MARKET",
+              "overMarketStatus": "OPEN",
+              "overPrice": "265,000",
+              "openPrice": "269,000",
+              "highPrice": "272,000",
+              "lowPrice": "262,500",
+              "compareToPreviousPrice": {
+                "code": "2",
+                "text": "상승",
+                "name": "RISING"
+              },
+              "compareToPreviousClosePrice": "3,500",
+              "fluctuationsRatio": "1.34",
+              "localTradedAt": "2026-08-27T15:20:00.000000+09:00",
+              "tradeStopType": {
+                "code": "1",
+                "text": "운영.Trading",
+                "name": "TRADING"
+              },
+              "tradableStatus": "tradable",
+              "tradableStatusCode": "ok",
+              "tradableStatusUpdatedAt": "2026-08-27T07:10:12.811+09:00",
+              "accumulatedTradingVolume": "10,732,835",
+              "accumulatedTradingValue": "2조 8,727억",
+              "accumulatedTradingVolumeRaw": "10732835",
+              "accumulatedTradingValueRaw": "2872700000000"
+            },
+            "integratedPriceInfo": {
+              "openPrice": "269,000",
+              "highPrice": "272,000",
+              "lowPrice": "262,500",
+              "accumulatedTradingVolume": "26,273,347",
+              "accumulatedTradingValue": "7조 178억",
+              "accumulatedTradingVolumeRaw": "26273347",
+              "accumulatedTradingValueRaw": "7017827000000"
+            }
+          }
+        },
+        "mobile": {
+          "marketStatus": "OPEN",
+          "closePrice": "265,000",
+          "localTradedAt": "2026-08-27T15:22:20+09:00",
+          "delayTime": 0,
+          "delayTimeName": "실시간",
+          "overMarketPriceInfo": {
+            "tradingSessionType": "REGULAR_MARKET",
+            "overMarketStatus": "OPEN",
+            "overPrice": "265,000",
+            "compareToPreviousPrice": {
+              "code": "2",
+              "text": "상승",
+              "name": "RISING"
+            },
+            "compareToPreviousClosePrice": "3,500",
+            "fluctuationsRatio": "1.34",
+            "localTradedAt": "2026-08-27T15:20:00+09:00",
+            "tradeStopType": {
+              "code": "1",
+              "text": "운영.Trading",
+              "name": "TRADING"
+            },
+            "tradableStatus": "tradable",
+            "tradableStatusCode": "ok",
+            "tradableStatusUpdatedAt": "2026-08-27T07:10:12.811+09:00"
+          }
+        }
+      }
+    },
+    {
+      "captured_at": "2026-08-27T15:23:19.958584+09:00",
+      "endpoints": {
+        "price": {
+          "marketStatus": "OPEN",
+          "nowPrice": "265000",
+          "askBuy": "264000",
+          "askSell": "264500",
+          "tradeVolume": "15540512",
+          "tradeAmount": "4145127000000"
+        },
+        "hoga": {
+          "nowPrice": "265000",
+          "bestSellHoga": "264500",
+          "bestBuyHoga": "264000",
+          "totalSellVolume": "513422",
+          "totalBuyVolume": "514378",
+          "hoga1": "00264500:00264000:00029572:00075430",
+          "hoga2": "00265000:00263500:00045716:00058220",
+          "hoga10": "00269000:00259500:00111524:00015026"
+        },
+        "poll": {
+          "pollingInterval": 7000,
+          "time": "20260827152319",
+          "data": {
+            "marketStatus": "OPEN",
+            "closePrice": "265,000",
+            "localTradedAt": "2026-08-27T15:23:19.086699+09:00",
+            "accumulatedTradingVolumeRaw": "15540512",
+            "accumulatedTradingValueRaw": "4145127000000",
+            "overMarketPriceInfo": {
+              "tradingSessionType": "REGULAR_MARKET",
+              "overMarketStatus": "OPEN",
+              "overPrice": "265,000",
+              "openPrice": "269,000",
+              "highPrice": "272,000",
+              "lowPrice": "262,500",
+              "compareToPreviousPrice": {
+                "code": "2",
+                "text": "상승",
+                "name": "RISING"
+              },
+              "compareToPreviousClosePrice": "3,500",
+              "fluctuationsRatio": "1.34",
+              "localTradedAt": "2026-08-27T15:20:00.000000+09:00",
+              "tradeStopType": {
+                "code": "1",
+                "text": "운영.Trading",
+                "name": "TRADING"
+              },
+              "tradableStatus": "tradable",
+              "tradableStatusCode": "ok",
+              "tradableStatusUpdatedAt": "2026-08-27T07:10:12.811+09:00",
+              "accumulatedTradingVolume": "10,732,835",
+              "accumulatedTradingValue": "2조 8,727억",
+              "accumulatedTradingValueRaw": "2872700000000",
+              "accumulatedTradingVolumeRaw": "10732835"
+            },
+            "integratedPriceInfo": {
+              "openPrice": "269,000",
+              "highPrice": "272,000",
+              "lowPrice": "262,500",
+              "accumulatedTradingVolume": "26,273,347",
+              "accumulatedTradingValue": "7조 178억",
+              "accumulatedTradingValueRaw": "7017827000000",
+              "accumulatedTradingVolumeRaw": "26273347"
+            }
+          }
+        },
+        "mobile": {
+          "marketStatus": "OPEN",
+          "closePrice": "265,000",
+          "localTradedAt": "2026-08-27T15:19:59+09:00",
+          "delayTime": 0,
+          "delayTimeName": "실시간",
+          "overMarketPriceInfo": {
+            "tradingSessionType": "REGULAR_MARKET",
+            "overMarketStatus": "OPEN",
+            "overPrice": "265,000",
+            "compareToPreviousPrice": {
+              "code": "2",
+              "text": "상승",
+              "name": "RISING"
+            },
+            "compareToPreviousClosePrice": "3,500",
+            "fluctuationsRatio": "1.34",
+            "localTradedAt": "2026-08-27T15:20:00+09:00",
+            "tradeStopType": {
+              "code": "1",
+              "text": "운영.Trading",
+              "name": "TRADING"
+            },
+            "tradableStatus": "tradable",
+            "tradableStatusCode": "ok",
+            "tradableStatusUpdatedAt": "2026-08-27T07:10:12.811+09:00"
+          }
+        }
+      }
+    },
+    {
+      "captured_at": "2026-08-27T15:23:30.944901+09:00",
+      "endpoints": {
+        "price": {
+          "marketStatus": "OPEN",
+          "nowPrice": "265000",
+          "askBuy": "264000",
+          "askSell": "264500",
+          "tradeVolume": "15540512",
+          "tradeAmount": "4145127000000"
+        },
+        "hoga": {
+          "nowPrice": "265000",
+          "bestSellHoga": "264500",
+          "bestBuyHoga": "264000",
+          "totalSellVolume": "513906",
+          "totalBuyVolume": "514332",
+          "hoga1": "00264500:00264000:00030791:00075489",
+          "hoga2": "00265000:00263500:00045686:00058227",
+          "hoga10": "00269000:00259500:00110931:00015025"
+        },
+        "poll": {
+          "pollingInterval": 7000,
+          "time": "20260827152330",
+          "data": {
+            "marketStatus": "OPEN",
+            "closePrice": "265,000",
+            "localTradedAt": "2026-08-27T15:23:30.09942+09:00",
+            "accumulatedTradingVolumeRaw": "15540512",
+            "accumulatedTradingValueRaw": "4145127000000",
+            "overMarketPriceInfo": {
+              "tradingSessionType": "REGULAR_MARKET",
+              "overMarketStatus": "OPEN",
+              "overPrice": "265,000",
+              "openPrice": "269,000",
+              "highPrice": "272,000",
+              "lowPrice": "262,500",
+              "compareToPreviousPrice": {
+                "code": "2",
+                "text": "상승",
+                "name": "RISING"
+              },
+              "compareToPreviousClosePrice": "3,500",
+              "fluctuationsRatio": "1.34",
+              "localTradedAt": "2026-08-27T15:20:00.000000+09:00",
+              "tradeStopType": {
+                "code": "1",
+                "text": "운영.Trading",
+                "name": "TRADING"
+              },
+              "tradableStatus": "tradable",
+              "tradableStatusCode": "ok",
+              "tradableStatusUpdatedAt": "2026-08-27T07:10:12.811+09:00",
+              "accumulatedTradingVolume": "10,732,835",
+              "accumulatedTradingValue": "2조 8,727억",
+              "accumulatedTradingVolumeRaw": "10732835",
+              "accumulatedTradingValueRaw": "2872700000000"
+            },
+            "integratedPriceInfo": {
+              "openPrice": "269,000",
+              "highPrice": "272,000",
+              "lowPrice": "262,500",
+              "accumulatedTradingVolume": "26,273,347",
+              "accumulatedTradingValue": "7조 178억",
+              "accumulatedTradingVolumeRaw": "26273347",
+              "accumulatedTradingValueRaw": "7017827000000"
+            }
+          }
+        },
+        "mobile": {
+          "marketStatus": "OPEN",
+          "closePrice": "265,000",
+          "localTradedAt": "2026-08-27T15:19:59+09:00",
+          "delayTime": 0,
+          "delayTimeName": "실시간",
+          "overMarketPriceInfo": {
+            "tradingSessionType": "REGULAR_MARKET",
+            "overMarketStatus": "OPEN",
+            "overPrice": "265,000",
+            "compareToPreviousPrice": {
+              "code": "2",
+              "text": "상승",
+              "name": "RISING"
+            },
+            "compareToPreviousClosePrice": "3,500",
+            "fluctuationsRatio": "1.34",
+            "localTradedAt": "2026-08-27T15:20:00+09:00",
+            "tradeStopType": {
+              "code": "1",
+              "text": "운영.Trading",
+              "name": "TRADING"
+            },
+            "tradableStatus": "tradable",
+            "tradableStatusCode": "ok",
+            "tradableStatusUpdatedAt": "2026-08-27T07:10:12.811+09:00"
+          }
+        }
+      }
+    }
+  ],
+  "matching_fields": []
+}
