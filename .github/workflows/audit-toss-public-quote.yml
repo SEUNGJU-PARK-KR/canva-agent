@@ -1,0 +1,65 @@
+name: Audit Toss public quote and ticks for closing confirmation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/audit-toss-public-quote.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch public Toss quote and ticks
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/toss-skill
+          git clone --depth 1 https://github.com/dd3ok/tossinvest-api-skill.git /tmp/toss-skill
+          mkdir -p tools/toss-public-audit
+          cd /tmp/toss-skill
+          python3 scripts/quote.py --code A005930 --invest-mode krx --ticks 30 --output "$GITHUB_WORKSPACE/tools/toss-public-audit/raw.json"
+          cd "$GITHUB_WORKSPACE"
+          python3 - <<'PY'
+          import datetime as dt,json,re
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+          src=json.loads(Path('tools/toss-public-audit/raw.json').read_text(encoding='utf-8'))
+          quote=src.get('quote') or {}
+          ticks=src.get('ticks') or []
+          def walk(v,p='root'):
+            if isinstance(v,dict):
+              for k,x in v.items():
+                q=f'{p}.{k}';yield q,x;yield from walk(x,q)
+            elif isinstance(v,list):
+              for i,x in enumerate(v[:100]):q=f'{p}[{i}]';yield q,x;yield from walk(x,q)
+          pattern=re.compile(r'(single|estimated|expect|indicative|auction|offer|bid|tradeType|volume|price|dt|session|strength)',re.I)
+          fields=[]
+          for p,v in walk({'quote':quote,'ticks':ticks}):
+            if pattern.search(p.rsplit('.',1)[-1]):fields.append({'path':p,'value':v if not isinstance(v,(dict,list)) else f'<{type(v).__name__}:{len(v)}>'})
+            if len(fields)>=1000:break
+          out={
+            'generated_at':dt.datetime.now(ZoneInfo('Asia/Seoul')).isoformat(),
+            'quote_root_keys':sorted(quote.keys()) if isinstance(quote,dict) else None,
+            'tick_count':len(ticks) if isinstance(ticks,list) else None,
+            'tick_samples':ticks[:10] if isinstance(ticks,list) else ticks,
+            'interesting_fields':fields,
+            'quote':quote,
+          }
+          p=Path('tools/toss-public-audit/latest.json');p.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8');print(p.stat().st_size)
+          PY
+      - name: Commit report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/toss-public-audit/latest.json
+          git commit -m 'Record Toss public quote and tick audit'
+          git push origin HEAD:main
