@@ -1,0 +1,196 @@
+name: Refine 2026-08-27 closing candidates with KRX ticks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/refine-closing-candidates-regular-20260827.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recalculate with regular-session tick view
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from __future__ import annotations
+          import concurrent.futures as cf
+          import datetime as dt
+          import json
+          import math
+          import re
+          import urllib.request
+          from pathlib import Path
+          from typing import Any
+          from zoneinfo import ZoneInfo
+
+          KST = ZoneInfo("Asia/Seoul")
+          BASE = "https://wts-info-api.tossinvest.com"
+          HEADERS = {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/138 Safari/537.36",
+              "Accept": "application/json,text/plain,*/*",
+              "Origin": "https://www.tossinvest.com",
+              "Referer": "https://www.tossinvest.com/",
+          }
+
+          def get(path: str) -> Any:
+              req = urllib.request.Request(BASE + path, headers=HEADERS)
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                  payload = json.loads(resp.read().decode("utf-8"))
+              return payload.get("result") if isinstance(payload, dict) and "result" in payload else payload
+
+          def n(value: Any) -> float | None:
+              if value is None or value == "": return None
+              try:
+                  x = float(str(value).replace(",", ""))
+                  return x if math.isfinite(x) else None
+              except (TypeError, ValueError):
+                  return None
+
+          def iv(value: Any) -> int | None:
+              x = n(value)
+              return int(round(x)) if x is not None else None
+
+          def hhmmss(value: Any) -> str | None:
+              text = str(value or "")
+              m = re.search(r"([01]\d|2[0-3]):([0-5]\d):([0-5]\d)", text)
+              return m.group(0) if m else None
+
+          def fetch(code: str) -> dict[str, Any]:
+              out: dict[str, Any] = {"errors": {}}
+              paths = {
+                  "ticks": f"/api/v2/stock-prices/A{code}/ticks?viewType=krx&count=100&investMode=krx",
+                  "quote": f"/api/v3/stock-prices/A{code}/quotes?investMode=krx&viewType=krx&fallbackKrx=true",
+              }
+              for key, path in paths.items():
+                  try: out[key] = get(path)
+                  except Exception as exc:
+                      out[key] = None
+                      out["errors"][key] = f"{type(exc).__name__}: {exc}"
+              return out
+
+          source_path = Path("tools/today-closing-scan/latest.json")
+          report = json.loads(source_path.read_text(encoding="utf-8"))
+          candidates = report.get("candidates", [])
+          fetched: dict[str, dict[str, Any]] = {}
+          with cf.ThreadPoolExecutor(max_workers=6) as ex:
+              futures = {ex.submit(fetch, row["code"]): row["code"] for row in candidates}
+              for future in cf.as_completed(futures):
+                  code = futures[future]
+                  try: fetched[code] = future.result()
+                  except Exception as exc: fetched[code] = {"errors": {"fatal": str(exc)}}
+
+          def tick_contribution(ratio: float | None) -> float:
+              if ratio is None: return 0.0
+              if ratio >= 0.58: return 2.0
+              if ratio >= 0.52: return 1.0
+              if ratio < 0.45: return -2.0
+              return 0.0
+
+          for row in candidates:
+              data = fetched.get(row["code"], {})
+              raw_ticks = data.get("ticks")
+              ticks = [x for x in raw_ticks if isinstance(x, dict)] if isinstance(raw_ticks, list) else []
+              regular = []
+              for item in ticks:
+                  t = hhmmss(item.get("time") or item.get("dt") or item.get("tradeTime"))
+                  if t and "09:00:00" <= t <= "15:30:59":
+                      regular.append((t, item))
+              regular.sort(key=lambda pair: pair[0], reverse=True)
+              buy = sum(iv(item.get("volume")) or 0 for _, item in regular if str(item.get("tradeType") or "").upper() == "BUY")
+              sell = sum(iv(item.get("volume")) or 0 for _, item in regular if str(item.get("tradeType") or "").upper() == "SELL")
+              denom = buy + sell
+              ratio = buy / denom if denom else None
+              original_ratio = row.get("last_100_tick_buy_ratio")
+              row["original_unfiltered_tick_buy_ratio"] = original_ratio
+              row["last_100_tick_buy_ratio"] = round(ratio, 4) if ratio is not None else None
+              row["regular_tick_count"] = len(regular)
+              row["last_tick_time"] = regular[0][0] if regular else None
+              row["last_tick_price"] = iv(regular[0][1].get("price")) if regular else None
+              row["toss_regular_view_errors"] = data.get("errors", {})
+              quote = data.get("quote") if isinstance(data.get("quote"), dict) else {}
+              row["single_price_mode"] = quote.get("singlePrice")
+              row["estimated_price"] = iv(quote.get("estimatedPrice"))
+              row["estimated_volume"] = iv(quote.get("estimatedVolume"))
+              row["offer_volume"] = iv(quote.get("offerVolume"))
+              row["bid_volume"] = iv(quote.get("bidVolume"))
+
+              score = float(row.get("score") or 0)
+              score -= tick_contribution(float(original_ratio)) if original_ratio is not None else 0
+              score += tick_contribution(ratio)
+              row["score"] = round(score, 2)
+
+              risk = bool(row.get("risk_reasons"))
+              trade_value = row.get("trade_value")
+              gain = row.get("gain_rate")
+              close_loc = row.get("close_location")
+              body = row.get("body_ratio")
+              wick = row.get("upper_wick_ratio")
+              volume_ratio = row.get("volume_ratio_20d")
+              base_gates = (
+                  not risk
+                  and trade_value is not None and trade_value >= 50_000_000_000
+                  and gain is not None and gain >= 2.5
+                  and close_loc is not None and close_loc >= 0.60
+                  and body is not None and body >= 0.30
+                  and (wick is None or wick <= 0.45)
+                  and (volume_ratio is None or volume_ratio >= 1.15)
+              )
+              if base_gates and ratio is not None and ratio >= 0.50 and score >= 7:
+                  row["state"] = "CLOSE_READY"
+              elif not risk and trade_value and trade_value >= 50_000_000_000 and close_loc is not None and close_loc >= 0.50 and score >= 3:
+                  row["state"] = "NEXT_DAY_HOGA_CONFIRM"
+              elif risk or (trade_value is not None and trade_value < 30_000_000_000) or (close_loc is not None and close_loc < 0.40):
+                  row["state"] = "EXCLUDE"
+              else:
+                  row["state"] = "WATCH"
+
+          order = {"CLOSE_READY": 0, "NEXT_DAY_HOGA_CONFIRM": 1, "WATCH": 2, "EXCLUDE": 3}
+          candidates.sort(key=lambda r: (order.get(r.get("state"), 9), -(r.get("score") or 0), -(r.get("trade_value") or 0)))
+          report["generated_at"] = dt.datetime.now(KST).isoformat()
+          report["tick_scope"] = "TossInvest viewType=krx, 09:00:00-15:30:59 only"
+          report["counts"] = {}
+          for row in candidates:
+              state = row.get("state")
+              report["counts"][state] = report["counts"].get(state, 0) + 1
+          report["candidates"] = candidates
+          report.setdefault("notes", []).append("15:40 이후 장후 종가매매 체결을 제외하고 KRX 정규장 틱만 다시 계산했습니다.")
+
+          out_json = Path("tools/today-closing-scan/latest-regular.json")
+          out_json.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+          lines = [
+              "# 2026-08-27 종가매매 후보 — KRX 정규장 틱 보정",
+              "",
+              f"생성시각: {report['generated_at']}",
+              "",
+              "|상태|종목|등락률|거래대금|종가위치|20일 고점권|정규장 최근틱 매수비율|틱수|점수|",
+              "|---|---|---:|---:|---:|---|---:|---:|---:|",
+          ]
+          for row in candidates[:15]:
+              tv = f"{(row.get('trade_value') or 0)/100_000_000:,.0f}억" if row.get("trade_value") else "-"
+              cl = f"{(row.get('close_location') or 0)*100:.1f}%" if row.get("close_location") is not None else "-"
+              br = f"{(row.get('last_100_tick_buy_ratio') or 0)*100:.1f}%" if row.get("last_100_tick_buy_ratio") is not None else "-"
+              lines.append(f"|{row.get('state')}|{row.get('name')} ({row.get('code')})|{row.get('gain_rate') if row.get('gain_rate') is not None else '-'}%|{tv}|{cl}|{'Y' if row.get('breakout_20d') else 'N'}|{br}|{row.get('regular_tick_count', 0)}|{row.get('score')}|")
+          lines.extend(["", "웹 후보이며 실제 주문 확정 종목이 아닙니다."])
+          Path("tools/today-closing-scan/latest-regular.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          print(json.dumps({"counts": report["counts"], "top": [{k: r.get(k) for k in ("code", "name", "state", "score", "last_100_tick_buy_ratio", "regular_tick_count")} for r in candidates[:10]]}, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit refined report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/today-closing-scan/latest-regular.json tools/today-closing-scan/latest-regular.md
+          git commit -m 'Refine 2026-08-27 closing scan with regular-session ticks'
+          git push origin HEAD:main
