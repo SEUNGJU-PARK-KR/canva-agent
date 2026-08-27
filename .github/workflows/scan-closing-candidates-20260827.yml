@@ -1,0 +1,558 @@
+name: Scan 2026-08-27 closing candidates
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/scan-closing-candidates-20260827.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch and score closing candidates
+        run: |
+          set -euo pipefail
+          mkdir -p tools/today-closing-scan
+          python3 - <<'PY'
+          from __future__ import annotations
+          import concurrent.futures as cf
+          import datetime as dt
+          import html
+          import json
+          import math
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+          from typing import Any
+          from zoneinfo import ZoneInfo
+
+          KST = ZoneInfo("Asia/Seoul")
+          TODAY = "20260827"
+          UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/138 Safari/537.36"
+          NAVER = "https://stock.naver.com"
+          TOSS = "https://wts-info-api.tossinvest.com"
+          HEADERS_NAVER = {
+              "User-Agent": UA,
+              "Accept": "application/json,text/plain,*/*",
+              "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.7",
+              "Referer": "https://stock.naver.com/market/stock/kr/stocklist/trading",
+          }
+          HEADERS_TOSS = {
+              "User-Agent": UA,
+              "Accept": "application/json,text/plain,*/*",
+              "Origin": "https://www.tossinvest.com",
+              "Referer": "https://www.tossinvest.com/",
+          }
+
+          def get_json(url: str, headers: dict[str, str], timeout: float = 15.0) -> Any:
+              req = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(req, timeout=timeout) as resp:
+                  raw = resp.read()
+                  enc = resp.headers.get_content_charset() or "utf-8"
+                  try:
+                      text = raw.decode(enc)
+                  except UnicodeDecodeError:
+                      text = raw.decode("utf-8", errors="replace")
+                  return json.loads(text)
+
+          def naver(path: str) -> Any:
+              return get_json(NAVER + path, HEADERS_NAVER)
+
+          def toss(path: str) -> Any:
+              return get_json(TOSS + path, HEADERS_TOSS)
+
+          def num(value: Any) -> float | None:
+              if value is None or value == "":
+                  return None
+              if isinstance(value, (int, float)) and math.isfinite(float(value)):
+                  return float(value)
+              text = str(value).strip().replace(",", "")
+              if not text or text.lower() in {"none", "null", "nan", "-"}:
+                  return None
+              sign = -1 if text.startswith("-") else 1
+              clean = text.lstrip("+-")
+              if "조" in clean or "억" in clean or "만" in clean:
+                  total = 0.0
+                  m = re.search(r"([0-9.]+)조", clean)
+                  if m:
+                      total += float(m.group(1)) * 1_000_000_000_000
+                  m = re.search(r"([0-9.]+)억", clean)
+                  if m:
+                      total += float(m.group(1)) * 100_000_000
+                  m = re.search(r"([0-9.]+)만", clean)
+                  if m:
+                      total += float(m.group(1)) * 10_000
+                  return sign * total if total else None
+              clean = re.sub(r"[^0-9.eE]", "", clean)
+              if not clean:
+                  return None
+              try:
+                  return sign * float(clean)
+              except ValueError:
+                  return None
+
+          def integer(value: Any) -> int | None:
+              v = num(value)
+              return int(round(v)) if v is not None else None
+
+          def first(row: dict[str, Any], *keys: str) -> Any:
+              for key in keys:
+                  if key in row and row[key] not in (None, ""):
+                      return row[key]
+              return None
+
+          def code_of(row: dict[str, Any]) -> str | None:
+              raw = first(row, "itemcode", "itemCode", "symbolCode", "code", "ticker")
+              if raw is None:
+                  return None
+              code = str(raw).strip().upper()
+              if code.startswith("A") and len(code) == 7 and code[1:].isdigit():
+                  code = code[1:]
+              return code if re.fullmatch(r"[0-9A-Z]{6}", code) else None
+
+          def name_of(row: dict[str, Any]) -> str | None:
+              raw = first(row, "itemname", "stockName", "name", "korName")
+              return str(raw).strip() if raw not in (None, "") else None
+
+          def candidate_lists(payload: Any) -> list[list[dict[str, Any]]]:
+              out: list[list[dict[str, Any]]] = []
+              def walk(v: Any) -> None:
+                  if isinstance(v, list):
+                      dicts = [x for x in v if isinstance(x, dict)]
+                      if dicts:
+                          out.append(dicts)
+                      for x in v[:200]:
+                          walk(x)
+                  elif isinstance(v, dict):
+                      for x in v.values():
+                          walk(x)
+              walk(payload)
+              return out
+
+          def extract_stock_rows(payload: Any) -> list[dict[str, Any]]:
+              lists = candidate_lists(payload)
+              if not lists:
+                  return []
+              def score(rows: list[dict[str, Any]]) -> tuple[int, int]:
+                  valid = sum(1 for row in rows if code_of(row) and name_of(row))
+                  rich = sum(1 for row in rows if first(row, "nowPrice", "closePrice", "tradePrice") is not None)
+                  return valid * 10 + rich, len(rows)
+              return max(lists, key=score)
+
+          def clean_text(value: Any) -> str:
+              text = html.unescape(re.sub(r"<[^>]+>", " ", str(value or "")))
+              return re.sub(r"\s+", " ", text).strip()
+
+          def extract_headlines(payload: Any, limit: int = 4) -> list[str]:
+              found: list[str] = []
+              def walk(v: Any) -> None:
+                  if len(found) >= limit * 4:
+                      return
+                  if isinstance(v, dict):
+                      for key in ("title", "headline", "newsTitle", "subject"):
+                          if key in v:
+                              text = clean_text(v[key])
+                              if len(text) >= 8 and text not in found:
+                                  found.append(text)
+                      for x in v.values():
+                          walk(x)
+                  elif isinstance(v, list):
+                      for x in v[:50]:
+                          walk(x)
+              walk(payload)
+              return found[:limit]
+
+          def normalize_rank(rows: list[dict[str, Any]], kind: str) -> list[dict[str, Any]]:
+              out = []
+              for idx, row in enumerate(rows, 1):
+                  code = code_of(row)
+                  name = name_of(row)
+                  if not code or not name:
+                      continue
+                  out.append({
+                      "code": code,
+                      "name": name,
+                      "rank": idx,
+                      "kind": kind,
+                      "price": integer(first(row, "nowPrice", "closePrice", "tradePrice")),
+                      "gain_rate": num(first(row, "prevChangeRate", "fluctuationsRatio", "changeRate")),
+                      "trade_value": integer(first(row, "tradeAmount", "accumulatedTradingValueRaw", "accTradePrice", "tradeValue", "accAmount")),
+                      "volume": integer(first(row, "tradeVolume", "accumulatedTradingVolumeRaw", "accTradeVolume", "volume")),
+                      "raw": row,
+                  })
+              return out
+
+          def rank_path(order_type: str, size: int = 100) -> str:
+              query = urllib.parse.urlencode({
+                  "tradeType": "KRX", "marketType": "ALL", "orderType": order_type,
+                  "startIdx": 0, "pageSize": size,
+              })
+              return "/api/domestic/market/stock/default?" + query
+
+          ranks_raw: dict[str, Any] = {}
+          rank_errors: dict[str, str] = {}
+          for kind, order_type in {
+              "rise": "up",
+              "trading_value": "priceTop",
+              "volume_surge": "upperQuantTop",
+              "volume": "quantTop",
+          }.items():
+              try:
+                  ranks_raw[kind] = naver(rank_path(order_type))
+              except Exception as exc:
+                  rank_errors[kind] = f"{type(exc).__name__}: {exc}"
+                  ranks_raw[kind] = []
+
+          ranks = {
+              kind: normalize_rank(extract_stock_rows(payload), kind)
+              for kind, payload in ranks_raw.items()
+          }
+          maps = {kind: {row["code"]: row for row in rows} for kind, rows in ranks.items()}
+
+          excluded_name = re.compile(
+              r"(KODEX|TIGER|ACE |RISE |PLUS |SOL |HANARO|KOSEF|KBSTAR|TIMEFOLIO|ARIRANG|ETN|스팩|레버리지|인버스|2X|선물|우$)",
+              re.I,
+          )
+
+          rise_codes = [r["code"] for r in ranks["rise"][:70]]
+          value_codes = [r["code"] for r in ranks["trading_value"][:90]]
+          surge_codes = [r["code"] for r in ranks["volume_surge"][:35]]
+          pool: list[str] = []
+          for code in rise_codes:
+              if code in set(value_codes) and code not in pool:
+                  pool.append(code)
+          for code in rise_codes[:35] + value_codes[:35] + surge_codes:
+              if code not in pool:
+                  pool.append(code)
+
+          def preliminary_key(code: str) -> float:
+              rise = maps["rise"].get(code, {})
+              val = maps["trading_value"].get(code, {})
+              surge = maps["volume_surge"].get(code, {})
+              rr = rise.get("rank", 200)
+              vr = val.get("rank", 200)
+              sr = surge.get("rank", 200)
+              gain = rise.get("gain_rate") or val.get("gain_rate") or 0
+              tv = rise.get("trade_value") or val.get("trade_value") or 0
+              return 180 - rr * 1.4 - vr * 0.9 - sr * 0.25 + min(max(gain, 0), 30) * 2 + min(tv / 100_000_000_000, 10)
+
+          pool.sort(key=preliminary_key, reverse=True)
+          pool = pool[:24]
+
+          def daily_rows(payload: Any) -> list[dict[str, Any]]:
+              lists = candidate_lists(payload)
+              if not lists:
+                  return []
+              def score(rows: list[dict[str, Any]]) -> tuple[int, int]:
+                  date_rows = sum(1 for r in rows if first(r, "bizdate", "date", "localTradedAt", "tradeDate"))
+                  ohlc_rows = sum(1 for r in rows if first(r, "highPrice", "high") is not None and first(r, "lowPrice", "low") is not None)
+                  return date_rows * 5 + ohlc_rows * 3, len(rows)
+              return max(lists, key=score)
+
+          def toss_result(payload: Any) -> Any:
+              if isinstance(payload, dict) and "result" in payload:
+                  return payload["result"]
+              return payload
+
+          def fetch_one(code: str) -> dict[str, Any]:
+              errors: dict[str, str] = {}
+              data: dict[str, Any] = {}
+              endpoints = {
+                  "price": ("naver", f"/api/domestic/detail/{code}/price"),
+                  "hoga": ("naver", f"/api/domestic/detail/{code}/hoga"),
+                  "days": ("naver", f"/api/domestic/detail/{code}/siseDay?pageSize=90&bizdate={TODAY}"),
+                  "news": ("naver", f"/api/domestic/detail/news?itemCode={code}&page=1&pageSize=8"),
+                  "toss_quote": ("toss", f"/api/v3/stock-prices/A{code}/quotes?investMode=krx"),
+                  "toss_ticks": ("toss", f"/api/v2/stock-prices/A{code}/ticks?count=100&investMode=krx"),
+              }
+              for key, (source, path) in endpoints.items():
+                  try:
+                      data[key] = naver(path) if source == "naver" else toss_result(toss(path))
+                  except Exception as exc:
+                      errors[key] = f"{type(exc).__name__}: {exc}"
+                      data[key] = None
+              data["errors"] = errors
+              return data
+
+          details: dict[str, dict[str, Any]] = {}
+          with cf.ThreadPoolExecutor(max_workers=6) as ex:
+              futures = {ex.submit(fetch_one, code): code for code in pool}
+              for future in cf.as_completed(futures):
+                  code = futures[future]
+                  try:
+                      details[code] = future.result()
+                  except Exception as exc:
+                      details[code] = {"errors": {"fatal": f"{type(exc).__name__}: {exc}"}}
+
+          positive_news = re.compile(r"(수주|공급계약|계약 체결|승인|허가|임상|특허|개발 성공|국책|흑자|사상 최대|최대 실적|인수|합병|투자 유치|공동개발|MOU|파트너십|독점|신규 공급)")
+          negative_news = re.compile(r"(유상증자|감자|횡령|배임|상장폐지|거래정지|계약 해지|계약 종료|적자 확대|실적 부진|불성실공시|회생절차)")
+
+          def derive(code: str) -> dict[str, Any]:
+              d = details.get(code, {})
+              price = d.get("price") if isinstance(d.get("price"), dict) else {}
+              hoga = d.get("hoga") if isinstance(d.get("hoga"), dict) else {}
+              rank_rows = [maps[k].get(code, {}) for k in maps]
+              rank_name = next((r.get("name") for r in rank_rows if r.get("name")), None)
+              name = str(price.get("itemname") or rank_name or code)
+
+              close = integer(first(price, "nowPrice", "closePrice")) or integer(first(hoga, "nowPrice"))
+              open_p = integer(first(price, "openPrice")) or integer(first(hoga, "openPrice"))
+              high = integer(first(price, "highPrice")) or integer(first(hoga, "highPrice"))
+              low = integer(first(price, "lowPrice")) or integer(first(hoga, "lowPrice"))
+              prev_close = integer(first(hoga, "prevClosePrice"))
+              gain_rate = num(first(price, "prevChangeRate"))
+              if gain_rate is None:
+                  gain_rate = next((r.get("gain_rate") for r in rank_rows if r.get("gain_rate") is not None), None)
+              if gain_rate is None and close and prev_close:
+                  gain_rate = (close / prev_close - 1) * 100
+              trade_value = integer(first(price, "tradeAmount"))
+              if not trade_value:
+                  trade_value = max([r.get("trade_value") or 0 for r in rank_rows] or [0]) or None
+              volume = integer(first(price, "tradeVolume"))
+              if not volume:
+                  volume = max([r.get("volume") or 0 for r in rank_rows] or [0]) or None
+
+              rng = (high - low) if high is not None and low is not None else None
+              close_location = ((close - low) / rng) if close is not None and low is not None and rng and rng > 0 else None
+              body_ratio = (abs(close - open_p) / rng) if close is not None and open_p is not None and rng and rng > 0 else None
+              upper_wick = ((high - max(open_p, close)) / rng) if None not in (high, open_p, close) and rng and rng > 0 else None
+
+              hist = daily_rows(d.get("days"))
+              normalized_hist = []
+              for row in hist:
+                  normalized_hist.append({
+                      "date": str(first(row, "bizdate", "date", "tradeDate", "localTradedAt") or "")[:10].replace("-", ""),
+                      "close": integer(first(row, "closePrice", "nowPrice", "tradePrice", "close")),
+                      "open": integer(first(row, "openPrice", "openingPrice", "open")),
+                      "high": integer(first(row, "highPrice", "high")),
+                      "low": integer(first(row, "lowPrice", "low")),
+                      "volume": integer(first(row, "tradeVolume", "candleAccTradeVolume", "volume")),
+                      "amount": integer(first(row, "tradeAmount", "candleAccTradePrice", "accTradePrice")),
+                  })
+              normalized_hist = [r for r in normalized_hist if r["close"]]
+              normalized_hist.sort(key=lambda r: r["date"], reverse=True)
+              prior = [r for r in normalized_hist if not r["date"].startswith(TODAY)][:20]
+              avg20_volume = sum(r["volume"] or 0 for r in prior) / len(prior) if prior and any(r["volume"] for r in prior) else None
+              volume_ratio = (volume / avg20_volume) if volume and avg20_volume else None
+              prior20_high = max((r["high"] or r["close"] for r in prior), default=None)
+              breakout = bool(close and prior20_high and close >= prior20_high * 0.99)
+
+              quote = d.get("toss_quote") if isinstance(d.get("toss_quote"), dict) else {}
+              ticks_payload = d.get("toss_ticks")
+              if isinstance(ticks_payload, dict):
+                  ticks = extract_stock_rows(ticks_payload)
+                  if not ticks:
+                      lists = candidate_lists(ticks_payload)
+                      ticks = max(lists, key=len) if lists else []
+              elif isinstance(ticks_payload, list):
+                  ticks = [x for x in ticks_payload if isinstance(x, dict)]
+              else:
+                  ticks = []
+              buy_vol = sum(integer(t.get("volume")) or 0 for t in ticks if str(t.get("tradeType") or "").upper() == "BUY")
+              sell_vol = sum(integer(t.get("volume")) or 0 for t in ticks if str(t.get("tradeType") or "").upper() == "SELL")
+              classified = buy_vol + sell_vol
+              buy_ratio = buy_vol / classified if classified else None
+              last_tick = ticks[0] if ticks else {}
+              last_tick_time = first(last_tick, "time", "dt", "tradeTime")
+              last_tick_price = integer(first(last_tick, "price", "close", "nowPrice"))
+
+              headlines = extract_headlines(d.get("news"), 4)
+              joined = " ".join(headlines)
+              news_signal = 1 if positive_news.search(joined) else -1 if negative_news.search(joined) else 0
+
+              risk_reasons = []
+              if str(price.get("tradeStopYn") or "N").upper() == "Y": risk_reasons.append("거래정지")
+              if str(price.get("manageStatusGb") or "0") not in {"0", "00", "", "None"}: risk_reasons.append("관리상태")
+              if str(price.get("marketAlertType") or "00") not in {"00", "0", "", "None"}: risk_reasons.append("시장경보")
+              if excluded_name.search(name): risk_reasons.append("ETF·ETN·우선주·스팩 등 제외군")
+
+              score = 0.0
+              if trade_value:
+                  if trade_value >= 500_000_000_000: score += 3
+                  elif trade_value >= 100_000_000_000: score += 2
+                  elif trade_value >= 50_000_000_000: score += 1
+                  else: score -= 3
+              else: score -= 2
+              if gain_rate is not None:
+                  if 5 <= gain_rate <= 20: score += 2
+                  elif 2.5 <= gain_rate < 5: score += 1
+                  elif gain_rate > 25: score -= 1
+                  elif gain_rate <= 0: score -= 3
+              if close_location is not None:
+                  if close_location >= 0.82: score += 3
+                  elif close_location >= 0.65: score += 2
+                  elif close_location >= 0.55: score += 0.5
+                  else: score -= 3
+              if body_ratio is not None:
+                  if body_ratio >= 0.5: score += 2
+                  elif body_ratio >= 0.35: score += 1
+                  elif body_ratio < 0.2: score -= 1
+              if upper_wick is not None:
+                  if 0.03 <= upper_wick <= 0.35: score += 1
+                  elif upper_wick > 0.55: score -= 3
+                  elif upper_wick > 0.4: score -= 1
+              if volume_ratio is not None:
+                  if volume_ratio >= 2: score += 2
+                  elif volume_ratio >= 1.3: score += 1
+                  elif volume_ratio < 0.8: score -= 1
+              if breakout: score += 2
+              if buy_ratio is not None:
+                  if buy_ratio >= 0.58: score += 2
+                  elif buy_ratio >= 0.52: score += 1
+                  elif buy_ratio < 0.45: score -= 2
+              if news_signal > 0: score += 1
+              elif news_signal < 0: score -= 3
+              score -= len(risk_reasons) * 5
+
+              base_gates = (
+                  not risk_reasons
+                  and trade_value is not None and trade_value >= 50_000_000_000
+                  and gain_rate is not None and gain_rate >= 2.5
+                  and close_location is not None and close_location >= 0.60
+                  and body_ratio is not None and body_ratio >= 0.30
+                  and (upper_wick is None or upper_wick <= 0.45)
+                  and (volume_ratio is None or volume_ratio >= 1.15)
+              )
+              if base_gates and (buy_ratio is None or buy_ratio >= 0.50) and score >= 7:
+                  state = "CLOSE_READY"
+              elif not risk_reasons and trade_value and trade_value >= 50_000_000_000 and close_location is not None and close_location >= 0.5 and score >= 3:
+                  state = "NEXT_DAY_HOGA_CONFIRM"
+              elif risk_reasons or (trade_value is not None and trade_value < 30_000_000_000) or (close_location is not None and close_location < 0.4):
+                  state = "EXCLUDE"
+              else:
+                  state = "WATCH"
+
+              pattern = "NONE"
+              if base_gates and upper_wick is not None and 0.03 <= upper_wick <= 0.35 and body_ratio is not None and body_ratio >= 0.45:
+                  pattern = "CLASSIC_WICK_BREAKOUT"
+              elif base_gates and breakout:
+                  pattern = "STRUCTURAL_BREAKOUT_SPLIT"
+              elif upper_wick is not None and 0.25 <= upper_wick <= 0.65 and trade_value and trade_value >= 50_000_000_000:
+                  pattern = "ACCUMULATION_WICK_WATCH"
+              elif gain_rate is not None and gain_rate >= 28:
+                  pattern = "LIMIT_UP_NEXT_DAY_REVIEW"
+
+              entry = close
+              supports = [x for x in [open_p, prior20_high, low] if x and entry and x < entry]
+              structure_stop = max(supports) if supports else None
+              stop_rate = (entry - structure_stop) / entry if entry and structure_stop else None
+
+              return {
+                  "code": code,
+                  "name": name,
+                  "state": state,
+                  "pattern": pattern,
+                  "score": round(score, 2),
+                  "close": close,
+                  "open": open_p,
+                  "high": high,
+                  "low": low,
+                  "prev_close": prev_close,
+                  "gain_rate": round(gain_rate, 2) if gain_rate is not None else None,
+                  "trade_value": trade_value,
+                  "volume": volume,
+                  "close_location": round(close_location, 4) if close_location is not None else None,
+                  "body_ratio": round(body_ratio, 4) if body_ratio is not None else None,
+                  "upper_wick_ratio": round(upper_wick, 4) if upper_wick is not None else None,
+                  "volume_ratio_20d": round(volume_ratio, 2) if volume_ratio is not None else None,
+                  "prior20_high": prior20_high,
+                  "breakout_20d": breakout,
+                  "last_100_tick_buy_ratio": round(buy_ratio, 4) if buy_ratio is not None else None,
+                  "last_tick_time": last_tick_time,
+                  "last_tick_price": last_tick_price,
+                  "single_price_mode": quote.get("singlePrice"),
+                  "estimated_price": integer(quote.get("estimatedPrice")),
+                  "estimated_volume": integer(quote.get("estimatedVolume")),
+                  "offer_volume": integer(quote.get("offerVolume")),
+                  "bid_volume": integer(quote.get("bidVolume")),
+                  "entry_reference": entry,
+                  "structure_stop": structure_stop,
+                  "stop_rate": round(stop_rate, 4) if stop_rate is not None else None,
+                  "headlines": headlines,
+                  "news_signal": news_signal,
+                  "risk_reasons": risk_reasons,
+                  "ranks": {
+                      "rise": maps["rise"].get(code, {}).get("rank"),
+                      "trading_value": maps["trading_value"].get(code, {}).get("rank"),
+                      "volume_surge": maps["volume_surge"].get(code, {}).get("rank"),
+                      "volume": maps["volume"].get(code, {}).get("rank"),
+                  },
+                  "data_errors": d.get("errors", {}),
+              }
+
+          results = [derive(code) for code in pool]
+          state_order = {"CLOSE_READY": 0, "NEXT_DAY_HOGA_CONFIRM": 1, "WATCH": 2, "EXCLUDE": 3}
+          results.sort(key=lambda r: (state_order.get(r["state"], 9), -r["score"], -(r["trade_value"] or 0)))
+
+          indices = {}
+          for index_code in ("KOSPI", "KOSDAQ"):
+              try:
+                  indices[index_code] = naver(f"/api/securityFe/api/index/{index_code}/basic")
+              except Exception as exc:
+                  indices[index_code] = {"error": f"{type(exc).__name__}: {exc}"}
+
+          counts = {}
+          for row in results:
+              counts[row["state"]] = counts.get(row["state"], 0) + 1
+
+          report = {
+              "generated_at": dt.datetime.now(KST).isoformat(),
+              "trade_date": "2026-08-27",
+              "source": "Naver Stock public read-only JSON + TossInvest public read-only quote/ticks",
+              "scope": {
+                  "rank_sizes": {k: len(v) for k, v in ranks.items()},
+                  "pool_size": len(pool),
+                  "detailed_size": len(results),
+                  "rank_errors": rank_errors,
+              },
+              "indices": indices,
+              "counts": counts,
+              "candidates": results,
+              "notes": [
+                  "CLOSE_READY는 종가 구조와 웹 시세를 통과한 후보이며 실제 주문 확정이 아닙니다.",
+                  "장 마감 후 생성된 보고서라 오늘 종가 주문에는 사용할 수 없고 다음 거래일 대응용입니다.",
+                  "네이버와 토스의 공개 화면용 내부 API는 비공식이며 필드가 바뀔 수 있습니다.",
+              ],
+          }
+
+          out = Path("tools/today-closing-scan/latest.json")
+          out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          lines = [
+              "# 2026-08-27 종가매매 웹 후보",
+              "",
+              f"생성시각: {report['generated_at']}",
+              "",
+              "|상태|종목|등락률|거래대금|종가위치|20일 돌파|최근 100틱 매수비율|점수|",
+              "|---|---|---:|---:|---:|---|---:|---:|",
+          ]
+          for row in results[:15]:
+              tv = f"{(row['trade_value'] or 0)/100_000_000:,.0f}억" if row['trade_value'] else "-"
+              cl = f"{(row['close_location'] or 0)*100:.1f}%" if row['close_location'] is not None else "-"
+              br = f"{(row['last_100_tick_buy_ratio'] or 0)*100:.1f}%" if row['last_100_tick_buy_ratio'] is not None else "-"
+              lines.append(f"|{row['state']}|{row['name']} ({row['code']})|{row['gain_rate'] if row['gain_rate'] is not None else '-'}%|{tv}|{cl}|{'Y' if row['breakout_20d'] else 'N'}|{br}|{row['score']}|")
+          lines.extend(["", "웹 후보이며 실제 매수 확정 종목이 아닙니다."])
+          Path("tools/today-closing-scan/latest.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          print(json.dumps({"counts": counts, "top": [{k: r[k] for k in ("code", "name", "state", "score", "gain_rate")} for r in results[:8]]}, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit scan report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/today-closing-scan/latest.json tools/today-closing-scan/latest.md
+          git commit -m 'Record 2026-08-27 closing candidate scan'
+          git push origin HEAD:main
