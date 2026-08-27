@@ -1,0 +1,76 @@
+name: Fast Naver market data audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/probe-web-market-fast.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch two synchronized snapshots
+        run: |
+          set -euo pipefail
+          mkdir -p tools/web-confirmation-fast
+          python3 - <<'PY'
+          import concurrent.futures, datetime as dt, hashlib, json, time, urllib.error, urllib.request
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+          KST=ZoneInfo('Asia/Seoul'); UA='Mozilla/5.0 Chrome/138 Safari/537.36'; CODES=['005930','000660']
+          def endpoints(code):
+              ref=f'https://stock.naver.com/domestic/stock/{code}/price'
+              return {
+                'price':(f'https://stock.naver.com/api/domestic/detail/{code}/price',ref),
+                'hoga':(f'https://stock.naver.com/api/domestic/detail/{code}/hoga',ref),
+                'ticks':(f'https://stock.naver.com/api/domestic/detail/{code}/siseTick?startIdx=0&pageSize=100',ref),
+                'poll':(f'https://stock.naver.com/api/polling/domestic/stock?itemCodes={code}',ref),
+                'legacy':(f'https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:{code}',f'https://finance.naver.com/item/main.naver?code={code}'),
+                'mobile':(f'https://m.stock.naver.com/api/stock/{code}/basic',f'https://m.stock.naver.com/domestic/stock/{code}/total'),
+              }
+          def fetch(args):
+              code,name,url,ref=args; st=time.time(); req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'application/json,text/plain,*/*','Referer':ref})
+              try:
+                with urllib.request.urlopen(req,timeout=8) as r:
+                  raw=r.read(); txt=raw.decode('utf-8','replace')
+                  try:data=json.loads(txt)
+                  except:data=None
+                  return code,name,{'ok':True,'status':r.status,'elapsed_ms':round((time.time()-st)*1000,1),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'json':data,'text_head':None if data is not None else txt[:500]}
+              except urllib.error.HTTPError as e:
+                raw=e.read(); return code,name,{'ok':False,'status':e.code,'elapsed_ms':round((time.time()-st)*1000,1),'bytes':len(raw),'text_head':raw.decode('utf-8','replace')[:500]}
+              except Exception as e:return code,name,{'ok':False,'status':None,'elapsed_ms':round((time.time()-st)*1000,1),'error':repr(e)}
+          def snap():
+              out={'captured_at':dt.datetime.now(KST).isoformat(),'codes':{c:{} for c in CODES}}
+              tasks=[]
+              for c in CODES:
+                for n,(u,r) in endpoints(c).items():tasks.append((c,n,u,r))
+              with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+                for c,n,v in ex.map(fetch,tasks):out['codes'][c][n]=v
+              return out
+          a=snap(); time.sleep(3); b=snap()
+          report={'generated_at':dt.datetime.now(KST).isoformat(),'snapshots':[a,b]}
+          for c in CODES:
+            report.setdefault('comparison',{})[c]={}
+            for n in a['codes'][c]:
+              x=a['codes'][c][n];y=b['codes'][c][n]
+              data=y.get('json'); keys=sorted(data.keys()) if isinstance(data,dict) else None
+              report['comparison'][c][n]={'ok':[x.get('ok'),y.get('ok')],'status':[x.get('status'),y.get('status')],'bytes':[x.get('bytes'),y.get('bytes')],'changed':x.get('sha256')!=y.get('sha256'),'root_keys':keys,'sample':data,'error':y.get('error'),'text_head':y.get('text_head')}
+          p=Path('tools/web-confirmation-fast/latest-report.json');p.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');print(p.stat().st_size)
+          PY
+      - name: Commit result
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/web-confirmation-fast/latest-report.json
+          git commit -m 'Record fast Naver market data audit'
+          git push origin HEAD:main
