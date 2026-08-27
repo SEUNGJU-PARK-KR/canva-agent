@@ -1,0 +1,81 @@
+name: Export Largo closing project for private migration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/export-largo-closing-migration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build deterministic migration archive and wrapped parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf migration-export/largo-closing .migration-stage
+          mkdir -p migration-export/largo-closing .migration-stage/automation/scripts .migration-stage/automation/workflows .migration-stage/docs
+
+          cp -a largo-close-screener .migration-stage/project
+
+          for f in scripts/build_largo_close_screener*.py scripts/derive_largo_closing_rules*.py scripts/largo_naver*.py; do
+            [ -f "$f" ] && cp "$f" .migration-stage/automation/scripts/
+          done
+          for f in .github/workflows/*largo*.yml .github/workflows/openbot-largo-closing-analysis.yml; do
+            [ -f "$f" ] && cp "$f" .migration-stage/automation/workflows/
+          done
+          [ -f docs/largo-close-screener-site.md ] && cp docs/largo-close-screener-site.md .migration-stage/docs/
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json, zipfile
+
+          stage=Path('.migration-stage')
+          out=Path('migration-export/largo-closing')
+          out.mkdir(parents=True, exist_ok=True)
+          archive=out/'largo-closing-project.zip'
+          with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for p in sorted(stage.rglob('*')):
+                  if p.is_file():
+                      z.write(p,p.relative_to(stage))
+          raw=archive.read_bytes()
+          encoded=base64.b64encode(raw).decode('ascii')
+          wrapped='\n'.join(encoded[i:i+1000] for i in range(0,len(encoded),1000))+'\n'
+          lines=wrapped.splitlines(keepends=True)
+          parts=[]
+          for idx in range(0,len(lines),50):
+              name=f'part_{idx//50:03d}.b64'
+              data=''.join(lines[idx:idx+50])
+              (out/name).write_text(data,encoding='ascii')
+              parts.append({'name':name,'chars':len(data),'lines':len(lines[idx:idx+50])})
+          archive.unlink()
+          manifest={
+              'archive':'largo-closing-project.zip',
+              'size_bytes':len(raw),
+              'sha256':hashlib.sha256(raw).hexdigest(),
+              'encoding':'base64, 1000 characters per line',
+              'parts':parts,
+          }
+          (out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(manifest,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Commit migration export
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add migration-export/largo-closing
+          git commit -m 'Export Largo closing project for private repository migration'
+          git push origin HEAD:main
