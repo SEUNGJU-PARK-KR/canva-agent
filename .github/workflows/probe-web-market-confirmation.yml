@@ -1,0 +1,248 @@
+name: Probe web-only market confirmation data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/probe-web-market-confirmation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Capture Naver and alternative web market data
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tools/web-confirmation-probe/raw
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import datetime as dt
+          import hashlib
+          import json
+          import re
+          import time
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          ROOT = Path('tools/web-confirmation-probe')
+          RAW = ROOT / 'raw'
+          RAW.mkdir(parents=True, exist_ok=True)
+          KST = ZoneInfo('Asia/Seoul')
+          CODES = ['005930', '000660']
+          UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/138 Safari/537.36'
+
+          def fetch(url: str, referer: str | None = None) -> dict:
+              headers = {
+                  'User-Agent': UA,
+                  'Accept': 'application/json,text/plain,*/*',
+                  'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.7',
+              }
+              if referer:
+                  headers['Referer'] = referer
+              req = urllib.request.Request(url, headers=headers, method='GET')
+              started = time.time()
+              try:
+                  with urllib.request.urlopen(req, timeout=25) as resp:
+                      body = resp.read()
+                      ctype = resp.headers.get('content-type', '')
+                      text = body.decode('utf-8', errors='replace')
+                      try:
+                          data = json.loads(text)
+                      except Exception:
+                          data = None
+                      return {
+                          'url': url,
+                          'ok': True,
+                          'status': resp.status,
+                          'content_type': ctype,
+                          'elapsed_ms': round((time.time() - started) * 1000, 1),
+                          'bytes': len(body),
+                          'sha256': hashlib.sha256(body).hexdigest(),
+                          'json': data,
+                          'text_head': None if data is not None else text[:1000],
+                      }
+              except urllib.error.HTTPError as exc:
+                  body = exc.read()
+                  return {
+                      'url': url,
+                      'ok': False,
+                      'status': exc.code,
+                      'elapsed_ms': round((time.time() - started) * 1000, 1),
+                      'bytes': len(body),
+                      'text_head': body.decode('utf-8', errors='replace')[:1000],
+                  }
+              except Exception as exc:
+                  return {
+                      'url': url,
+                      'ok': False,
+                      'status': None,
+                      'elapsed_ms': round((time.time() - started) * 1000, 1),
+                      'error': repr(exc),
+                  }
+
+          def walk(obj, path='root'):
+              if isinstance(obj, dict):
+                  for k, v in obj.items():
+                      p = f'{path}.{k}'
+                      yield p, v
+                      yield from walk(v, p)
+              elif isinstance(obj, list):
+                  for i, v in enumerate(obj[:30]):
+                      p = f'{path}[{i}]'
+                      yield p, v
+                      yield from walk(v, p)
+
+          key_re = re.compile(r'(expect|estimated|predict|auction|closing|single|indicative|match|체결|예상|호가|매수|매도|잔량|price|quant|volume|time|date|status)', re.I)
+
+          def summarize_response(resp: dict) -> dict:
+              result = {k: resp.get(k) for k in ('url', 'ok', 'status', 'content_type', 'elapsed_ms', 'bytes', 'sha256', 'error') if k in resp}
+              data = resp.get('json')
+              if data is None:
+                  result['text_head'] = resp.get('text_head')
+                  return result
+              result['root_type'] = type(data).__name__
+              if isinstance(data, dict):
+                  result['root_keys'] = sorted(data.keys())
+              matches = []
+              for path, value in walk(data):
+                  key = path.rsplit('.', 1)[-1]
+                  if key_re.search(key):
+                      shown = f'<{type(value).__name__}:{len(value)}>' if isinstance(value, (dict, list)) else value
+                      matches.append({'path': path, 'value': shown})
+                  if len(matches) >= 500:
+                      break
+              result['interesting_fields'] = matches
+              return result
+
+          def endpoints(code: str):
+              nref = f'https://stock.naver.com/domestic/stock/{code}/price'
+              dref = f'https://finance.daum.net/quotes/A{code}'
+              return {
+                  'naver_price': (f'https://stock.naver.com/api/domestic/detail/{code}/price', nref),
+                  'naver_hoga': (f'https://stock.naver.com/api/domestic/detail/{code}/hoga', nref),
+                  'naver_ticks': (f'https://stock.naver.com/api/domestic/detail/{code}/siseTick?startIdx=0&pageSize=100', nref),
+                  'naver_poll': (f'https://stock.naver.com/api/polling/domestic/stock?itemCodes={code}', nref),
+                  'naver_mobile_basic': (f'https://m.stock.naver.com/api/stock/{code}/basic', f'https://m.stock.naver.com/domestic/stock/{code}/total'),
+                  'naver_mobile_integration': (f'https://m.stock.naver.com/api/stock/{code}/integration', f'https://m.stock.naver.com/domestic/stock/{code}/total'),
+                  'naver_legacy_poll': (f'https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:{code}', f'https://finance.naver.com/item/main.naver?code={code}'),
+                  'daum_quote': (f'https://finance.daum.net/api/quotes/A{code}?summary=false&changeStatistics=true', dref),
+                  'daum_minutes': (f'https://finance.daum.net/api/charts/A{code}/minutes/1?limit=30&adjusted=true', dref),
+                  'daum_days': (f'https://finance.daum.net/api/quote/A{code}/days?symbolCode=A{code}&page=1&perPage=5&pagination=true', dref),
+                  'daum_orderbook_guess': (f'https://finance.daum.net/api/quotes/A{code}/orderbook', dref),
+                  'daum_trades_guess': (f'https://finance.daum.net/api/quotes/A{code}/trades', dref),
+                  'yahoo_1m': (f'https://query1.finance.yahoo.com/v8/finance/chart/{code}.KS?interval=1m&range=1d', 'https://finance.yahoo.com/'),
+              }
+
+          snapshots = []
+
+          def capture(label: str):
+              now = dt.datetime.now(KST)
+              stamp = now.strftime('%Y%m%d_%H%M%S')
+              snap = {'label': label, 'captured_at': now.isoformat(), 'codes': {}}
+              for code in CODES:
+                  snap['codes'][code] = {}
+                  for name, (url, ref) in endpoints(code).items():
+                      snap['codes'][code][name] = fetch(url, ref)
+              path = RAW / f'{stamp}_{label}.json'
+              path.write_text(json.dumps(snap, ensure_ascii=False, indent=2), encoding='utf-8')
+              snapshots.append({'label': label, 'captured_at': snap['captured_at'], 'file': str(path), 'summary': {code: {name: summarize_response(resp) for name, resp in data.items()} for code, data in snap['codes'].items()}})
+              print('captured', label, now.isoformat(), flush=True)
+
+          capture('immediate_0')
+          time.sleep(5)
+          capture('immediate_5s')
+          time.sleep(10)
+          capture('immediate_15s')
+
+          now = dt.datetime.now(KST)
+          target = now.replace(hour=15, minute=20, second=5, microsecond=0)
+          close_target = now.replace(hour=15, minute=30, second=8, microsecond=0)
+          auction_captured = False
+          if now < target and (target - now).total_seconds() <= 95 * 60:
+              wait = (target - now).total_seconds()
+              print('waiting_seconds_for_auction', round(wait, 1), flush=True)
+              time.sleep(wait)
+              for label, delay in [('auction_152005', 0), ('auction_152030', 25), ('auction_152100', 30), ('auction_152300', 120), ('auction_152600', 180), ('auction_152900', 180)]:
+                  if delay:
+                      time.sleep(delay)
+                  capture(label)
+              auction_captured = True
+          elif target <= now < close_target:
+              capture('auction_late_start')
+              auction_captured = True
+
+          now = dt.datetime.now(KST)
+          if now < close_target and (close_target - now).total_seconds() <= 20 * 60:
+              time.sleep((close_target - now).total_seconds())
+              capture('after_close_153008')
+
+          keysets = {}
+          for snap in snapshots:
+              for code, groups in snap['summary'].items():
+                  for name, info in groups.items():
+                      key = f'{code}:{name}'
+                      keysets.setdefault(key, {})[snap['label']] = [x['path'] for x in info.get('interesting_fields', [])]
+          auction_only = {}
+          for key, by_label in keysets.items():
+              immediate = set()
+              auction = set()
+              for label, paths in by_label.items():
+                  if label.startswith('immediate'):
+                      immediate.update(paths)
+                  elif label.startswith('auction'):
+                      auction.update(paths)
+              diff = sorted(auction - immediate)
+              if diff:
+                  auction_only[key] = diff[:250]
+
+          report = {
+              'generated_at': dt.datetime.now(KST).isoformat(),
+              'purpose': '웹 크롤링만으로 종가 후보 최종 확인 6개 항목을 구현할 수 있는지 검증',
+              'codes': CODES,
+              'auction_captured': auction_captured,
+              'snapshot_count': len(snapshots),
+              'snapshots': snapshots,
+              'auction_only_paths': auction_only,
+              'interpretation_limits': [
+                  '호가 스냅샷과 체결 목록만으로 주문 취소와 실제 체결을 거래소 이벤트 수준으로 완전 분리할 수 없다.',
+                  '웹 내부 API는 비공식이며 필드와 접근 가능 여부가 예고 없이 바뀔 수 있다.',
+                  '서로 다른 웹사이트의 시각과 시장 구분이 달라 값이 어긋날 수 있다.',
+              ],
+          }
+          (ROOT / 'latest-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps({'snapshots': len(snapshots), 'auction_captured': auction_captured}, ensure_ascii=False))
+          PY
+
+      - name: Commit probe report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/web-confirmation-probe
+          if git diff --cached --quiet; then
+            echo 'No report changes.'
+          else
+            git commit -m 'Record web-only market confirmation probe'
+            git push origin HEAD:main
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-market-confirmation-probe
+          path: tools/web-confirmation-probe
+          retention-days: 14
+          compression-level: 6
