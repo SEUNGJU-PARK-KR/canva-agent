@@ -1,0 +1,133 @@
+name: Immediate web market endpoint audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/probe-web-market-immediate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Probe public read-only market endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tools/web-confirmation-immediate
+          python3 - <<'PY'
+          import datetime as dt
+          import hashlib
+          import json
+          import re
+          import time
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          OUT=Path('tools/web-confirmation-immediate/latest-report.json')
+          KST=ZoneInfo('Asia/Seoul')
+          UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/138 Safari/537.36'
+          CODES=['005930','000660']
+
+          def get(url, referer):
+              req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'application/json,text/plain,*/*','Accept-Language':'ko-KR,ko;q=0.9','Referer':referer})
+              started=time.time()
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as r:
+                      raw=r.read(); text=raw.decode('utf-8',errors='replace')
+                      try:data=json.loads(text)
+                      except Exception:data=None
+                      return {'ok':True,'status':r.status,'elapsed_ms':round((time.time()-started)*1000,1),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'json':data,'text_head':None if data is not None else text[:500]}
+              except urllib.error.HTTPError as e:
+                  raw=e.read(); return {'ok':False,'status':e.code,'elapsed_ms':round((time.time()-started)*1000,1),'bytes':len(raw),'text_head':raw.decode('utf-8',errors='replace')[:500]}
+              except Exception as e:
+                  return {'ok':False,'status':None,'elapsed_ms':round((time.time()-started)*1000,1),'error':repr(e)}
+
+          def endpoints(code):
+              nref=f'https://stock.naver.com/domestic/stock/{code}/price'
+              mref=f'https://m.stock.naver.com/domestic/stock/{code}/total'
+              dref=f'https://finance.daum.net/quotes/A{code}'
+              return {
+                  'naver_price':(f'https://stock.naver.com/api/domestic/detail/{code}/price',nref),
+                  'naver_hoga':(f'https://stock.naver.com/api/domestic/detail/{code}/hoga',nref),
+                  'naver_ticks':(f'https://stock.naver.com/api/domestic/detail/{code}/siseTick?startIdx=0&pageSize=100',nref),
+                  'naver_poll':(f'https://stock.naver.com/api/polling/domestic/stock?itemCodes={code}',nref),
+                  'naver_mobile_basic':(f'https://m.stock.naver.com/api/stock/{code}/basic',mref),
+                  'naver_mobile_integration':(f'https://m.stock.naver.com/api/stock/{code}/integration',mref),
+                  'naver_legacy_poll':(f'https://polling.finance.naver.com/api/realtime?query=SERVICE_ITEM:{code}',f'https://finance.naver.com/item/main.naver?code={code}'),
+                  'daum_quote':(f'https://finance.daum.net/api/quotes/A{code}?summary=false&changeStatistics=true',dref),
+                  'daum_minutes':(f'https://finance.daum.net/api/charts/A{code}/minutes/1?limit=30&adjusted=true',dref),
+                  'daum_orderbook_guess':(f'https://finance.daum.net/api/quotes/A{code}/orderbook',dref),
+                  'daum_trades_guess':(f'https://finance.daum.net/api/quotes/A{code}/trades',dref),
+                  'yahoo_1m':(f'https://query1.finance.yahoo.com/v8/finance/chart/{code}.KS?interval=1m&range=1d','https://finance.yahoo.com/'),
+              }
+
+          snapshots=[]
+          for idx,delay in enumerate((0,3,7)):
+              if delay: time.sleep(delay)
+              snap={'captured_at':dt.datetime.now(KST).isoformat(),'codes':{}}
+              for code in CODES:
+                  snap['codes'][code]={name:get(url,ref) for name,(url,ref) in endpoints(code).items()}
+              snapshots.append(snap)
+
+          def walk(v,path='root'):
+              if isinstance(v,dict):
+                  for k,x in v.items():
+                      p=f'{path}.{k}'; yield p,x; yield from walk(x,p)
+              elif isinstance(v,list):
+                  for i,x in enumerate(v[:100]):
+                      p=f'{path}[{i}]'; yield p,x; yield from walk(x,p)
+
+          key_re=re.compile(r'(expect|estimated|predict|auction|closing|single|indicative|match|체결|예상|호가|매수|매도|잔량|price|quant|volume|time|date|status|ask|bid|sell|buy)',re.I)
+          endpoint_summary={}
+          for code in CODES:
+              endpoint_summary[code]={}
+              names=snapshots[0]['codes'][code].keys()
+              for name in names:
+                  variants=[s['codes'][code][name] for s in snapshots]
+                  item={'statuses':[v.get('status') for v in variants],'ok':[v.get('ok') for v in variants],'bytes':[v.get('bytes') for v in variants],'sha256':[v.get('sha256') for v in variants],'changed':len({v.get('sha256') for v in variants if v.get('sha256')})>1}
+                  data=variants[-1].get('json')
+                  if isinstance(data,dict):item['root_keys']=sorted(data.keys())
+                  elif isinstance(data,list):item['root_type']='list';item['length']=len(data)
+                  fields=[]
+                  if data is not None:
+                      for p,x in walk(data):
+                          if key_re.search(p.rsplit('.',1)[-1]):
+                              fields.append({'path':p,'value':f'<{type(x).__name__}:{len(x)}>' if isinstance(x,(dict,list)) else x})
+                          if len(fields)>=600:break
+                  item['fields']=fields
+                  item['sample_json']=data
+                  if data is None:item['text_head']=variants[-1].get('text_head')
+                  endpoint_summary[code][name]=item
+
+          report={'generated_at':dt.datetime.now(KST).isoformat(),'snapshot_count':len(snapshots),'intervals_seconds':[0,3,7],'codes':CODES,'summary':endpoint_summary,'raw_snapshots':snapshots,'limits':['웹 스냅샷만으로 주문 취소와 체결을 완전 분리할 수 없음','비공식 내부 API이며 변경 가능','시각·지연을 거래소 원장과 비교하지 않은 상태']}
+          OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'output':str(OUT),'bytes':OUT.stat().st_size},ensure_ascii=False))
+          PY
+
+      - name: Commit audit result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tools/web-confirmation-immediate/latest-report.json
+          git commit -m 'Record immediate web market endpoint audit'
+          git push origin HEAD:main
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: immediate-web-market-endpoint-audit
+          path: tools/web-confirmation-immediate/latest-report.json
+          retention-days: 14
