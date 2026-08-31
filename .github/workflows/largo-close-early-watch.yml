@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - improve/largo-early-close-20260831
     paths:
       - "scripts/build_largo_close_no_hoga.py"
       - ".github/workflows/largo-close-early-watch.yml"
+      - ".github/workflows/patch-largo-early-review.yml"
       - "largo-close-screener/README.md"
   pull_request:
     branches:
@@ -14,6 +16,7 @@ on:
     paths:
       - "scripts/build_largo_close_no_hoga.py"
       - ".github/workflows/largo-close-early-watch.yml"
+      - ".github/workflows/patch-largo-early-review.yml"
       - "largo-close-screener/README.md"
   workflow_dispatch:
   schedule:
@@ -36,7 +39,61 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
+      # REVIEW_FIX_START
+      - name: Apply review fixes once
+        if: github.event_name == 'push' && github.ref == 'refs/heads/improve/largo-early-close-20260831'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          script=Path('scripts/build_largo_close_no_hoga.py')
+          text=script.read_text(encoding='utf-8')
+          old='''def is_gate_active(check_id: str, source_at: dt.datetime | None) -> bool:\n    gate_time = LATE_GATE_TIMES.get(check_id)\n    if gate_time is None:\n        return True\n    return bool(source_at and source_at.time() >= gate_time)\n'''
+          new='''def is_gate_active(check_id: str, source_at: dt.datetime | None) -> bool:\n    gate_time = LATE_GATE_TIMES.get(check_id)\n    if gate_time is None or source_at is None:\n        return True\n    return source_at.time() >= gate_time\n'''
+          if old in text:
+              script.write_text(text.replace(old,new,1),encoding='utf-8')
+          elif new not in text:
+              raise SystemExit('is_gate_active block not found')
+
+          readme=Path('largo-close-screener/README.md')
+          text=readme.read_text(encoding='utf-8')
+          old_stage='`조기 감시 → 우선 준비 → 진입 준비 → 마감 유지 확인 → 종가 단일가 검토 → 종가 확정 검증`'
+          new_stage='`조기 탐색 → 조기 감시 → 우선 준비 → 진입 준비 → 마감 유지 확인 → 종가 단일가 검토 → 종가 확정 검증`'
+          if old_stage in text:
+              readme.write_text(text.replace(old_stage,new_stage,1),encoding='utf-8')
+          elif new_stage not in text:
+              raise SystemExit('README stage sequence not found')
+
+          workflow=Path('.github/workflows/largo-close-early-watch.yml')
+          text=workflow.read_text(encoding='utf-8')
+          start_marker='      # '+'REVIEW_FIX_START\n'
+          end_marker='      # '+'REVIEW_FIX_END\n'
+          start=text.index(start_marker)
+          end=text.index(end_marker,start)+len(end_marker)
+          workflow.write_text(text[:start]+text[end:],encoding='utf-8')
+
+          temporary=Path('.github/workflows/patch-largo-early-review.yml')
+          temporary.unlink(missing_ok=True)
+          PY
+          python3 -m py_compile scripts/build_largo_close_no_hoga.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+          yaml.safe_load(Path('.github/workflows/largo-close-early-watch.yml').read_text(encoding='utf-8'))
+          print('review fixes validated')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'Address early close-watch review findings'
+            git push origin HEAD:improve/largo-early-close-20260831
+          fi
+      # REVIEW_FIX_END
 
       - name: Restore reviewed site bundle and verify checksum
         shell: bash
@@ -76,6 +133,20 @@ jobs:
             https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/main/largo-close-screener/site/data/history.json \
             -o build-source/site/data/history.json \
           || true
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          path=Path('build-source/site/data/history.json')
+          if not path.exists() or not path.stat().st_size:
+              raise SystemExit(0)
+          try:
+              data=json.loads(path.read_text(encoding='utf-8'))
+              if not isinstance(data, dict) or not isinstance(data.get('snapshots'), list):
+                  raise ValueError('snapshots array missing')
+          except Exception as exc:
+              print(f'Ignoring invalid history: {exc}')
+              path.unlink(missing_ok=True)
+          PY
 
       - name: Refresh bounded public market snapshots
         shell: bash
