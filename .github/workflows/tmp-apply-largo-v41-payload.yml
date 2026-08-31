@@ -1,0 +1,47 @@
+name: Temporary apply Largo win-rate v4.1 payload
+
+on:
+  push:
+    branches:
+      - improve/largo-winrate-v4-1-20260901
+    paths:
+      - ".github/workflows/tmp-apply-largo-v41-payload.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-largo-winrate-v41-payload
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: improve/largo-winrate-v4-1-20260901
+          fetch-depth: 0
+
+      - name: Restore, validate and commit source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .largo-v41-payload/part-* | base64 -d > /tmp/largo-v41.zip
+          echo 'cbc73a32014351903093966d570002d885b338577aa05bf2603c0a6ad5df03fe  /tmp/largo-v41.zip' | sha256sum -c -
+          unzip -oq /tmp/largo-v41.zip -d .
+          python3 -m py_compile \
+            scripts/largo_winrate_v4.py \
+            scripts/enrich_largo_winrate_v4.py \
+            scripts/build_largo_close_no_hoga.py \
+            scripts/capture_largo_forward_v4.py \
+            scripts/validate_largo_winrate_v41.py \
+            scripts/backtest_winrate_v4.py
+          PYTHONPATH=scripts python3 scripts/validate_largo_winrate_v41.py
+          git rm -r .largo-v41-payload
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts largo-close-screener/README.md largo-close-screener/WINRATE_V41.md
+          git commit -m 'Add Largo win-rate v4.1 selection and first-wave exits'
+          git push origin HEAD:improve/largo-winrate-v4-1-20260901
