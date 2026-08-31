@@ -1,0 +1,44 @@
+name: Temporary run Largo v4.1 review fix
+
+on:
+  push:
+    branches:
+      - improve/largo-winrate-v4-1-20260901
+    paths:
+      - ".github/workflows/tmp-run-largo-v41-review-fix.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply-review-fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: improve/largo-winrate-v4-1-20260901
+          fetch-depth: 0
+
+      - name: Apply deterministic source patch
+        run: python3 .tmp/apply_largo_v41_review_fixes.py
+
+      - name: Validate patched sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/capture_largo_forward_v4.py scripts/backtest_winrate_v4.py scripts/largo_winrate_v4.py scripts/validate_largo_winrate_v41.py
+          PYTHONPATH=scripts python3 scripts/validate_largo_winrate_v41.py
+          PYTHONPATH=scripts python3 -c "from backtest_winrate_v4 import basic_stats; r=basic_stats([{'outcome_status':'EVALUATED','open_gap_pct':None,'next_close_return_pct':None,'mfe_pct':None,'mae_pct':None}]); assert r['n']==1 and all(r[k] is None for k in ('avg_open_gap','avg_close','avg_mfe','avg_mae')); print('missing-value regression PASS')"
+
+      - name: Commit patched sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/capture_largo_forward_v4.py scripts/backtest_winrate_v4.py scripts/largo_winrate_v4.py scripts/validate_largo_winrate_v41.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'Fix v4.1 forward-data and empty-stat handling'
+            git push origin HEAD:improve/largo-winrate-v4-1-20260901
+          fi
