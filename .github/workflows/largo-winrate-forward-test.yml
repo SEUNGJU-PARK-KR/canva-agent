@@ -1,0 +1,90 @@
+name: Largo win-rate v4.1 forward test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/largo_winrate_v4.py"
+      - "scripts/capture_largo_forward_v4.py"
+      - "scripts/validate_largo_winrate_v41.py"
+      - ".github/workflows/largo-winrate-forward-test.yml"
+  workflow_dispatch:
+  schedule:
+    # KST 09:05, 09:15, 10:30, 15:35 on weekdays.
+    - cron: "5,15 0 * * 1-5"
+    - cron: "30 1 * * 1-5"
+    - cron: "35 6 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-winrate-forward-test
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recover signal and forward history
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p forward-public/data
+          curl -fsSL --max-time 20 https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/winrate-v4-signals.json -o forward-public/data/winrate-v4-signals.json || echo '{"candidates":[]}' > forward-public/data/winrate-v4-signals.json
+          curl -fsSL --max-time 20 https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/winrate-v4-forward.json -o forward-public/data/winrate-v4-forward.json || echo '{"observations":[]}' > forward-public/data/winrate-v4-forward.json
+
+      - name: Capture read-only observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          stage=$(python3 - <<'PY'
+          import datetime as dt
+          kst=dt.timezone(dt.timedelta(hours=9)); t=dt.datetime.now(kst).time()
+          if t < dt.time(9,10): print('09:05')
+          elif t < dt.time(9,30): print('09:15')
+          elif t < dt.time(12,0): print('10:30')
+          else: print('15:35')
+          PY
+          )
+          PYTHONPATH=scripts python3 scripts/capture_largo_forward_v4.py \
+            --signals forward-public/data/winrate-v4-signals.json \
+            --history forward-public/data/winrate-v4-forward.json \
+            --output forward-public/data/winrate-v4-forward.json \
+            --stage "$stage" --timeout 15 --delay 0.10
+          touch forward-public/.nojekyll
+
+      - name: Validate forward data
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('forward-public/data/winrate-v4-forward.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          assert d.get('version')=='largo-winrate-v4.1'
+          assert isinstance(d.get('observations'),list)
+          print({'observations':len(d['observations']),'latest_stage':d.get('latest_stage')})
+          PY
+
+      - name: Upload forward-test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-winrate-v4-forward
+          path: forward-public/data
+          retention-days: 30
+
+      - name: Publish forward data into gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./forward-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Record Largo win-rate v4.1 forward observation
