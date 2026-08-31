@@ -9,6 +9,7 @@ on:
       - "bundles/largo_close_site_v2/**"
       - "scripts/augment_largo_close_site.py"
       - "scripts/fix_largo_automation_356.py"
+      - "scripts/build_largo_close_no_hoga.py"
       - ".github/workflows/largo-close-site.yml"
   pull_request:
     branches:
@@ -17,6 +18,7 @@ on:
       - "bundles/largo_close_site_v2/**"
       - "scripts/augment_largo_close_site.py"
       - "scripts/fix_largo_automation_356.py"
+      - "scripts/build_largo_close_no_hoga.py"
       - ".github/workflows/largo-close-site.yml"
   schedule:
     # KST 14:40, 15:00, 15:10, 15:18, 15:28, 15:35 on weekdays.
@@ -66,6 +68,7 @@ jobs:
           python3 -m py_compile build-source/tools/scrape_naver_close.py
           python3 -m py_compile scripts/augment_largo_close_site.py
           python3 -m py_compile scripts/fix_largo_automation_356.py
+          python3 -m py_compile scripts/build_largo_close_no_hoga.py
 
       - name: Recover prior static history when available
         shell: bash
@@ -109,6 +112,15 @@ jobs:
             --site build-source/site/index.html \
             --audit build-source/site/data/automation-356.json
 
+      - name: Build strict close-betting page without orderbook gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/build_largo_close_no_hoga.py \
+            --latest build-source/site/data/latest.json \
+            --methodology build-source/site/data/methodology.json \
+            --output build-source/site/no-hoga.html
+
       - name: Validate strict Largo screening and automation output
         shell: bash
         run: |
@@ -145,6 +157,14 @@ jobs:
           assert '자동화된 최종 확인 3·5·6' in site
           assert "status!=='NOT_ELIGIBLE'" in site
           assert len(site.encode('utf-8')) > 15000
+          no_hoga=(root/'no-hoga.html').read_text(encoding='utf-8')
+          assert '라르고 종가베팅' in no_hoga
+          assert '호가 조건 제외' in no_hoga
+          assert '호가 판정 미사용' in no_hoga
+          assert '기준 확인:' in no_hoga
+          assert '주문·계좌 기능은 없습니다' in no_hoga
+          assert 'fetch(' not in no_hoga
+          assert len(no_hoga.encode('utf-8')) > 15000
           assert (root/'analysis.html').stat().st_size > 3000
           assert (root/'data/methodology.json').stat().st_size > 5000
           print({
@@ -152,6 +172,7 @@ jobs:
             'counts':data.get('counts'),
             'automation_counts':auto.get('counts'),
             'eligible_render_count':audit.get('eligible_render_count'),
+            'no_hoga_bytes':len(no_hoga.encode('utf-8')),
             'source_errors':len(data.get('source',{}).get('errors',[])),
           })
           PY
