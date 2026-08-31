@@ -239,9 +239,9 @@ def risk_plan(row: Mapping[str, Any]) -> dict[str, Any]:
 
 def is_gate_active(check_id: str, source_at: dt.datetime | None) -> bool:
     gate_time = LATE_GATE_TIMES.get(check_id)
-    if gate_time is None:
+    if gate_time is None or source_at is None:
         return True
-    return bool(source_at and source_at.time() >= gate_time)
+    return source_at.time() >= gate_time
 
 
 def readiness_score(
