@@ -145,7 +145,13 @@ def phase(source_at: dt.datetime | None) -> dict[str, str]:
             "action": "최신 데이터 생성 시각을 확인합니다.",
         }
     current = source_at.time()
-    if current < dt.time(14, 35):
+    if source_at.weekday() >= 5:
+        phase_id, title, action = "MARKET_CLOSED", "휴장일 기록", "신규 진입 판단에 사용하지 않습니다."
+    elif current < dt.time(9, 0):
+        phase_id, title, action = "PRE_MARKET", "장 시작 전 · 전일 기록", "신규 진입 판단에 사용하지 않습니다."
+    elif current < dt.time(13, 38):
+        phase_id, title, action = "MORNING", "장중 데이터 축적", "종가 후보를 확정하지 않고 데이터만 축적합니다."
+    elif current < dt.time(14, 35):
         phase_id, title, action = "EARLY", "조기 관찰", "재료·주도주·차트 구조를 먼저 준비합니다."
     elif current < dt.time(15, 5):
         phase_id, title, action = "PRE_CLOSE", "마감 구조 관찰", "고가권·윗꼬리·매물 소화를 확인합니다."
@@ -642,6 +648,8 @@ def analyze_candidate(
     phase_id = phase(source_at)["id"]
     if active_hard_failures or unresolved_hard or risk.get("status") != "PASS" or negative_catalyst:
         lane = "EXCLUDE"
+    elif phase_id in {"PRE_MARKET", "MORNING", "MARKET_CLOSED", "UNKNOWN"}:
+        lane = "WATCH"
     elif close_fit and phase_id in {"FINAL_CHECK", "AUCTION"}:
         lane = "CLOSE_ENTRY"
     elif close_fit and phase_id == "FINAL_CLOSE":

@@ -111,6 +111,22 @@ jobs:
               except Exception as exc:
                   print(f'Ignoring invalid {name}: {exc}')
                   path.unlink(missing_ok=True)
+          forward=Path('build-source/site/data/winrate-v4-forward.json')
+          if not forward.exists():
+              forward.write_text(json.dumps({
+                  'version':'largo-winrate-v4.1',
+                  'updated_at':None,
+                  'latest_stage':None,
+                  'signal_at':'',
+                  'observations':[],
+                  'latest':[],
+                  'notes':[
+                      '일봉·현재가 관찰 기록이며 자동 주문을 수행하지 않습니다.',
+                      '목표와 구조선이 모두 관측된 날은 분봉 순서를 확인하기 전까지 결과를 확정하지 않습니다.',
+                      '종가 보유형은 +1% 50%, +2% 30%, 잔여 20% 추적을 전진 검증합니다.',
+                      '익일 확인형은 09:05·09:15 전일 종가 회복 유지와 갭 +3% 미만을 요구합니다.'
+                  ]
+              }, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
           PY
 
       - name: Refresh bounded public market snapshots
@@ -256,7 +272,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          force_orphan: true
+          keep_files: true
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
           full_commit_message: Refresh Largo win-rate v4.1 GitHub Pages
