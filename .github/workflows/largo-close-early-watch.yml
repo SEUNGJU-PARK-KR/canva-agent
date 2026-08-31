@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - improve/largo-early-close-20260831
     paths:
       - "scripts/build_largo_close_no_hoga.py"
       - ".github/workflows/largo-close-early-watch.yml"
@@ -38,31 +37,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Apply conservative unknown-time gate fix
-        if: github.event_name == 'push' && github.ref == 'refs/heads/improve/largo-early-close-20260831'
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          path=Path('scripts/build_largo_close_no_hoga.py')
-          text=path.read_text(encoding='utf-8')
-          old='''def is_gate_active(check_id: str, source_at: dt.datetime | None) -> bool:\n    gate_time = LATE_GATE_TIMES.get(check_id)\n    if gate_time is None:\n        return True\n    return bool(source_at and source_at.time() >= gate_time)\n'''
-          new='''def is_gate_active(check_id: str, source_at: dt.datetime | None) -> bool:\n    gate_time = LATE_GATE_TIMES.get(check_id)\n    if gate_time is None or source_at is None:\n        return True\n    return source_at.time() >= gate_time\n'''
-          if old in text:
-              path.write_text(text.replace(old,new,1),encoding='utf-8')
-          elif new not in text:
-              raise SystemExit('is_gate_active block not found')
-          PY
-          python3 -m py_compile scripts/build_largo_close_no_hoga.py
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/build_largo_close_no_hoga.py
-          if ! git diff --cached --quiet; then
-            git commit -m 'Make unknown-time gate handling conservative'
-            git push origin HEAD:improve/largo-early-close-20260831
-          fi
 
       - name: Restore reviewed site bundle and verify checksum
         shell: bash
