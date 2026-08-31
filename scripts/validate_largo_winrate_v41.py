@@ -2,7 +2,6 @@
 """Deterministic smoke tests for Largo win-rate v4.1 rules."""
 from __future__ import annotations
 
-import copy
 import datetime as dt
 
 from largo_winrate_v4 import KST, VERSION, analyze_candidate, event_item_matches, theme_breadth

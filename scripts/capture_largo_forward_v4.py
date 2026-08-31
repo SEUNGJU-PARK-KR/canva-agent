@@ -83,8 +83,8 @@ def capture(signals: Mapping[str, Any], history: Mapping[str, Any], stage: str, 
         reference = num(candidate.get("signal_price"))
         risk = candidate.get("risk") if isinstance(candidate.get("risk"), Mapping) else {}
         stop = num(risk.get("stop"))
-        target = reference * 1.01 if reference else None
-        target2 = reference * 1.02 if reference else None
+        target = reference * 1.01 if reference is not None and reference > 0 else None
+        target2 = reference * 1.02 if reference is not None and reference > 0 else None
         observation = {
             "observed_at": now.isoformat(), "stage": stage, "signal_at": signal_at,
             "market_date": signals.get("market_date"), "code": code, "name": candidate.get("name"),
@@ -92,15 +92,19 @@ def capture(signals: Mapping[str, Any], history: Mapping[str, Any], stage: str, 
             "reference_close": reference, "stop": stop, "target1": target, "target2": target2,
             **data, "error": error,
         }
-        if reference:
-            observation["open_gap_pct"] = ((data["open"] / reference) - 1) * 100 if data.get("open") else None
-            observation["current_return_pct"] = ((data["price"] / reference) - 1) * 100 if data.get("price") else None
-            observation["reclaimed_reference"] = bool(data.get("high") and data["high"] >= reference)
-            observation["target1_seen"] = bool(data.get("high") and target and data["high"] >= target)
-            observation["target2_seen"] = bool(data.get("high") and target2 and data["high"] >= target2)
-            observation["stop_seen"] = bool(data.get("low") and stop and data["low"] <= stop)
+        if reference is not None and reference > 0:
+            open_price = data.get("open")
+            current_price = data.get("price")
+            high_price = data.get("high")
+            low_price = data.get("low")
+            observation["open_gap_pct"] = ((open_price / reference) - 1) * 100 if open_price is not None else None
+            observation["current_return_pct"] = ((current_price / reference) - 1) * 100 if current_price is not None else None
+            observation["reclaimed_reference"] = bool(high_price is not None and high_price >= reference)
+            observation["target1_seen"] = bool(high_price is not None and target is not None and high_price >= target)
+            observation["target2_seen"] = bool(high_price is not None and target2 is not None and high_price >= target2)
+            observation["stop_seen"] = bool(low_price is not None and stop is not None and low_price <= stop)
             observation["no_chase_gap"] = bool(observation.get("open_gap_pct") is not None and observation["open_gap_pct"] >= 3.0)
-            observation["above_reference"] = bool(data.get("price") and data["price"] >= reference)
+            observation["above_reference"] = bool(current_price is not None and current_price >= reference)
             observation["confirmation_ready"] = bool(
                 candidate.get("lane") == "NEXT_DAY_CONFIRM"
                 and not observation["no_chase_gap"]

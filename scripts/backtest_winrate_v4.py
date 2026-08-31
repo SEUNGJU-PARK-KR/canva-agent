@@ -132,15 +132,18 @@ def basic_stats(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "mfe_ge_1": None, "mfe_ge_2": None, "avg_open_gap": None,
             "avg_close": None, "avg_mfe": None, "avg_mae": None,
         }
-    mean = lambda key: statistics.mean(row[key] for row in evaluated if row.get(key) is not None)
+    def safe_mean(key: str) -> float | None:
+        values = [row[key] for row in evaluated if row.get(key) is not None]
+        return statistics.mean(values) if values else None
+
     return {
         "n": len(evaluated),
         "positive_open": sum((row.get("open_gap_pct") or -999) > 0 for row in evaluated) / len(evaluated),
         "positive_close": sum((row.get("next_close_return_pct") or -999) > 0 for row in evaluated) / len(evaluated),
         "mfe_ge_1": sum((row.get("mfe_pct") or -999) >= 1 for row in evaluated) / len(evaluated),
         "mfe_ge_2": sum((row.get("mfe_pct") or -999) >= 2 for row in evaluated) / len(evaluated),
-        "avg_open_gap": mean("open_gap_pct"), "avg_close": mean("next_close_return_pct"),
-        "avg_mfe": mean("mfe_pct"), "avg_mae": mean("mae_pct"),
+        "avg_open_gap": safe_mean("open_gap_pct"), "avg_close": safe_mean("next_close_return_pct"),
+        "avg_mfe": safe_mean("mfe_pct"), "avg_mae": safe_mean("mae_pct"),
     }
 
 

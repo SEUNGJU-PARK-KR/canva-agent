@@ -11,10 +11,9 @@ import html
 import json
 import math
 import re
-import time
 import urllib.request
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 KST = dt.timezone(dt.timedelta(hours=9))
 VERSION = "largo-winrate-v4.1"
