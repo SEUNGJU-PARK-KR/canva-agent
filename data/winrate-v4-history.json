@@ -248,7 +248,7 @@
       }
     },
     {
-      "at": "2026-09-01T01:49:11.357535+09:00",
+      "at": "2026-09-01T01:49:07.144393+09:00",
       "market_date": "2026-09-01",
       "items": {
         "003670": {
@@ -260,6 +260,16 @@
           "confirm_fit": false,
           "close_rule_passes": 15,
           "confirm_rule_passes": 8
+        },
+        "011070": {
+          "name": "LG이노텍",
+          "lane": "WATCH",
+          "price": 642000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 14,
+          "confirm_rule_passes": 7
         },
         "096770": {
           "name": "SK이노베이션",
@@ -351,14 +361,14 @@
           "close_rule_passes": 6,
           "confirm_rule_passes": 4
         },
-        "011070": {
-          "name": "LG이노텍",
+        "009150": {
+          "name": "삼성전기",
           "lane": "EXCLUDE",
-          "price": 642000.0,
-          "pattern_id": "C3",
+          "price": 1458000.0,
+          "pattern_id": "C5",
           "close_fit": false,
           "confirm_fit": false,
-          "close_rule_passes": 13,
+          "close_rule_passes": 11,
           "confirm_rule_passes": 6
         },
         "066970": {
@@ -370,16 +380,6 @@
           "confirm_fit": false,
           "close_rule_passes": 10,
           "confirm_rule_passes": 7
-        },
-        "009150": {
-          "name": "삼성전기",
-          "lane": "EXCLUDE",
-          "price": 1458000.0,
-          "pattern_id": "C5",
-          "close_fit": false,
-          "confirm_fit": false,
-          "close_rule_passes": 10,
-          "confirm_rule_passes": 5
         },
         "476060": {
           "name": "온코닉테라퓨틱스",

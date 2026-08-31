@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-01T01:32:31.229616+09:00",
+  "generated_at": "2026-09-01T01:49:07.144393+09:00",
   "market_date": "2026-09-01",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1075,7 +1075,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1093,7 +1093,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:23.389145+09:00",
+              "captured_at": "2026-09-01T01:51:59.948859+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 53700,
@@ -1105,7 +1105,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:36.277972+09:00",
+              "captured_at": "2026-09-01T01:53:12.994531+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 53700,
@@ -1117,7 +1117,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:50.201734+09:00",
+              "captured_at": "2026-09-01T01:54:26.410950+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 53700,
@@ -1189,15 +1189,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 249.7,
+          "hours": 250.0,
           "at": "2026-08-21T15:51:02+09:00",
           "title": "(주)포스코인터내셔널 자원개발 진행사항 공시(자율공시)",
           "source": "notice",
-          "reason": "재료 발표 후 249.7시간이 지났습니다."
+          "reason": "재료 발표 후 250.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1772,7 +1772,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1790,7 +1790,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:23.385188+09:00",
+              "captured_at": "2026-09-01T01:51:59.931528+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 125500,
@@ -1802,7 +1802,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:36.301641+09:00",
+              "captured_at": "2026-09-01T01:53:12.993164+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 125500,
@@ -1814,7 +1814,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:49.746909+09:00",
+              "captured_at": "2026-09-01T01:54:26.409782+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 125500,
@@ -1896,15 +1896,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.0,
+          "hours": 1.3,
           "at": "2026-09-01T00:34:00+09:00",
           "title": "SK온, 美서 ESS용 배터리 1.5조원 규모 수주",
           "source": "news",
-          "reason": "재료 발표 후 1.0시간이 지났습니다."
+          "reason": "재료 발표 후 1.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2494,7 +2494,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -2512,7 +2512,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:23.382846+09:00",
+              "captured_at": "2026-09-01T01:51:59.953889+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 200500,
@@ -2524,7 +2524,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:36.288047+09:00",
+              "captured_at": "2026-09-01T01:53:12.984199+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 200500,
@@ -2536,7 +2536,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:50.199118+09:00",
+              "captured_at": "2026-09-01T01:54:26.410545+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 200500,
@@ -2618,15 +2618,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1104.0,
+          "hours": 1104.2,
           "at": "2026-07-17T01:34:38+09:00",
           "title": "(주)포스코퓨처엠 단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 1104.0시간이 지났습니다."
+          "reason": "재료 발표 후 1104.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3193,7 +3193,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3211,7 +3211,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:23.375180+09:00",
+              "captured_at": "2026-09-01T01:51:59.946794+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 186500,
@@ -3223,7 +3223,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:36.301185+09:00",
+              "captured_at": "2026-09-01T01:53:12.992420+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 186500,
@@ -3235,7 +3235,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:50.208683+09:00",
+              "captured_at": "2026-09-01T01:54:26.416426+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 186500,
@@ -3297,15 +3297,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 8.2,
+          "hours": 8.5,
           "at": "2026-08-31T17:22:00+09:00",
           "title": "우선주, 본주 대비 최대 81% 할인…“거버넌스 위험의 값”",
           "source": "news",
-          "reason": "재료 발표 후 8.2시간이 지났습니다."
+          "reason": "재료 발표 후 8.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3869,7 +3869,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3887,7 +3887,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:24.547123+09:00",
+              "captured_at": "2026-09-01T01:52:01.088380+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 1674000,
@@ -3899,7 +3899,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:37.832981+09:00",
+              "captured_at": "2026-09-01T01:53:14.510059+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 1674000,
@@ -3911,7 +3911,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:51.368837+09:00",
+              "captured_at": "2026-09-01T01:54:27.915178+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 1674000,
@@ -3978,15 +3978,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.0,
+          "hours": 1.3,
           "at": "2026-09-01T00:32:00+09:00",
           "title": "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다",
           "source": "news",
-          "reason": "재료 발표 후 1.0시간이 지났습니다."
+          "reason": "재료 발표 후 1.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4550,7 +4550,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4568,7 +4568,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:24.755782+09:00",
+              "captured_at": "2026-09-01T01:52:01.105273+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 260000,
@@ -4580,7 +4580,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:37.830225+09:00",
+              "captured_at": "2026-09-01T01:53:14.515735+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 260000,
@@ -4592,7 +4592,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:51.894688+09:00",
+              "captured_at": "2026-09-01T01:54:27.931597+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 260000,
@@ -4654,15 +4654,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.0,
+          "hours": 1.3,
           "at": "2026-09-01T00:32:00+09:00",
           "title": "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다",
           "source": "news",
-          "reason": "재료 발표 후 1.0시간이 지났습니다."
+          "reason": "재료 발표 후 1.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5220,7 +5220,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5238,7 +5238,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-09-01T01:35:24.744842+09:00",
+              "captured_at": "2026-09-01T01:52:01.090021+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 642000,
@@ -5250,7 +5250,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:36:37.815853+09:00",
+              "captured_at": "2026-09-01T01:53:14.510596+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 642000,
@@ -5262,7 +5262,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-09-01T01:37:51.872739+09:00",
+              "captured_at": "2026-09-01T01:54:27.936572+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 642000,
@@ -5329,15 +5329,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 849.7,
+          "hours": 850.0,
           "at": "2026-07-27T15:50:56+09:00",
           "title": "엘지이노텍(주) 연결재무제표기준영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 849.7시간이 지났습니다."
+          "reason": "재료 발표 후 850.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5900,7 +5900,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5972,7 +5972,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6504,7 +6504,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6551,15 +6551,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 7.7,
+          "hours": 8.0,
           "at": "2026-08-31T17:51:00+09:00",
           "title": "삼전닉스 자사주 매입이 받친 코스피…美 실적·고용 주목",
           "source": "news",
-          "reason": "재료 발표 후 7.7시간이 지났습니다."
+          "reason": "재료 발표 후 8.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7137,7 +7137,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7213,15 +7213,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 7.7,
+          "hours": 8.0,
           "at": "2026-08-31T17:51:00+09:00",
           "title": "삼전닉스 자사주 매입이 받친 코스피…美 실적·고용 주목",
           "source": "news",
-          "reason": "재료 발표 후 7.7시간이 지났습니다."
+          "reason": "재료 발표 후 8.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7800,7 +7800,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7867,15 +7867,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 777.7,
+          "hours": 778.0,
           "at": "2026-07-30T15:51:23+09:00",
           "title": "LG전자(주) (정정)연결재무제표기준영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 777.7시간이 지났습니다."
+          "reason": "재료 발표 후 778.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8442,7 +8442,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8508,15 +8508,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 249.7,
+          "hours": 250.0,
           "at": "2026-08-21T15:50:08+09:00",
           "title": "두산에너빌리티(주) 단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 249.7시간이 지났습니다."
+          "reason": "재료 발표 후 250.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8535,13 +8535,7 @@
             "source": "notice"
           }
         ],
-        "after_signal_items": [
-          {
-            "title": "두산에너빌리티(주) 기업설명회(IR) 개최(안내공시)",
-            "at": "2026-09-01T01:34:20+09:00",
-            "source": "notice"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -9100,7 +9094,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9181,7 +9175,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9748,7 +9742,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9819,7 +9813,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10387,7 +10381,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10468,15 +10462,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 489.7,
+          "hours": 490.0,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 489.7시간이 지났습니다."
+          "reason": "재료 발표 후 490.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -11049,7 +11043,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11130,7 +11124,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11692,7 +11686,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11754,7 +11748,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12317,7 +12311,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12388,15 +12382,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 2123.8,
+          "hours": 2124.1,
           "at": "2026-06-04T13:44:00+09:00",
           "title": "한국비엔씨 투자한 온코젠, 이중타깃 항암신약 다국가 임상속도",
           "source": "news",
-          "reason": "재료 발표 후 2123.8시간이 지났습니다."
+          "reason": "재료 발표 후 2124.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -12959,7 +12953,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13015,15 +13009,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 969.7,
+          "hours": 970.0,
           "at": "2026-07-22T15:50:31+09:00",
           "title": "엘지디스플레이(주) 연결재무제표기준영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 969.7시간이 지났습니다."
+          "reason": "재료 발표 후 970.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -13580,7 +13574,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13652,7 +13646,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -14212,7 +14206,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14293,7 +14287,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -14850,7 +14844,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14922,7 +14916,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -15462,7 +15456,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -15518,7 +15512,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -16074,7 +16068,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-01T01:32:31.229616+09:00",
+      "updated_at": "2026-09-01T01:49:07.144393+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -16136,7 +16130,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "enriched_at": "2026-09-01T01:49:07.144393+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -16152,14 +16146,14 @@
     }
   ],
   "history_summary": {
-    "snapshots": 12,
+    "snapshots": 13,
     "first": "2026-08-27T01:00:08.688766+09:00",
-    "last": "2026-09-01T01:32:31.229616+09:00"
+    "last": "2026-09-01T01:49:07.144393+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "automation_356": {
     "version": "automation-356-v2",
-    "generated_at": "2026-09-01T01:37:51.895780+09:00",
+    "generated_at": "2026-09-01T01:54:27.937620+09:00",
     "automated_steps": [
       3,
       5,
@@ -16177,7 +16171,7 @@
   },
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-01T01:32:31.229616+09:00",
+    "source_at": "2026-09-01T01:49:07.144393+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
