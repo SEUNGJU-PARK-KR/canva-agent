@@ -1,0 +1,108 @@
+name: Temporary apply Largo v4.1 review fixes
+
+on:
+  push:
+    branches:
+      - improve/largo-winrate-v4-1-20260901
+    paths:
+      - ".github/workflows/tmp-fix-largo-v41-review.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: improve/largo-winrate-v4-1-20260901
+          fetch-depth: 0
+
+      - name: Patch, test and commit review fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p=Path('scripts/capture_largo_forward_v4.py')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('''        target = reference * 1.01 if reference else None
+          target2 = reference * 1.02 if reference else None
+''','''        target = reference * 1.01 if reference is not None and reference > 0 else None
+          target2 = reference * 1.02 if reference is not None and reference > 0 else None
+''')
+          old='''        if reference:
+              observation["open_gap_pct"] = ((data["open"] / reference) - 1) * 100 if data.get("open") else None
+              observation["current_return_pct"] = ((data["price"] / reference) - 1) * 100 if data.get("price") else None
+              observation["reclaimed_reference"] = bool(data.get("high") and data["high"] >= reference)
+              observation["target1_seen"] = bool(data.get("high") and target and data["high"] >= target)
+              observation["target2_seen"] = bool(data.get("high") and target2 and data["high"] >= target2)
+              observation["stop_seen"] = bool(data.get("low") and stop and data["low"] <= stop)
+              observation["no_chase_gap"] = bool(observation.get("open_gap_pct") is not None and observation["open_gap_pct"] >= 3.0)
+              observation["above_reference"] = bool(data.get("price") and data["price"] >= reference)
+'''
+          new='''        if reference is not None and reference > 0:
+              open_price = data.get("open")
+              current_price = data.get("price")
+              high_price = data.get("high")
+              low_price = data.get("low")
+              observation["open_gap_pct"] = ((open_price / reference) - 1) * 100 if open_price is not None else None
+              observation["current_return_pct"] = ((current_price / reference) - 1) * 100 if current_price is not None else None
+              observation["reclaimed_reference"] = bool(high_price is not None and high_price >= reference)
+              observation["target1_seen"] = bool(high_price is not None and target is not None and high_price >= target)
+              observation["target2_seen"] = bool(high_price is not None and target2 is not None and high_price >= target2)
+              observation["stop_seen"] = bool(low_price is not None and stop is not None and low_price <= stop)
+              observation["no_chase_gap"] = bool(observation.get("open_gap_pct") is not None and observation["open_gap_pct"] >= 3.0)
+              observation["above_reference"] = bool(current_price is not None and current_price >= reference)
+'''
+          if old in s: s=s.replace(old,new,1)
+          if new not in s: raise SystemExit('capture patch not applied')
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('scripts/backtest_winrate_v4.py')
+          s=p.read_text(encoding='utf-8')
+          old='''    mean = lambda key: statistics.mean(row[key] for row in evaluated if row.get(key) is not None)
+              return {
+'''
+          new='''    def safe_mean(key: str) -> float | None:
+              values = [row[key] for row in evaluated if row.get(key) is not None]
+              return statistics.mean(values) if values else None
+
+          return {
+'''
+          if old in s: s=s.replace(old,new,1)
+          s=s.replace('''        "avg_open_gap": mean("open_gap_pct"), "avg_close": mean("next_close_return_pct"),
+              "avg_mfe": mean("mfe_pct"), "avg_mae": mean("mae_pct"),
+''','''        "avg_open_gap": safe_mean("open_gap_pct"), "avg_close": safe_mean("next_close_return_pct"),
+              "avg_mfe": safe_mean("mfe_pct"), "avg_mae": safe_mean("mae_pct"),
+''')
+          if 'def safe_mean' not in s or 'safe_mean("open_gap_pct")' not in s: raise SystemExit('mean patch not applied')
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('scripts/largo_winrate_v4.py')
+          s=p.read_text(encoding='utf-8').replace('import time\n','').replace('from typing import Any, Iterable, Mapping, Sequence','from typing import Any, Mapping, Sequence')
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('scripts/validate_largo_winrate_v41.py')
+          p.write_text(p.read_text(encoding='utf-8').replace('import copy\n',''),encoding='utf-8')
+          PY
+          python3 -m py_compile scripts/capture_largo_forward_v4.py scripts/backtest_winrate_v4.py scripts/largo_winrate_v4.py scripts/validate_largo_winrate_v41.py
+          PYTHONPATH=scripts python3 scripts/validate_largo_winrate_v41.py
+          PYTHONPATH=scripts python3 - <<'PY'
+          from backtest_winrate_v4 import basic_stats
+          rows=[{'outcome_status':'EVALUATED','open_gap_pct':None,'next_close_return_pct':None,'mfe_pct':None,'mae_pct':None}]
+          result=basic_stats(rows)
+          assert result['n']==1
+          assert all(result[key] is None for key in ('avg_open_gap','avg_close','avg_mfe','avg_mae'))
+          print('missing-value regression PASS')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/capture_largo_forward_v4.py scripts/backtest_winrate_v4.py scripts/largo_winrate_v4.py scripts/validate_largo_winrate_v41.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'Fix v4.1 forward-data and empty-stat handling'
+            git push origin HEAD:improve/largo-winrate-v4-1-20260901
+          fi
