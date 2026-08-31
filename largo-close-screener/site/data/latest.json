@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-08-31T21:54:09.239220+09:00",
-  "market_date": "2026-08-31",
+  "generated_at": "2026-09-01T01:32:31.229616+09:00",
+  "market_date": "2026-09-01",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
     "base": "https://stock.naver.com",
@@ -822,9 +822,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -904,7 +906,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.08 · 몸통 0.69",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.08 · 몸통 0.69"
         },
         {
           "id": "C_SEQUENCE",
@@ -976,8 +980,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 53,157원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 0.07%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 53,157원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -1006,7 +1012,10 @@
             "risk_rate": 0.000745,
             "one_r_price": 53740
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -1066,7 +1075,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1084,7 +1093,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:56:59.737566+09:00",
+              "captured_at": "2026-09-01T01:35:23.389145+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 53700,
@@ -1096,7 +1105,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:13.165194+09:00",
+              "captured_at": "2026-09-01T01:36:36.277972+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 53700,
@@ -1108,7 +1117,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:26.394361+09:00",
+              "captured_at": "2026-09-01T01:37:50.201734+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 53700,
@@ -1177,6 +1186,28 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 249.7,
+          "at": "2026-08-21T15:51:02+09:00",
+          "title": "(주)포스코인터내셔널 자원개발 진행사항 공시(자율공시)",
+          "source": "notice",
+          "reason": "재료 발표 후 249.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "(주)포스코인터내셔널 자원개발 진행사항 공시(자율공시)",
+            "at": "2026-08-21T15:51:02+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -1205,9 +1236,9 @@
         "grade": "A",
         "reason": "2차전지(생산) 관련주 3/3 상승",
         "positive_titles": [
-          "[마켓인]SK지오센트릭, 최대 1600억 회사채 발행…‘부정적’ 전망 부...",
-          "SK온, 美서 ‘1.5조’ 수주… ‘기회의 땅’ ESS 공략 가속",
-          "SK온, 올해 ESS 수주 목표 절반 채웠다…서산·美 조지아 LFP 전환 속도"
+          "SK온, 美서 ESS용 배터리 1.5조원 규모 수주",
+          "국내 배터리 3사 ‘ESS 새 날개’… 美시장 수주 힘입어 흑자 전환",
+          "ESS 추격자 SK온, 美수주 1건으로 올 목표 50% 채워"
         ],
         "titles": [
           "지주회사관련",
@@ -1484,9 +1515,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -1566,7 +1599,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.18 · 몸통 0.58",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.18 · 몸통 0.58"
         },
         {
           "id": "C_SEQUENCE",
@@ -1642,8 +1677,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 NORMAL · 무효화 120,530원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 1.45%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 NORMAL · 무효화 120,530원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -1672,7 +1709,10 @@
             "risk_rate": 0.014486,
             "one_r_price": 127318
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -1732,7 +1772,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1750,7 +1790,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:56:59.716948+09:00",
+              "captured_at": "2026-09-01T01:35:23.385188+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 125500,
@@ -1762,7 +1802,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:13.156096+09:00",
+              "captured_at": "2026-09-01T01:36:36.301641+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 125500,
@@ -1774,7 +1814,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:26.571858+09:00",
+              "captured_at": "2026-09-01T01:37:49.746909+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 125500,
@@ -1853,6 +1893,43 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "FRESH",
+          "hours": 1.0,
+          "at": "2026-09-01T00:34:00+09:00",
+          "title": "SK온, 美서 ESS용 배터리 1.5조원 규모 수주",
+          "source": "news",
+          "reason": "재료 발표 후 1.0시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "SK온, 美서 ESS용 배터리 1.5조원 규모 수주",
+            "at": "2026-09-01T00:34:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "국내 배터리 3사 ‘ESS 새 날개’… 美시장 수주 힘입어 흑자 전환",
+            "at": "2026-09-01T00:31:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "ESS 추격자 SK온, 美수주 1건으로 올 목표 50% 채워",
+            "at": "2026-08-31T17:44:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "SK이노베이션, SK온 美 ESS 수주 호재에 8% 강세",
+            "at": "2026-08-31T14:08:00+09:00",
+            "source": "news"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -2160,9 +2237,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -2242,7 +2321,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.03 · 몸통 0.89",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.03 · 몸통 0.89"
         },
         {
           "id": "C_SEQUENCE",
@@ -2318,8 +2399,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 NORMAL · 무효화 181,460원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 1.82%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 NORMAL · 무효화 181,460원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -2348,7 +2431,10 @@
             "risk_rate": 0.018165,
             "one_r_price": 204142
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -2408,7 +2494,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -2426,7 +2512,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:56:59.710855+09:00",
+              "captured_at": "2026-09-01T01:35:23.382846+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 200500,
@@ -2438,7 +2524,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:13.155601+09:00",
+              "captured_at": "2026-09-01T01:36:36.288047+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 200500,
@@ -2450,7 +2536,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:26.566269+09:00",
+              "captured_at": "2026-09-01T01:37:50.199118+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 200500,
@@ -2529,6 +2615,33 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 1104.0,
+          "at": "2026-07-17T01:34:38+09:00",
+          "title": "(주)포스코퓨처엠 단일판매ㆍ공급계약체결",
+          "source": "notice",
+          "reason": "재료 발표 후 1104.0시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "(주)포스코퓨처엠 단일판매ㆍ공급계약체결",
+            "at": "2026-07-17T01:34:38+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)포스코퓨처엠 단일판매ㆍ공급계약체결",
+            "at": "2026-07-17T01:34:24+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -2552,14 +2665,14 @@
           "우선주, 본주 대비 최대 81% 할인…“거버넌스 위험의 값”"
         ],
         "titles": [
+          "이름값 못하는 우선주… 보통주보다 45% 저렴",
           "우선주, 본주 대비 최대 81% 할인…“거버넌스 위험의 값”",
           "“같은 회산데 우선주는 왜 45% 싸나” 韓 우선주 디스카운트 우려",
           "“韓증시 보통주-우선주 괴리율 70%…우선주 디스카운트 해소 시급”",
           "한국엔 ‘진짜’ 우선주가 없다?… 보통주 대비 45% 싼 ‘무늬만 우선...",
           "한국은 3%대 진입, 미국도 인상론 무게...배당 매력 떨어지자 우선주...",
           "삼전닉스 '자사주의 힘'…코스피, 급락 딛고 6820 마감[시황종합]",
-          "삼전닉스 '자사주 방어'…코스피 3% 급락 딛고 보합권 [장중시황]",
-          "지독한 횡보장 갇힌 코스피, 6800선 회복…코스닥은 하락 마감"
+          "삼전닉스 '자사주 방어'…코스피 3% 급락 딛고 보합권 [장중시황]"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -2827,9 +2940,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -2909,7 +3024,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.16 · 몸통 0.64",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.16 · 몸통 0.64"
         },
         {
           "id": "C_SEQUENCE",
@@ -2981,8 +3098,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 175,472원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 0.52%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 175,472원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -3011,7 +3130,10 @@
             "risk_rate": 0.005201,
             "one_r_price": 187470
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -3071,7 +3193,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3089,7 +3211,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:56:59.720045+09:00",
+              "captured_at": "2026-09-01T01:35:23.375180+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 186500,
@@ -3101,7 +3223,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:13.167913+09:00",
+              "captured_at": "2026-09-01T01:36:36.301185+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 186500,
@@ -3113,7 +3235,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:26.575443+09:00",
+              "captured_at": "2026-09-01T01:37:50.208683+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 186500,
@@ -3172,6 +3294,28 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "FRESH",
+          "hours": 8.2,
+          "at": "2026-08-31T17:22:00+09:00",
+          "title": "우선주, 본주 대비 최대 81% 할인…“거버넌스 위험의 값”",
+          "source": "news",
+          "reason": "재료 발표 후 8.2시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "우선주, 본주 대비 최대 81% 할인…“거버넌스 위험의 값”",
+            "at": "2026-08-31T17:22:00+09:00",
+            "source": "news"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -3199,9 +3343,7 @@
         "grade": "S",
         "reason": "소캠(SOCAMM) 관련주 8/11 상승",
         "positive_titles": [
-          "\"내일부터 '최대 5억'…변수될 듯\" 들썩이는 '셔세권'",
-          "최태원 “일본에 반도체 공장 투자 검토…전력·용수 풍부하다면 어디...",
-          "최태원 \"日 반도체공장 투자, 현재 검토 단계\""
+          "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다"
         ],
         "titles": [
           "조회공시답변",
@@ -3474,9 +3616,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -3554,9 +3698,11 @@
           "role": "required",
           "value": 0.0,
           "threshold": "0.02~0.30, 0.45 초과 제외",
-          "status": "WARN",
+          "status": "PASS",
           "reason": "윗꼬리 0.00 · 몸통 0.80",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "WARN",
+          "original_reason": "윗꼬리 0.00 · 몸통 0.80"
         },
         {
           "id": "C_SEQUENCE",
@@ -3628,8 +3774,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 1,599,650원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 0.38%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 1,599,650원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -3658,7 +3806,10 @@
             "risk_rate": 0.003763,
             "one_r_price": 1680300
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -3718,7 +3869,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3736,7 +3887,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:57:01.055032+09:00",
+              "captured_at": "2026-09-01T01:35:24.547123+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 1674000,
@@ -3748,7 +3899,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:14.829527+09:00",
+              "captured_at": "2026-09-01T01:36:37.832981+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 1674000,
@@ -3760,7 +3911,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:27.919013+09:00",
+              "captured_at": "2026-09-01T01:37:51.368837+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 1674000,
@@ -3824,6 +3975,28 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "FRESH",
+          "hours": 1.0,
+          "at": "2026-09-01T00:32:00+09:00",
+          "title": "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다",
+          "source": "news",
+          "reason": "재료 발표 후 1.0시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다",
+            "at": "2026-09-01T00:32:00+09:00",
+            "source": "news"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -3851,7 +4024,7 @@
         "grade": "S",
         "reason": "폴더블폰 관련주 19/24 상승",
         "positive_titles": [
-          "\"내일부터 '최대 5억'…변수될 듯\" 들썩이는 '셔세권'"
+          "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다"
         ],
         "titles": [
           "파생상품시장",
@@ -4124,9 +4297,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -4204,9 +4379,11 @@
           "role": "required",
           "value": 0.0,
           "threshold": "0.02~0.30, 0.45 초과 제외",
-          "status": "WARN",
+          "status": "PASS",
           "reason": "윗꼬리 0.00 · 몸통 0.79",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "WARN",
+          "original_reason": "윗꼬리 0.00 · 몸통 0.79"
         },
         {
           "id": "C_SEQUENCE",
@@ -4278,8 +4455,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 254,075원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 1.11%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 254,075원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -4308,7 +4487,10 @@
             "risk_rate": 0.011108,
             "one_r_price": 262888
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -4368,7 +4550,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4386,7 +4568,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:57:01.046378+09:00",
+              "captured_at": "2026-09-01T01:35:24.755782+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 260000,
@@ -4398,7 +4580,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:14.837292+09:00",
+              "captured_at": "2026-09-01T01:36:37.830225+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 260000,
@@ -4410,7 +4592,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:27.727109+09:00",
+              "captured_at": "2026-09-01T01:37:51.894688+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 260000,
@@ -4469,6 +4651,28 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "FRESH",
+          "hours": 1.0,
+          "at": "2026-09-01T00:32:00+09:00",
+          "title": "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다",
+          "source": "news",
+          "reason": "재료 발표 후 1.0시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "고수익보다 장기투자… 주식시장에 머물러야 수익 거둔다",
+            "at": "2026-09-01T00:32:00+09:00",
+            "source": "news"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -4767,9 +4971,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -4847,9 +5053,11 @@
           "role": "required",
           "value": 0.0149,
           "threshold": "0.02~0.30, 0.45 초과 제외",
-          "status": "WARN",
+          "status": "PASS",
           "reason": "윗꼬리 0.01 · 몸통 0.73",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "WARN",
+          "original_reason": "윗꼬리 0.01 · 몸통 0.73"
         },
         {
           "id": "C_SEQUENCE",
@@ -4917,8 +5125,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 585,000원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 5.45%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 585,000원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -4947,7 +5157,10 @@
             "risk_rate": 0.054517,
             "one_r_price": 677000
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -5007,7 +5220,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5025,7 +5238,7 @@
           "reason": "장 마감 뒤 고정 호가입니다. 다음 거래일 장중에 다시 확인합니다.",
           "snapshots": [
             {
-              "captured_at": "2026-08-31T21:57:01.054883+09:00",
+              "captured_at": "2026-09-01T01:35:24.744842+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 642000,
@@ -5037,7 +5250,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:58:14.824965+09:00",
+              "captured_at": "2026-09-01T01:36:37.815853+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 642000,
@@ -5049,7 +5262,7 @@
               "polling_interval_ms": 70000
             },
             {
-              "captured_at": "2026-08-31T21:59:27.734789+09:00",
+              "captured_at": "2026-09-01T01:37:51.872739+09:00",
               "source_at": "2026-08-31T15:30:00+09:00",
               "market_status": "CLOSE",
               "last_price": 642000,
@@ -5113,6 +5326,28 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 849.7,
+          "at": "2026-07-27T15:50:56+09:00",
+          "title": "엘지이노텍(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+          "source": "notice",
+          "reason": "재료 발표 후 849.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "엘지이노텍(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-27T15:50:56+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -5418,9 +5653,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -5500,7 +5737,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.07 · 몸통 0.77",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.07 · 몸통 0.77"
         },
         {
           "id": "C_SEQUENCE",
@@ -5661,7 +5900,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5730,6 +5969,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -6016,9 +6270,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -6098,7 +6354,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.12 · 몸통 0.61",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.12 · 몸통 0.61"
         },
         {
           "id": "C_SEQUENCE",
@@ -6246,7 +6504,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6290,6 +6548,38 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "FRESH",
+          "hours": 7.7,
+          "at": "2026-08-31T17:51:00+09:00",
+          "title": "삼전닉스 자사주 매입이 받친 코스피…美 실적·고용 주목",
+          "source": "news",
+          "reason": "재료 발표 후 7.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "삼전닉스 자사주 매입이 받친 코스피…美 실적·고용 주목",
+            "at": "2026-08-31T17:51:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
+            "at": "2026-08-07T15:51:56+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
+            "at": "2026-07-22T15:53:27+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -6592,9 +6882,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -6750,8 +7042,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 160,404원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 2.37%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 160,404원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -6780,7 +7074,10 @@
             "risk_rate": 0.023658,
             "one_r_price": 177400
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -6840,7 +7137,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6913,6 +7210,43 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "FRESH",
+          "hours": 7.7,
+          "at": "2026-08-31T17:51:00+09:00",
+          "title": "삼전닉스 자사주 매입이 받친 코스피…美 실적·고용 주목",
+          "source": "news",
+          "reason": "재료 발표 후 7.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "삼전닉스 자사주 매입이 받친 코스피…美 실적·고용 주목",
+            "at": "2026-08-31T17:51:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "(주)KB금융지주 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-23T15:51:28+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)KB금융지주 연결재무제표기준영업(잠정)실적(공정공시)(자회사의 주요경영사항)",
+            "at": "2026-07-23T15:51:25+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)KB금융지주 연결재무제표기준영업(잠정)실적(공정공시)(자회사의 주요경영사항)",
+            "at": "2026-07-23T15:51:24+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -7219,9 +7553,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -7301,7 +7637,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.02 · 몸통 0.83",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.02 · 몸통 0.83"
         },
         {
           "id": "C_SEQUENCE",
@@ -7462,7 +7800,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7526,6 +7864,33 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 777.7,
+          "at": "2026-07-30T15:51:23+09:00",
+          "title": "LG전자(주) (정정)연결재무제표기준영업(잠정)실적(공정공시)",
+          "source": "notice",
+          "reason": "재료 발표 후 777.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "LG전자(주) (정정)연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-30T15:51:23+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "LG전자(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-07T15:50:27+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -7826,9 +8191,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -7980,8 +8347,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 78,610원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 2.02%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 78,610원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -8010,7 +8379,10 @@
             "risk_rate": 0.020218,
             "one_r_price": 84168
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -8070,7 +8442,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8133,6 +8505,44 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 249.7,
+          "at": "2026-08-21T15:50:08+09:00",
+          "title": "두산에너빌리티(주) 단일판매ㆍ공급계약체결",
+          "source": "notice",
+          "reason": "재료 발표 후 249.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "두산에너빌리티(주) 단일판매ㆍ공급계약체결",
+            "at": "2026-08-21T15:50:08+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약 체결(자율공시)",
+            "at": "2026-06-30T15:54:17+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "두산에너빌리티(주) 단일판매ㆍ공급계약체결",
+            "at": "2026-06-15T15:52:02+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [
+          {
+            "title": "두산에너빌리티(주) 기업설명회(IR) 개최(안내공시)",
+            "at": "2026-09-01T01:34:20+09:00",
+            "source": "notice"
+          }
+        ],
+        "source_errors": []
       }
     },
     {
@@ -8433,9 +8843,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -8515,7 +8927,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.16 · 몸통 0.75",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.16 · 몸통 0.75"
         },
         {
           "id": "C_SEQUENCE",
@@ -8590,9 +9004,11 @@
             "distance": 0.157
           },
           "threshold": "패턴별 지지선 정의",
-          "status": "WARN",
-          "reason": "초기 NORMAL · 무효화 15,200원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 2.60%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "WARN",
+          "original_reason": "초기 NORMAL · 무효화 15,200원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -8621,7 +9037,10 @@
             "risk_rate": 0.025957,
             "one_r_price": 18498
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -8681,7 +9100,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8759,6 +9178,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -9061,9 +9495,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -9143,7 +9579,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.02 · 몸통 0.68",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.02 · 몸통 0.68"
         },
         {
           "id": "C_SEQUENCE",
@@ -9214,9 +9652,11 @@
             "distance": 0.1857
           },
           "threshold": "패턴별 지지선 정의",
-          "status": "WARN",
-          "reason": "초기 VERY_SMALL · 무효화 1,187,254원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 4.58%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "WARN",
+          "original_reason": "초기 VERY_SMALL · 무효화 1,187,254원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -9245,7 +9685,10 @@
             "risk_rate": 0.045816,
             "one_r_price": 1524800
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -9305,7 +9748,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9373,6 +9816,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -9674,9 +10132,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -9832,8 +10292,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 NORMAL · 무효화 521,409원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 4.61%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 NORMAL · 무효화 521,409원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -9862,7 +10324,10 @@
             "risk_rate": 0.046101,
             "one_r_price": 603600
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -9922,7 +10387,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10000,6 +10465,33 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 489.7,
+          "at": "2026-08-11T15:50:33+09:00",
+          "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
+          "source": "notice",
+          "reason": "재료 발표 후 489.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
+            "at": "2026-08-11T15:50:33+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "삼성SDI(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-30T15:51:07+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -10300,9 +10792,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -10382,7 +10876,9 @@
           "threshold": "0.02~0.30, 0.45 초과 제외",
           "status": "PASS",
           "reason": "윗꼬리 0.20 · 몸통 0.61",
-          "data_source": "Naver OHLC"
+          "data_source": "Naver OHLC",
+          "original_status": "PASS",
+          "original_reason": "윗꼬리 0.20 · 몸통 0.61"
         },
         {
           "id": "C_SEQUENCE",
@@ -10457,9 +10953,11 @@
             "distance": 0.1815
           },
           "threshold": "패턴별 지지선 정의",
-          "status": "WARN",
-          "reason": "초기 NORMAL · 무효화 6,548원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 1.25%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "WARN",
+          "original_reason": "초기 NORMAL · 무효화 6,548원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -10488,7 +10986,10 @@
             "risk_rate": 0.0125,
             "one_r_price": 8100
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -10548,7 +11049,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10626,6 +11127,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -10931,9 +11447,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -11174,7 +11692,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11233,6 +11751,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -11533,9 +12066,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -11687,8 +12222,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 VERY_SMALL · 무효화 2,554원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 3.09%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 2,554원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -11717,7 +12254,10 @@
             "risk_rate": 0.030943,
             "one_r_price": 2732
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -11777,7 +12317,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11845,6 +12385,39 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 2123.8,
+          "at": "2026-06-04T13:44:00+09:00",
+          "title": "한국비엔씨 투자한 온코젠, 이중타깃 항암신약 다국가 임상속도",
+          "source": "news",
+          "reason": "재료 발표 후 2123.8시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "한국비엔씨 투자한 온코젠, 이중타깃 항암신약 다국가 임상속도",
+            "at": "2026-06-04T13:44:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "한국비엔씨 투자한 프로앱텍, LYTAC기반 특허출원 \"표적단백분해물질...",
+            "at": "2026-05-28T13:47:00+09:00",
+            "source": "news"
+          }
+        ],
+        "after_signal_items": [
+          {
+            "title": "(주)한국비엔씨 공매도 과열종목 지정(공매도 거래 금지 적용)",
+            "at": "2026-09-01T05:01:04+09:00",
+            "source": "notice"
+          }
+        ],
+        "source_errors": []
       }
     },
     {
@@ -12144,9 +12717,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -12288,9 +12863,11 @@
             "distance": 0.0064
           },
           "threshold": "패턴별 지지선 정의",
-          "status": "FAIL",
-          "reason": "초기 VERY_SMALL · 무효화 9,380원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 0.64%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "FAIL",
+          "original_reason": "초기 VERY_SMALL · 무효화 9,380원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -12319,7 +12896,10 @@
             "risk_rate": 0.006356,
             "one_r_price": 9500
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -12379,7 +12959,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12432,6 +13012,33 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 969.7,
+          "at": "2026-07-22T15:50:31+09:00",
+          "title": "엘지디스플레이(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+          "source": "notice",
+          "reason": "재료 발표 후 969.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "엘지디스플레이(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-22T15:50:31+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "엘지디스플레이(주) 결산실적공시 예고(안내공시)",
+            "at": "2026-07-01T15:50:23+09:00",
+            "source": "notice"
+          }
+        ],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -12728,9 +13335,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -12971,7 +13580,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13040,6 +13649,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -13333,9 +13957,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -13491,8 +14117,10 @@
           },
           "threshold": "패턴별 지지선 정의",
           "status": "PASS",
-          "reason": "초기 SMALL · 무효화 14,992원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "reason": "구조 손절 위험거리 3.16%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 SMALL · 무효화 14,992원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -13521,7 +14149,10 @@
             "risk_rate": 0.031592,
             "one_r_price": 16980
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -13581,7 +14212,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13659,6 +14290,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -13959,9 +14605,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -14202,7 +14850,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14271,6 +14919,27 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [
+          {
+            "title": "써니전자(주) [투자주의]단일계좌 거래량 상위종목",
+            "at": "2026-09-01T05:00:20+09:00",
+            "source": "notice"
+          }
+        ],
+        "source_errors": []
       }
     },
     {
@@ -14551,9 +15220,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -14695,9 +15366,11 @@
             "distance": 0.0281
           },
           "threshold": "패턴별 지지선 정의",
-          "status": "FAIL",
-          "reason": "초기 NORMAL · 무효화 34,600원",
-          "data_source": "OpenBot pattern rule + Naver MA"
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 2.81%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "FAIL",
+          "original_reason": "초기 NORMAL · 무효화 34,600원"
         },
         {
           "id": "BEST_BID_HOLD_AUTO",
@@ -14726,7 +15399,10 @@
             "risk_rate": 0.02809,
             "one_r_price": 36600
           },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%"
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
         },
         {
           "id": "NEXT_DAY_PLAN_AUTO",
@@ -14786,7 +15462,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14839,6 +15515,21 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     },
     {
@@ -15138,9 +15829,11 @@
           "role": "required",
           "value": null,
           "threshold": "상장 1일 이상",
-          "status": "WARN",
-          "reason": "상장 경과 미확인일",
-          "data_source": "Naver listedDate"
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
         },
         {
           "id": "X_POLITICAL",
@@ -15381,7 +16074,7 @@
           }
         ]
       },
-      "updated_at": "2026-08-31T21:54:09.239220+09:00",
+      "updated_at": "2026-09-01T01:32:31.229616+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -15440,18 +16133,33 @@
           "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
           "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
         ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-01T01:32:31.229616+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
       }
     }
   ],
   "history_summary": {
-    "snapshots": 11,
+    "snapshots": 12,
     "first": "2026-08-27T01:00:08.688766+09:00",
-    "last": "2026-08-31T21:54:09.239220+09:00"
+    "last": "2026-09-01T01:32:31.229616+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "automation_356": {
     "version": "automation-356-v2",
-    "generated_at": "2026-08-31T21:59:27.920267+09:00",
+    "generated_at": "2026-09-01T01:37:51.895780+09:00",
     "automated_steps": [
       3,
       5,
@@ -15466,5 +16174,17 @@
     },
     "source": "Naver Stock public read-only hoga/polling JSON + existing screener structure",
     "risk_support_source": "candidate.plan.supports + plan.invalidation + metrics moving averages"
+  },
+  "winrate_v4": {
+    "version": "largo-winrate-v4.1",
+    "source_at": "2026-09-01T01:32:31.229616+09:00",
+    "candidates": 24,
+    "source_error_count": 0,
+    "source_errors": [],
+    "notes": [
+      "상장일 미확인은 과거 일봉 존재 여부로 보완합니다.",
+      "윗꼬리 0에 가까운 강한 양봉을 경고로 두던 오류를 수정합니다.",
+      "재료 제목과 뉴스·공시 제목을 대조해 발표 시각을 기록합니다."
+    ]
   }
 }
