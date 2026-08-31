@@ -1,6 +1,20 @@
 name: Largo early close-betting watchlist
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/build_largo_close_no_hoga.py"
+      - ".github/workflows/largo-close-early-watch.yml"
+      - "largo-close-screener/README.md"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/build_largo_close_no_hoga.py"
+      - ".github/workflows/largo-close-early-watch.yml"
+      - "largo-close-screener/README.md"
   workflow_dispatch:
   schedule:
     # KST 13:38, 13:53, 14:08, 14:23, 14:33, 14:53, 15:04, 15:23 on weekdays.
@@ -22,7 +36,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 1
 
       - name: Restore reviewed site bundle and verify checksum
@@ -137,6 +150,7 @@ jobs:
           retention-days: 7
 
       - name: Publish only the early watchlist into gh-pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
