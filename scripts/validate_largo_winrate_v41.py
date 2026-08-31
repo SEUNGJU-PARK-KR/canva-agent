@@ -5,7 +5,7 @@ from __future__ import annotations
 import datetime as dt
 
 from backtest_winrate_v4 import basic_stats
-from largo_winrate_v4 import KST, VERSION, analyze_candidate, event_item_matches, theme_breadth
+from largo_winrate_v4 import KST, VERSION, analyze_candidate, event_item_matches, phase, theme_breadth
 
 
 def candidate(*, code: str = "000001", rank: int = 3, digest: float = 0.60,
@@ -55,10 +55,18 @@ def history(code: str) -> dict:
 def main() -> None:
     assert VERSION == "largo-winrate-v4.1"
     source_at = dt.datetime(2026, 9, 1, 15, 18, tzinfo=KST)
+    pre_market = dt.datetime(2026, 9, 1, 1, 32, tzinfo=KST)
+    morning = dt.datetime(2026, 9, 1, 10, 30, tzinfo=KST)
+    weekend = dt.datetime(2026, 9, 5, 14, 0, tzinfo=KST)
+    assert phase(pre_market)["id"] == "PRE_MARKET"
+    assert phase(morning)["id"] == "MORNING"
+    assert phase(weekend)["id"] == "MARKET_CLOSED"
 
     core = candidate()
     result = analyze_candidate(core, source_at, history(core["code"]))
     assert result["lane"] == "CLOSE_ENTRY" and result["close_variant"] == "CORE", result
+    pre_market_result = analyze_candidate(core, pre_market, history(core["code"]))
+    assert pre_market_result["lane"] == "WATCH", pre_market_result
 
     elite = candidate(code="000002", rank=2, digest=0.34, loc=1.0, wick=0.0, body=0.60)
     result = analyze_candidate(elite, source_at, history(elite["code"]))
@@ -98,7 +106,7 @@ def main() -> None:
     ])
     assert missing_stats["n"] == 1
     assert all(missing_stats[key] is None for key in ("avg_open_gap", "avg_close", "avg_mfe", "avg_mae"))
-    print({"version": VERSION, "core": "PASS", "elite": "PASS", "confirmation": "PASS", "safety": "PASS", "missing_stats": "PASS"})
+    print({"version": VERSION, "core": "PASS", "elite": "PASS", "confirmation": "PASS", "safety": "PASS", "missing_stats": "PASS", "market_phase": "PASS"})
 
 
 if __name__ == "__main__":
