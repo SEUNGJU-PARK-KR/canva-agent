@@ -1,0 +1,86 @@
+name: Temporary Largo weekly backtest OHLC
+
+on:
+  push:
+    branches:
+      - improve/largo-early-close-20260831
+    paths:
+      - ".github/workflows/tmp-largo-weekly-backtest-ohlc.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-ohlc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch bounded public Naver chart data
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          python3 - <<'PY'
+          import json
+          import time
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          codes = ["005930", "196170", "003670"]
+          result = {
+              "source": "Naver Stock public read-only chart endpoint",
+              "start": "20260824",
+              "end": "20260904",
+              "items": {},
+          }
+          for code in codes:
+              query = urllib.parse.urlencode({
+                  "periodType": "dayCandle",
+                  "startDateTime": "20260824",
+                  "endDateTime": "20260904",
+              })
+              url = f"https://api.stock.naver.com/chart/domestic/item/{code}?{query}"
+              request = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": "Mozilla/5.0 LargoBacktest/1.0",
+                      "Accept": "application/json",
+                      "Referer": f"https://stock.naver.com/domestic/stock/{code}/price",
+                  },
+              )
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  payload = json.load(response)
+              result["items"][code] = {
+                  "url": url,
+                  "payload": payload,
+              }
+              time.sleep(0.4)
+          Path("output/naver_ohlc_20260824_20260904.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          PY
+
+      - name: Validate output
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('output/naver_ohlc_20260824_20260904.json')
+          data=json.loads(path.read_text(encoding='utf-8'))
+          assert set(data['items']) == {'005930','196170','003670'}
+          for code, item in data['items'].items():
+              payload=item['payload']
+              assert isinstance(payload, dict)
+              assert isinstance(payload.get('priceInfos'), list)
+              assert payload['priceInfos'], code
+          print({code: len(item['payload']['priceInfos']) for code, item in data['items'].items()})
+          PY
+
+      - name: Upload OHLC artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-weekly-backtest-ohlc
+          path: output/naver_ohlc_20260824_20260904.json
+          retention-days: 2
