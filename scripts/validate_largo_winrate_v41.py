@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 
+from backtest_winrate_v4 import basic_stats
 from largo_winrate_v4 import KST, VERSION, analyze_candidate, event_item_matches, theme_breadth
 
 
@@ -85,7 +86,19 @@ def main() -> None:
     assert event_item_matches(core, {"title": "테스트종목 공급계약 체결", "at": source_at.isoformat()})
     assert not event_item_matches(core, {"title": "다른회사 공급계약 체결", "at": source_at.isoformat()})
     assert not event_item_matches(core, {"title": "테스트종목 주식선물 가격제한폭 확대", "at": source_at.isoformat()})
-    print({"version": VERSION, "core": "PASS", "elite": "PASS", "confirmation": "PASS", "safety": "PASS"})
+
+    missing_stats = basic_stats([
+        {
+            "outcome_status": "EVALUATED",
+            "open_gap_pct": None,
+            "next_close_return_pct": None,
+            "mfe_pct": None,
+            "mae_pct": None,
+        }
+    ])
+    assert missing_stats["n"] == 1
+    assert all(missing_stats[key] is None for key in ("avg_open_gap", "avg_close", "avg_mfe", "avg_mae"))
+    print({"version": VERSION, "core": "PASS", "elite": "PASS", "confirmation": "PASS", "safety": "PASS", "missing_stats": "PASS"})
 
 
 if __name__ == "__main__":
