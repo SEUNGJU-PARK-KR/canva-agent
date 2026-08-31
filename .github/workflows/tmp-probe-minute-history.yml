@@ -1,0 +1,64 @@
+name: Temporary probe historical minute data
+
+on:
+  push:
+    branches:
+      - analysis/largo-winrate-v4-20260901
+    paths:
+      - ".github/workflows/tmp-probe-minute-history.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe bounded public endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python3 - <<'PY'
+          import json, urllib.request, urllib.error
+          urls = {
+            'chart_minute': 'https://api.stock.naver.com/chart/domestic/item/010120?periodType=minute&startDateTime=202608280900&endDateTime=202608281530',
+            'chart_minute_candle': 'https://api.stock.naver.com/chart/domestic/item/010120?periodType=minuteCandle&startDateTime=202608280900&endDateTime=202608281530',
+            'chart_day_control': 'https://api.stock.naver.com/chart/domestic/item/010120?periodType=dayCandle&startDateTime=20260828&endDateTime=20260831',
+            'sise_tick_plain': 'https://stock.naver.com/api/domestic/detail/010120/siseTick?startIdx=0&pageSize=500',
+            'sise_tick_date': 'https://stock.naver.com/api/domestic/detail/010120/siseTick?startIdx=0&pageSize=500&date=20260828',
+          }
+          headers={'User-Agent':'Mozilla/5.0','Referer':'https://stock.naver.com/'}
+          summary={}
+          for name,url in urls.items():
+              req=urllib.request.Request(url,headers=headers)
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as response:
+                      body=response.read()
+                      entry={'status':response.status,'bytes':len(body),'content_type':response.headers.get('Content-Type')}
+                      try:
+                          data=json.loads(body)
+                          entry['json_type']=type(data).__name__
+                          entry['keys']=list(data)[:20] if isinstance(data,dict) else None
+                          if isinstance(data,dict):
+                              for key in ('priceInfos','siseList','items','datas'):
+                                  if isinstance(data.get(key),list):
+                                      entry[key+'_count']=len(data[key])
+                                      entry[key+'_first']=data[key][0] if data[key] else None
+                                      entry[key+'_last']=data[key][-1] if data[key] else None
+                      except Exception as exc:
+                          entry['json_error']=repr(exc)
+                          entry['sample']=body[:300].decode('utf-8','replace')
+                      summary[name]=entry
+                      open(f'out/{name}.bin','wb').write(body)
+              except Exception as exc:
+                  summary[name]={'error':repr(exc)}
+          open('out/summary.json','w',encoding='utf-8').write(json.dumps(summary,ensure_ascii=False,indent=2))
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-minute-endpoint-probe
+          path: out
+          retention-days: 2
