@@ -1,0 +1,148 @@
+name: Largo early close-betting watchlist
+
+on:
+  workflow_dispatch:
+  schedule:
+    # KST 13:38, 13:53, 14:08, 14:23, 14:33, 14:53, 15:04, 15:23 on weekdays.
+    - cron: "38,53 4 * * 1-5"
+    - cron: "8,23,33,53 5 * * 1-5"
+    - cron: "4,23 6 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-close-early-watch-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  refresh-early-watchlist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Restore reviewed site bundle and verify checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build-source early-public
+          mkdir -p build-source
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json, zipfile
+          root=Path('bundles/largo_close_site_v2')
+          manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+          encoded=''.join((root/name).read_text(encoding='ascii') for name in manifest['parts'])
+          raw=base64.b64decode(encoded)
+          assert len(raw)==manifest['size'], (len(raw), manifest['size'])
+          digest=hashlib.sha256(raw).hexdigest()
+          assert digest==manifest['sha256'], (digest, manifest['sha256'])
+          archive=Path('build-source')/manifest['archive']
+          archive.write_bytes(raw)
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              z.extractall('build-source')
+          print({'archive':str(archive),'size':len(raw),'sha256':digest})
+          PY
+          python3 -m py_compile build-source/tools/scrape_naver_close.py
+          python3 -m py_compile scripts/build_largo_close_no_hoga.py
+
+      - name: Recover the latest intraday history
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build-source/site/data
+          curl -fsSL --max-time 20 \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/history.json \
+            -o build-source/site/data/history.json \
+          || curl -fsSL --max-time 20 \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/main/largo-close-screener/site/data/history.json \
+            -o build-source/site/data/history.json \
+          || true
+
+      - name: Refresh bounded public market snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          history_args=()
+          if [ -s build-source/site/data/history.json ]; then
+            history_args=(--history build-source/site/data/history.json)
+          fi
+          python3 build-source/tools/scrape_naver_close.py \
+            --output build-source/site/data/latest.json \
+            --history-out build-source/site/data/history.json \
+            "${history_args[@]}" \
+            --max-candidates 24 \
+            --rank-size 80 \
+            --theme-size 25 \
+            --delay 0.15 \
+            --timeout 20
+
+      - name: Build phase-aware no-orderbook watchlist
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p early-public/data
+          history_args=()
+          if [ -s build-source/site/data/history.json ]; then
+            history_args=(--history build-source/site/data/history.json)
+          fi
+          python3 scripts/build_largo_close_no_hoga.py \
+            --latest build-source/site/data/latest.json \
+            --methodology build-source/site/data/methodology.json \
+            "${history_args[@]}" \
+            --output early-public/no-hoga.html
+          cp build-source/site/data/latest.json early-public/data/latest-early.json
+          cp build-source/site/data/history.json early-public/data/history.json
+          touch early-public/.nojekyll
+
+      - name: Validate early watchlist output
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('early-public')
+          html=(root/'no-hoga.html').read_text(encoding='utf-8')
+          latest=json.loads((root/'data/latest-early.json').read_text(encoding='utf-8'))
+          history=json.loads((root/'data/history.json').read_text(encoding='utf-8'))
+          assert '라르고 종가베팅 조기 후보' in html
+          assert '지금 준비할 상위 후보' in html
+          assert '마감 조건은 삭제하지 않고' in html
+          assert '호가 판정 미사용' in html
+          assert '주문·계좌 기능은 없습니다' in html
+          assert 'fetch(' not in html
+          assert 'http://' not in html and 'https://' not in html
+          assert len(html.encode('utf-8')) > 25000
+          assert isinstance(latest.get('candidates'), list)
+          assert isinstance(history.get('snapshots'), list)
+          print({
+            'html_bytes':len(html.encode('utf-8')),
+            'candidates':len(latest['candidates']),
+            'history_snapshots':len(history['snapshots']),
+            'generated_at':latest.get('generated_at'),
+          })
+          PY
+
+      - name: Upload early watchlist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-early-close-watchlist
+          path: early-public
+          retention-days: 7
+
+      - name: Publish only the early watchlist into gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./early-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Refresh Largo early close-betting watchlist
