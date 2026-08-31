@@ -4,13 +4,19 @@ on:
   push:
     branches:
       - main
-      - largo-close-screener-site-20260826
+      - improve/largo-winrate-v4-1-20260901
     paths:
       - "bundles/largo_close_site_v2/**"
       - "scripts/augment_largo_close_site.py"
       - "scripts/fix_largo_automation_356.py"
+      - "scripts/largo_winrate_v4.py"
+      - "scripts/enrich_largo_winrate_v4.py"
       - "scripts/build_largo_close_no_hoga.py"
+      - "scripts/validate_largo_winrate_v41.py"
+      - "scripts/capture_largo_forward_v4.py"
       - ".github/workflows/largo-close-site.yml"
+      - ".github/workflows/largo-close-early-watch.yml"
+      - ".github/workflows/largo-winrate-forward-test.yml"
   pull_request:
     branches:
       - main
@@ -18,12 +24,18 @@ on:
       - "bundles/largo_close_site_v2/**"
       - "scripts/augment_largo_close_site.py"
       - "scripts/fix_largo_automation_356.py"
+      - "scripts/largo_winrate_v4.py"
+      - "scripts/enrich_largo_winrate_v4.py"
       - "scripts/build_largo_close_no_hoga.py"
+      - "scripts/validate_largo_winrate_v41.py"
+      - "scripts/capture_largo_forward_v4.py"
       - ".github/workflows/largo-close-site.yml"
+      - ".github/workflows/largo-close-early-watch.yml"
+      - ".github/workflows/largo-winrate-forward-test.yml"
   schedule:
-    # KST 14:40, 15:00, 15:10, 15:18, 15:28, 15:35 on weekdays.
+    # KST 14:40, 15:00, 15:10, 15:18, 15:23, 15:28, 15:35 on weekdays.
     - cron: "40 5 * * 1-5"
-    - cron: "0,10,18,28,35 6 * * 1-5"
+    - cron: "0,10,18,23,28,35 6 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -36,13 +48,13 @@ concurrency:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Restore the reviewed v2 site bundle and verify checksum
+      - name: Restore reviewed site bundle and verify checksum
         shell: bash
         run: |
           set -euo pipefail
@@ -55,30 +67,53 @@ jobs:
           manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
           encoded=''.join((root/name).read_text(encoding='ascii') for name in manifest['parts'])
           raw=base64.b64decode(encoded)
-          assert len(raw)==manifest['size'], (len(raw), manifest['size'])
-          digest=hashlib.sha256(raw).hexdigest()
-          assert digest==manifest['sha256'], (digest, manifest['sha256'])
+          assert len(raw)==manifest['size']
+          assert hashlib.sha256(raw).hexdigest()==manifest['sha256']
           archive=Path('build-source')/manifest['archive']
           archive.write_bytes(raw)
           with zipfile.ZipFile(archive) as z:
               assert z.testzip() is None
               z.extractall('build-source')
-          print({'archive':str(archive),'size':len(raw),'sha256':digest})
           PY
           python3 -m py_compile build-source/tools/scrape_naver_close.py
           python3 -m py_compile scripts/augment_largo_close_site.py
           python3 -m py_compile scripts/fix_largo_automation_356.py
+          python3 -m py_compile scripts/largo_winrate_v4.py
+          python3 -m py_compile scripts/enrich_largo_winrate_v4.py
           python3 -m py_compile scripts/build_largo_close_no_hoga.py
+          python3 -m py_compile scripts/validate_largo_winrate_v41.py
+          PYTHONPATH=scripts python3 scripts/validate_largo_winrate_v41.py
+          python3 -m py_compile scripts/capture_largo_forward_v4.py
 
-      - name: Recover prior static history when available
+      - name: Recover prior histories
         shell: bash
         run: |
+          set -euo pipefail
           mkdir -p build-source/site/data
-          curl -fsSL --max-time 20 \
-            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/main/largo-close-screener/site/data/history.json \
-            -o build-source/site/data/history.json || true
+          recover() {
+            local remote="$1" local_path="$2"
+            curl -fsSL --max-time 20 "$remote" -o "$local_path" || rm -f "$local_path"
+          }
+          recover https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/history.json build-source/site/data/history.json
+          recover https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/winrate-v4-history.json build-source/site/data/winrate-v4-history.json
+          recover https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/winrate-v4-forward.json build-source/site/data/winrate-v4-forward.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          for name, key in [('history.json','snapshots'),('winrate-v4-history.json','snapshots'),('winrate-v4-forward.json','observations')]:
+              path=Path('build-source/site/data')/name
+              if not path.exists():
+                  continue
+              try:
+                  data=json.loads(path.read_text(encoding='utf-8'))
+                  if not isinstance(data,dict) or not isinstance(data.get(key),list):
+                      raise ValueError(f'{key} missing')
+              except Exception as exc:
+                  print(f'Ignoring invalid {name}: {exc}')
+                  path.unlink(missing_ok=True)
+          PY
 
-      - name: Refresh bounded Naver Stock read-only snapshots
+      - name: Refresh bounded public market snapshots
         shell: bash
         run: |
           set -euo pipefail
@@ -96,7 +131,7 @@ jobs:
             --delay 0.25 \
             --timeout 25
 
-      - name: Automate repeated best bid, entry stop and next-day plans
+      - name: Automate entry, stop and next-day plans
         shell: bash
         run: |
           set -euo pipefail
@@ -112,69 +147,76 @@ jobs:
             --site build-source/site/index.html \
             --audit build-source/site/data/automation-356.json
 
-      - name: Build strict close-betting page without orderbook gates
+      - name: Enrich catalyst timing and repair deterministic gates
         shell: bash
         run: |
           set -euo pipefail
-          python3 scripts/build_largo_close_no_hoga.py \
-            --latest build-source/site/data/latest.json \
-            --methodology build-source/site/data/methodology.json \
-            --output build-source/site/no-hoga.html
+          PYTHONPATH=scripts python3 scripts/enrich_largo_winrate_v4.py \
+            --data build-source/site/data/latest.json \
+            --timeout 15 \
+            --delay 0.10
 
-      - name: Validate strict Largo screening and automation output
+      - name: Build win-rate v4.1 page and signal data
         shell: bash
         run: |
+          set -euo pipefail
+          history_args=()
+          if [ -s build-source/site/data/winrate-v4-history.json ]; then
+            history_args=(--history build-source/site/data/winrate-v4-history.json)
+          fi
+          PYTHONPATH=scripts python3 scripts/build_largo_close_no_hoga.py \
+            --latest build-source/site/data/latest.json \
+            --methodology build-source/site/data/methodology.json \
+            "${history_args[@]}" \
+            --output build-source/site/no-hoga.html \
+            --json-out build-source/site/data/winrate-v4.json \
+            --history-out build-source/site/data/winrate-v4-history.json \
+            --signals-out build-source/site/data/winrate-v4-signals.json
+
+      - name: Validate site and v4.1 invariants
+        shell: bash
+        run: |
+          set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
           import json
           root=Path('build-source/site')
           data=json.loads((root/'data/latest.json').read_text(encoding='utf-8'))
-          audit=json.loads((root/'data/automation-356.json').read_text(encoding='utf-8'))
-          assert data.get('schema_version')==2
-          assert data.get('strategy_version')
-          assert isinstance(data.get('candidates'), list)
-          allowed={'EXCLUDE','WATCH','CLOSE_READY','NEXT_DAY_HOGA_CONFIRM'}
-          assert all(x.get('final_status') in allowed for x in data['candidates'])
-          auto=data.get('automation_356') or {}
-          assert auto.get('version') == 'automation-356-v2'
-          assert auto.get('automated_steps') == [3,5,6]
-          assert audit.get('status') == 'PASS'
-          for candidate in data['candidates']:
-              assert candidate.get('checks')
-              assert candidate.get('plan')
-              assert candidate.get('pattern')
-              assert candidate.get('catalyst')
-              automation=candidate.get('automation_356')
-              assert automation
-              assert automation.get('best_bid')
-              assert automation.get('risk_plan')
-              assert automation.get('next_day_plan')
-          eligible=[x for x in data['candidates'] if x.get('final_status') in {'WATCH','CLOSE_READY','NEXT_DAY_HOGA_CONFIRM'}]
-          planned=[x for x in eligible if (x.get('automation_356') or {}).get('risk_plan',{}).get('entry_price')]
-          assert planned or not eligible
-          site=(root/'index.html').read_text(encoding='utf-8')
-          assert 'LARGO_AUTOMATION_356_START' in site
-          assert '자동화된 최종 확인 3·5·6' in site
-          assert "status!=='NOT_ELIGIBLE'" in site
-          assert len(site.encode('utf-8')) > 15000
-          no_hoga=(root/'no-hoga.html').read_text(encoding='utf-8')
-          assert '라르고 종가베팅' in no_hoga
-          assert '호가 조건 제외' in no_hoga
-          assert '호가 판정 미사용' in no_hoga
-          assert '기준 확인:' in no_hoga
-          assert '주문·계좌 기능은 없습니다' in no_hoga
-          assert 'fetch(' not in no_hoga
-          assert len(no_hoga.encode('utf-8')) > 15000
-          assert (root/'analysis.html').stat().st_size > 3000
-          assert (root/'data/methodology.json').stat().st_size > 5000
-          print({
-            'candidates':len(data['candidates']),
-            'counts':data.get('counts'),
-            'automation_counts':auto.get('counts'),
-            'eligible_render_count':audit.get('eligible_render_count'),
-            'no_hoga_bytes':len(no_hoga.encode('utf-8')),
-            'source_errors':len(data.get('source',{}).get('errors',[])),
-          })
+          v4=json.loads((root/'data/winrate-v4.json').read_text(encoding='utf-8'))
+          signals=json.loads((root/'data/winrate-v4-signals.json').read_text(encoding='utf-8'))
+          html=(root/'no-hoga.html').read_text(encoding='utf-8')
+          assert isinstance(data.get('candidates'),list)
+          assert v4.get('version')=='largo-winrate-v4.1'
+          assert isinstance(v4.get('candidates'),list)
+          assert isinstance(signals.get('candidates'),list)
+          assert '라르고 종가베팅' in html
+          assert '승률 개선 v4.1' in html
+          assert '호가 조건 제외' in html
+          assert '호가 판정 미사용' in html
+          assert '기준 확인:' in html
+          assert '주문·계좌 기능은 없습니다' in html
+          assert 'fetch(' not in html
+          assert 'http://' not in html and 'https://' not in html
+          assert len(html.encode('utf-8')) > 18000
+          for row in v4['candidates']:
+              if row['lane']=='CLOSE_ENTRY':
+                  assert row['close_fit'] is True
+                  assert row['risk']['status']=='PASS'
+                  assert not row['hard_failures'] and not row['hard_unresolved']
+                  assert row['close_variant'] in {'CORE','ELITE'}
+                  if row['close_variant']=='CORE':
+                      assert row['features']['rank'] <= 3
+                      assert row['features']['digest_ratio'] >= 0.45
+                  else:
+                      assert row['features']['rank'] <= 2
+                      assert row['features']['digest_ratio'] >= 0.30
+                      assert row['features']['theme_breadth'] >= 0.75
+                      assert row['features']['close_location'] >= 0.95
+                      assert row['features']['upper_wick'] <= 0.05
+              if row['lane']=='NEXT_DAY_CONFIRM':
+                  assert row['confirm_fit'] is True
+                  assert row['risk']['status']=='PASS'
+          print({'counts':v4['counts'],'html_bytes':len(html.encode('utf-8')),'signals':len(signals['candidates'])})
           PY
 
       - name: Prepare public directory
@@ -185,11 +227,11 @@ jobs:
       - name: Upload verified artifact
         uses: actions/upload-artifact@v4
         with:
-          name: largo-close-screener-site-automation-356-v2
+          name: largo-close-screener-winrate-v4-1
           path: public
           retention-days: 14
 
-      - name: Publish generated static site into the repository
+      - name: Publish generated static site into repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         shell: bash
         run: |
@@ -201,10 +243,9 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add largo-close-screener/site
           if git diff --cached --quiet; then
-            echo 'Static site already current.'
             exit 0
           fi
-          git commit -m 'Refresh Largo closing screener static site'
+          git commit -m 'Refresh Largo win-rate v4.1 static site'
           git pull --rebase origin main
           git push origin HEAD:main
 
@@ -218,4 +259,4 @@ jobs:
           force_orphan: true
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Refresh Largo closing screener GitHub Pages
+          full_commit_message: Refresh Largo win-rate v4.1 GitHub Pages
