@@ -1,0 +1,56 @@
+name: Temporary probe Naver siseTick pagination
+
+on:
+  push:
+    branches:
+      - analysis/largo-winrate-v4-20260901
+    paths:
+      - ".github/workflows/tmp-probe-naver-sisetick-pages.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Probe pages and date parameters
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python3 - <<'PY'
+          import json, time, urllib.parse, urllib.request
+          headers={'User-Agent':'Mozilla/5.0','Referer':'https://stock.naver.com/','Accept':'application/json,text/plain,*/*'}
+          codes=['005930','010120','019170']
+          variants=[]
+          for code in codes:
+              for start in [0,100,200,300,400,500,600,700,800,1000,1500]:
+                  variants.append((code,f'page_{start}',f'https://stock.naver.com/api/domestic/detail/{code}/siseTick?startIdx={start}&pageSize=100'))
+              for key in ['date','bizdate','baseDate','localDate']:
+                  variants.append((code,f'{key}_20260828',f'https://stock.naver.com/api/domestic/detail/{code}/siseTick?startIdx=0&pageSize=100&{key}=20260828'))
+          output={}
+          for code,name,url in variants:
+              req=urllib.request.Request(url,headers=headers)
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as response:
+                      data=json.loads(response.read().decode('utf-8'))
+                  rows=data if isinstance(data,list) else []
+                  output.setdefault(code,{})[name]={
+                      'count':len(rows),
+                      'first':rows[0] if rows else None,
+                      'last':rows[-1] if rows else None,
+                      'dates':sorted({str(row.get('tradeTime') or '')[:8] for row in rows if row.get('tradeTime')}),
+                  }
+              except Exception as exc:
+                  output.setdefault(code,{})[name]={'error':f'{type(exc).__name__}: {exc}'}
+              time.sleep(0.12)
+          open('out/sisetick_pages.json','w',encoding='utf-8').write(json.dumps(output,ensure_ascii=False,indent=2))
+          print(json.dumps(output,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-naver-sisetick-pages
+          path: out
+          retention-days: 2
