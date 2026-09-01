@@ -1,0 +1,71 @@
+name: Temporary bootstrap retained Largo target3 20-day archive
+
+on:
+  push:
+    branches:
+      - fix/largo-artifact-retention-90d-20260901
+    paths:
+      - ".github/workflows/tmp-bootstrap-largo-target3-20day-archive.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recover exact Actions artifact and commit durable copies
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          root="research/largo-target3-20day"
+          mkdir -p "$root/source" "$root/raw"
+          gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/9794530194/zip" > /tmp/largo-target3-20day-original-artifact.zip
+          echo "4659b187ddc3bcd2be67da43cde4078d977f1c9ff828a20e0cbb8f47b877755a  /tmp/largo-target3-20day-original-artifact.zip" | sha256sum -c -
+          rm -rf /tmp/largo-target3-20day
+          mkdir -p /tmp/largo-target3-20day
+          unzip -q /tmp/largo-target3-20day-original-artifact.zip -d /tmp/largo-target3-20day
+          cp /tmp/largo-target3-20day-original-artifact.zip "$root/largo-target3-20day-original-artifact.zip"
+          cp /tmp/largo-target3-20day/data/target3_20day_rows.csv "$root/raw/"
+          cp /tmp/largo-target3-20day/data/candidate_universe_overlap.csv "$root/raw/"
+          gzip -9 -c /tmp/largo-target3-20day/data/target3_20day_detail.json > "$root/raw/target3_20day_detail.json.gz"
+          cp /tmp/largo-target3-20day/source/*.py "$root/source/"
+          cp /tmp/largo-target3-20day/qc/run.log "$root/raw/recovered_run.log"
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          root=Path('research/largo-target3-20day')
+          meta=json.loads((root/'target3_20day_metadata.json').read_text(encoding='utf-8'))
+          summary=json.loads((root/'target3_20day_summary.json').read_text(encoding='utf-8'))
+          with (root/'raw/target3_20day_rows.csv').open(encoding='utf-8',newline='') as f:
+              rows=sum(1 for _ in csv.reader(f))-1
+          assert meta['date_count']==20
+          assert rows==480
+          assert summary['quote_coverage']['evaluated_rows']==144
+          assert summary['fixed_rule_selected']=={
+              'n':2,'hits':1,'hit_rate':0.5,'avg_max_return_pct':4.0014,
+              'median_max_return_pct':4.0014,'avg_0905_return_pct':3.6346,
+              'loss_rate_0905':0.0,
+          }
+          print({'dates':20,'rows':rows,'evaluated':144,'selected':2,'hits':1})
+          PY
+
+      - name: Commit recovered archive and remove bootstrap workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/tmp-bootstrap-largo-target3-20day-archive.yml
+          git add research/largo-target3-20day
+          git commit -m 'Persist recovered Largo target3 20-day artifact and sources'
+          git push origin HEAD:fix/largo-artifact-retention-90d-20260901
