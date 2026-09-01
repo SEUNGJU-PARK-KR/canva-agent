@@ -1,0 +1,149 @@
+{
+  "version": "largo-close-v5",
+  "target_pct": 3.0,
+  "coverage": {
+    "sessions_rebuilt": 20,
+    "candidate_rows": 480,
+    "evaluated_sessions": 6,
+    "evaluated_rows": 144,
+    "development_dates": [
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26"
+    ],
+    "validation_dates": [
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-31"
+    ]
+  },
+  "rule": {
+    "safety": "hard_reject=false, common stock, exact 15:18 ask/bid, structural risk <=10%",
+    "momentum_digest": "10% <= change <= 15%, 0.10 <= digest <= 1.00, spread <=0.20%",
+    "direct_event": "directness >=14, freshness >=3, 0.10 <= digest <=1.50, spread <=0.10%",
+    "daily_selection": "one per signal date: lowest risk, then tightest spread, then largest turnover",
+    "exit": "+3% if observed before 09:06; otherwise last observed top bid at 09:05"
+  },
+  "baseline_all": {
+    "label": "all evaluated",
+    "trades": 144,
+    "positive": 44,
+    "losses": 99,
+    "hit3": 20,
+    "positive_rate": 0.305556,
+    "loss_rate": 0.6875,
+    "hit3_rate": 0.138889,
+    "mean_policy_return_pct": -1.44527,
+    "median_policy_return_pct": -1.108,
+    "sum_policy_return_pct": -208.1189,
+    "compound_return_pct": -88.601138,
+    "mean_last_return_pct": -1.224961,
+    "mean_max_return_pct": -0.101472
+  },
+  "clean_common": {
+    "label": "clean common",
+    "trades": 115,
+    "positive": 33,
+    "losses": 81,
+    "hit3": 14,
+    "positive_rate": 0.286957,
+    "loss_rate": 0.704348,
+    "hit3_rate": 0.121739,
+    "mean_policy_return_pct": -1.629472,
+    "median_policy_return_pct": -1.1513,
+    "sum_policy_return_pct": -187.3893,
+    "compound_return_pct": -85.782707,
+    "mean_last_return_pct": -1.551457,
+    "mean_max_return_pct": -0.507947
+  },
+  "old_rule": {
+    "label": "old target3",
+    "trades": 2,
+    "positive": 2,
+    "losses": 0,
+    "hit3": 1,
+    "positive_rate": 1.0,
+    "loss_rate": 0.0,
+    "hit3_rate": 0.5,
+    "mean_policy_return_pct": 2.31265,
+    "median_policy_return_pct": 2.31265,
+    "sum_policy_return_pct": 4.6253,
+    "compound_return_pct": 4.674059,
+    "mean_last_return_pct": 3.6346,
+    "mean_max_return_pct": 4.0014
+  },
+  "v5_qualified_all": {
+    "label": "v5 all qualified",
+    "trades": 5,
+    "positive": 5,
+    "losses": 0,
+    "hit3": 3,
+    "positive_rate": 1.0,
+    "loss_rate": 0.0,
+    "hit3_rate": 0.6,
+    "mean_policy_return_pct": 2.57282,
+    "median_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 12.8641,
+    "compound_return_pct": 13.534868,
+    "mean_last_return_pct": 3.00342,
+    "mean_max_return_pct": 3.69178
+  },
+  "v5_daily": {
+    "label": "v5 one per day",
+    "trades": 4,
+    "positive": 4,
+    "losses": 0,
+    "hit3": 2,
+    "positive_rate": 1.0,
+    "loss_rate": 0.0,
+    "hit3_rate": 0.5,
+    "mean_policy_return_pct": 2.466025,
+    "median_policy_return_pct": 2.6194,
+    "sum_policy_return_pct": 9.8641,
+    "compound_return_pct": 10.228027,
+    "mean_last_return_pct": 2.863625,
+    "mean_max_return_pct": 3.475525
+  },
+  "development": {
+    "label": "development",
+    "trades": 1,
+    "positive": 1,
+    "losses": 0,
+    "hit3": 0,
+    "positive_rate": 1.0,
+    "loss_rate": 0.0,
+    "hit3_rate": 0.0,
+    "mean_policy_return_pct": 2.2388,
+    "median_policy_return_pct": 2.2388,
+    "sum_policy_return_pct": 2.2388,
+    "compound_return_pct": 2.2388,
+    "mean_last_return_pct": 2.2388,
+    "mean_max_return_pct": 2.7363
+  },
+  "validation": {
+    "label": "validation",
+    "trades": 3,
+    "positive": 3,
+    "losses": 0,
+    "hit3": 2,
+    "positive_rate": 1.0,
+    "loss_rate": 0.0,
+    "hit3_rate": 0.666667,
+    "mean_policy_return_pct": 2.541767,
+    "median_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 7.6253,
+    "compound_return_pct": 7.814281,
+    "mean_last_return_pct": 3.0719,
+    "mean_max_return_pct": 3.721933
+  },
+  "limitations": [
+    "Only six signal dates have both exact 15:18 entry quotes and next-session pre-09:06 outcome quotes.",
+    "Current theme membership is used as a historical proxy.",
+    "Full-day high/low can include 15:18-15:30 and is not used as a v5 core gate.",
+    "The v5 thresholds were selected after reviewing the same six evaluable dates."
+  ],
+  "input_sha256": {
+    "detail": "237f03863c5efeb0f603622e056564960e5453f6628a6488d43aa428b099c409",
+    "metadata": "f906c27b7b19a4f70f26ca8363e6a5f232fd132124aa44a932e01ae4fc851b6b"
+  }
+}

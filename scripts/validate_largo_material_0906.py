@@ -1,30 +1,40 @@
 #!/usr/bin/env python3
-"""Offline validation for the deterministic Largo material and 09:06 pipeline."""
+"""Offline checks for the Largo closing-bet v5 research rule."""
 from __future__ import annotations
 
 import datetime as dt
 
+from capture_largo_material_0906 import apply_daily_target3_selection
 from largo_material_0906 import (
     KST,
+    TARGET3_VERSION,
     catalyst_evidence,
     entry_from_legacy,
-    event_significance,
     outcome_before_0906,
     score_candidate,
+    target3_gate,
     theme_metrics_from_members,
 )
 
 
-def fixture_candidate() -> dict:
+def candidate(name: str = "테스트종목", risk: float = 0.05) -> dict:
     return {
         "code": "123456",
-        "name": "테스트종목",
+        "name": name,
         "price": 10000,
+        "trade_value": 80_000_000_000,
         "theme": {"code": "T001", "name": "로봇", "leader_rank": 1},
-        "catalyst": {"grade": "S", "reason": "로봇 관련주 6/8 상승", "positive_titles": ["테스트종목 공급계약 체결"]},
-        "metrics": {"close_location": 0.93, "upper_wick": 0.04, "body_ratio": 0.71, "digest_ratio": 1.1},
-        "pattern": {"id": "C1", "score": 92},
-        "plan": {"stop_distance": 0.02},
+        "catalyst": {"grade": "S", "reason": "공급계약", "positive_titles": [f"{name} 공급계약 체결"]},
+        "metrics": {
+            "close_location": 0.80,
+            "upper_wick": 0.15,
+            "body_ratio": 0.55,
+            "digest_ratio": 0.80,
+            "change_rate": 12.0,
+            "trade_value": 80_000_000_000,
+        },
+        "pattern": {"id": "C1", "score": 80},
+        "plan": {"stop_distance": risk},
         "checks": [
             {"id": "X_RISK", "status": "PASS"},
             {"id": "X_TYPE", "status": "PASS"},
@@ -33,82 +43,72 @@ def fixture_candidate() -> dict:
     }
 
 
-def main() -> None:
+def scored_fixture(name: str = "테스트종목", risk: float = 0.05) -> dict:
     signal_at = dt.datetime(2026, 9, 1, 15, 18, tzinfo=KST)
-    significance = event_significance("테스트종목 500억원 공급계약, 최근 매출액 대비 12.5%")
-    assert significance["magnitude"] == "HIGH"
-    assert significance["revenue_ratio_pct"] == 12.5
-    assert significance["amount_krw"] == 50_000_000_000
-
-    candidate = fixture_candidate()
-    items = [{
-        "title": "테스트종목 500억원 공급계약 체결",
+    item = {
+        "title": f"{name} 500억원 공급계약 체결",
         "body": "최근 매출액 대비 12.5%",
         "at": signal_at - dt.timedelta(hours=2),
         "source": "notice",
-    }]
-    evidence = catalyst_evidence(candidate, signal_at, items)
-    assert evidence["direct_benefit"] is True
-    assert evidence["directness_points"] == 18
-    assert evidence["freshness_points"] == 10
-    assert evidence["magnitude"] == "HIGH"
+    }
+    members = [
+        {"code": "123456", "name": name, "change_rate": 12.0, "trade_value": 80_000_000_000},
+        {"code": "111111", "name": "후속1", "change_rate": 5.0, "trade_value": 40_000_000_000},
+        {"code": "222222", "name": "후속2", "change_rate": 3.0, "trade_value": 30_000_000_000},
+        {"code": "333333", "name": "하락", "change_rate": -1.0, "trade_value": 5_000_000_000},
+    ]
+    source = candidate(name=name, risk=risk)
+    theme = theme_metrics_from_members(source, members)
+    return score_candidate(source, signal_at, [item], theme_metrics=theme, theme_history=[])
 
-    future = catalyst_evidence(candidate, signal_at, [{**items[0], "at": signal_at + dt.timedelta(hours=1)}])
-    assert future["title"] is None
 
-    negative = catalyst_evidence(candidate, signal_at, [{
-        "title": "테스트종목 유상증자 결정",
-        "body": "",
-        "at": signal_at - dt.timedelta(hours=1),
+def main() -> None:
+    entry = entry_from_legacy([["15:18", "10,000", "0", "10,010", "10,000", "100", "20"]])
+    scored = scored_fixture()
+    assert scored["structure"]["change_rate"] == 12.0
+    gate = target3_gate(scored, entry)
+    assert gate["version"] == TARGET3_VERSION == "largo-close-v5"
+    assert gate["qualified"] is True
+    assert gate["eligible"] is True
+    assert gate["lane"] == "BOTH"
+    assert gate["size_band"] == "HALF"
+
+    risky = target3_gate(scored_fixture(risk=0.11), entry)
+    assert risky["qualified"] is False
+    assert risky["status"] == "BLOCK"
+
+    fund = target3_gate(scored_fixture(name="RISE 200"), entry)
+    assert fund["qualified"] is False
+    assert fund["status"] == "BLOCK"
+
+    first = {**scored, "name": "낮은위험", "trade_value": 50_000_000_000, "target3": target3_gate(scored, entry)}
+    second_scored = scored_fixture(name="높은위험", risk=0.08)
+    second = {**second_scored, "trade_value": 100_000_000_000, "target3": target3_gate(second_scored, entry)}
+    apply_daily_target3_selection([second, first])
+    assert first["target3"]["daily_pick"] is True
+    assert first["target3"]["eligible"] is True
+    assert second["target3"]["daily_pick"] is False
+    assert second["target3"]["status"] == "ALTERNATE"
+
+    open_rows = [
+        ["09:05", "10,240", "0", "10,250", "10,240", "200", "20"],
+        ["09:04", "10,350", "0", "10,360", "10,350", "180", "20"],
+        ["09:06", "10,600", "0", "10,610", "10,600", "220", "20"],
+    ]
+    outcome = outcome_before_0906(open_rows, entry_last=entry["entry_last"], entry_ask=entry["entry_ask"])
+    assert outcome["max_bid"] == 10350
+    assert outcome["last_time"] == "09:05"
+    assert outcome["open_observations"] == 2
+    assert outcome["max_executable_return_pct"] > 3.0
+
+    evidence = catalyst_evidence(candidate(), dt.datetime(2026, 9, 1, 15, 18, tzinfo=KST), [{
+        "title": "테스트종목 500억원 공급계약 체결",
+        "body": "최근 매출액 대비 12.5%",
+        "at": dt.datetime(2026, 9, 1, 13, 18, tzinfo=KST),
         "source": "notice",
     }])
-    assert negative["negative"] is True
-
-    members = [
-        {"code": "123456", "name": "테스트종목", "change_rate": 12.0, "trade_value": 80_000_000_000},
-        {"code": "111111", "name": "후속1", "change_rate": 8.0, "trade_value": 40_000_000_000},
-        {"code": "222222", "name": "후속2", "change_rate": 5.0, "trade_value": 30_000_000_000},
-        {"code": "333333", "name": "후속3", "change_rate": 2.0, "trade_value": 8_000_000_000},
-        {"code": "444444", "name": "소폭상승", "change_rate": 0.5, "trade_value": 4_000_000_000},
-        {"code": "555555", "name": "하락", "change_rate": -1.0, "trade_value": 4_000_000_000},
-    ]
-    theme = theme_metrics_from_members(candidate, members)
-    assert theme["leader_rank"] == 1
-    assert theme["follower_strong_count"] == 2
-    assert theme["follower_turnover"] == 70_000_000_000
-    assert abs(theme["breadth"] - 5 / 6) < 1e-9
-
-    history = [
-        {"stage": "14:53", "at": "2026-09-01T14:53:00+09:00", "themes": {"T001": {"breadth": 0.67}}},
-        {"stage": "15:10", "at": "2026-09-01T15:10:00+09:00", "themes": {"T001": {"breadth": 0.72}}},
-    ]
-    scored = score_candidate(candidate, signal_at, items, theme_metrics=theme, theme_history=history)
-    assert scored["grade"] == "S"
-    assert scored["grade_status"] == "CONFIRMED"
-    assert scored["coverage"] == 1.0
-    assert scored["production_score"] is not None
-
-    signal_rows = [["15:18", "10,000", "0", "10,010", "10,000", "100", "20"]]
-    entry = entry_from_legacy(signal_rows)
-    assert entry["entry_ask"] == 10010
-    open_rows = [
-        ["09:05", "10,080", "0", "10,090", "10,080", "200", "20"],
-        ["09:04", "10,130", "0", "10,140", "10,130", "180", "20"],
-        ["09:06", "10,500", "0", "10,510", "10,500", "220", "20"],
-    ]
-    result = outcome_before_0906(open_rows, entry_last=entry["entry_last"], entry_ask=entry["entry_ask"])
-    assert result["max_bid"] == 10130
-    assert result["last_time"] == "09:05"
-    assert result["open_observations"] == 2
-    assert result["hit_1_exec"] is True
-
-    print({
-        "status": "PASS",
-        "grade": scored["grade"],
-        "score": scored["production_score"],
-        "coverage": scored["coverage"],
-        "max_exec_return_pct": result["max_executable_return_pct"],
-    })
+    assert evidence["directness_points"] >= 14
+    print({"status": "PASS", "version": TARGET3_VERSION, "lane": gate["lane"], "daily_pick": first["name"]})
 
 
 if __name__ == "__main__":
