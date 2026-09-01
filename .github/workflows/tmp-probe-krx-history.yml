@@ -22,11 +22,11 @@ jobs:
           python-version: "3.12"
       - name: Install bounded read-only dependencies
         run: python3 -m pip install --quiet requests beautifulsoup4
-      - name: Recover collector from the staged commit
+      - name: Recover collector and pin the deployed target3 rule module
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p out/data out/source out/qc
+          mkdir -p out/data out/source out/qc /tmp/largo-rules
           curl -fsSL --max-time 30 \
             https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/4cf66f8219bac62953f44238bb2541a46206e06d/.github/workflows/tmp-probe-krx-history.yml \
             -o /tmp/staged-workflow.yml
@@ -38,54 +38,46 @@ jobs:
           expected_raw='d1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178'
           expected_size=12137
           alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-
           text=Path('/tmp/staged-workflow.yml').read_text(encoding='utf-8')
           match=re.search(r"<<'B64'\n(.*?)\nB64", text, flags=re.S)
           if not match:
               raise SystemExit('staged collector payload not found')
           encoded=''.join(match.group(1).split())
-          print({'encoded_length':len(encoded),'remainder':len(encoded)%4,'tail':encoded[-24:]})
-
           repaired=None
           for position in range(len(encoded)+1):
-              left=encoded[:position]
-              right=encoded[position:]
+              left=encoded[:position]; right=encoded[position:]
               for char in alphabet:
                   candidate=left+char+right
                   try:
                       compressed=base64.b64decode(candidate, validate=True)
                   except Exception:
                       continue
-                  if len(compressed) != expected_size:
-                      continue
-                  if hashlib.sha256(compressed).hexdigest() == expected_compressed:
+                  if len(compressed)==expected_size and hashlib.sha256(compressed).hexdigest()==expected_compressed:
                       repaired=candidate
                       print({'repaired_position':position,'repaired_char':char})
                       break
               if repaired is not None:
                   break
-              if position and position % 2000 == 0:
-                  print({'repair_progress':position})
           if repaired is None:
               raise SystemExit('single-character repair failed')
-
-          compressed=base64.b64decode(repaired, validate=True)
-          raw=gzip.decompress(compressed)
+          raw=gzip.decompress(base64.b64decode(repaired, validate=True))
           digest=hashlib.sha256(raw).hexdigest()
           if digest != expected_raw:
               raise SystemExit(f'collector digest mismatch: {digest}')
-          target=Path('/tmp/backfill_largo_target3_20day.py')
-          target.write_bytes(raw)
+          Path('/tmp/backfill_largo_target3_20day.py').write_bytes(raw)
           print({'collector_bytes':len(raw),'sha256':digest})
           PY
+          curl -fsSL --max-time 30 \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/132d6eb12ec691cb690e6ebc78700be6e9747e5c/scripts/largo_material_0906.py \
+            -o /tmp/largo-rules/largo_material_0906.py
           cp /tmp/backfill_largo_target3_20day.py out/source/
-          cp scripts/largo_material_0906.py out/source/
-          python3 -m py_compile /tmp/backfill_largo_target3_20day.py scripts/largo_material_0906.py
+          cp /tmp/largo-rules/largo_material_0906.py out/source/
+          python3 -m py_compile /tmp/backfill_largo_target3_20day.py /tmp/largo-rules/largo_material_0906.py
       - name: Run fixed-rule 20-day historical validation
         shell: bash
         run: |
           set -euo pipefail
-          PYTHONPATH=scripts python3 /tmp/backfill_largo_target3_20day.py \
+          PYTHONPATH=/tmp/largo-rules python3 /tmp/backfill_largo_target3_20day.py \
             --output-dir out/data \
             --end-date 2026-08-31 \
             --days 20 \
