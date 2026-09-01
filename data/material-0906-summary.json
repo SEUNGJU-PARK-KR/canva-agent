@@ -1,11 +1,13 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-01T13:39:20.324208+09:00",
+  "target3_version": "largo-target3-v1",
+  "generated_at": "2026-09-01T16:49:48.769276+09:00",
   "definition": {
-    "signal": "15:18 ask, with a pre-signal candidate snapshot",
+    "signal": "15:18 best ask with an observed best bid",
     "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
-    "outcome": "maximum observed top bid; minute snapshots, not intraminute high",
-    "score": "deterministic 100-point material and closing-structure framework"
+    "outcome": "maximum observed top bid",
+    "target": "+3% versus the 15:18 best ask",
+    "selection": "explicit theme-continuation or direct-event intersection; no blended score threshold"
   },
   "evaluated_rows": 72,
   "evaluated_dates": [
@@ -23,7 +25,25 @@
     "positive_rate": 0.5,
     "hit_0_5_rate": 0.375,
     "hit_1_rate": 0.25,
-    "hit_2_rate": 0.1806
+    "hit_2_rate": 0.1806,
+    "hit_3_rate": 0.1528,
+    "avg_policy_3_return_pct": -1.5472,
+    "policy_3_loss_rate": 0.7639,
+    "avg_last_return_pct": -1.1957
+  },
+  "target3_selected": {
+    "n": 5,
+    "avg_score": 51.3,
+    "avg_max_return_pct": 4.1754,
+    "median_max_return_pct": 3.5758,
+    "positive_rate": 1.0,
+    "hit_0_5_rate": 1.0,
+    "hit_1_rate": 1.0,
+    "hit_2_rate": 1.0,
+    "hit_3_rate": 1.0,
+    "avg_policy_3_return_pct": 3.0,
+    "policy_3_loss_rate": 0.0,
+    "avg_last_return_pct": 3.5624
   },
   "high_70": {
     "n": 6,
@@ -33,7 +53,11 @@
     "positive_rate": 0.1667,
     "hit_0_5_rate": 0.0,
     "hit_1_rate": 0.0,
-    "hit_2_rate": 0.0
+    "hit_2_rate": 0.0,
+    "hit_3_rate": 0.0,
+    "avg_policy_3_return_pct": -3.5404,
+    "policy_3_loss_rate": 1.0,
+    "avg_last_return_pct": -3.5404
   },
   "high_75": {
     "n": 3,
@@ -43,7 +67,11 @@
     "positive_rate": 0.0,
     "hit_0_5_rate": 0.0,
     "hit_1_rate": 0.0,
-    "hit_2_rate": 0.0
+    "hit_2_rate": 0.0,
+    "hit_3_rate": 0.0,
+    "avg_policy_3_return_pct": -4.2377,
+    "policy_3_loss_rate": 1.0,
+    "avg_last_return_pct": -4.2377
   },
   "high_80": {
     "n": 2,
@@ -53,7 +81,11 @@
     "positive_rate": 0.0,
     "hit_0_5_rate": 0.0,
     "hit_1_rate": 0.0,
-    "hit_2_rate": 0.0
+    "hit_2_rate": 0.0,
+    "hit_3_rate": 0.0,
+    "avg_policy_3_return_pct": -4.7057,
+    "policy_3_loss_rate": 1.0,
+    "avg_last_return_pct": -4.7057
   },
   "daily_top1": {
     "n": 3,
@@ -63,7 +95,11 @@
     "positive_rate": 0.0,
     "hit_0_5_rate": 0.0,
     "hit_1_rate": 0.0,
-    "hit_2_rate": 0.0
+    "hit_2_rate": 0.0,
+    "hit_3_rate": 0.0,
+    "avg_policy_3_return_pct": -3.4484,
+    "policy_3_loss_rate": 1.0,
+    "avg_last_return_pct": -3.4484
   },
   "daily_top3": {
     "n": 9,
@@ -73,7 +109,11 @@
     "positive_rate": 0.3333,
     "hit_0_5_rate": 0.1111,
     "hit_1_rate": 0.1111,
-    "hit_2_rate": 0.0
+    "hit_2_rate": 0.0,
+    "hit_3_rate": 0.0,
+    "avg_policy_3_return_pct": -2.5294,
+    "policy_3_loss_rate": 0.8889,
+    "avg_last_return_pct": -2.5294
   },
   "production_scored": {
     "n": 0,
@@ -83,7 +123,10 @@
     "positive_rate": null,
     "hit_0_5_rate": null,
     "hit_1_rate": null,
-    "hit_2_rate": null
+    "hit_2_rate": null,
+    "hit_3_rate": null,
+    "avg_policy_3_return_pct": null,
+    "policy_3_loss_rate": null
   },
   "correlation": 0.0812,
   "daily": [
@@ -101,7 +144,11 @@
         "positive_rate": 0.0,
         "hit_0_5_rate": 0.0,
         "hit_1_rate": 0.0,
-        "hit_2_rate": 0.0
+        "hit_2_rate": 0.0,
+        "hit_3_rate": 0.0,
+        "avg_policy_3_return_pct": -4.9135,
+        "policy_3_loss_rate": 1.0,
+        "avg_last_return_pct": -4.9135
       },
       "all": {
         "n": 24,
@@ -111,8 +158,30 @@
         "positive_rate": 0.5417,
         "hit_0_5_rate": 0.4167,
         "hit_1_rate": 0.2917,
-        "hit_2_rate": 0.1667
+        "hit_2_rate": 0.1667,
+        "hit_3_rate": 0.1667,
+        "avg_policy_3_return_pct": -0.9721,
+        "policy_3_loss_rate": 0.75,
+        "avg_last_return_pct": -0.6743
       },
+      "target3": {
+        "n": 2,
+        "avg_score": 53.25,
+        "avg_max_return_pct": 4.8483,
+        "median_max_return_pct": 4.8483,
+        "positive_rate": 1.0,
+        "hit_0_5_rate": 1.0,
+        "hit_1_rate": 1.0,
+        "hit_2_rate": 1.0,
+        "hit_3_rate": 1.0,
+        "avg_policy_3_return_pct": 3.0,
+        "policy_3_loss_rate": 0.0,
+        "avg_last_return_pct": 4.6098
+      },
+      "target3_names": [
+        "SK이노베이션",
+        "금호건설"
+      ],
       "proxy": true
     },
     {
@@ -129,7 +198,11 @@
         "positive_rate": 0.3333,
         "hit_0_5_rate": 0.3333,
         "hit_1_rate": 0.3333,
-        "hit_2_rate": 0.0
+        "hit_2_rate": 0.0,
+        "hit_3_rate": 0.0,
+        "avg_policy_3_return_pct": -1.4921,
+        "policy_3_loss_rate": 1.0,
+        "avg_last_return_pct": -1.4921
       },
       "all": {
         "n": 24,
@@ -139,8 +212,26 @@
         "positive_rate": 0.3333,
         "hit_0_5_rate": 0.2917,
         "hit_1_rate": 0.1667,
-        "hit_2_rate": 0.125
+        "hit_2_rate": 0.125,
+        "hit_3_rate": 0.0833,
+        "avg_policy_3_return_pct": -3.354,
+        "policy_3_loss_rate": 0.875,
+        "avg_last_return_pct": -2.5934
       },
+      "target3": {
+        "n": 0,
+        "avg_score": null,
+        "avg_max_return_pct": null,
+        "median_max_return_pct": null,
+        "positive_rate": null,
+        "hit_0_5_rate": null,
+        "hit_1_rate": null,
+        "hit_2_rate": null,
+        "hit_3_rate": null,
+        "avg_policy_3_return_pct": null,
+        "policy_3_loss_rate": null
+      },
+      "target3_names": [],
       "proxy": true
     },
     {
@@ -157,7 +248,11 @@
         "positive_rate": 0.6667,
         "hit_0_5_rate": 0.0,
         "hit_1_rate": 0.0,
-        "hit_2_rate": 0.0
+        "hit_2_rate": 0.0,
+        "hit_3_rate": 0.0,
+        "avg_policy_3_return_pct": -1.1827,
+        "policy_3_loss_rate": 0.6667,
+        "avg_last_return_pct": -1.1827
       },
       "all": {
         "n": 24,
@@ -167,8 +262,31 @@
         "positive_rate": 0.625,
         "hit_0_5_rate": 0.4167,
         "hit_1_rate": 0.2917,
-        "hit_2_rate": 0.25
+        "hit_2_rate": 0.25,
+        "hit_3_rate": 0.2083,
+        "avg_policy_3_return_pct": -0.3155,
+        "policy_3_loss_rate": 0.6667,
+        "avg_last_return_pct": -0.3193
       },
+      "target3": {
+        "n": 3,
+        "avg_score": 50.0,
+        "avg_max_return_pct": 3.7268,
+        "median_max_return_pct": 3.3935,
+        "positive_rate": 1.0,
+        "hit_0_5_rate": 1.0,
+        "hit_1_rate": 1.0,
+        "hit_2_rate": 1.0,
+        "hit_3_rate": 1.0,
+        "avg_policy_3_return_pct": 3.0,
+        "policy_3_loss_rate": 0.0,
+        "avg_last_return_pct": 2.864
+      },
+      "target3_names": [
+        "HD현대일렉트릭",
+        "효성중공업",
+        "삼성전기"
+      ],
       "proxy": true
     }
   ],
@@ -182,6 +300,10 @@
       "hit_0_5_rate": 0.4146,
       "hit_1_rate": 0.2439,
       "hit_2_rate": 0.2195,
+      "hit_3_rate": 0.1951,
+      "avg_policy_3_return_pct": -1.1802,
+      "policy_3_loss_rate": 0.7317,
+      "avg_last_return_pct": -0.9808,
       "threshold": 40
     },
     {
@@ -193,6 +315,10 @@
       "hit_0_5_rate": 0.4054,
       "hit_1_rate": 0.2432,
       "hit_2_rate": 0.2162,
+      "hit_3_rate": 0.1892,
+      "avg_policy_3_return_pct": -1.2403,
+      "policy_3_loss_rate": 0.7297,
+      "avg_last_return_pct": -0.993,
       "threshold": 45
     },
     {
@@ -204,6 +330,10 @@
       "hit_0_5_rate": 0.3871,
       "hit_1_rate": 0.2581,
       "hit_2_rate": 0.2258,
+      "hit_3_rate": 0.1935,
+      "avg_policy_3_return_pct": -1.3527,
+      "policy_3_loss_rate": 0.7419,
+      "avg_last_return_pct": -1.1906,
       "threshold": 50
     },
     {
@@ -215,6 +345,10 @@
       "hit_0_5_rate": 0.2353,
       "hit_1_rate": 0.1765,
       "hit_2_rate": 0.1176,
+      "hit_3_rate": 0.1176,
+      "avg_policy_3_return_pct": -2.2972,
+      "policy_3_loss_rate": 0.8235,
+      "avg_last_return_pct": -2.0461,
       "threshold": 55
     },
     {
@@ -226,6 +360,10 @@
       "hit_0_5_rate": 0.1667,
       "hit_1_rate": 0.1667,
       "hit_2_rate": 0.0833,
+      "hit_3_rate": 0.0833,
+      "avg_policy_3_return_pct": -2.6921,
+      "policy_3_loss_rate": 0.9167,
+      "avg_last_return_pct": -2.4718,
       "threshold": 60
     },
     {
@@ -237,6 +375,10 @@
       "hit_0_5_rate": 0.2,
       "hit_1_rate": 0.2,
       "hit_2_rate": 0.1,
+      "hit_3_rate": 0.1,
+      "avg_policy_3_return_pct": -2.042,
+      "policy_3_loss_rate": 0.9,
+      "avg_last_return_pct": -1.7776,
       "threshold": 65
     },
     {
@@ -248,6 +390,10 @@
       "hit_0_5_rate": 0.0,
       "hit_1_rate": 0.0,
       "hit_2_rate": 0.0,
+      "hit_3_rate": 0.0,
+      "avg_policy_3_return_pct": -3.5404,
+      "policy_3_loss_rate": 1.0,
+      "avg_last_return_pct": -3.5404,
       "threshold": 70
     },
     {
@@ -259,6 +405,10 @@
       "hit_0_5_rate": 0.0,
       "hit_1_rate": 0.0,
       "hit_2_rate": 0.0,
+      "hit_3_rate": 0.0,
+      "avg_policy_3_return_pct": -4.2377,
+      "policy_3_loss_rate": 1.0,
+      "avg_last_return_pct": -4.2377,
       "threshold": 75
     },
     {
@@ -270,6 +420,10 @@
       "hit_0_5_rate": 0.0,
       "hit_1_rate": 0.0,
       "hit_2_rate": 0.0,
+      "hit_3_rate": 0.0,
+      "avg_policy_3_return_pct": -4.7057,
+      "policy_3_loss_rate": 1.0,
+      "avg_last_return_pct": -4.7057,
       "threshold": 80
     },
     {
@@ -281,6 +435,9 @@
       "hit_0_5_rate": null,
       "hit_1_rate": null,
       "hit_2_rate": null,
+      "hit_3_rate": null,
+      "avg_policy_3_return_pct": null,
+      "policy_3_loss_rate": null,
       "threshold": 85
     },
     {
@@ -292,14 +449,18 @@
       "hit_0_5_rate": null,
       "hit_1_rate": null,
       "hit_2_rate": null,
+      "hit_3_rate": null,
+      "avg_policy_3_return_pct": null,
+      "policy_3_loss_rate": null,
       "threshold": 90
     }
   ],
-  "verdict": "70점 이상 표본이 10건 미만입니다. 높은 점수와 09:06 이전 수익의 관계를 확정하지 않습니다.",
+  "verdict": "+3% 통과 규칙은 표본 내 발굴 결과입니다. 20거래일 전진검증 전에는 매수 기준으로 사용하지 않습니다.",
   "limitations": [
     "과거 보관분은 2026-08-27, 2026-08-28, 2026-08-31 세 신호일뿐입니다.",
     "8월 27일과 28일은 15:30 구조를, 8월 31일은 14:47 구조를 15:18 대리값으로 사용했습니다.",
+    "+3% 조건은 같은 표본에서 발굴했으므로 표본 내 결과입니다. 20거래일 이상 고정 전진검증이 필요합니다.",
     "09:06 이전 성과는 09:00~09:05 분별 최우선 매수호가의 최대값이며 수량과 체결 지연은 반영하지 않습니다.",
-    "생성형 AI를 쓰지 않고 뉴스·공시 사건, 발표 시각, 테마 확산, 대장 순위, 2·3등주 거래대금과 확산 유지로 계산합니다."
+    "생성형 AI를 쓰지 않고 뉴스·공시 사건, 발표 시각, 테마 확산, 순위와 15:18 호가 간격으로 판정합니다."
   ]
 }
