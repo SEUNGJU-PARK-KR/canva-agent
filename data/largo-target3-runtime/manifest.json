@@ -1,0 +1,22 @@
+{
+  "version": "largo-target3-v1",
+  "archive_format": "tar.xz encoded as ordered base64 parts",
+  "archive_sha256": "8090289d2518e0232a7a6d4b8d11f87cfdf8ec43d949e5bdb9e36d970450de21",
+  "parts": [
+    "part00.b64",
+    "part01.b64",
+    "part02.b64",
+    "part03.b64",
+    "part04.b64",
+    "part05.b64"
+  ],
+  "archive_contents": [
+    ".github/workflows/largo-material-0906.yml",
+    "data/material-0906-bootstrap.json.gz.b64",
+    "docs/largo-target3.md",
+    "scripts/capture_largo_material_0906.py",
+    "scripts/largo_material_0906.py",
+    "scripts/validate_largo_target3.py"
+  ],
+  "purpose": "Rebuild the read-only material report with explicit pre-09:06 plus-three-percent research gates after the primary material workflow completes."
+}

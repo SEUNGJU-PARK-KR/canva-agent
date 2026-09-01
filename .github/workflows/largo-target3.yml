@@ -1,0 +1,118 @@
+name: Largo target3 pre-09:06 research
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/largo-target3-runtime/**"
+      - ".github/workflows/largo-target3.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "data/largo-target3-runtime/**"
+      - ".github/workflows/largo-target3.yml"
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "Largo material grade and pre-09:06 validation"
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-target3-report
+  cancel-in-progress: true
+
+jobs:
+  rebuild:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore reviewed target3 runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/largo-target3-src target3-public target3-work
+          mkdir -p /tmp/largo-target3-src target3-public/data target3-work
+          cat data/largo-target3-runtime/part*.b64 | base64 -d > /tmp/largo-target3.tar.xz
+          echo "8090289d2518e0232a7a6d4b8d11f87cfdf8ec43d949e5bdb9e36d970450de21  /tmp/largo-target3.tar.xz" | sha256sum -c -
+          tar -xJf /tmp/largo-target3.tar.xz -C /tmp/largo-target3-src
+          python3 -m py_compile \
+            /tmp/largo-target3-src/scripts/largo_material_0906.py \
+            /tmp/largo-target3-src/scripts/capture_largo_material_0906.py \
+            /tmp/largo-target3-src/scripts/validate_largo_target3.py
+          PYTHONPATH=/tmp/largo-target3-src/scripts python3 /tmp/largo-target3-src/scripts/validate_largo_target3.py
+
+      - name: Recover cumulative material history
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, gzip
+          encoded=''.join(Path('/tmp/largo-target3-src/data/material-0906-bootstrap.json.gz.b64').read_text(encoding='ascii').split())
+          Path('target3-work/bootstrap.json').write_bytes(gzip.decompress(base64.b64decode(encoded)))
+          PY
+          curl -fsSL --max-time 20 \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/material-0906-history.json \
+            -o target3-work/history.json \
+          || cp target3-work/bootstrap.json target3-work/history.json
+          curl -fsSL --max-time 20 \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/latest.json \
+            -o target3-work/latest.json \
+          || echo '{"candidates":[]}' > target3-work/latest.json
+
+      - name: Rebuild explicit plus-three-percent report
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH=/tmp/largo-target3-src/scripts python3 \
+            /tmp/largo-target3-src/scripts/capture_largo_material_0906.py \
+            --stage bootstrap \
+            --history target3-work/history.json \
+            --bootstrap target3-work/bootstrap.json \
+            --latest target3-work/latest.json \
+            --output-history target3-public/data/material-0906-history.json \
+            --summary target3-public/data/material-0906-summary.json \
+            --csv target3-public/data/material-0906-results.csv \
+            --report target3-public/material-0906.html
+          touch target3-public/.nojekyll
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('target3-public')
+          summary=json.loads((root/'data/material-0906-summary.json').read_text(encoding='utf-8'))
+          report=(root/'material-0906.html').read_text(encoding='utf-8')
+          assert summary.get('target3_version')=='largo-target3-v1'
+          assert (summary.get('target3_selected') or {}).get('n',0) >= 5
+          assert '09:06 이전 +3% 도달 검증' in report
+          assert '+3% 통과 규칙' in report
+          assert 'fetch(' not in report
+          print({'target3':summary.get('target3_selected'),'verdict':summary.get('verdict')})
+          PY
+
+      - name: Upload target3 research artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-target3-report
+          path: target3-public
+          retention-days: 30
+
+      - name: Publish target3 report
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target3-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Update Largo target3 pre-09:06 research
