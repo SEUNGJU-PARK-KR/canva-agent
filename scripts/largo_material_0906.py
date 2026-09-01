@@ -25,6 +25,8 @@ from typing import Any, Iterable, Mapping, Sequence
 KST = dt.timezone(dt.timedelta(hours=9))
 UTC = dt.timezone.utc
 VERSION = "largo-material-0906-v1"
+TARGET3_VERSION = "largo-close-v5"
+TARGET3_PCT = 3.0
 NAVER_STOCK = "https://stock.naver.com"
 NAVER_FINANCE = "https://finance.naver.com"
 UA = "Mozilla/5.0 (compatible; LargoMaterial0906/1.0; read-only)"
@@ -678,6 +680,7 @@ def score_candidate(
     _set_component(components, observed, "pattern", pattern_points, pattern_score is not None)
 
     digestion = candidate_metric(candidate, "digest_ratio")
+    change_rate = candidate_metric(candidate, "change_rate")
     digestion_points = 0.0 if digestion is None else 3.0 if digestion >= 1.0 else 2.0 if digestion >= 0.60 else 1.0 if digestion >= 0.30 else 0.0
     _set_component(components, observed, "digestion", digestion_points, digestion is not None)
 
@@ -759,11 +762,134 @@ def score_candidate(
             "pattern_id": str(pattern.get("id") or ""),
             "pattern_score": pattern_score,
             "digest_ratio": digestion,
+            "change_rate": change_rate,
             "risk_rate": risk,
         },
         "proxy_note": proxy_note,
     }
 
+
+
+NON_COMMON_INSTRUMENT_TERMS = (
+    "Reg.S", "스팩", "SPAC", "ETN", "ETF", "RISE ", "KODEX ", "TIGER ",
+    "ACE ", "PLUS ", "HANARO ", "SOL ", "KOSEF ", "KBSTAR ", "ARIRANG ",
+)
+
+
+def is_common_stock_name(value: Any) -> bool:
+    name = str(value or "")
+    folded = name.casefold()
+    if any(term.casefold() in folded for term in NON_COMMON_INSTRUMENT_TERMS):
+        return False
+    return re.search(r"(?:우|우B|우C|우선주)$", name) is None
+
+
+def target3_gate(scored: Mapping[str, Any], entry: Mapping[str, Any]) -> dict[str, Any]:
+    """Classify a closing-bet candidate with the revalidated v5 rule."""
+    evidence = scored.get("evidence") if isinstance(scored.get("evidence"), Mapping) else {}
+    structure = scored.get("structure") if isinstance(scored.get("structure"), Mapping) else {}
+
+    ask = num(entry.get("entry_ask"))
+    bid = num(entry.get("entry_bid"))
+    spread_pct = ((ask - bid) / ask * 100.0) if ask and bid and 0 < bid <= ask else None
+    directness = num(evidence.get("directness_points"))
+    freshness = num(evidence.get("freshness_points"))
+    change_rate = num(structure.get("change_rate"))
+    digestion = num(structure.get("digest_ratio"))
+    risk = num(structure.get("risk_rate"))
+    hard_reject = bool(scored.get("hard_reject"))
+    common_stock = is_common_stock_name(scored.get("name"))
+
+    common_checks = {
+        "hard_exclusion_clear": not hard_reject,
+        "common_stock_only": common_stock,
+        "entry_quote_known": ask is not None and bid is not None and spread_pct is not None,
+        "structural_risk_at_most_10pct": risk is not None and risk <= 0.10,
+        "digestion_at_least_0_10": digestion is not None and digestion >= 0.10,
+    }
+    momentum_checks = {
+        **common_checks,
+        "change_rate_10_to_15pct": change_rate is not None and 10.0 <= change_rate <= 15.0,
+        "digestion_at_most_1_00": digestion is not None and digestion <= 1.00,
+        "spread_at_most_0_20pct": spread_pct is not None and spread_pct <= 0.20,
+    }
+    direct_checks = {
+        **common_checks,
+        "directness_at_least_14": directness is not None and directness >= 14.0,
+        "freshness_at_least_3": freshness is not None and freshness >= 3.0,
+        "digestion_at_most_1_50": digestion is not None and digestion <= 1.50,
+        "spread_at_most_0_10pct": spread_pct is not None and spread_pct <= 0.10,
+    }
+    momentum_pass = all(momentum_checks.values())
+    direct_pass = all(direct_checks.values())
+    if momentum_pass and direct_pass:
+        lane = "BOTH"
+    elif momentum_pass:
+        lane = "MOMENTUM_DIGESTION"
+    elif direct_pass:
+        lane = "DIRECT_EVENT"
+    else:
+        lane = "NONE"
+
+    qualified = lane != "NONE"
+    if hard_reject or not common_stock or (risk is not None and risk > 0.10):
+        status = "BLOCK"
+    elif qualified:
+        status = "PASS"
+    else:
+        momentum_ratio = sum(momentum_checks.values()) / len(momentum_checks)
+        direct_ratio = sum(direct_checks.values()) / len(direct_checks)
+        status = "WATCH" if max(momentum_ratio, direct_ratio) >= 0.75 else "NONE"
+
+    if risk is None:
+        size_band = "NO_POSITION"
+    elif risk <= 0.04:
+        size_band = "BASE"
+    elif risk <= 0.06:
+        size_band = "HALF"
+    elif risk <= 0.10:
+        size_band = "QUARTER"
+    else:
+        size_band = "NO_POSITION"
+
+    if lane == "MOMENTUM_DIGESTION":
+        blockers = [key for key, passed in momentum_checks.items() if not passed]
+    elif lane == "DIRECT_EVENT":
+        blockers = [key for key, passed in direct_checks.items() if not passed]
+    elif lane == "BOTH":
+        blockers = []
+    else:
+        momentum_missing = [key for key, passed in momentum_checks.items() if not passed]
+        direct_missing = [key for key, passed in direct_checks.items() if not passed]
+        blockers = momentum_missing if len(momentum_missing) <= len(direct_missing) else direct_missing
+
+    return {
+        "version": TARGET3_VERSION,
+        "target_pct": TARGET3_PCT,
+        "research_only": True,
+        "status": status,
+        "qualified": qualified,
+        "eligible": qualified,
+        "daily_pick": False,
+        "daily_rank": None,
+        "lane": lane,
+        "spread_pct": None if spread_pct is None else round(spread_pct, 4),
+        "size_band": size_band,
+        "change_rate": change_rate,
+        "digest_ratio": digestion,
+        "risk_rate": risk,
+        "momentum_checks": momentum_checks,
+        "theme_checks": momentum_checks,
+        "direct_checks": direct_checks,
+        "momentum_pass_count": sum(momentum_checks.values()),
+        "momentum_check_count": len(momentum_checks),
+        "theme_pass_count": sum(momentum_checks.values()),
+        "theme_check_count": len(momentum_checks),
+        "direct_pass_count": sum(direct_checks.values()),
+        "direct_check_count": len(direct_checks),
+        "blockers": blockers,
+        "note": "6개 평가일 재검증 규칙입니다. 하루 한 종목만 남겨 전진검증합니다.",
+    }
 
 def parse_legacy_rows(raw_or_rows: bytes | str | Sequence[Sequence[str]]) -> list[list[str]]:
     if isinstance(raw_or_rows, (list, tuple)):
@@ -820,7 +946,7 @@ def outcome_before_0906(rows: Sequence[Sequence[str]], *, entry_last: float | No
             "first_time": None, "last_time": None, "max_last": None, "max_bid": None,
             "last_last": None, "last_bid": None, "max_trade_return_pct": None,
             "max_executable_return_pct": None, "last_executable_return_pct": None,
-            "positive_exec": None, "hit_0_5_exec": None, "hit_1_exec": None, "hit_2_exec": None,
+            "positive_exec": None, "hit_0_5_exec": None, "hit_1_exec": None, "hit_2_exec": None, "hit_3_exec": None,
             "open_observations": len(quotes),
         }
     last_prices = [float(quote["last"]) for quote in quotes if quote.get("last")]
@@ -850,6 +976,7 @@ def outcome_before_0906(rows: Sequence[Sequence[str]], *, entry_last: float | No
         "hit_0_5_exec": max_exec_return >= 0.5,
         "hit_1_exec": max_exec_return >= 1.0,
         "hit_2_exec": max_exec_return >= 2.0,
+        "hit_3_exec": max_exec_return >= 3.0,
         "open_observations": len(quotes),
     }
 

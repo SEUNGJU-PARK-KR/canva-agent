@@ -21,6 +21,7 @@ from largo_material_0906 import (
     KST,
     NAVER_STOCK,
     VERSION,
+    TARGET3_VERSION,
     atomic_json,
     entry_from_legacy,
     fetch_json,
@@ -34,6 +35,7 @@ from largo_material_0906 import (
     score_candidate,
     theme_metrics_from_candidate,
     theme_metrics_from_payload,
+    target3_gate,
 )
 
 DEFAULT_HISTORY: dict[str, Any] = {
@@ -113,6 +115,95 @@ def merge_history(primary: Mapping[str, Any], bootstrap: Mapping[str, Any] | Non
         result[key] = merged
     return result
 
+
+
+def target3_sort_key(candidate: Mapping[str, Any]) -> tuple[float, float, float, str]:
+    target = candidate.get("target3") if isinstance(candidate.get("target3"), Mapping) else {}
+    structure = candidate.get("structure") if isinstance(candidate.get("structure"), Mapping) else {}
+    risk = num(target.get("risk_rate"))
+    if risk is None:
+        risk = num(structure.get("risk_rate"))
+    spread = num(target.get("spread_pct"))
+    turnover = num(candidate.get("trade_value")) or 0.0
+    return (
+        float(risk) if risk is not None else float("inf"),
+        float(spread) if spread is not None else float("inf"),
+        -float(turnover),
+        str(candidate.get("name") or ""),
+    )
+
+
+def apply_daily_target3_selection(candidates: Sequence[Mapping[str, Any]]) -> None:
+    """Keep at most one operationally valid v5 candidate for a signal date."""
+    qualified: list[dict[str, Any]] = []
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            continue
+        target = candidate.get("target3") if isinstance(candidate.get("target3"), dict) else None
+        if target is None:
+            continue
+        target["daily_pick"] = False
+        target["daily_rank"] = None
+        if bool(target.get("qualified")) and not target.get("operational_blockers") and target.get("status") != "BLOCK":
+            qualified.append(candidate)
+        else:
+            target["eligible"] = False
+
+    qualified.sort(key=target3_sort_key)
+    for rank, candidate in enumerate(qualified, start=1):
+        target = candidate["target3"]
+        target["daily_rank"] = rank
+        target["daily_pick"] = rank == 1
+        if rank == 1:
+            target["eligible"] = True
+            target["status"] = "PASS"
+            target["blockers"] = [x for x in target.get("blockers") or [] if x != "daily_one_pick_only"]
+        else:
+            target["eligible"] = False
+            target["status"] = "ALTERNATE"
+            target["blockers"] = list(dict.fromkeys(list(target.get("blockers") or []) + ["daily_one_pick_only"]))
+
+
+def migrate_target3_history(history: dict[str, Any]) -> dict[str, Any]:
+    """Backfill v5 gates and one-pick ranking into previously published history rows."""
+    lookup: dict[tuple[str, str], Mapping[str, Any]] = {}
+    for signal in history.get("signals") or []:
+        if not isinstance(signal, Mapping):
+            continue
+        signal_date = str(signal.get("signal_date") or "")
+        candidates = [row for row in signal.get("candidates") or [] if isinstance(row, dict)]
+        for candidate in candidates:
+            target3 = candidate.get("target3") if isinstance(candidate.get("target3"), Mapping) else None
+            if not target3 or str(target3.get("version") or "") != TARGET3_VERSION:
+                target3 = target3_gate(candidate, {
+                    "entry_ask": candidate.get("entry_ask"),
+                    "entry_bid": candidate.get("entry_bid"),
+                })
+                candidate["target3"] = target3
+        apply_daily_target3_selection(candidates)
+        for candidate in candidates:
+            target3 = candidate.get("target3") if isinstance(candidate.get("target3"), Mapping) else {}
+            lookup[(signal_date, str(candidate.get("code") or "").zfill(6))] = target3
+
+    for result in history.get("results") or []:
+        if not isinstance(result, dict):
+            continue
+        key = (str(result.get("signal_date") or ""), str(result.get("code") or "").zfill(6))
+        target3 = lookup.get(key)
+        if target3:
+            result["target3"] = target3
+            result["target3_version"] = target3.get("version")
+            result["target3_status"] = target3.get("status")
+            result["target3_lane"] = target3.get("lane")
+            result["target3_eligible"] = bool(target3.get("eligible"))
+            result["target3_qualified"] = bool(target3.get("qualified"))
+            result["target3_daily_rank"] = target3.get("daily_rank")
+            result["target3_size_band"] = target3.get("size_band")
+            result["target3_spread_pct"] = target3.get("spread_pct")
+        maximum = num(result.get("max_executable_return_pct"))
+        result["hit_3_exec"] = None if maximum is None else maximum >= 3.0
+    history["target3_version"] = TARGET3_VERSION
+    return history
 
 def candidate_theme_code(candidate: Mapping[str, Any]) -> str | None:
     theme = candidate.get("theme") if isinstance(candidate.get("theme"), Mapping) else {}
@@ -300,9 +391,27 @@ def signal_stage(
         if not entry.get("entry_ask"):
             production_score = None
             production_reasons.append("15:18 실행 기준 매도호가 미확인")
+
+        target3 = target3_gate(scored, entry)
+        target3_operational_blockers: list[str] = []
+        if not source_valid:
+            target3_operational_blockers.append("후보 기준 시각이 15:18 이전 35분 범위를 벗어남")
+        if target3.get("lane") in {"MOMENTUM_DIGESTION", "BOTH"} and not timely_theme:
+            target3_operational_blockers.append("테마 15:18 최종 캡처가 늦음")
+        if not entry.get("entry_ask") or not entry.get("entry_bid"):
+            target3_operational_blockers.append("15:18 최우선 매도·매수호가 미확인")
+        if target3_operational_blockers:
+            target3["eligible"] = False
+            target3["status"] = "BLOCK"
+            target3["operational_blockers"] = target3_operational_blockers
+            target3["blockers"] = list(dict.fromkeys(list(target3.get("blockers") or []) + target3_operational_blockers))
+        else:
+            target3["operational_blockers"] = []
+
         scored_rows.append(json_safe({
             **scored,
             **entry,
+            "target3": target3,
             "production_score": production_score,
             "production_eligible": production_score is not None,
             "production_blockers": production_reasons,
@@ -310,17 +419,21 @@ def signal_stage(
             "candidate_source_at": basis_source_at.isoformat() if basis_source_at else None,
             "source_age_minutes": round(source_age, 2) if source_age is not None else None,
             "theme_capture_lag_minutes": round(capture_lag, 2),
+            "trade_value": (num(candidate.get("trade_value")) or num((candidate.get("metrics") or {}).get("trade_value"))) if isinstance(candidate.get("metrics"), Mapping) else num(candidate.get("trade_value")),
             "research_rank": index,
         }))
 
+    apply_daily_target3_selection(scored_rows)
     scored_rows.sort(
         key=lambda row: (
-            row.get("production_score") is not None,
-            num(row.get("production_score")) or -1,
-            num(row.get("comparable_score")) or -1,
-        ),
-        reverse=True,
+            0 if bool((row.get("target3") or {}).get("eligible")) else
+            1 if bool((row.get("target3") or {}).get("qualified")) else
+            2 if str((row.get("target3") or {}).get("status") or "") == "WATCH" else 3,
+            int((row.get("target3") or {}).get("daily_rank") or 999),
+            *target3_sort_key(row),
+        )
     )
+    # Keep deterministic legacy ordering fields only as a final fallback.
     signal = {
         "signal_date": date_text,
         "signal_at": signal_at.isoformat(),
@@ -337,7 +450,11 @@ def signal_stage(
     history["signals"] = sorted(history["signals"], key=lambda row: str(row.get("signal_date") or ""))[-120:]
     record_event(
         history, stage="15:18", at=now, status="SIGNAL_CAPTURED",
-        detail=f"후보 {len(scored_rows)}개, 실전 점수 산출 {sum(row.get('production_score') is not None for row in scored_rows)}개",
+        detail=(
+            f"후보 {len(scored_rows)}개, v5 최종 1종목 "
+            f"{sum(bool((row.get('target3') or {}).get('eligible')) for row in scored_rows)}개, "
+            f"실전 점수 산출 {sum(row.get('production_score') is not None for row in scored_rows)}개"
+        ),
     )
 
 
@@ -390,6 +507,13 @@ def evaluate_stage(history: dict[str, Any], *, now: dt.datetime, timeout: int, d
             "coverage": candidate.get("coverage"),
             "grade": candidate.get("grade"),
             "grade_status": candidate.get("grade_status"),
+            "target3": candidate.get("target3"),
+            "target3_version": (candidate.get("target3") or {}).get("version") if isinstance(candidate.get("target3"), Mapping) else None,
+            "target3_status": (candidate.get("target3") or {}).get("status") if isinstance(candidate.get("target3"), Mapping) else None,
+            "target3_lane": (candidate.get("target3") or {}).get("lane") if isinstance(candidate.get("target3"), Mapping) else None,
+            "target3_eligible": bool((candidate.get("target3") or {}).get("eligible")) if isinstance(candidate.get("target3"), Mapping) else False,
+            "target3_size_band": (candidate.get("target3") or {}).get("size_band") if isinstance(candidate.get("target3"), Mapping) else None,
+            "target3_spread_pct": (candidate.get("target3") or {}).get("spread_pct") if isinstance(candidate.get("target3"), Mapping) else None,
             "entry_time": candidate.get("entry_time"),
             "entry_last": candidate.get("entry_last"),
             "entry_ask": candidate.get("entry_ask"),
@@ -450,10 +574,14 @@ def stats(rows: Iterable[Mapping[str, Any]], *, score_key: str = "score") -> dic
     if not items:
         return {
             "n": 0, "avg_score": None, "avg_max_return_pct": None, "median_max_return_pct": None,
-            "positive_rate": None, "hit_0_5_rate": None, "hit_1_rate": None, "hit_2_rate": None,
+            "positive_rate": None, "hit_0_5_rate": None, "hit_1_rate": None,
+            "hit_2_rate": None, "hit_3_rate": None, "avg_policy_3_return_pct": None,
+            "policy_3_loss_rate": None,
         }
     returns = [float(row["max_executable_return_pct"]) for row in items]
+    last_returns = [float(value) for row in items if (value := num(row.get("last_executable_return_pct"))) is not None]
     scores = [float(value) for row in items if (value := num(row.get(score_key))) is not None]
+    policy3 = [3.0 if value >= 3.0 else float(num(row.get("last_executable_return_pct")) or 0.0) for row, value in zip(items, returns)]
     return {
         "n": len(items),
         "avg_score": round(statistics.fmean(scores), 4) if scores else None,
@@ -463,12 +591,19 @@ def stats(rows: Iterable[Mapping[str, Any]], *, score_key: str = "score") -> dic
         "hit_0_5_rate": round(sum(value >= 0.5 for value in returns) / len(returns), 4),
         "hit_1_rate": round(sum(value >= 1.0 for value in returns) / len(returns), 4),
         "hit_2_rate": round(sum(value >= 2.0 for value in returns) / len(returns), 4),
+        "hit_3_rate": round(sum(value >= 3.0 for value in returns) / len(returns), 4),
+        "avg_policy_3_return_pct": round(statistics.fmean(policy3), 4),
+        "policy_3_loss_rate": round(sum(value < 0 for value in policy3) / len(policy3), 4),
+        "avg_last_return_pct": round(statistics.fmean(last_returns), 4) if last_returns else None,
     }
 
-
 def build_summary(history: Mapping[str, Any], now: dt.datetime) -> dict[str, Any]:
-    rows = [row for row in history.get("results") or [] if isinstance(row, Mapping) and num(row.get("max_executable_return_pct")) is not None]
+    rows = [
+        row for row in history.get("results") or []
+        if isinstance(row, Mapping) and num(row.get("max_executable_return_pct")) is not None
+    ]
     score_rows = [row for row in rows if num(row.get("score")) is not None]
+    target3_rows = [row for row in rows if bool(row.get("target3_eligible"))]
     dates = sorted({str(row.get("signal_date")) for row in rows}, reverse=True)
     top1: list[Mapping[str, Any]] = []
     top3: list[Mapping[str, Any]] = []
@@ -476,19 +611,21 @@ def build_summary(history: Mapping[str, Any], now: dt.datetime) -> dict[str, Any
     for date_text in dates:
         day = [row for row in score_rows if str(row.get("signal_date")) == date_text]
         day.sort(key=lambda row: float(num(row.get("score")) or -1), reverse=True)
-        if not day:
-            continue
-        top1.append(day[0])
-        top3.extend(day[:3])
+        target3_day = [row for row in target3_rows if str(row.get("signal_date")) == date_text]
+        if day:
+            top1.append(day[0])
+            top3.extend(day[:3])
         daily.append({
             "signal_date": date_text,
             "n": len(day),
-            "top_name": day[0].get("name"),
-            "top_score": day[0].get("score"),
-            "top_return_pct": day[0].get("max_executable_return_pct"),
+            "top_name": day[0].get("name") if day else None,
+            "top_score": day[0].get("score") if day else None,
+            "top_return_pct": day[0].get("max_executable_return_pct") if day else None,
             "top3": stats(day[:3]),
             "all": stats(day),
-            "proxy": all(bool(row.get("proxy")) for row in day),
+            "target3": stats(target3_day),
+            "target3_names": [row.get("name") for row in target3_day],
+            "proxy": all(bool(row.get("proxy")) for row in day) if day else True,
         })
     thresholds = []
     for threshold in range(40, 91, 5):
@@ -499,14 +636,18 @@ def build_summary(history: Mapping[str, Any], now: dt.datetime) -> dict[str, Any
     high70 = stats(row for row in score_rows if float(row.get("score")) >= 70)
     production_rows = [row for row in rows if num(row.get("production_score")) is not None]
     completed_live_dates = sorted({str(row.get("signal_date")) for row in production_rows if not bool(row.get("proxy"))}, reverse=True)
+    target3_stats = stats(target3_rows)
     if not rows:
-        verdict = "완료된 평가가 없습니다. 오늘 15:18 신호부터 누적합니다."
-    elif high70["n"] < 10:
-        verdict = "70점 이상 표본이 10건 미만입니다. 높은 점수와 09:06 이전 수익의 관계를 확정하지 않습니다."
-    elif correlation is not None and correlation >= 0.20 and (high70.get("hit_1_rate") or 0) > (stats(score_rows).get("hit_1_rate") or 0):
-        verdict = "고득점 집단이 전체보다 나은 초기 성과를 보였습니다. 20거래일 전진검증 전에는 매수 기준으로 쓰지 않습니다."
+        verdict = "완료된 평가가 없습니다. 오늘 15:18 신호부터 +3% 규칙을 고정해 누적합니다."
+    elif target3_stats["n"] < 20:
+        verdict = (
+            "v5 종가베팅 규칙은 과거 6개 평가일 재검증 결과입니다. 20개 실제 신호 전에는 "
+            "매수 기준으로 사용하지 않습니다."
+        )
+    elif (target3_stats.get("hit_3_rate") or 0) > (stats(rows).get("hit_3_rate") or 0):
+        verdict = "v5 날짜별 1종목이 전체 후보보다 높은 정책수익을 보입니다. 조건을 고정해 전진검증합니다."
     else:
-        verdict = "높은 점수가 09:06 이전 수익을 안정적으로 설명하지 못했습니다. 점수는 연구 순위로만 사용합니다."
+        verdict = "v5 규칙이 수익을 높이지 못했습니다. 조건을 자동 완화하지 않습니다."
     pending_dates = [
         str(signal.get("signal_date")) for signal in history.get("signals") or []
         if isinstance(signal, Mapping)
@@ -514,18 +655,21 @@ def build_summary(history: Mapping[str, Any], now: dt.datetime) -> dict[str, Any
     ]
     return {
         "version": VERSION,
+        "target3_version": TARGET3_VERSION,
         "generated_at": now.isoformat(),
         "definition": {
-            "signal": "15:18 ask, with a pre-signal candidate snapshot",
+            "signal": "15:18 best ask with an observed best bid",
             "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
-            "outcome": "maximum observed top bid; minute snapshots, not intraminute high",
-            "score": "deterministic 100-point material and closing-structure framework",
+            "outcome": "maximum observed top bid",
+            "target": "+3% versus the 15:18 best ask",
+            "selection": "momentum-digestion or direct-event lane; risk <=10%; one lowest-risk pick per day",
         },
         "evaluated_rows": len(rows),
         "evaluated_dates": dates,
         "live_completed_dates": completed_live_dates,
         "pending_signal_dates": sorted(set(pending_dates), reverse=True),
         "overall": stats(score_rows),
+        "target3_selected": target3_stats,
         "high_70": high70,
         "high_75": stats(row for row in score_rows if float(row.get("score")) >= 75),
         "high_80": stats(row for row in score_rows if float(row.get("score")) >= 80),
@@ -537,13 +681,13 @@ def build_summary(history: Mapping[str, Any], now: dt.datetime) -> dict[str, Any
         "thresholds": thresholds,
         "verdict": verdict,
         "limitations": [
-            "과거 보관분은 2026-08-27, 2026-08-28, 2026-08-31 세 신호일뿐입니다.",
-            "8월 27일과 28일은 15:30 구조를, 8월 31일은 14:47 구조를 15:18 대리값으로 사용했습니다.",
+            "기존 공개 이력의 정확한 15:18 신호일은 제한적이며 v5는 오늘부터 별도 누적합니다.",
+            "20거래일 재검증 중 성과 호가가 모두 남은 날은 6거래일뿐입니다.",
+            "v5 조건은 같은 6개 평가일을 보며 선택했으므로 최소 20개 실제 신호의 고정 전진검증이 필요합니다.",
             "09:06 이전 성과는 09:00~09:05 분별 최우선 매수호가의 최대값이며 수량과 체결 지연은 반영하지 않습니다.",
-            "생성형 AI를 쓰지 않고 뉴스·공시 사건, 발표 시각, 테마 확산, 대장 순위, 2·3등주 거래대금과 확산 유지로 계산합니다.",
+            "생성형 AI를 쓰지 않고 뉴스·공시 사건, 발표 시각, 테마 확산, 순위와 15:18 호가 간격으로 판정합니다.",
         ],
     }
-
 
 def fmt_pct(value: Any) -> str:
     parsed = num(value)
@@ -559,6 +703,39 @@ def esc(value: Any) -> str:
     return html.escape(str(value if value is not None else ""), quote=True)
 
 
+TARGET3_STATUS_LABELS = {
+    "PASS": "오늘 최종 1종목",
+    "ALTERNATE": "통과 후순위",
+    "WATCH": "근접 관찰",
+    "BLOCK": "안전 차단",
+    "NONE": "미통과",
+}
+TARGET3_LANE_LABELS = {
+    "MOMENTUM_DIGESTION": "추세·거래대금형",
+    "DIRECT_EVENT": "직접 재료형",
+    "BOTH": "두 경로 동시",
+    "NONE": "-",
+}
+TARGET3_BLOCKER_LABELS = {
+    "hard_exclusion_clear": "안전 제외 조건 통과 필요",
+    "entry_quote_known": "15:18 최우선 매도·매수호가 확인 필요",
+        "structural_risk_at_most_10pct": "구조 위험 10% 이내 필요",
+                "spread_at_most_0_20pct": "15:18 호가 간격 0.20% 이하 필요",
+    "directness_at_least_14": "직접 재료 점수 14점 이상 필요",
+    "common_stock_only": "보통주만 허용",
+    "digestion_at_least_0_10": "거래대금 소화 0.10 이상 필요",
+    "change_rate_10_to_15pct": "당일 상승률 10~15% 필요",
+    "digestion_at_most_1_00": "추세형 거래대금 소화 1.00 이하 필요",
+    "digestion_at_most_1_50": "직접형 거래대금 소화 1.50 이하 필요",
+    "daily_one_pick_only": "하루 한 종목 원칙에 따른 후순위",
+    "freshness_at_least_3": "재료 신선도 3점 이상 필요",
+    "spread_at_most_0_10pct": "15:18 호가 간격 0.10% 이하 필요",
+}
+
+def target3_blocker_text(value: Any) -> str:
+    text = str(value or "")
+    return TARGET3_BLOCKER_LABELS.get(text, text.replace("_", " "))
+
 def render_report(history: Mapping[str, Any], summary: Mapping[str, Any]) -> str:
     latest_signal = max(
         (row for row in history.get("signals") or [] if isinstance(row, Mapping)),
@@ -568,22 +745,30 @@ def render_report(history: Mapping[str, Any], summary: Mapping[str, Any]) -> str
     signal_rows = ""
     if latest_signal:
         candidates = [row for row in latest_signal.get("candidates") or [] if isinstance(row, Mapping)]
-        candidates.sort(key=lambda row: float(num(row.get("production_score")) or num(row.get("comparable_score")) or -1), reverse=True)
+        candidates.sort(
+            key=lambda row: (
+                bool((row.get("target3") or {}).get("eligible")) if isinstance(row.get("target3"), Mapping) else False,
+                float(num(row.get("production_score")) or num(row.get("comparable_score")) or -1),
+            ),
+            reverse=True,
+        )
         for row in candidates[:24]:
             evidence = row.get("evidence") if isinstance(row.get("evidence"), Mapping) else {}
             theme = row.get("theme") if isinstance(row.get("theme"), Mapping) else {}
+            target3 = row.get("target3") if isinstance(row.get("target3"), Mapping) else {}
             signal_rows += (
                 "<tr>"
                 f"<td><b>{esc(row.get('name'))}</b><small>{esc(row.get('code'))}</small></td>"
+                f"<td><b>{esc(TARGET3_STATUS_LABELS.get(str(target3.get('status') or ''), target3.get('status') or '-'))}</b><small>{esc(TARGET3_LANE_LABELS.get(str(target3.get('lane') or ''), target3.get('lane') or ''))}</small></td>"
+                f"<td>추세 {esc(target3.get('theme_pass_count') or 0)}/{esc(target3.get('theme_check_count') or 0)}"
+                f"<small>직접 {esc(target3.get('direct_pass_count') or 0)}/{esc(target3.get('direct_check_count') or 0)}</small></td>"
                 f"<td>{esc(row.get('grade'))}<small>{esc(row.get('grade_status'))}</small></td>"
-                f"<td>{esc(row.get('production_score') if row.get('production_score') is not None else '-')}</td>"
                 f"<td>{esc(row.get('comparable_score'))}</td>"
-                f"<td>{fmt_rate(row.get('coverage'))}</td>"
                 f"<td>{esc(theme.get('leader_rank'))}</td>"
                 f"<td>{esc(theme.get('rising'))}/{esc(theme.get('total'))}<small>{fmt_rate(theme.get('breadth'))}</small></td>"
                 f"<td>{esc(evidence.get('title') or '원문 미확인')}<small>{esc(evidence.get('at') or '')}</small></td>"
-                f"<td>{esc(row.get('entry_ask') or '-')}</td>"
-                f"<td>{'<br>'.join(esc(x) for x in row.get('production_blockers') or []) or '연구 점수 산출'}</td>"
+                f"<td>{esc(row.get('entry_ask') or '-')}<small>간격 {esc(target3.get('spread_pct') if target3.get('spread_pct') is not None else '-')}%</small></td>"
+                f"<td>{'<br>'.join(esc(target3_blocker_text(x)) for x in target3.get('blockers') or []) or 'v5 최종 연구 후보'}</td>"
                 "</tr>"
             )
     if not signal_rows:
@@ -592,43 +777,43 @@ def render_report(history: Mapping[str, Any], summary: Mapping[str, Any]) -> str
     daily_rows = "".join(
         "<tr>"
         f"<td>{esc(row.get('signal_date'))}</td><td>{row.get('n')}</td>"
-        f"<td><b>{esc(row.get('top_name'))}</b><small>{esc(row.get('top_score'))}점</small></td>"
-        f"<td>{fmt_pct(row.get('top_return_pct'))}</td>"
-        f"<td>{fmt_pct((row.get('top3') or {}).get('avg_max_return_pct'))}</td>"
-        f"<td>{fmt_rate((row.get('all') or {}).get('hit_1_rate'))}</td>"
+        f"<td>{esc(', '.join(str(x) for x in row.get('target3_names') or []) or '-')}</td>"
+        f"<td>{(row.get('target3') or {}).get('n')}</td>"
+        f"<td>{fmt_rate((row.get('target3') or {}).get('hit_3_rate'))}</td>"
+        f"<td>{fmt_pct((row.get('target3') or {}).get('avg_max_return_pct'))}</td>"
+        f"<td>{fmt_rate((row.get('all') or {}).get('hit_3_rate'))}</td>"
         f"<td>{'과거 대리값' if row.get('proxy') else '실시간 전진검증'}</td>"
         "</tr>"
         for row in summary.get("daily") or []
-    ) or "<tr><td colspan='7'>완료된 날짜가 없습니다.</td></tr>"
+    ) or "<tr><td colspan='8'>완료된 날짜가 없습니다.</td></tr>"
 
     threshold_rows = "".join(
         "<tr>"
         f"<td>{row.get('threshold')}점 이상</td><td>{row.get('n')}</td>"
         f"<td>{fmt_pct(row.get('avg_max_return_pct'))}</td>"
-        f"<td>{fmt_rate(row.get('positive_rate'))}</td>"
-        f"<td>{fmt_rate(row.get('hit_0_5_rate'))}</td>"
         f"<td>{fmt_rate(row.get('hit_1_rate'))}</td>"
         f"<td>{fmt_rate(row.get('hit_2_rate'))}</td>"
+        f"<td>{fmt_rate(row.get('hit_3_rate'))}</td>"
+        f"<td>{fmt_pct(row.get('avg_policy_3_return_pct'))}</td>"
         "</tr>"
         for row in summary.get("thresholds") or []
     )
     overall = summary.get("overall") or {}
-    high = summary.get("high_70") or {}
+    target3 = summary.get("target3_selected") or {}
     latest_date = latest_signal.get("signal_date") if latest_signal else "-"
     pending = ", ".join(summary.get("pending_signal_dates") or []) or "없음"
     limitations = "".join(f"<li>{esc(item)}</li>" for item in summary.get("limitations") or [])
-    return f"""<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='referrer' content='no-referrer'><title>라르고 재료 등급·09:06 검증</title><style>
+    return f"""<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta name='referrer' content='no-referrer'><title>라르고 종가베팅 v5 검증</title><style>
 :root{{--bg:#edf2f7;--paper:#fff;--ink:#142137;--muted:#68788d;--line:#d8e1eb;--blue:#1e65c8;--green:#14764c;--amber:#9a6200;--red:#b93645}}*{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,'Malgun Gothic',sans-serif;line-height:1.55}}main{{max-width:1550px;margin:auto;padding:20px}}.hero{{background:linear-gradient(135deg,#0b2c56,#1763a8);color:#fff;border-radius:24px;padding:28px}}.hero h1{{margin:8px 0}}.hero p{{max-width:1080px;color:#dcecff}}.cards{{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}}.card,.section{{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:16px}}.card b{{display:block;font-size:27px}}.card span,small{{color:var(--muted)}}.verdict{{border-left:6px solid var(--amber)}}.table{{overflow:auto}}table{{width:100%;border-collapse:collapse;font-size:12px}}th,td{{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}}td small{{display:block}}.rules{{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}.rules>div{{border:1px solid var(--line);border-radius:13px;padding:12px}}.status{{display:inline-block;background:#edf4ff;color:#174f96;padding:5px 8px;border-radius:999px}}@media(max-width:1000px){{.cards{{grid-template-columns:repeat(2,1fr)}}.rules{{grid-template-columns:1fr}}}}@media(max-width:560px){{main{{padding:10px}}.cards{{grid-template-columns:1fr}}.hero{{padding:20px}}}}
-</style></head><body><main><section class='hero'><span>읽기 전용 연구 · 자동주문 없음 · 생성형 AI 미사용</span><h1>재료 등급과 다음 날 09:06 이전 수익 검증</h1><p>14:53·15:10·15:18의 테마 확산과 2·3등주 거래대금을 저장합니다. 15:18 매도호가를 진입 기준으로 두고 다음 거래일 09:00~09:05의 최우선 매수호가 최대값을 검증합니다.</p></section>
-<section class='cards'><div class='card'><b>{summary.get('evaluated_rows')}</b><span>평가 후보-거래일</span></div><div class='card'><b>{len(summary.get('evaluated_dates') or [])}</b><span>평가 날짜</span></div><div class='card'><b>{summary.get('correlation') if summary.get('correlation') is not None else '-'}</b><span>점수-수익 순위상관</span></div><div class='card'><b>{fmt_rate(high.get('hit_1_rate'))}</b><span>70점 이상 +1% 도달</span></div><div class='card'><b>{fmt_rate(overall.get('hit_1_rate'))}</b><span>전체 +1% 도달</span></div></section>
+</style></head><body><main><section class='hero'><span>읽기 전용 연구 · 자동주문 없음 · 생성형 AI 미사용</span><h1>라르고 종가베팅 v5</h1><p>기존 합산 점수를 매수 게이트에서 뺐습니다. 당일 강한 추세와 거래대금 소화가 맞는 종목, 또는 강한 직접 재료가 확인된 종목을 분리해서 검사합니다. 구조 위험 10%를 넘으면 차단하고 하루 한 종목만 남깁니다.</p></section>
+<section class='cards'><div class='card'><b>{summary.get('evaluated_rows')}</b><span>평가 후보-거래일</span></div><div class='card'><b>{len(summary.get('evaluated_dates') or [])}</b><span>평가 날짜</span></div><div class='card'><b>{target3.get('n')}</b><span>v5 최종 1종목</span></div><div class='card'><b>{fmt_rate(target3.get('hit_3_rate'))}</b><span>v5 +3% 도달</span></div><div class='card'><b>{fmt_rate(overall.get('hit_3_rate'))}</b><span>전체 +3% 도달</span></div></section>
 <section class='section verdict'><h2>판정</h2><p>{esc(summary.get('verdict'))}</p><p>최근 신호일 {esc(latest_date)} · 결과 대기 {esc(pending)}</p></section>
-<section class='section'><h2>최근 15:18 재료 점수</h2><p class='status'>S·A·B는 사건 직접성, 발표 시각, 테마 확산, 대장 순위, 2·3등주 거래대금과 확산 유지로 계산합니다.</p><div class='table'><table><thead><tr><th>종목</th><th>등급</th><th>실전점수</th><th>비교점수</th><th>자료충족</th><th>순위</th><th>테마 확산</th><th>확인 재료</th><th>15:18 매도호가</th><th>차단 사유</th></tr></thead><tbody>{signal_rows}</tbody></table></div></section>
-<section class='section'><h2>오늘부터 역순 검증</h2><div class='table'><table><thead><tr><th>신호일</th><th>후보</th><th>최고점 종목</th><th>09:06 전 최대</th><th>상위 3 평균</th><th>전체 +1%</th><th>자료 구분</th></tr></thead><tbody>{daily_rows}</tbody></table></div></section>
-<section class='section'><h2>점수 임계값별 성과</h2><div class='table'><table><thead><tr><th>임계값</th><th>건수</th><th>평균 최대수익</th><th>양수</th><th>+0.5%</th><th>+1%</th><th>+2%</th></tr></thead><tbody>{threshold_rows}</tbody></table></div></section>
-<section class='section'><h2>계산식</h2><div class='rules'><div><b>재료 65점</b><p>직접성 18, 발표 신선도 10, 테마 확산 14, 대장 순위 8, 2·3등주 거래대금 5, 확산 유지 10.</p></div><div><b>종가 구조 35점</b><p>종가 위치 9, 윗꼬리 7, 몸통 6, 마감 과정 4, 패턴 4, 매물 소화 3, 구조 위험 2.</p></div><div><b>등급</b><p>S는 넓은 확산과 3위 안 주도력, 강한 후속 종목과 확산 유지가 필요합니다. A는 신선한 직접 사건이나 1·2위 중심의 확산입니다. 나머지는 B입니다.</p></div></div></section>
+<section class='section'><h2>최근 15:18 v5 연구 후보</h2><p class='status'>오늘 최종 1종목만 연구 후보입니다. 통과 후순위, 근접 관찰, 안전 차단은 진입 대상이 아닙니다.</p><div class='table'><table><thead><tr><th>종목</th><th>v5 상태</th><th>게이트</th><th>재료등급</th><th>기존점수</th><th>순위</th><th>테마 확산</th><th>확인 재료</th><th>15:18 호가</th><th>미통과 사유</th></tr></thead><tbody>{signal_rows}</tbody></table></div></section>
+<section class='section'><h2>고정 전진검증</h2><div class='table'><table><thead><tr><th>신호일</th><th>전체 후보</th><th>v5 최종 종목</th><th>선택 수</th><th>선택군 +3%</th><th>선택군 평균 최대</th><th>전체 +3%</th><th>자료 구분</th></tr></thead><tbody>{daily_rows}</tbody></table></div></section>
+<section class='section'><h2>v5 통과 규칙</h2><div class='rules'><div><b>A · 추세·거래대금형</b><p>당일 상승률 10~15%, 최근 60거래일 최대 거래대금 대비 0.10~1.00, 15:18 호가 간격 0.20% 이하.</p></div><div><b>B · 직접 재료형</b><p>직접성 14점 이상, 신선도 3점 이상, 거래대금 비율 0.10~1.50, 15:18 호가 간격 0.10% 이하.</p></div><div><b>공통</b><p>위험 종목과 보통주가 아닌 상품을 제외합니다. 구조 위험은 10% 이하로 제한합니다. 여러 종목이 통과하면 위험거리, 호가 간격, 거래대금 순서로 한 종목만 남깁니다.</p></div></div></section>
+<section class='section'><h2>기존 점수 임계값 참고</h2><div class='table'><table><thead><tr><th>임계값</th><th>건수</th><th>평균 최대</th><th>+1%</th><th>+2%</th><th>+3%</th><th>+3% 정책 평균</th></tr></thead><tbody>{threshold_rows}</tbody></table></div></section>
 <section class='section'><h2>검증 제한</h2><ul>{limitations}</ul></section>
 </main></body></html>"""
-
 
 def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -664,7 +849,7 @@ def main() -> None:
 
     current = ensure_history(load_json(args.history, DEFAULT_HISTORY))
     bootstrap = load_json(args.bootstrap, {}) if args.bootstrap else None
-    history = merge_history(current, bootstrap)
+    history = migrate_target3_history(merge_history(current, bootstrap))
     now = now_kst(args.now)
     latest = load_json(args.latest, {}) if args.latest else {}
 
