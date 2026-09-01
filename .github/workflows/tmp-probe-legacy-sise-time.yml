@@ -1,0 +1,61 @@
+name: Temporary probe legacy Naver minute pages
+
+on:
+  push:
+    branches:
+      - analysis/largo-winrate-v4-20260901
+    paths:
+      - ".github/workflows/tmp-probe-legacy-sise-time.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch historical minute HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python3 - <<'PY'
+          import json, re, time, urllib.parse, urllib.request
+          from html import unescape
+          headers={'User-Agent':'Mozilla/5.0','Referer':'https://finance.naver.com/'}
+          tests=[]
+          for code in ['005930','010120','019170']:
+              for stamp in ['20260828090600','20260828151800','20260831090600','20260901090600']:
+                  tests.append((code,stamp))
+          out={}
+          for code,stamp in tests:
+              params=urllib.parse.urlencode({'code':code,'thistime':stamp,'page':1})
+              url='https://finance.naver.com/item/sise_time.naver?'+params
+              try:
+                  req=urllib.request.Request(url,headers=headers)
+                  with urllib.request.urlopen(req,timeout=20) as response:
+                      raw=response.read()
+                  text=raw.decode('euc-kr','replace')
+                  rows=[]
+                  for tr in re.findall(r'<tr[^>]*onmouseover="mouseOver\(this\)"[^>]*>(.*?)</tr>',text,re.I|re.S):
+                      cells=[]
+                      for td in re.findall(r'<td[^>]*>(.*?)</td>',tr,re.I|re.S):
+                          clean=re.sub(r'<[^>]+>',' ',td)
+                          clean=unescape(re.sub(r'\s+',' ',clean)).strip()
+                          cells.append(clean)
+                      if cells: rows.append(cells)
+                  key=f'{code}_{stamp}'
+                  out[key]={'status':200,'bytes':len(raw),'rows':rows,'sample':text[:500]}
+                  open(f'out/{key}.html','wb').write(raw)
+              except Exception as exc:
+                  out[f'{code}_{stamp}']={'error':f'{type(exc).__name__}: {exc}'}
+              time.sleep(0.2)
+          open('out/summary.json','w',encoding='utf-8').write(json.dumps(out,ensure_ascii=False,indent=2))
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-legacy-sise-time-probe
+          path: out
+          retention-days: 2
