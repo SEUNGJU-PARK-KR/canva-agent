@@ -1,0 +1,72 @@
+{
+  "version": "largo-target3-20day-backfill-v1",
+  "rule_version": "largo-target3-v1-unchanged",
+  "started_at": "2026-09-01T18:32:49.469902+09:00",
+  "finished_at": "2026-09-01T18:35:33.195223+09:00",
+  "signal_dates": [
+    "2026-08-03",
+    "2026-08-04",
+    "2026-08-05",
+    "2026-08-06",
+    "2026-08-07",
+    "2026-08-10",
+    "2026-08-11",
+    "2026-08-12",
+    "2026-08-13",
+    "2026-08-14",
+    "2026-08-18",
+    "2026-08-19",
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-24",
+    "2026-08-25",
+    "2026-08-26",
+    "2026-08-27",
+    "2026-08-28",
+    "2026-08-31"
+  ],
+  "date_count": 20,
+  "candidate_rows": 480,
+  "market_universe": 2308,
+  "chart_success": 2107,
+  "theme_count": 266,
+  "unique_candidate_codes": 200,
+  "data_limits": [
+    "candidate universe reconstructed from historical Naver daily bars and exact 15:18 quotes",
+    "historical market cap uses current share-count proxy",
+    "theme membership uses the current Naver theme catalog; member returns use each historical date",
+    "signal-day high and low are final daily values and may include 15:18-15:30 movements",
+    "historical market-alert status was unavailable"
+  ],
+  "errors": {
+    "market": [],
+    "chart": [],
+    "signal": [],
+    "theme": [],
+    "news": [],
+    "outcome": []
+  },
+  "candidate_overlap": [
+    {
+      "signal_date": "20260827",
+      "original_n": 24,
+      "reconstructed_n": 24,
+      "overlap_n": 19,
+      "overlap_rate": 0.7916666666666666
+    },
+    {
+      "signal_date": "20260828",
+      "original_n": 24,
+      "reconstructed_n": 24,
+      "overlap_n": 17,
+      "overlap_rate": 0.7083333333333334
+    },
+    {
+      "signal_date": "20260831",
+      "original_n": 24,
+      "reconstructed_n": 24,
+      "overlap_n": 16,
+      "overlap_rate": 0.6666666666666666
+    }
+  ]
+}

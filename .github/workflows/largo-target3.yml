@@ -103,7 +103,7 @@ jobs:
         with:
           name: largo-target3-report
           path: target3-public
-          retention-days: 30
+          retention-days: 90
 
       - name: Publish target3 report
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

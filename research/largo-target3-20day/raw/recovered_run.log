@@ -1,0 +1,46 @@
+market universe 2308
+charts 250/2121 ok=250 errors=0
+charts 500/2121 ok=499 errors=0
+charts 750/2121 ok=747 errors=0
+charts 1000/2121 ok=994 errors=0
+charts 1250/2121 ok=1242 errors=0
+charts 1500/2121 ok=1490 errors=0
+charts 1750/2121 ok=1737 errors=0
+charts 2000/2121 ok=1986 errors=0
+trading dates 20260803..20260831 n=20
+signal quotes 250/1600 errors=0
+signal quotes 500/1600 errors=0
+signal quotes 750/1600 errors=0
+signal quotes 1000/1600 errors=0
+signal quotes 1250/1600 errors=0
+signal quotes 1500/1600 errors=0
+20260803 selected 24 ['에스피지', '코스모로보틱스', '로보티즈']
+20260804 selected 24 ['지엔씨에너지', 'SK이터닉스', 'NAVER']
+20260805 selected 24 ['대원전선', '대한광통신', '삼성전기']
+20260806 selected 24 ['인바디', '에이피알', 'GS건설']
+20260807 selected 24 ['한화솔루션', 'OCI홀딩스', '광전자']
+20260810 selected 24 ['대한광통신', '제주반도체', '알테오젠']
+20260811 selected 24 ['본느', '금호건설', 'NHN']
+20260812 selected 24 ['한국콜마', '금호건설', '실리콘투']
+20260813 selected 24 ['PS일렉트로닉스', '삼화콘덴서', '삼성전기']
+20260814 selected 24 ['한라캐스트', '빙그레', '네오오토']
+20260818 selected 24 ['하나마이크론', '마이크로컨텍솔', '리파인']
+20260819 selected 24 ['아난티', '한화에어로스페이스', '화신정공']
+20260820 selected 24 ['금호건설', '인제니아테라퓨틱스(Reg.S)', '알테오젠']
+20260821 selected 24 ['삼성생명', '우리기술투자', 'SK증권']
+20260824 selected 24 ['한미사이언스', '한미약품', '엘앤에프']
+20260825 selected 24 ['한화', '우리기술투자', '현대건설']
+20260826 selected 24 ['한전기술', 'SK아이이테크놀로지', '전진건설로봇']
+20260827 selected 24 ['가온전선', '삼성SDI', '심텍']
+20260828 selected 24 ['금호건설', '쿠콘', '글로벌텍스프리']
+20260831 selected 24 ['온코닉테라퓨틱스', 'SK이노베이션', '원익']
+theme catalog 266 mapped_codes=2342
+news 50/200 errors=0
+news 100/200 errors=0
+news 150/200 errors=0
+news 200/200 errors=0
+outcomes 100/480 errors=0
+outcomes 200/480 errors=0
+outcomes 300/480 errors=0
+outcomes 400/480 errors=0
+{"dates": 20, "rows": 480, "eligible": 2, "hits": 20, "errors": {"market": 0, "chart": 0, "signal": 0, "theme": 0, "news": 0, "outcome": 0}}
