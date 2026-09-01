@@ -1,0 +1,92 @@
+name: Largo target3 20-day retained archive
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "research/largo-target3-20day/**"
+      - ".github/workflows/largo-target3-20day-archive.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "research/largo-target3-20day/**"
+      - ".github/workflows/largo-target3-20day-archive.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-target3-20day-archive
+  cancel-in-progress: false
+
+jobs:
+  validate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate recovered archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="research/largo-target3-20day"
+          rm -rf /tmp/largo-target3-20day target3-20day-public
+          mkdir -p /tmp/largo-target3-20day target3-20day-public/data
+          unzip -q "$root/largo-target3-20day-original-artifact.zip" -d /tmp/largo-target3-20day
+          python3 - <<'PY'
+          from pathlib import Path
+          import csv, json
+          root=Path('research/largo-target3-20day')
+          recovered=Path('/tmp/largo-target3-20day')
+          summary=json.loads((root/'target3_20day_summary.json').read_text(encoding='utf-8'))
+          meta=json.loads((recovered/'data/target3_20day_metadata.json').read_text(encoding='utf-8'))
+          with (recovered/'data/target3_20day_rows.csv').open(encoding='utf-8',newline='') as f:
+              rows=sum(1 for _ in csv.reader(f))-1
+          assert meta['date_count']==20, meta
+          assert meta['candidate_rows']==480, meta
+          assert rows==480, rows
+          assert summary['quote_coverage']['evaluated_rows']==144, summary
+          assert summary['fixed_rule_selected']['n']==2, summary
+          assert summary['fixed_rule_selected']['hits']==1, summary
+          print({'dates':20,'rows':480,'evaluated':144,'selected':2,'hits':1})
+          PY
+
+      - name: Build retained public bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="research/largo-target3-20day"
+          recovered="/tmp/largo-target3-20day"
+          cp "$root/target3_20day_report.html" target3-20day-public/target3-20day.html
+          cp "$root/target3_20day_summary.json" target3-20day-public/data/
+          cp "$root/target3_20day_selected.csv" target3-20day-public/data/
+          cp "$root/target3_20day_daily.csv" target3-20day-public/data/
+          cp "$root/target3_20day_metadata.json" target3-20day-public/data/
+          cp "$root/largo-target3-20day-original-artifact.zip" target3-20day-public/data/
+          cp "$recovered/data/target3_20day_rows.csv" target3-20day-public/data/
+          cp "$recovered/data/candidate_universe_overlap.csv" target3-20day-public/data/
+          cp "$root/README.md" target3-20day-public/data/README.md
+          touch target3-20day-public/.nojekyll
+
+      - name: Upload retained 20-day artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-target3-20day-retained
+          path: target3-20day-public
+          retention-days: 90
+
+      - name: Publish retained report and raw files
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target3-20day-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Retain Largo target3 20-day archive
