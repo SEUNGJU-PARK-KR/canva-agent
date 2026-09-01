@@ -1,4 +1,4 @@
-name: Temporary probe historical minute data
+name: Temporary probe reverse historical minute data
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Probe public minute endpoints
+      - name: Probe reverse minute requests
         shell: bash
         run: |
           set -euo pipefail
@@ -30,37 +30,36 @@ jobs:
           s=requests.Session()
           s.headers.update({'User-Agent':'Mozilla/5.0 (compatible; LargoMinuteProbe/1.0; read-only)','Referer':'https://finance.naver.com/'})
           urls={
-            'sise_json_min12':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=202608030900&endTime=202608031530&timeframe=minute',
-            'sise_json_min14':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=20260803090000&endTime=20260803153000&timeframe=minute',
-            'sise_json_recent':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=0&count=10000&timeframe=minute',
-            'fchart_recent':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=minute&count=10000&requestType=0',
-            'mobile_external':'https://m.stock.naver.com/front-api/external/chart/domestic/info?symbol=005930&requestType=1&startTime=202608030900&endTime=202608031530&timeframe=minute',
-            'new_chart':'https://api.stock.naver.com/chart/domestic/item/005930?periodType=minute&startDateTime=202608030900&endDateTime=202608031530',
-            'new_chart_five':'https://api.stock.naver.com/chart/domestic/item/005930?periodType=candleMinuteFive&startDateTime=202608030900&endDateTime=202608031530',
+            'json_r2_12_400':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=202608031530&timeframe=minute',
+            'json_r2_14_400':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=20260803153000&timeframe=minute',
+            'json_r2_12_10000':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=10000&startTime=202608031530&timeframe=minute',
+            'fchart_r2_12_400':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&requestType=2&count=400&startTime=202608031530&timeframe=minute',
+            'fchart_r2_14_400':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&requestType=2&count=400&startTime=20260803153000&timeframe=minute',
+            'json_r2_aug24':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=202608241530&timeframe=minute',
+            'json_r2_aug25':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=202608251530&timeframe=minute',
           }
           result={}
           for key,url in urls.items():
               try:
                   r=s.get(url,timeout=40)
                   text=r.content.decode('utf-8',errors='replace')
-                  timestamps=sorted(set(re.findall(r'20\d{10,12}',text)))
+                  stamps=re.findall(r'20\d{10,12}',text)
                   result[key]={
                       'status':r.status_code,
-                      'content_type':r.headers.get('content-type'),
                       'length':len(r.content),
-                      'timestamps_count':len(timestamps),
-                      'timestamps_head':timestamps[:10],
-                      'timestamps_tail':timestamps[-10:],
-                      'head':text[:1000],
-                      'tail':text[-1000:],
+                      'count':len(stamps),
+                      'first':stamps[:5],
+                      'last':stamps[-5:],
+                      'head':text[:500],
+                      'tail':text[-500:],
                   }
               except Exception as exc:
                   result[key]={'error':f'{type(exc).__name__}: {exc}'}
-          Path('out/minute_probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          Path('out/reverse_minute_probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
           print(json.dumps({k:{x:v for x,v in box.items() if x not in {'head','tail'}} for k,box in result.items()},ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: historical-minute-probe
+          name: reverse-historical-minute-probe
           path: out
           retention-days: 3
