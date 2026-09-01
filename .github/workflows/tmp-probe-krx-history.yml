@@ -31,17 +31,23 @@ jobs:
             https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/4cf66f8219bac62953f44238bb2541a46206e06d/.github/workflows/tmp-probe-krx-history.yml \
             -o /tmp/staged-workflow.yml
           python3 - <<'PY'
-          import base64, gzip, re
+          import base64, gzip, hashlib, re
           from pathlib import Path
           text=Path('/tmp/staged-workflow.yml').read_text(encoding='utf-8')
           match=re.search(r"<<'B64'\n(.*?)\nB64", text, flags=re.S)
           if not match:
               raise SystemExit('staged collector payload not found')
           encoded=''.join(match.group(1).split())
-          raw=gzip.decompress(base64.b64decode(encoded))
+          print({'encoded_length':len(encoded),'remainder':len(encoded)%4,'tail':encoded[-24:]})
+          encoded += '=' * (-len(encoded) % 4)
+          compressed=base64.b64decode(encoded)
+          raw=gzip.decompress(compressed)
+          digest=hashlib.sha256(raw).hexdigest()
+          if digest != 'd1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178':
+              raise SystemExit(f'collector digest mismatch: {digest}')
           target=Path('/tmp/backfill_largo_target3_20day.py')
           target.write_bytes(raw)
-          print({'collector_bytes':len(raw)})
+          print({'collector_bytes':len(raw),'sha256':digest})
           PY
           cp /tmp/backfill_largo_target3_20day.py out/source/
           cp scripts/largo_material_0906.py out/source/
@@ -67,6 +73,7 @@ jobs:
           print({'dates':meta['date_count'],'rows':meta['candidate_rows'],'chart_success':meta['chart_success'],'themes':meta['theme_count']})
           PY
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: largo-target3-20day-backfill
           path: out
