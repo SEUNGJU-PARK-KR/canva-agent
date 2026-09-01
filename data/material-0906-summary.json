@@ -1,0 +1,305 @@
+{
+  "version": "largo-material-0906-v1",
+  "generated_at": "2026-09-01T13:39:20.324208+09:00",
+  "definition": {
+    "signal": "15:18 ask, with a pre-signal candidate snapshot",
+    "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
+    "outcome": "maximum observed top bid; minute snapshots, not intraminute high",
+    "score": "deterministic 100-point material and closing-structure framework"
+  },
+  "evaluated_rows": 72,
+  "evaluated_dates": [
+    "2026-08-31",
+    "2026-08-28",
+    "2026-08-27"
+  ],
+  "live_completed_dates": [],
+  "pending_signal_dates": [],
+  "overall": {
+    "n": 72,
+    "avg_score": 43.3271,
+    "avg_max_return_pct": -0.0197,
+    "median_max_return_pct": -0.0281,
+    "positive_rate": 0.5,
+    "hit_0_5_rate": 0.375,
+    "hit_1_rate": 0.25,
+    "hit_2_rate": 0.1806
+  },
+  "high_70": {
+    "n": 6,
+    "avg_score": 76.3017,
+    "avg_max_return_pct": -1.8627,
+    "median_max_return_pct": -1.6084,
+    "positive_rate": 0.1667,
+    "hit_0_5_rate": 0.0,
+    "hit_1_rate": 0.0,
+    "hit_2_rate": 0.0
+  },
+  "high_75": {
+    "n": 3,
+    "avg_score": 80.0533,
+    "avg_max_return_pct": -2.9408,
+    "median_max_return_pct": -3.5411,
+    "positive_rate": 0.0,
+    "hit_0_5_rate": 0.0,
+    "hit_1_rate": 0.0,
+    "hit_2_rate": 0.0
+  },
+  "high_80": {
+    "n": 2,
+    "avg_score": 81.255,
+    "avg_max_return_pct": -3.8216,
+    "median_max_return_pct": -3.8216,
+    "positive_rate": 0.0,
+    "hit_0_5_rate": 0.0,
+    "hit_1_rate": 0.0,
+    "hit_2_rate": 0.0
+  },
+  "daily_top1": {
+    "n": 3,
+    "avg_score": 76.8633,
+    "avg_max_return_pct": -1.761,
+    "median_max_return_pct": -1.1792,
+    "positive_rate": 0.0,
+    "hit_0_5_rate": 0.0,
+    "hit_1_rate": 0.0,
+    "hit_2_rate": 0.0
+  },
+  "daily_top3": {
+    "n": 9,
+    "avg_score": 72.5678,
+    "avg_max_return_pct": -1.1725,
+    "median_max_return_pct": -1.1513,
+    "positive_rate": 0.3333,
+    "hit_0_5_rate": 0.1111,
+    "hit_1_rate": 0.1111,
+    "hit_2_rate": 0.0
+  },
+  "production_scored": {
+    "n": 0,
+    "avg_score": null,
+    "avg_max_return_pct": null,
+    "median_max_return_pct": null,
+    "positive_rate": null,
+    "hit_0_5_rate": null,
+    "hit_1_rate": null,
+    "hit_2_rate": null
+  },
+  "correlation": 0.0812,
+  "daily": [
+    {
+      "signal_date": "2026-08-31",
+      "n": 24,
+      "top_name": "포스코퓨처엠",
+      "top_score": 82.35,
+      "top_return_pct": -3.5411,
+      "top3": {
+        "n": 3,
+        "avg_score": 78.8767,
+        "avg_max_return_pct": -3.2269,
+        "median_max_return_pct": -3.5411,
+        "positive_rate": 0.0,
+        "hit_0_5_rate": 0.0,
+        "hit_1_rate": 0.0,
+        "hit_2_rate": 0.0
+      },
+      "all": {
+        "n": 24,
+        "avg_score": 45.4429,
+        "avg_max_return_pct": 0.1378,
+        "median_max_return_pct": 0.0837,
+        "positive_rate": 0.5417,
+        "hit_0_5_rate": 0.4167,
+        "hit_1_rate": 0.2917,
+        "hit_2_rate": 0.1667
+      },
+      "proxy": true
+    },
+    {
+      "signal_date": "2026-08-28",
+      "n": 24,
+      "top_name": "씨젠",
+      "top_score": 70.59,
+      "top_return_pct": -0.5626,
+      "top3": {
+        "n": 3,
+        "avg_score": 69.2167,
+        "avg_max_return_pct": -0.0556,
+        "median_max_return_pct": -0.5626,
+        "positive_rate": 0.3333,
+        "hit_0_5_rate": 0.3333,
+        "hit_1_rate": 0.3333,
+        "hit_2_rate": 0.0
+      },
+      "all": {
+        "n": 24,
+        "avg_score": 38.3304,
+        "avg_max_return_pct": -0.9374,
+        "median_max_return_pct": -3.2168,
+        "positive_rate": 0.3333,
+        "hit_0_5_rate": 0.2917,
+        "hit_1_rate": 0.1667,
+        "hit_2_rate": 0.125
+      },
+      "proxy": true
+    },
+    {
+      "signal_date": "2026-08-27",
+      "n": 24,
+      "top_name": "가온전선",
+      "top_score": 77.65,
+      "top_return_pct": -1.1792,
+      "top3": {
+        "n": 3,
+        "avg_score": 69.61,
+        "avg_max_return_pct": -0.2349,
+        "median_max_return_pct": 0.2283,
+        "positive_rate": 0.6667,
+        "hit_0_5_rate": 0.0,
+        "hit_1_rate": 0.0,
+        "hit_2_rate": 0.0
+      },
+      "all": {
+        "n": 24,
+        "avg_score": 46.2079,
+        "avg_max_return_pct": 0.7403,
+        "median_max_return_pct": 0.2373,
+        "positive_rate": 0.625,
+        "hit_0_5_rate": 0.4167,
+        "hit_1_rate": 0.2917,
+        "hit_2_rate": 0.25
+      },
+      "proxy": true
+    }
+  ],
+  "thresholds": [
+    {
+      "n": 41,
+      "avg_score": 56.7283,
+      "avg_max_return_pct": 0.2989,
+      "median_max_return_pct": 0.1757,
+      "positive_rate": 0.561,
+      "hit_0_5_rate": 0.4146,
+      "hit_1_rate": 0.2439,
+      "hit_2_rate": 0.2195,
+      "threshold": 40
+    },
+    {
+      "n": 37,
+      "avg_score": 58.2389,
+      "avg_max_return_pct": 0.2981,
+      "median_max_return_pct": 0.1211,
+      "positive_rate": 0.5405,
+      "hit_0_5_rate": 0.4054,
+      "hit_1_rate": 0.2432,
+      "hit_2_rate": 0.2162,
+      "threshold": 45
+    },
+    {
+      "n": 31,
+      "avg_score": 60.3484,
+      "avg_max_return_pct": 0.172,
+      "median_max_return_pct": 0.1211,
+      "positive_rate": 0.5161,
+      "hit_0_5_rate": 0.3871,
+      "hit_1_rate": 0.2581,
+      "hit_2_rate": 0.2258,
+      "threshold": 50
+    },
+    {
+      "n": 17,
+      "avg_score": 66.91,
+      "avg_max_return_pct": -0.7617,
+      "median_max_return_pct": -0.5626,
+      "positive_rate": 0.4118,
+      "hit_0_5_rate": 0.2353,
+      "hit_1_rate": 0.1765,
+      "hit_2_rate": 0.1176,
+      "threshold": 55
+    },
+    {
+      "n": 12,
+      "avg_score": 71.1233,
+      "avg_max_return_pct": -1.02,
+      "median_max_return_pct": -1.1652,
+      "positive_rate": 0.25,
+      "hit_0_5_rate": 0.1667,
+      "hit_1_rate": 0.1667,
+      "hit_2_rate": 0.0833,
+      "threshold": 60
+    },
+    {
+      "n": 10,
+      "avg_score": 73.024,
+      "avg_max_return_pct": -0.4823,
+      "median_max_return_pct": -0.8569,
+      "positive_rate": 0.3,
+      "hit_0_5_rate": 0.2,
+      "hit_1_rate": 0.2,
+      "hit_2_rate": 0.1,
+      "threshold": 65
+    },
+    {
+      "n": 6,
+      "avg_score": 76.3017,
+      "avg_max_return_pct": -1.8627,
+      "median_max_return_pct": -1.6084,
+      "positive_rate": 0.1667,
+      "hit_0_5_rate": 0.0,
+      "hit_1_rate": 0.0,
+      "hit_2_rate": 0.0,
+      "threshold": 70
+    },
+    {
+      "n": 3,
+      "avg_score": 80.0533,
+      "avg_max_return_pct": -2.9408,
+      "median_max_return_pct": -3.5411,
+      "positive_rate": 0.0,
+      "hit_0_5_rate": 0.0,
+      "hit_1_rate": 0.0,
+      "hit_2_rate": 0.0,
+      "threshold": 75
+    },
+    {
+      "n": 2,
+      "avg_score": 81.255,
+      "avg_max_return_pct": -3.8216,
+      "median_max_return_pct": -3.8216,
+      "positive_rate": 0.0,
+      "hit_0_5_rate": 0.0,
+      "hit_1_rate": 0.0,
+      "hit_2_rate": 0.0,
+      "threshold": 80
+    },
+    {
+      "n": 0,
+      "avg_score": null,
+      "avg_max_return_pct": null,
+      "median_max_return_pct": null,
+      "positive_rate": null,
+      "hit_0_5_rate": null,
+      "hit_1_rate": null,
+      "hit_2_rate": null,
+      "threshold": 85
+    },
+    {
+      "n": 0,
+      "avg_score": null,
+      "avg_max_return_pct": null,
+      "median_max_return_pct": null,
+      "positive_rate": null,
+      "hit_0_5_rate": null,
+      "hit_1_rate": null,
+      "hit_2_rate": null,
+      "threshold": 90
+    }
+  ],
+  "verdict": "70점 이상 표본이 10건 미만입니다. 높은 점수와 09:06 이전 수익의 관계를 확정하지 않습니다.",
+  "limitations": [
+    "과거 보관분은 2026-08-27, 2026-08-28, 2026-08-31 세 신호일뿐입니다.",
+    "8월 27일과 28일은 15:30 구조를, 8월 31일은 14:47 구조를 15:18 대리값으로 사용했습니다.",
+    "09:06 이전 성과는 09:00~09:05 분별 최우선 매수호가의 최대값이며 수량과 체결 지연은 반영하지 않습니다.",
+    "생성형 AI를 쓰지 않고 뉴스·공시 사건, 발표 시각, 테마 확산, 대장 순위, 2·3등주 거래대금과 확산 유지로 계산합니다."
+  ]
+}
