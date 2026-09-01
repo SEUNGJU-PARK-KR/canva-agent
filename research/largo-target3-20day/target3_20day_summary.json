@@ -1,0 +1,144 @@
+{
+  "version": "largo-target3-20day-recovered-v1",
+  "source_artifact": {
+    "workflow_run_id": 33492708036,
+    "artifact_id": 9794530194,
+    "artifact_name": "largo-target3-20day-backfill",
+    "created_at": "2026-09-01T09:35:34Z",
+    "original_expires_at": "2026-09-15T09:35:33Z",
+    "source_commit": "a05d1e2f1197a8dae87ab1f1041966fe9ba5c35c"
+  },
+  "reconstruction": {
+    "signal_dates": [
+      "2026-08-03",
+      "2026-08-04",
+      "2026-08-05",
+      "2026-08-06",
+      "2026-08-07",
+      "2026-08-10",
+      "2026-08-11",
+      "2026-08-12",
+      "2026-08-13",
+      "2026-08-14",
+      "2026-08-18",
+      "2026-08-19",
+      "2026-08-20",
+      "2026-08-21",
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-31"
+    ],
+    "date_count": 20,
+    "candidate_rows": 480,
+    "unique_candidate_codes": 200,
+    "market_universe": 2308,
+    "chart_success": 2107,
+    "theme_count": 266
+  },
+  "quote_coverage": {
+    "evaluated_rows": 144,
+    "evaluated_date_count": 6,
+    "evaluated_dates": [
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26",
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-31"
+    ],
+    "row_coverage_rate": 0.3,
+    "date_coverage_rate": 0.3
+  },
+  "overall_evaluated": {
+    "n": 144,
+    "hits": 20,
+    "hit_rate": 0.138889,
+    "avg_max_return_pct": -0.1015,
+    "median_max_return_pct": 0.0,
+    "avg_0905_return_pct": -1.225,
+    "loss_rate_0905": 0.694444
+  },
+  "fixed_rule_selected": {
+    "n": 2,
+    "hits": 1,
+    "hit_rate": 0.5,
+    "avg_max_return_pct": 4.0014,
+    "median_max_return_pct": 4.0014,
+    "avg_0905_return_pct": 3.6346,
+    "loss_rate_0905": 0.0
+  },
+  "development_dates": {
+    "n": 72,
+    "hits": 10,
+    "hit_rate": 0.138889,
+    "avg_max_return_pct": -0.0238,
+    "median_max_return_pct": -0.024,
+    "avg_0905_return_pct": -1.0901,
+    "loss_rate_0905": 0.722222
+  },
+  "development_selected": {
+    "n": 2,
+    "hits": 1,
+    "hit_rate": 0.5,
+    "avg_max_return_pct": 4.0014,
+    "median_max_return_pct": 4.0014,
+    "avg_0905_return_pct": 3.6346,
+    "loss_rate_0905": 0.0
+  },
+  "holdout_dates": {
+    "n": 72,
+    "hits": 10,
+    "hit_rate": 0.138889,
+    "avg_max_return_pct": -0.1791,
+    "median_max_return_pct": 0.0,
+    "avg_0905_return_pct": -1.3598,
+    "loss_rate_0905": 0.666667
+  },
+  "holdout_selected": {
+    "n": 0,
+    "hits": 0,
+    "hit_rate": null,
+    "avg_max_return_pct": null,
+    "median_max_return_pct": null,
+    "avg_0905_return_pct": null,
+    "loss_rate_0905": null
+  },
+  "candidate_overlap": [
+    {
+      "signal_date": "20260827",
+      "original_n": 24,
+      "reconstructed_n": 24,
+      "overlap_n": 19,
+      "overlap_rate": 0.7916666666666666
+    },
+    {
+      "signal_date": "20260828",
+      "original_n": 24,
+      "reconstructed_n": 24,
+      "overlap_n": 17,
+      "overlap_rate": 0.7083333333333334
+    },
+    {
+      "signal_date": "20260831",
+      "original_n": 24,
+      "reconstructed_n": 24,
+      "overlap_n": 16,
+      "overlap_rate": 0.6666666666666666
+    }
+  ],
+  "data_limits": [
+    "candidate universe reconstructed from historical Naver daily bars and exact 15:18 quotes",
+    "historical market cap uses current share-count proxy",
+    "theme membership uses the current Naver theme catalog; member returns use each historical date",
+    "signal-day high and low are final daily values and may include 15:18-15:30 movements",
+    "historical market-alert status was unavailable"
+  ],
+  "verdict": {
+    "status": "NOT_VALIDATED",
+    "title": "20거래일 후보 재구성은 성공했지만 독립 검증 신호가 부족합니다.",
+    "reason": "정확한 15:18 진입호가와 다음 날 09:06 전 매수호가가 함께 남은 날짜는 6거래일입니다. 고정 규칙은 2건을 골라 1건이 +3%에 도달했습니다. 규칙 발굴일을 제외한 8월 24~26일에는 통과 신호가 0건이라 독립 승률을 계산할 수 없습니다."
+  }
+}
