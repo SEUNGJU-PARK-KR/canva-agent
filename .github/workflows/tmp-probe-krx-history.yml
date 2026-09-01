@@ -33,17 +33,46 @@ jobs:
           python3 - <<'PY'
           import base64, gzip, hashlib, re
           from pathlib import Path
+
+          expected_compressed='6182de5187f631d54d18f205d0799131d477b42db4d1edc8e7c4529361dbf48f'
+          expected_raw='d1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178'
+          expected_size=12137
+          alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+
           text=Path('/tmp/staged-workflow.yml').read_text(encoding='utf-8')
           match=re.search(r"<<'B64'\n(.*?)\nB64", text, flags=re.S)
           if not match:
               raise SystemExit('staged collector payload not found')
           encoded=''.join(match.group(1).split())
           print({'encoded_length':len(encoded),'remainder':len(encoded)%4,'tail':encoded[-24:]})
-          encoded += '=' * (-len(encoded) % 4)
-          compressed=base64.b64decode(encoded)
+
+          repaired=None
+          for position in range(len(encoded)+1):
+              left=encoded[:position]
+              right=encoded[position:]
+              for char in alphabet:
+                  candidate=left+char+right
+                  try:
+                      compressed=base64.b64decode(candidate, validate=True)
+                  except Exception:
+                      continue
+                  if len(compressed) != expected_size:
+                      continue
+                  if hashlib.sha256(compressed).hexdigest() == expected_compressed:
+                      repaired=candidate
+                      print({'repaired_position':position,'repaired_char':char})
+                      break
+              if repaired is not None:
+                  break
+              if position and position % 2000 == 0:
+                  print({'repair_progress':position})
+          if repaired is None:
+              raise SystemExit('single-character repair failed')
+
+          compressed=base64.b64decode(repaired, validate=True)
           raw=gzip.decompress(compressed)
           digest=hashlib.sha256(raw).hexdigest()
-          if digest != 'd1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178':
+          if digest != expected_raw:
               raise SystemExit(f'collector digest mismatch: {digest}')
           target=Path('/tmp/backfill_largo_target3_20day.py')
           target.write_bytes(raw)
