@@ -6,6 +6,7 @@ on:
       - analysis/largo-target3-20day-backfill-20260901
     paths:
       - ".github/workflows/tmp-probe-krx-history.yml"
+      - "research/target3_backfill/patch_target3_module.py"
   workflow_dispatch:
 
 permissions:
@@ -20,8 +21,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Install bounded read-only dependencies
         run: python3 -m pip install --quiet requests beautifulsoup4
+
       - name: Recover collector and pin the fixed target3 gate
         shell: bash
         run: |
@@ -34,148 +37,49 @@ jobs:
           import base64, gzip, hashlib, re
           from pathlib import Path
 
-          expected_compressed='6182de5187f631d54d18f205d0799131d477b42db4d1edc8e7c4529361dbf48f'
-          expected_raw='d1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178'
-          expected_size=12137
-          alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-          text=Path('/tmp/staged-workflow.yml').read_text(encoding='utf-8')
-          match=re.search(r"<<'B64'\n(.*?)\nB64", text, flags=re.S)
+          expected_compressed = '6182de5187f631d54d18f205d0799131d477b42db4d1edc8e7c4529361dbf48f'
+          expected_raw = 'd1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178'
+          expected_size = 12137
+          alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+          text = Path('/tmp/staged-workflow.yml').read_text(encoding='utf-8')
+          match = re.search(r"<<'B64'\n(.*?)\nB64", text, flags=re.S)
           if not match:
               raise SystemExit('staged collector payload not found')
-          encoded=''.join(match.group(1).split())
-          repaired=None
-          for position in range(len(encoded)+1):
-              left=encoded[:position]; right=encoded[position:]
+          encoded = ''.join(match.group(1).split())
+          repaired = None
+          for position in range(len(encoded) + 1):
+              left, right = encoded[:position], encoded[position:]
               for char in alphabet:
-                  candidate=left+char+right
+                  candidate = left + char + right
                   try:
-                      compressed=base64.b64decode(candidate, validate=True)
+                      compressed = base64.b64decode(candidate, validate=True)
                   except Exception:
                       continue
-                  if len(compressed)==expected_size and hashlib.sha256(compressed).hexdigest()==expected_compressed:
-                      repaired=candidate
-                      print({'repaired_position':position,'repaired_char':char})
+                  if len(compressed) == expected_size and hashlib.sha256(compressed).hexdigest() == expected_compressed:
+                      repaired = candidate
+                      print({'repaired_position': position, 'repaired_char': char})
                       break
               if repaired is not None:
                   break
           if repaired is None:
               raise SystemExit('single-character repair failed')
-          raw=gzip.decompress(base64.b64decode(repaired, validate=True))
-          digest=hashlib.sha256(raw).hexdigest()
+          raw = gzip.decompress(base64.b64decode(repaired, validate=True))
+          digest = hashlib.sha256(raw).hexdigest()
           if digest != expected_raw:
               raise SystemExit(f'collector digest mismatch: {digest}')
           Path('/tmp/backfill_largo_target3_20day.py').write_bytes(raw)
-          print({'collector_bytes':len(raw),'sha256':digest})
+          print({'collector_bytes': len(raw), 'sha256': digest})
           PY
+
           curl -fsSL --max-time 30 \
             https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/e05d49c415ebfa3ca55c5d926a825918d59c0201/scripts/largo_material_0906.py \
             -o /tmp/largo-rules/largo_material_0906.py
-          cat >> /tmp/largo-rules/largo_material_0906.py <<'PY'
-
-# Fixed pre-09:06 +3% gate used by the deployed research page.
-TARGET3_VERSION = "largo-target3-v1"
-TARGET3_PCT = 3.0
-
-def target3_gate(scored: Mapping[str, Any], entry: Mapping[str, Any]) -> dict[str, Any]:
-    theme = scored.get("theme") if isinstance(scored.get("theme"), Mapping) else {}
-    evidence = scored.get("evidence") if isinstance(scored.get("evidence"), Mapping) else {}
-    structure = scored.get("structure") if isinstance(scored.get("structure"), Mapping) else {}
-
-    ask = num(entry.get("entry_ask"))
-    bid = num(entry.get("entry_bid"))
-    spread_pct = ((ask - bid) / ask * 100.0) if ask and bid and 0 < bid <= ask else None
-    breadth = num(theme.get("breadth"))
-    rank = num(theme.get("leader_rank"))
-    directness = num(evidence.get("directness_points"))
-    freshness = num(evidence.get("freshness_points"))
-    close_location = num(structure.get("close_location"))
-    pattern_score = num(structure.get("pattern_score"))
-    risk = num(structure.get("risk_rate"))
-    hard_reject = bool(scored.get("hard_reject"))
-
-    common = {
-        "hard_exclusion_clear": not hard_reject,
-        "entry_quote_known": ask is not None and bid is not None and spread_pct is not None,
-        "pattern_60_to_89": pattern_score is not None and 60 <= pattern_score < 90,
-        "structural_risk_at_most_8pct": risk is not None and risk <= 0.08,
-    }
-    theme_checks = {
-        **common,
-        "theme_breadth_85_to_90pct": breadth is not None and 0.85 <= breadth < 0.90,
-        "theme_rank_at_most_4": rank is not None and rank <= 4,
-        "close_location_at_least_75pct": close_location is not None and close_location >= 0.75,
-        "spread_at_most_0_20pct": spread_pct is not None and spread_pct <= 0.20,
-    }
-    direct_checks = {
-        **common,
-        "directness_at_least_14": directness is not None and directness >= 14,
-        "freshness_at_least_3": freshness is not None and freshness >= 3,
-        "spread_at_most_0_10pct": spread_pct is not None and spread_pct <= 0.10,
-    }
-    theme_pass = all(theme_checks.values())
-    direct_pass = all(direct_checks.values())
-    if theme_pass and direct_pass:
-        lane = "THEME_AND_DIRECT"
-    elif theme_pass:
-        lane = "THEME_CONTINUATION"
-    elif direct_pass:
-        lane = "DIRECT_EVENT"
-    else:
-        lane = "NONE"
-
-    if hard_reject:
-        status = "BLOCK"
-    elif lane != "NONE":
-        status = "PASS"
-    else:
-        theme_ratio = sum(theme_checks.values()) / len(theme_checks)
-        direct_ratio = sum(direct_checks.values()) / len(direct_checks)
-        status = "WATCH" if max(theme_ratio, direct_ratio) >= 0.70 else "NONE"
-
-    if risk is None:
-        size_band = "NO_POSITION"
-    elif risk <= 0.04:
-        size_band = "BASE"
-    elif risk <= 0.06:
-        size_band = "HALF"
-    elif risk <= 0.08:
-        size_band = "QUARTER"
-    else:
-        size_band = "NO_POSITION"
-
-    if lane == "THEME_CONTINUATION":
-        blockers = [key for key, passed in theme_checks.items() if not passed]
-    elif lane == "DIRECT_EVENT":
-        blockers = [key for key, passed in direct_checks.items() if not passed]
-    elif lane == "THEME_AND_DIRECT":
-        blockers = []
-    else:
-        theme_missing = [key for key, passed in theme_checks.items() if not passed]
-        direct_missing = [key for key, passed in direct_checks.items() if not passed]
-        blockers = theme_missing if len(theme_missing) <= len(direct_missing) else direct_missing
-
-    return {
-        "version": TARGET3_VERSION,
-        "target_pct": TARGET3_PCT,
-        "research_only": True,
-        "status": status,
-        "eligible": status == "PASS",
-        "lane": lane,
-        "spread_pct": None if spread_pct is None else round(spread_pct, 4),
-        "size_band": size_band,
-        "theme_checks": theme_checks,
-        "direct_checks": direct_checks,
-        "theme_pass_count": sum(theme_checks.values()),
-        "theme_check_count": len(theme_checks),
-        "direct_pass_count": sum(direct_checks.values()),
-        "direct_check_count": len(direct_checks),
-        "blockers": blockers,
-        "note": "표본 내 발굴 규칙입니다. 고정 전진검증 전에는 매수 신호로 사용하지 않습니다.",
-    }
-PY
+          python3 research/target3_backfill/patch_target3_module.py /tmp/largo-rules/largo_material_0906.py
           cp /tmp/backfill_largo_target3_20day.py out/source/
           cp /tmp/largo-rules/largo_material_0906.py out/source/
+          cp research/target3_backfill/patch_target3_module.py out/source/
           python3 -m py_compile /tmp/backfill_largo_target3_20day.py /tmp/largo-rules/largo_material_0906.py
+
       - name: Run fixed-rule 20-day historical validation
         shell: bash
         run: |
@@ -191,11 +95,12 @@ PY
           python3 - <<'PY'
           import json
           from pathlib import Path
-          meta=json.loads(Path('out/data/target3_20day_metadata.json').read_text(encoding='utf-8'))
-          assert meta['date_count']==20, meta
-          assert meta['candidate_rows']>=400, meta
-          print({'dates':meta['date_count'],'rows':meta['candidate_rows'],'chart_success':meta['chart_success'],'themes':meta['theme_count']})
+          meta = json.loads(Path('out/data/target3_20day_metadata.json').read_text(encoding='utf-8'))
+          assert meta['date_count'] == 20, meta
+          assert meta['candidate_rows'] >= 400, meta
+          print({'dates': meta['date_count'], 'rows': meta['candidate_rows'], 'chart_success': meta['chart_success'], 'themes': meta['theme_count']})
           PY
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
