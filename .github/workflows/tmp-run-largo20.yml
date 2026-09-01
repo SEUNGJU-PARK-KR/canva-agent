@@ -1,0 +1,310 @@
+name: Temporary Largo target3 20-day backtest
+
+on:
+  push:
+    branches:
+      - analysis/largo-target3-20day-backfill-20260901
+    paths:
+      - ".github/workflows/tmp-run-largo20.yml"
+      - ".github/largo20-full"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install analysis dependencies
+        run: python3 -m pip install --quiet requests pandas numpy scipy statsmodels beautifulsoup4 lxml
+      - name: Run fixed-rule reconstruction and validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mode=smoke
+          if [ -f .github/largo20-full ]; then mode=full; fi
+          echo "MODE=$mode" >> "$GITHUB_ENV"
+          cat > /tmp/largo20.py <<'PY'
+          from __future__ import annotations
+          import ast, concurrent.futures as cf, datetime as dt, html, json, math, os, re, time
+          from pathlib import Path
+          from urllib.parse import urlencode
+          import numpy as np
+          import pandas as pd
+          import requests
+          from statsmodels.stats.proportion import proportion_confint
+          import sys
+          sys.path.insert(0,'scripts')
+          from largo_material_0906 import (
+              KST, event_strength, normalize, parse_datetime, parse_legacy_rows,
+              entry_from_legacy, outcome_before_0906, score_candidate, target3_gate,
+          )
+
+          MODE=os.environ.get('MODE','smoke')
+          FULL=MODE=='full'
+          END=dt.date(2026,8,31)
+          DAYS=20 if FULL else 3
+          MAX_PER_MARKET=1400 if FULL else 120
+          MAX_THEMES=600 if FULL else 20
+          MAX_CANDIDATES=24 if FULL else 5
+          WORKERS=12 if FULL else 6
+          DISCOVERY={'2026-08-27','2026-08-28','2026-08-31'}
+          OUT=Path('out'); OUT.mkdir(exist_ok=True)
+          CACHE=Path('cache'); CACHE.mkdir(exist_ok=True)
+          UA='Mozilla/5.0 (compatible; LargoTarget3Backfill/1.0; read-only)'
+          POLITICAL=('정치','대선','총선','국민의힘','더불어민주당','이재명','한동훈','안철수','홍준표')
+          EXCLUDE=('ETF','ETN','스팩','SPAC','우B','우C','리츠','선물','인버스','레버리지')
+
+          class Http:
+              def __init__(self): self.s=requests.Session(); self.s.headers.update({'User-Agent':UA,'Referer':'https://m.stock.naver.com/'})
+              def get(self,url,binary=False):
+                  key=str(abs(hash(url))); p=CACHE/(key+('.bin' if binary else '.txt'))
+                  if p.exists(): return p.read_bytes() if binary else p.read_text(encoding='utf-8')
+                  last=None
+                  for n in range(4):
+                      try:
+                          r=self.s.get(url,timeout=(12,40)); r.raise_for_status(); data=r.content
+                          p.write_bytes(data)
+                          return data if binary else data.decode('utf-8','replace')
+                      except Exception as e:
+                          last=e; time.sleep(1.0*(n+1))
+                  raise last
+              def js(self,url): return json.loads(self.get(url))
+          H=Http()
+          def num(v):
+              try: return float(str(v).replace(',','').replace('%','').strip())
+              except: return None
+          def get_json(url):
+              h=Http(); return h.js(url)
+
+          def listings():
+              rows=[]
+              for market in ('KOSPI','KOSDAQ'):
+                  for page in range(1,80):
+                      url=f'https://m.stock.naver.com/api/stocks/marketValue/{market}?page={page}&pageSize=50'
+                      try: box=H.js(url)
+                      except Exception as e: print('listing error',market,page,e); break
+                      batch=box.get('stocks') or []
+                      if not batch: break
+                      for x in batch:
+                          code=str(x.get('itemCode') or '').zfill(6); name=str(x.get('stockName') or '')
+                          close=num(x.get('closePrice')); mcap=num(x.get('marketValue'))
+                          if not code or not close or not mcap or any(t.lower() in name.lower() for t in EXCLUDE): continue
+                          rows.append({'code':code,'name':name,'market':market,'current_close':close,'current_mcap':mcap*100_000_000,'shares':mcap*100_000_000/close})
+                          if sum(1 for y in rows if y['market']==market)>=MAX_PER_MARKET: break
+                      if sum(1 for y in rows if y['market']==market)>=MAX_PER_MARKET: break
+                      if num(batch[-1].get('marketValue')) is not None and num(batch[-1].get('marketValue'))<250: break
+              return rows
+
+          def parse_daily(text):
+              text=text.replace('null','None').strip()
+              try: arr=ast.literal_eval(text)
+              except Exception: return pd.DataFrame()
+              if len(arr)<2: return pd.DataFrame()
+              data=[]
+              for r in arr[1:]:
+                  if not isinstance(r,(list,tuple)) or len(r)<6: continue
+                  try:
+                      d=dt.datetime.strptime(str(r[0]),'%Y%m%d').date(); o,h,l,c,v=map(float,r[1:6])
+                      data.append((d,o,h,l,c,v))
+                  except: pass
+              if not data: return pd.DataFrame()
+              f=pd.DataFrame(data,columns=['date','open','high','low','close','volume']).set_index('date').sort_index()
+              typ=(f.open+f.high+f.low+f.close)/4
+              f['trade_value']=typ*f.volume; f['prev_close']=f.close.shift(1); f['change_rate']=(f.close/f.prev_close-1)*100
+              f['vol20']=f.volume.shift(1).rolling(20,min_periods=5).mean(); f['volume_ratio']=f.volume/f.vol20
+              f['high252']=f.high.shift(1).rolling(120,min_periods=20).max(); f['high52_ratio']=f.close/f.high252
+              return f
+          def chart(item):
+              start=(END-dt.timedelta(days=260)).strftime('%Y%m%d'); end=(END+dt.timedelta(days=4)).strftime('%Y%m%d')
+              url='https://api.finance.naver.com/siseJson.naver?'+urlencode({'symbol':item['code'],'requestType':1,'startTime':start,'endTime':end,'timeframe':'day'})
+              try: return item['code'],parse_daily(Http().get(url)),None
+              except Exception as e: return item['code'],pd.DataFrame(),f'{type(e).__name__}: {e}'
+
+          def ma(f,d,n):
+              s=f.loc[:d,'close'].tail(n); return float(s.mean()) if len(s)>=min(5,n) else None
+          def pattern_risk(f,d,grade):
+              rows=f.loc[:d].tail(180); cur=rows.iloc[-1]; hist=rows.iloc[:-1]
+              close,high,low,op=map(float,[cur.close,cur.high,cur.low,cur.open]); rng=max(1.,high-low)
+              loc=(close-low)/rng; wick=(high-close)/rng; body=abs(close-op)/rng; ch=float(cur.change_rate) if pd.notna(cur.change_rate) else 0.; vr=float(cur.volume_ratio) if pd.notna(cur.volume_ratio) else 0.; tv=float(cur.trade_value)
+              ms={n:ma(f,d,n) for n in (5,10,11,20,21,60,120)}; vals=[x for x in (ms[5],ms[10],ms[20],ms[60]) if x]
+              conv=(max(vals)-min(vals))/close if len(vals)>=3 else 1.; p20=float(hist.high.tail(20).max()) if len(hist) else close; p60=float(hist.high.tail(60).max()) if len(hist) else close
+              br=close>=max([x for x in (p20,ms[60],ms[120]) if x],default=p20)*.99; nh=close>=p60*.98
+              hc=hist.close.tail(40).tolist(); recent=any(a and b/a-1>=.25 for a,b in zip(hc[:-1],hc[1:])); near=min((abs(close-x)/close for x in (ms[60],ms[120]) if x),default=1)<=.06
+              prior=float(hist.trade_value.tail(60).max()) if len(hist) else tv; huge=prior>=max(50e9,tv*1.8); last10=rows.tail(10); box=(float(last10.high.max())-float(last10.low.min()))/close
+              trend=bool(ms[5] and ms[11] and close>=max(ms[5],ms[11])*.985); lhigh=float(rows.head(min(10,len(rows))).high.max()); lbreak=close>=lhigh*.98; listed=len(f.loc[:d]); cat=grade in {'S','A'}
+              sb=.025<=wick<=.30; wa=wick<=.40; bull=body>=.45 and ch>=5; t500=tv>=50e9; vrok=vr>=1.3
+              seq=False
+              if len(rows)>=3:
+                  a,b,c=[rows.iloc[i] for i in (-3,-2,-1)]; bullish=lambda x:x.close>x.open and (x.close-x.open)/max(1.,x.high-x.low)>=.4; pause=lambda x:x.close<=x.open or abs(x.close-x.open)/max(1.,x.high-x.low)<=.35
+                  seq=bool(bullish(a) and pause(b) and bullish(c) and c.close>max(a.high,b.high))
+              P=[]
+              def add(pid,name,parts): P.append((sum(w for ok,w in parts if ok),pid,name))
+              add('C1','이평 수렴 돌파',[(t500,20),(bull,20),(sb,15),(conv<=.10,15),(br,20),(cat,10)])
+              add('C2','매집 완료·신고가',[(recent,20),(nh,25),(trend,15),(vrok,20),(cat,10),(loc>=.70,10)])
+              add('C3','매집 미완료·바닥',[(recent,20),(near,25),(close<p60*.96,10),(loc>=.60,15),(huge,15),(cat,15)])
+              add('C4','신규상장 매집',[(1<=listed<=365,20),(lbreak,25),(recent,20),(bull,20),(t500,15)])
+              add('C5','초대량 매물대 박스',[(huge,25),(box<=.18,20),(not nh,15),(((ms[20] and close>=ms[20]*.97) or (ms[60] and close>=ms[60]*.97)),15),(wa,10),(cat,15)])
+              add('C6','양음양 저항 돌파',[(seq,30),(br,25),(t500 or vrok,20),(huge or recent,15),(cat,10)])
+              P.sort(reverse=True); score,pid,pname=P[0]
+              supports=[float(x) for x in (p20,ms[5],ms[10],ms[11],ms[20],ms[60],ms[120]) if x and 0<x<close]; supports.sort(reverse=True)
+              stop=min(supports[:3],default=low) if pid not in {'C3','C5'} else min([x for x in (ms[20],ms[60],ms[120]) if x and x<close][:3],default=low)
+              risk=(close-stop)/close; digest=tv/prior if prior>0 else None
+              return {'id':pid,'name':pname,'score':score},risk,digest,loc,wick,body
+
+          def rankdict(vals,top=80): return {c:i+1 for i,(c,v) in enumerate(sorted(vals.items(),key=lambda z:z[1],reverse=True)[:top]) if v is not None and math.isfinite(v)}
+          def daily_candidates(L,C,dates):
+              out={}
+              for d in dates:
+                  rows={}; mets={k:{} for k in ('tv','rise','vol','high')}
+                  for item in L:
+                      f=C.get(item['code']);
+                      if f is None or f.empty or d not in f.index: continue
+                      r=f.loc[d]; close=float(r.close); mcap=item['shares']*close; tv=float(r.trade_value)
+                      if close<1000 or mcap<50e9 or tv<20e9: continue
+                      x={'code':item['code'],'name':item['name'],'market':item['market'],'market_cap':mcap,'trade_value':tv,'change_rate':float(r.change_rate) if pd.notna(r.change_rate) else 0.}
+                      rows[item['code']]=x; mets['tv'][item['code']]=tv; mets['rise'][item['code']]=x['change_rate']; mets['vol'][item['code']]=float(r.volume_ratio) if pd.notna(r.volume_ratio) else 0.; mets['high'][item['code']]=float(r.high52_ratio) if pd.notna(r.high52_ratio) else 0.
+                  ranks={k:rankdict(v) for k,v in mets.items()}; weights={'tv':4,'rise':3,'vol':2,'high':1.5}; arr=[]
+                  for c,x in rows.items():
+                      src={k:v[c] for k,v in ranks.items() if c in v};
+                      if not src: continue
+                      x['source_rank_score']=sum(weights[k]*(101-r) for k,r in src.items()); arr.append(x)
+                  arr.sort(key=lambda x:(-x['source_rank_score'],-x['trade_value'],x['code'])); out[d]=arr[:MAX_CANDIDATES]
+              return out
+
+          def theme_catalog(C):
+              themes=[]
+              for p in range(1,40):
+                  url=f'https://m.stock.naver.com/front-api/stock/sectors/all?nationType=domestic&sectorType=theme&sectorSortType=CHANGE_RATE&businessDayCategory=daily&page={p}&pageSize=50'
+                  try: b=H.js(url); batch=((b.get('result') or {}).get('sectors') or [])
+                  except Exception: break
+                  if not batch: break
+                  themes.extend(batch)
+                  if len(themes)>=MAX_THEMES: break
+              themes=themes[:MAX_THEMES]
+              def one(t):
+                  code=str(t.get('sectorCode') or ''); members=[]
+                  for p in range(1,5):
+                      url=f'https://m.stock.naver.com/front-api/domestic/sector/item/list?sectorCode={code}&sectorType=theme&sectorSortType=CHANGE_RATE&page={p}&pageSize=50'
+                      try: b=Http().js(url)
+                      except Exception: break
+                      stack=[b]; found=[]
+                      while stack:
+                          v=stack.pop()
+                          if isinstance(v,dict):
+                              c=v.get('itemCode');
+                              if c and re.fullmatch(r'\d{6}',str(c)): found.append(str(c))
+                              stack.extend(v.values())
+                          elif isinstance(v,list): stack.extend(v)
+                      found=list(dict.fromkeys(found)); members.extend(found)
+                      if len(found)<50: break
+                  return {'code':code,'name':str(t.get('sectorName') or ''),'members':list(dict.fromkeys(members))}
+              with cf.ThreadPoolExecutor(max_workers=min(WORKERS,10)) as ex: cats=list(ex.map(one,themes))
+              by={}
+              for t in cats:
+                  for c in t['members']: by.setdefault(c,[]).append(t)
+              return cats,by
+
+          def theme_for(code,d,by,C):
+              best=None
+              for t in by.get(code,[]):
+                  vals=[]
+                  for c in t['members']:
+                      f=C.get(c)
+                      if f is not None and not f.empty and d in f.index:
+                          r=f.loc[d]; vals.append((c,float(r.change_rate) if pd.notna(r.change_rate) else 0.,float(r.trade_value)))
+                  if len(vals)<2: continue
+                  vals.sort(key=lambda z:z[1],reverse=True); rank=next((i+1 for i,z in enumerate(vals) if z[0]==code),None); rising=sum(1 for z in vals if z[1]>0); breadth=rising/len(vals)
+                  idx=next((i for i,z in enumerate(vals) if z[0]==code),0); foll=vals[idx+1:idx+3]; ft=sum(z[2] for z in foll); fs=sum(1 for z in foll if z[1]>=2)
+                  x={'code':t['code'],'name':t['name'],'rising':rising,'total':len(vals),'breadth':breadth,'leader_rank':rank,'follower_strong_count':fs,'follower_turnover':ft,'follower_turnover_ratio':None,'observed_breadth':True,'observed_leadership':rank is not None,'observed_followers':True}
+                  key=(breadth,-(rank or 999),len(vals))
+                  if best is None or key>best[0]: best=(key,x)
+              return best[1] if best else {'code':None,'name':None,'rising':None,'total':None,'breadth':None,'leader_rank':None,'follower_strong_count':None,'follower_turnover':None,'observed_breadth':False,'observed_leadership':False,'observed_followers':False}
+
+          def news(code,start):
+              urls=[f'https://m.stock.naver.com/front-api/news/list/integration?itemCode={code}&page=1&pageSize=100',f'https://m.stock.naver.com/front-api/stock/domestic/disclosure?code={code}&page=1&pageSize=100']
+              items=[]
+              for si,u in enumerate(urls):
+                  try: b=Http().js(u)
+                  except Exception: continue
+                  stack=[b]
+                  while stack:
+                      v=stack.pop()
+                      if isinstance(v,dict):
+                          title=v.get('title') or v.get('subject') or v.get('disclosureTitle'); stamp=v.get('datetime') or v.get('date') or v.get('publishedAt') or v.get('disclosureDate')
+                          if title and stamp:
+                              at=parse_datetime(stamp,source='notice' if si else 'news')
+                              if at and at>=start: items.append({'title':str(title),'body':str(v.get('body') or v.get('summary') or v.get('comment') or ''),'at':at,'source':'notice' if si else 'news'})
+                          stack.extend(v.values())
+                      elif isinstance(v,list): stack.extend(v)
+              ded={};
+              for x in items: ded[(x['title'],x['at'].isoformat())]=x
+              return code,list(ded.values())
+
+          def quote(code,stamp):
+              u='https://finance.naver.com/item/sise_time.naver?'+urlencode({'code':code,'thistime':stamp,'page':1})
+              try: return code,stamp,parse_legacy_rows(Http().get(u,binary=True))
+              except Exception: return code,stamp,[]
+
+          L=listings(); print('listings',len(L),flush=True)
+          C={}; errs=[]
+          with cf.ThreadPoolExecutor(max_workers=WORKERS) as ex:
+              for i,(c,f,e) in enumerate(ex.map(chart,L),1): C[c]=f; errs.append((c,e)) if e else None; print('charts',i,len(L),flush=True) if i%100==0 else None
+          ref=C.get('005930'); calendar=sorted(ref.index) if ref is not None and not ref.empty else sorted({d for f in C.values() for d in f.index})
+          usable=[d for d in calendar if d<=END and calendar.index(d)<len(calendar)-1]; dates=usable[-DAYS:]; nextmap={calendar[i]:calendar[i+1] for i in range(len(calendar)-1)}
+          DC=daily_candidates(L,C,dates); selected=sorted({x['code'] for d in dates for x in DC[d]}); print('dates',dates,'candidate codes',len(selected),flush=True)
+          cats,by=theme_catalog(C); print('themes',len(cats),flush=True)
+          start=dt.datetime.combine(dates[0]-dt.timedelta(days=16),dt.time.min,tzinfo=KST); NM={}
+          with cf.ThreadPoolExecutor(max_workers=min(WORKERS,10)) as ex:
+              for c,it in ex.map(lambda c:news(c,start),selected): NM[c]=it
+          qr=[]
+          for d in dates:
+              nd=nextmap[d]
+              for x in DC[d]: qr.extend([(x['code'],d.strftime('%Y%m%d')+'151800'),(x['code'],nd.strftime('%Y%m%d')+'090600')])
+          qr=sorted(set(qr)); QM={}
+          with cf.ThreadPoolExecutor(max_workers=min(WORKERS,8)) as ex:
+              for i,(c,s,r) in enumerate(ex.map(lambda z:quote(*z),qr),1): QM[(c,s)]=r; print('quotes',i,len(qr),flush=True) if i%100==0 else None
+          rows=[]; details=[]
+          for d in dates:
+              nd=nextmap[d]
+              for b in DC[d]:
+                  c=b['code']; signal=dt.datetime.combine(d,dt.time(15,18),tzinfo=KST); th=theme_for(c,d,by,C); items=NM.get(c,[])
+                  pos=[]; comp=normalize(b['name'])
+                  for it in items:
+                      if it['at']<=signal and it['at']>=signal-dt.timedelta(days=14) and event_strength(it['title']+' '+it.get('body',''))>0 and comp in normalize(it['title']+' '+it.get('body','')): pos.append(it['title'])
+                  grade='S' if th.get('breadth') is not None and th['breadth']>=2/3 and (th.get('rising') or 0)>=5 and (th.get('leader_rank') or 99)<=3 else ('A' if pos or (th.get('breadth') or 0)>=.4 and (th.get('leader_rank') or 99)<=2 else 'B')
+                  pat,risk,digest,loc,wick,body=pattern_risk(C[c],d,grade); pol=any(t in str(th.get('name') or '') for t in POLITICAL)
+                  checks=[{'id':'X_MARKET_CAP','status':'PASS'},{'id':'X_TRADE_VALUE','status':'PASS'},{'id':'X_PENNY','status':'PASS'},{'id':'X_TYPE','status':'PASS'},{'id':'X_POLITICAL','status':'FAIL' if pol else 'PASS'},{'id':'C_SEQUENCE','status':'PASS'}]
+                  cand={'code':c,'name':b['name'],'price':float(C[c].loc[d].close),'trade_value':b['trade_value'],'market_cap':b['market_cap'],'change_rate':b['change_rate'],'theme':{'name':th.get('name'),'code':th.get('code'),'rising':th.get('rising'),'leader_rank':th.get('leader_rank')} if th.get('code') else None,'catalyst':{'grade':grade,'reason':f"{th.get('name')} 관련주 {th.get('rising')}/{th.get('total')} 상승" if th.get('code') else (pos[0] if pos else '직접 재료 미확인'),'positive_titles':pos[:8]},'pattern':pat,'metrics':{'close_location':loc,'upper_wick':wick,'body_ratio':body,'digest_ratio':digest},'plan':{'stop_distance':risk},'checks':checks,'updated_at':signal.isoformat()}
+                  entry=entry_from_legacy(QM.get((c,d.strftime('%Y%m%d')+'151800'),[])); scored=score_candidate(cand,signal,items,theme_metrics=th,theme_history=(),proxy_note='20거래일 역사 재구성 · 현재 상장/테마 구성원 대리변수'); gate=target3_gate(scored,entry)
+                  outc=outcome_before_0906(QM.get((c,nd.strftime('%Y%m%d')+'090600'),[]),entry_last=entry.get('entry_last'),entry_ask=entry.get('entry_ask')); ret=outc.get('max_executable_return_pct'); hit=bool(ret is not None and ret>=3)
+                  row={'signal_date':d.isoformat(),'next_date':nd.isoformat(),'sample':'discovery' if d.isoformat() in DISCOVERY else 'holdout','code':c,'name':b['name'],'market':b['market'],'entry_ask':entry.get('entry_ask'),'entry_bid':entry.get('entry_bid'),'spread_pct':gate.get('spread_pct'),'target3_eligible':bool(gate.get('eligible')),'target3_status':gate.get('status'),'target3_lane':gate.get('lane'),'blockers':','.join(gate.get('blockers') or []),'grade':scored.get('grade'),'comparable_score':scored.get('comparable_score'),'directness':(scored.get('evidence') or {}).get('directness_points'),'freshness':(scored.get('evidence') or {}).get('freshness_points'),'evidence_title':(scored.get('evidence') or {}).get('title'),'theme_name':th.get('name'),'theme_breadth':th.get('breadth'),'leader_rank':th.get('leader_rank'),'close_location':loc,'upper_wick':wick,'body_ratio':body,'pattern_id':pat['id'],'pattern_score':pat['score'],'risk_rate':risk,'digest_ratio':digest,'max_executable_return_pct':ret,'last_executable_return_pct':outc.get('last_executable_return_pct'),'min_executable_return_pct':outc.get('min_executable_return_pct'),'hit3':hit,'proxy':True}
+                  rows.append(row); details.append({'row':row,'score':scored,'gate':gate,'entry':entry,'outcome':outc})
+          df=pd.DataFrame(rows); df.to_csv(OUT/'target3_20day_results.csv',index=False,encoding='utf-8-sig'); (OUT/'target3_20day_details.json').write_text(json.dumps(details,ensure_ascii=False,indent=2,default=str),encoding='utf-8')
+          def stat(x):
+              v=x[x.max_executable_return_pct.notna()].copy(); n=len(v); h=int(v.hit3.sum()) if n else 0; lo,hi=proportion_confint(h,n,method='beta') if n else (None,None); pol=np.where(v.hit3,3.0,v.last_executable_return_pct) if n else []
+              return {'n':int(n),'dates':int(v.signal_date.nunique()) if n else 0,'hits':h,'hit_rate':h/n if n else None,'ci_low':float(lo) if lo is not None else None,'ci_high':float(hi) if hi is not None else None,'avg_max':float(v.max_executable_return_pct.mean()) if n else None,'median_max':float(v.max_executable_return_pct.median()) if n else None,'avg_policy3':float(np.nanmean(pol)) if n else None,'loss_rate':float(np.mean(np.array(pol)<0)) if n else None}
+          valid=df[df.max_executable_return_pct.notna()]; sel=valid[valid.target3_eligible]; hold=valid[valid['sample']=='holdout']; holdsel=hold[hold.target3_eligible]; disc=valid[valid['sample']=='discovery']; discsel=disc[disc.target3_eligible]
+          daily=[]
+          for d,g in valid.groupby('signal_date'): daily.append({'signal_date':d,'all':stat(g),'selected':stat(g[g.target3_eligible]),'names':g[g.target3_eligible].name.tolist()})
+          expected={'2026-08-27':{'HD현대일렉트릭','효성중공업','삼성전기'},'2026-08-28':set(),'2026-08-31':{'SK이노베이션','금호건설'}}; recon={d:set(discsel[discsel.signal_date==d].name) for d in expected}; overlap={d:{'expected':sorted(expected[d]),'reconstructed':sorted(recon[d]),'intersection':sorted(expected[d]&recon[d])} for d in expected}
+          summary={'version':'largo-target3-20day-backfill-v1','mode':MODE,'signal_dates':[d.isoformat() for d in dates],'method':{'entry':'15:18 best ask','outcome':'maximum best bid from 09:00 through 09:05','universe':'current-listed stocks with historical daily OHLCV; current shares and current theme memberships are proxies','rule':'unchanged largo-target3-v1'},'overall':stat(valid),'selected':stat(sel),'holdout':stat(hold),'holdout_selected':stat(holdsel),'discovery':stat(disc),'discovery_selected':stat(discsel),'daily':daily,'discovery_reconstruction':overlap,'listing_count':len(L),'chart_count':sum(not f.empty for f in C.values()),'theme_count':len(cats),'candidate_rows':len(df),'quote_success':int(df.entry_ask.notna().sum())}
+          (OUT/'target3_20day_summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+          sel.to_csv(OUT/'target3_20day_selected.csv',index=False,encoding='utf-8-sig'); holdsel.to_csv(OUT/'target3_20day_holdout_selected.csv',index=False,encoding='utf-8-sig'); pd.DataFrame(daily).to_json(OUT/'target3_20day_daily.json',orient='records',force_ascii=False,indent=2)
+          def pct(v): return '-' if v is None or pd.isna(v) else f'{v*100:.1f}%'
+          cards=''.join(f"<div><b>{label}</b><span>{value}</span></div>" for label,value in [('평가일',f"{summary['overall']['dates']}일"),('전체 후보',summary['overall']['n']),('전체 +3%',pct(summary['overall']['hit_rate'])),('규칙 통과',summary['selected']['n']),('통과 +3%',pct(summary['selected']['hit_rate'])),('홀드아웃 통과',summary['holdout_selected']['n']),('홀드아웃 +3%',pct(summary['holdout_selected']['hit_rate']))])
+          trs=''.join(f"<tr><td>{html.escape(str(r.signal_date))}</td><td>{html.escape(str(r.name))}<small>{r.code}</small></td><td>{html.escape(str(r.target3_lane))}</td><td>{r.entry_ask if pd.notna(r.entry_ask) else '-'}</td><td>{r.max_executable_return_pct:.2f}%</td><td>{'도달' if r.hit3 else '미도달'}</td></tr>" for _,r in sel.sort_values(['signal_date','max_executable_return_pct'],ascending=[False,False]).iterrows()) or '<tr><td colspan=6>통과 종목 없음</td></tr>'
+          verdict='홀드아웃에서 +3% 규칙이 재현됐습니다.' if summary['holdout_selected']['n'] and summary['holdout_selected']['hit_rate']>=.5 else '홀드아웃에서 기존 5/5 결과가 재현되지 않았습니다.'
+          report=f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>라르고 +3% 20거래일 검증</title><style>body{{margin:0;background:#eef2f7;color:#142137;font-family:Arial,'Malgun Gothic',sans-serif;line-height:1.55}}main{{max-width:1400px;margin:auto;padding:20px}}header{{background:#103b70;color:white;padding:26px;border-radius:22px}}.cards{{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}}.cards div,section{{background:white;border:1px solid #d8e1eb;border-radius:16px;padding:15px}}.cards b,.cards span,small{{display:block}}.cards b{{font-size:24px}}table{{width:100%;border-collapse:collapse;font-size:12px}}th,td{{padding:9px;border-bottom:1px solid #dde5ef;text-align:left}}.warn{{border-left:6px solid #a86500}}@media(max-width:760px){{.cards{{grid-template-columns:1fr 1fr}}main{{padding:10px}}}}</style></head><body><main><header><h1>+3% 규칙 20거래일 역사 재구성 검증</h1><p>15시 18분 최우선 매도호가 진입, 다음 거래일 09시 00분~09시 05분 최우선 매수호가 최고값으로 평가했습니다.</p></header><div class="cards">{cards}</div><section class="warn"><h2>판정</h2><p>{verdict}</p><p>발굴에 사용한 2026-08-27·28·31을 제외한 날짜를 홀드아웃으로 따로 계산했습니다.</p></section><section><h2>규칙 통과 사례</h2><table><thead><tr><th>신호일</th><th>종목</th><th>경로</th><th>15:18 매도호가</th><th>09:06 전 최고수익</th><th>+3%</th></tr></thead><tbody>{trs}</tbody></table></section><section><h2>한계</h2><p>과거 상장 종목과 테마 구성원을 완전히 복원할 수 없어 현재 상장 목록, 현재 발행주식수, 현재 테마 구성원을 대리변수로 사용했습니다. 뉴스와 공시는 신호 시각 이후 자료를 제외했습니다. 수량, 슬리피지, 수수료와 세금은 반영하지 않았습니다.</p></section></main></body></html>'''
+          (OUT/'target3_20day_report.html').write_text(report,encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+          python3 /tmp/largo20.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-target3-20day-${{ env.MODE }}
+          path: out
+          retention-days: 7
