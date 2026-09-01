@@ -1,0 +1,43 @@
+name: Temporary rerun Largo target3 20-day backtest
+
+on:
+  push:
+    branches:
+      - analysis/largo-target3-20day-backfill-20260901
+    paths:
+      - ".github/workflows/tmp-rerun-largo20.yml"
+      - ".github/largo20-rerun"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --quiet requests pandas numpy scipy statsmodels beautifulsoup4 lxml
+      - name: Extract the reviewed runner and execute full mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('.github/workflows/tmp-run-largo20.yml').read_text(encoding='utf-8')
+          start=text.index("          cat > /tmp/largo20.py <<'PY'\n") + len("          cat > /tmp/largo20.py <<'PY'\n")
+          end=text.index("\n          PY\n          python3 /tmp/largo20.py", start)
+          lines=[]
+          for line in text[start:end].splitlines():
+              lines.append(line[10:] if line.startswith('          ') else line)
+          Path('/tmp/largo20.py').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          compile(Path('/tmp/largo20.py').read_text(encoding='utf-8'),'/tmp/largo20.py','exec')
+          print({'bytes':Path('/tmp/largo20.py').stat().st_size})
+          PY
+          MODE=full PYTHONPATH=.:scripts python3 /tmp/largo20.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-target3-20day-full
+          path: out
+          retention-days: 7
