@@ -1,0 +1,47 @@
+name: Temporary probe KRX historical data
+
+on:
+  push:
+    branches:
+      - analysis/largo-target3-20day-backfill-20260901
+    paths:
+      - ".github/workflows/tmp-probe-krx-history.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Install pykrx and probe one date
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet pykrx pandas
+          mkdir -p out
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from pykrx import stock
+          result={}
+          for market in ('KOSPI','KOSDAQ'):
+              try:
+                  df=stock.get_market_ohlcv_by_ticker('20260831', market=market)
+                  result[market]={
+                      'rows':int(len(df)),
+                      'columns':list(df.columns),
+                      'head':df.head(3).reset_index().astype(str).to_dict('records'),
+                  }
+              except Exception as exc:
+                  result[market]={'error':f'{type(exc).__name__}: {exc}'}
+          Path('out/probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: krx-history-probe
+          path: out
+          retention-days: 3
