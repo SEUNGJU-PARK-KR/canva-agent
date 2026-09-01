@@ -1,0 +1,61 @@
+name: LargoTV full public history scan
+
+on:
+  push:
+    branches:
+      - largo-full-history-20260824
+    paths:
+      - ".github/workflows/largo-history-scan.yml"
+      - "scripts/largo_history_scan.py"
+      - "data/largo_previous_inventory.csv"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-history-scan.yml"
+      - "scripts/largo_history_scan.py"
+      - "data/largo_previous_inventory.csv"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-full-history-20260824
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install scanner dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade yt-dlp requests beautifulsoup4
+          python -m py_compile scripts/largo_history_scan.py
+          yt-dlp --version
+
+      - name: Scan all public channel tabs and official Telegram history
+        run: |
+          python scripts/largo_history_scan.py largo_history_output
+
+      - name: Build manifest
+        if: always()
+        run: |
+          find largo_history_output -type f -printf '%P\t%s\n' | sort > largo_history_output/manifest.tsv || true
+          du -sh largo_history_output || true
+
+      - name: Upload inventory and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-history-scan
+          path: largo_history_output
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
