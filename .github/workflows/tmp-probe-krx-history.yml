@@ -1,4 +1,4 @@
-name: Temporary Largo target3 20-day backfill
+name: Temporary probe historical minute data
 
 on:
   push:
@@ -6,104 +6,61 @@ on:
       - analysis/largo-target3-20day-backfill-20260901
     paths:
       - ".github/workflows/tmp-probe-krx-history.yml"
-      - "research/target3_backfill/patch_target3_module.py"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  backfill:
+  probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install bounded read-only dependencies
-        run: python3 -m pip install --quiet requests beautifulsoup4
-
-      - name: Recover collector and pin the fixed target3 gate
+      - name: Probe public minute endpoints
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p out/data out/source out/qc /tmp/largo-rules
-          curl -fsSL --max-time 30 \
-            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/4cf66f8219bac62953f44238bb2541a46206e06d/.github/workflows/tmp-probe-krx-history.yml \
-            -o /tmp/staged-workflow.yml
+          python3 -m pip install --quiet requests
+          mkdir -p out
           python3 - <<'PY'
-          import base64, gzip, hashlib, re
+          import json, re
           from pathlib import Path
+          import requests
 
-          expected_compressed = '6182de5187f631d54d18f205d0799131d477b42db4d1edc8e7c4529361dbf48f'
-          expected_raw = 'd1d12fa0f1ca43e70db81716cc45003d4330490fa2b0e4a87a0d117909e6c178'
-          expected_size = 12137
-          alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-          text = Path('/tmp/staged-workflow.yml').read_text(encoding='utf-8')
-          match = re.search(r"<<'B64'\n(.*?)\nB64", text, flags=re.S)
-          if not match:
-              raise SystemExit('staged collector payload not found')
-          encoded = ''.join(match.group(1).split())
-          repaired = None
-          for position in range(len(encoded) + 1):
-              left, right = encoded[:position], encoded[position:]
-              for char in alphabet:
-                  candidate = left + char + right
-                  try:
-                      compressed = base64.b64decode(candidate, validate=True)
-                  except Exception:
-                      continue
-                  if len(compressed) == expected_size and hashlib.sha256(compressed).hexdigest() == expected_compressed:
-                      repaired = candidate
-                      print({'repaired_position': position, 'repaired_char': char})
-                      break
-              if repaired is not None:
-                  break
-          if repaired is None:
-              raise SystemExit('single-character repair failed')
-          raw = gzip.decompress(base64.b64decode(repaired, validate=True))
-          digest = hashlib.sha256(raw).hexdigest()
-          if digest != expected_raw:
-              raise SystemExit(f'collector digest mismatch: {digest}')
-          Path('/tmp/backfill_largo_target3_20day.py').write_bytes(raw)
-          print({'collector_bytes': len(raw), 'sha256': digest})
+          s=requests.Session()
+          s.headers.update({'User-Agent':'Mozilla/5.0 (compatible; LargoMinuteProbe/1.0; read-only)','Referer':'https://finance.naver.com/'})
+          urls={
+            'sise_json_min12':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=202608030900&endTime=202608031530&timeframe=minute',
+            'sise_json_min14':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=20260803090000&endTime=20260803153000&timeframe=minute',
+            'sise_json_recent':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=0&count=10000&timeframe=minute',
+            'fchart_recent':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=minute&count=10000&requestType=0',
+            'mobile_external':'https://m.stock.naver.com/front-api/external/chart/domestic/info?symbol=005930&requestType=1&startTime=202608030900&endTime=202608031530&timeframe=minute',
+            'new_chart':'https://api.stock.naver.com/chart/domestic/item/005930?periodType=minute&startDateTime=202608030900&endDateTime=202608031530',
+            'new_chart_five':'https://api.stock.naver.com/chart/domestic/item/005930?periodType=candleMinuteFive&startDateTime=202608030900&endDateTime=202608031530',
+          }
+          result={}
+          for key,url in urls.items():
+              try:
+                  r=s.get(url,timeout=40)
+                  text=r.content.decode('utf-8',errors='replace')
+                  timestamps=sorted(set(re.findall(r'20\d{10,12}',text)))
+                  result[key]={
+                      'status':r.status_code,
+                      'content_type':r.headers.get('content-type'),
+                      'length':len(r.content),
+                      'timestamps_count':len(timestamps),
+                      'timestamps_head':timestamps[:10],
+                      'timestamps_tail':timestamps[-10:],
+                      'head':text[:1000],
+                      'tail':text[-1000:],
+                  }
+              except Exception as exc:
+                  result[key]={'error':f'{type(exc).__name__}: {exc}'}
+          Path('out/minute_probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({k:{x:v for x,v in box.items() if x not in {'head','tail'}} for k,box in result.items()},ensure_ascii=False))
           PY
-
-          curl -fsSL --max-time 30 \
-            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/e05d49c415ebfa3ca55c5d926a825918d59c0201/scripts/largo_material_0906.py \
-            -o /tmp/largo-rules/largo_material_0906.py
-          python3 research/target3_backfill/patch_target3_module.py /tmp/largo-rules/largo_material_0906.py
-          cp /tmp/backfill_largo_target3_20day.py out/source/
-          cp /tmp/largo-rules/largo_material_0906.py out/source/
-          cp research/target3_backfill/patch_target3_module.py out/source/
-          python3 -m py_compile /tmp/backfill_largo_target3_20day.py /tmp/largo-rules/largo_material_0906.py
-
-      - name: Run fixed-rule 20-day historical validation
-        shell: bash
-        run: |
-          set -euo pipefail
-          PYTHONPATH=/tmp/largo-rules python3 /tmp/backfill_largo_target3_20day.py \
-            --output-dir out/data \
-            --end-date 2026-08-31 \
-            --days 20 \
-            --preselect 80 \
-            --workers 24 \
-            --bootstrap data/material-0906-bootstrap.json.gz.b64 \
-            2>&1 | tee out/qc/run.log
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          meta = json.loads(Path('out/data/target3_20day_metadata.json').read_text(encoding='utf-8'))
-          assert meta['date_count'] == 20, meta
-          assert meta['candidate_rows'] >= 400, meta
-          print({'dates': meta['date_count'], 'rows': meta['candidate_rows'], 'chart_success': meta['chart_success'], 'themes': meta['theme_count']})
-          PY
-
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: largo-target3-20day-backfill
+          name: historical-minute-probe
           path: out
-          retention-days: 14
+          retention-days: 3
