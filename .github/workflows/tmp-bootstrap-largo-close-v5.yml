@@ -52,12 +52,11 @@ jobs:
           print({'v5': summary['v5_daily'], 'selected': len(selected)})
           PY
 
-      - name: Commit actual sources, reports and workflows
+      - name: Commit actual sources and reports
         shell: bash
         run: |
           set -euo pipefail
           rm -rf research/largo-close-v5/bootstrap
-          rm -f .github/workflows/tmp-bootstrap-largo-close-v5.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
