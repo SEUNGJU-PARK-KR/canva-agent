@@ -16,47 +16,50 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Probe chart, listings, themes and news
+      - name: Probe modern Naver and Yahoo endpoints
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet requests beautifulsoup4 lxml
+          python3 -m pip install --quiet requests
           mkdir -p out
           python3 - <<'PY'
-          import json, re
+          import json, socket, time
           from pathlib import Path
           import requests
-          from bs4 import BeautifulSoup
-          s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0','Referer':'https://finance.naver.com/'})
+
           urls={
-            'chart':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=day&count=400&requestType=0',
-            'market':'https://finance.naver.com/sise/sise_market_sum.naver?sosok=0&page=1',
-            'themes':'https://finance.naver.com/sise/theme.naver?page=1',
-            'news':'https://stock.naver.com/api/domestic/detail/news?itemCode=005930&page=1&pageSize=100',
-            'notice':'https://stock.naver.com/api/domestic/detail/notice?itemCode=005930&startIdx=0&pageSize=100',
-            'legacy':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260831151800&page=1',
+            'mobile_basic':'https://m.stock.naver.com/front-api/stock/domestic/basic?code=005930&endType=stock',
+            'mobile_list':'https://m.stock.naver.com/front-api/stock/domestic/stockList?sortType=marketValue&category=KOSPI&page=1&pageSize=20',
+            'mobile_sectors':'https://m.stock.naver.com/front-api/stock/sectors/all?nationType=domestic&sectorType=theme&sectorSortType=CHANGE_RATE&businessDayCategory=daily&page=1&pageSize=20',
+            'modern_chart':'https://api.stock.naver.com/chart/domestic/item/005930?periodType=dayCandle&startDateTime=20260801&endDateTime=20260901',
+            'legacy_json':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=20260801&endTime=20260901&timeframe=day',
+            'mobile_external_chart':'https://m.stock.naver.com/front-api/external/chart/domestic/info?symbol=005930&requestType=1&startTime=20260801&endTime=20260901&timeframe=day',
+            'yahoo_day':'https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1785542400&period2=1788307200&interval=1d&events=history',
+            'yahoo_minute':'https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1788130800&period2=1788219000&interval=1m&events=history&includePrePost=false',
           }
-          out={}
+          out={'dns':{}}
+          for host in ('m.stock.naver.com','api.stock.naver.com','api.finance.naver.com','query1.finance.yahoo.com'):
+            try: out['dns'][host]=socket.getaddrinfo(host,443,proto=socket.IPPROTO_TCP)[:4]
+            except Exception as exc: out['dns'][host]=f'{type(exc).__name__}: {exc}'
           for key,url in urls.items():
-            try:
-              r=s.get(url,timeout=30)
-              box={'status':r.status_code,'len':len(r.content),'content_type':r.headers.get('content-type'),'head':r.text[:500]}
-              if key=='chart': box['items']=len(re.findall(r'<item data=',r.text))
-              if key=='market': box['codes']=len(re.findall(r'code=\d{6}',r.text))
-              if key=='themes': box['theme_links']=len(re.findall(r'type=theme&no=\d+',r.text))
-              if key in {'news','notice'}:
+            box={}
+            for attempt in range(2):
+              try:
+                r=requests.get(url,headers={'User-Agent':'Mozilla/5.0','Referer':'https://m.stock.naver.com/'},timeout=(12,30))
+                box={'status':r.status_code,'len':len(r.content),'content_type':r.headers.get('content-type'),'head':r.text[:800]}
                 try:
-                  j=r.json(); box['keys']=list(j) if isinstance(j,dict) else []; box['json_head']=str(j)[:500]
+                  j=r.json(); box['json_type']=type(j).__name__; box['json_keys']=list(j)[:20] if isinstance(j,dict) else None
                 except Exception as exc: box['json_error']=f'{type(exc).__name__}: {exc}'
-              if key=='legacy': box['times']=re.findall(r'\d{2}:\d{2}',r.text)[:20]
-              out[key]=box
-            except Exception as exc:
-              out[key]={'error':f'{type(exc).__name__}: {exc}'}
-          Path('out/probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+                break
+              except Exception as exc:
+                box={'error':f'{type(exc).__name__}: {exc}','attempt':attempt+1}
+                time.sleep(1)
+            out[key]=box
+          Path('out/probe-modern.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: naver-history-probe
+          name: modern-history-probe
           path: out
           retention-days: 3
