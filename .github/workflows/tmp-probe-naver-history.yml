@@ -1,0 +1,62 @@
+name: Temporary probe Naver historical data
+
+on:
+  push:
+    branches:
+      - analysis/largo-target3-20day-backfill-20260901
+    paths:
+      - ".github/workflows/tmp-probe-naver-history.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Probe chart, listings, themes and news
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet requests beautifulsoup4 lxml
+          mkdir -p out
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+          import requests
+          from bs4 import BeautifulSoup
+          s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0','Referer':'https://finance.naver.com/'})
+          urls={
+            'chart':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=day&count=400&requestType=0',
+            'market':'https://finance.naver.com/sise/sise_market_sum.naver?sosok=0&page=1',
+            'themes':'https://finance.naver.com/sise/theme.naver?page=1',
+            'news':'https://stock.naver.com/api/domestic/detail/news?itemCode=005930&page=1&pageSize=100',
+            'notice':'https://stock.naver.com/api/domestic/detail/notice?itemCode=005930&startIdx=0&pageSize=100',
+            'legacy':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260831151800&page=1',
+          }
+          out={}
+          for key,url in urls.items():
+            try:
+              r=s.get(url,timeout=30)
+              box={'status':r.status_code,'len':len(r.content),'content_type':r.headers.get('content-type'),'head':r.text[:500]}
+              if key=='chart': box['items']=len(re.findall(r'<item data=',r.text))
+              if key=='market': box['codes']=len(re.findall(r'code=\d{6}',r.text))
+              if key=='themes': box['theme_links']=len(re.findall(r'type=theme&no=\d+',r.text))
+              if key in {'news','notice'}:
+                try:
+                  j=r.json(); box['keys']=list(j) if isinstance(j,dict) else []; box['json_head']=str(j)[:500]
+                except Exception as exc: box['json_error']=f'{type(exc).__name__}: {exc}'
+              if key=='legacy': box['times']=re.findall(r'\d{2}:\d{2}',r.text)[:20]
+              out[key]=box
+            except Exception as exc:
+              out[key]={'error':f'{type(exc).__name__}: {exc}'}
+          Path('out/probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: naver-history-probe
+          path: out
+          retention-days: 3
