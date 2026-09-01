@@ -16,50 +16,52 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Probe modern Naver and Yahoo endpoints
+      - name: Probe historical intraday alternatives
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet requests
           mkdir -p out
           python3 - <<'PY'
-          import json, socket, time
+          import json, subprocess, socket, time
           from pathlib import Path
           import requests
 
+          out={'finance_dns':socket.gethostbyname_ex('finance.naver.com')}
           urls={
-            'mobile_basic':'https://m.stock.naver.com/front-api/stock/domestic/basic?code=005930&endType=stock',
-            'mobile_list':'https://m.stock.naver.com/front-api/stock/domestic/stockList?sortType=marketValue&category=KOSPI&page=1&pageSize=20',
-            'mobile_sectors':'https://m.stock.naver.com/front-api/stock/sectors/all?nationType=domestic&sectorType=theme&sectorSortType=CHANGE_RATE&businessDayCategory=daily&page=1&pageSize=20',
-            'modern_chart':'https://api.stock.naver.com/chart/domestic/item/005930?periodType=dayCandle&startDateTime=20260801&endDateTime=20260901',
-            'legacy_json':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=20260801&endTime=20260901&timeframe=day',
-            'mobile_external_chart':'https://m.stock.naver.com/front-api/external/chart/domestic/info?symbol=005930&requestType=1&startTime=20260801&endTime=20260901&timeframe=day',
-            'yahoo_day':'https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1785542400&period2=1788307200&interval=1d&events=history',
-            'yahoo_minute':'https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1788130800&period2=1788219000&interval=1m&events=history&includePrePost=false',
+            'finance_legacy':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260831151800&page=1',
+            'api_minute':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=1&startTime=20260831150000&endTime=20260831153000&timeframe=minute',
+            'external_minute':'https://m.stock.naver.com/front-api/external/chart/domestic/info?symbol=005930&requestType=1&startTime=20260831150000&endTime=20260831153000&timeframe=minute',
+            'mobile_chart_5m':'https://m.stock.naver.com/front-api/chart/domestic/stock/end?code=005930&chartInfoType=item&scriptChartType=candleMinuteFive',
+            'mobile_old_time':'https://m.stock.naver.com/api/item/sise_time.nhn?code=005930&thistime=20260831151800&page=1',
+            'yahoo_period_30d':'https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?range=30d&interval=1m&events=history&includePrePost=false',
+            'listing_kospi':'https://m.stock.naver.com/api/stocks/marketValue/KOSPI?page=1&pageSize=20',
+            'listing_kosdaq':'https://m.stock.naver.com/api/stocks/marketValue/KOSDAQ?page=1&pageSize=20',
+            'sector_members':'https://m.stock.naver.com/front-api/domestic/sector/item/list?sectorCode=563&sectorType=theme&sectorSortType=CHANGE_RATE&page=1&pageSize=100',
           }
-          out={'dns':{}}
-          for host in ('m.stock.naver.com','api.stock.naver.com','api.finance.naver.com','query1.finance.yahoo.com'):
-            try: out['dns'][host]=socket.getaddrinfo(host,443,proto=socket.IPPROTO_TCP)[:4]
-            except Exception as exc: out['dns'][host]=f'{type(exc).__name__}: {exc}'
+          headers={'User-Agent':'Mozilla/5.0','Referer':'https://m.stock.naver.com/'}
           for key,url in urls.items():
-            box={}
-            for attempt in range(2):
+            try:
+              r=requests.get(url,headers=headers,timeout=(10,35))
+              out[key]={'status':r.status_code,'len':len(r.content),'type':r.headers.get('content-type'),'head':r.text[:1200]}
               try:
-                r=requests.get(url,headers={'User-Agent':'Mozilla/5.0','Referer':'https://m.stock.naver.com/'},timeout=(12,30))
-                box={'status':r.status_code,'len':len(r.content),'content_type':r.headers.get('content-type'),'head':r.text[:800]}
-                try:
-                  j=r.json(); box['json_type']=type(j).__name__; box['json_keys']=list(j)[:20] if isinstance(j,dict) else None
-                except Exception as exc: box['json_error']=f'{type(exc).__name__}: {exc}'
-                break
-              except Exception as exc:
-                box={'error':f'{type(exc).__name__}: {exc}','attempt':attempt+1}
-                time.sleep(1)
-            out[key]=box
-          Path('out/probe-modern.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+                j=r.json(); out[key]['json_type']=type(j).__name__; out[key]['keys']=list(j)[:15] if isinstance(j,dict) else None
+              except Exception as exc: out[key]['json_error']=f'{type(exc).__name__}: {exc}'
+            except Exception as exc:
+              out[key]={'error':f'{type(exc).__name__}: {exc}'}
+          ips=out['finance_dns'][2]
+          out['curl_resolve']=[]
+          for ip in ips[:4]:
+            cmd=['curl','-4','-k','-sS','--connect-timeout','8','--max-time','20','--resolve',f'finance.naver.com:443:{ip}','-A','Mozilla/5.0','-w','\nHTTP:%{http_code}\n','https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260831151800&page=1']
+            try:
+              p=subprocess.run(cmd,capture_output=True,text=True,timeout=25)
+              out['curl_resolve'].append({'ip':ip,'returncode':p.returncode,'stdout':p.stdout[:1500],'stderr':p.stderr[:500]})
+            except Exception as exc:
+              out['curl_resolve'].append({'ip':ip,'error':f'{type(exc).__name__}: {exc}'})
+          Path('out/probe-intraday.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: modern-history-probe
+          name: intraday-history-probe
           path: out
           retention-days: 3
