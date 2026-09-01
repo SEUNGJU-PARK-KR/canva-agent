@@ -16,25 +16,51 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Install pykrx and probe one date
+      - name: Probe direct KRX historical endpoint
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet pykrx pandas
+          python3 -m pip install --quiet requests pandas
           mkdir -p out
           python3 - <<'PY'
           import json
           from pathlib import Path
-          from pykrx import stock
+          import requests
+
+          session=requests.Session()
+          session.headers.update({
+              'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36',
+              'Referer':'https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101',
+              'Origin':'https://data.krx.co.kr',
+              'Accept':'application/json, text/javascript, */*; q=0.01',
+              'X-Requested-With':'XMLHttpRequest',
+          })
           result={}
-          for market in ('KOSPI','KOSDAQ'):
+          try:
+              warm=session.get('https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101',timeout=20)
+              result['warm']={'status':warm.status_code,'len':len(warm.content),'cookies':dict(session.cookies)}
+          except Exception as exc:
+              result['warm']={'error':f'{type(exc).__name__}: {exc}'}
+          for market in ('ALL','STK','KSQ'):
+              payload={
+                  'bld':'dbms/MDC/STAT/standard/MDCSTAT01501',
+                  'locale':'ko_KR',
+                  'mktId':market,
+                  'trdDd':'20260831',
+                  'share':'1',
+                  'money':'1',
+                  'csvxls_isNo':'false',
+              }
               try:
-                  df=stock.get_market_ohlcv_by_ticker('20260831', market=market)
-                  result[market]={
-                      'rows':int(len(df)),
-                      'columns':list(df.columns),
-                      'head':df.head(3).reset_index().astype(str).to_dict('records'),
-                  }
+                  response=session.post('https://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd',data=payload,timeout=30)
+                  box={'status':response.status_code,'content_type':response.headers.get('content-type'),'len':len(response.content),'text_head':response.text[:500]}
+                  try:
+                      parsed=response.json()
+                      rows=parsed.get('OutBlock_1') or parsed.get('output') or []
+                      box.update({'keys':list(parsed)[:20],'rows':len(rows),'head':rows[:2]})
+                  except Exception as exc:
+                      box['json_error']=f'{type(exc).__name__}: {exc}'
+                  result[market]=box
               except Exception as exc:
                   result[market]={'error':f'{type(exc).__name__}: {exc}'}
           Path('out/probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
@@ -42,6 +68,6 @@ jobs:
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: krx-history-probe
+          name: krx-history-probe-direct
           path: out
           retention-days: 3
