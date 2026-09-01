@@ -184,11 +184,12 @@ jobs:
           report=(root/'material-0906.html').read_text(encoding='utf-8')
           assert history.get('version')=='largo-material-0906-v1'
           assert summary.get('version')=='largo-material-0906-v1'
+          assert summary.get('target3_version')=='largo-close-v5'
           assert isinstance(history.get('theme_snapshots'),list)
           assert isinstance(history.get('signals'),list)
           assert isinstance(history.get('results'),list)
           assert summary.get('evaluated_rows',0) >= 72
-          assert '09:06 이전 수익 검증' in report
+          assert '라르고 종가베팅 v5' in report
           assert '생성형 AI 미사용' in report
           assert '자동주문 없음' in report
           assert 'fetch(' not in report
@@ -209,7 +210,7 @@ jobs:
         with:
           name: largo-material-0906-${{ steps.stage.outputs.stage }}
           path: material-public
-          retention-days: 30
+          retention-days: 90
 
       - name: Publish report and cumulative history
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
