@@ -1,4 +1,4 @@
-name: Temporary probe KRX historical data
+name: Temporary probe Naver historical data
 
 on:
   push:
@@ -16,58 +16,73 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Probe direct KRX historical endpoint
+      - name: Probe Naver market, chart, theme, news and time pages
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet requests pandas
+          python3 -m pip install --quiet requests beautifulsoup4
           mkdir -p out
           python3 - <<'PY'
-          import json
+          import json, re
           from pathlib import Path
           import requests
+          from bs4 import BeautifulSoup
 
           session=requests.Session()
           session.headers.update({
               'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36',
-              'Referer':'https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101',
-              'Origin':'https://data.krx.co.kr',
-              'Accept':'application/json, text/javascript, */*; q=0.01',
-              'X-Requested-With':'XMLHttpRequest',
+              'Referer':'https://finance.naver.com/',
           })
+          urls={
+              'market_sum':'https://finance.naver.com/sise/sise_market_sum.naver?sosok=0&page=1',
+              'chart':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=day&count=80&requestType=0',
+              'themes':'https://stock.naver.com/api/stockSecurity/rankings/v2/domestic/themes?sortType=changeRate&period=daily&size=200',
+              'news1':'https://stock.naver.com/api/domestic/detail/news?itemCode=005930&page=1&pageSize=30',
+              'news5':'https://stock.naver.com/api/domestic/detail/news?itemCode=005930&page=5&pageSize=30',
+              'notice':'https://stock.naver.com/api/domestic/detail/notice?itemCode=005930&startIdx=0&pageSize=30',
+              'signal_time':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260831151800&page=1',
+              'outcome_time':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260901090600&page=1',
+          }
           result={}
-          try:
-              warm=session.get('https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020101',timeout=20)
-              result['warm']={'status':warm.status_code,'len':len(warm.content),'cookies':dict(session.cookies)}
-          except Exception as exc:
-              result['warm']={'error':f'{type(exc).__name__}: {exc}'}
-          for market in ('ALL','STK','KSQ'):
-              payload={
-                  'bld':'dbms/MDC/STAT/standard/MDCSTAT01501',
-                  'locale':'ko_KR',
-                  'mktId':market,
-                  'trdDd':'20260831',
-                  'share':'1',
-                  'money':'1',
-                  'csvxls_isNo':'false',
-              }
+          for key,url in urls.items():
               try:
-                  response=session.post('https://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd',data=payload,timeout=30)
-                  box={'status':response.status_code,'content_type':response.headers.get('content-type'),'len':len(response.content),'text_head':response.text[:500]}
-                  try:
-                      parsed=response.json()
-                      rows=parsed.get('OutBlock_1') or parsed.get('output') or []
-                      box.update({'keys':list(parsed)[:20],'rows':len(rows),'head':rows[:2]})
-                  except Exception as exc:
-                      box['json_error']=f'{type(exc).__name__}: {exc}'
-                  result[market]=box
+                  r=session.get(url,timeout=30)
+                  box={'status':r.status_code,'content_type':r.headers.get('content-type'),'length':len(r.content),'head':r.text[:300]}
+                  if key=='market_sum':
+                      text=r.content.decode('euc-kr',errors='replace')
+                      soup=BeautifulSoup(text,'html.parser')
+                      rows=[]
+                      for tr in soup.select('table.type_2 tr'):
+                          a=tr.select_one('a.tltle')
+                          cols=[c.get_text(' ',strip=True) for c in tr.select('td')]
+                          if a:
+                              code=re.search(r'code=(\d{6})',a.get('href',''))
+                              rows.append({'code':code.group(1) if code else None,'name':a.get_text(strip=True),'cols':cols[:12]})
+                      box['rows']=len(rows); box['sample']=rows[:3]
+                  elif key=='chart':
+                      text=r.content.decode('utf-8',errors='replace')
+                      rows=re.findall(r'data="([^"]+)"',text)
+                      box['rows']=len(rows); box['sample']=rows[-3:]
+                  elif key in {'themes','news1','news5','notice'}:
+                      try:
+                          payload=r.json(); box['json_type']=type(payload).__name__
+                          if isinstance(payload,dict):
+                              box['keys']=list(payload)[:20]
+                          box['json_head']=str(payload)[:1000]
+                      except Exception as exc:
+                          box['json_error']=f'{type(exc).__name__}: {exc}'
+                  elif key.endswith('_time'):
+                      text=r.content.decode('euc-kr',errors='replace')
+                      times=re.findall(r'>(\d{2}:\d{2})</span>',text)
+                      box['times']=times[:15]
+                  result[key]=box
               except Exception as exc:
-                  result[market]={'error':f'{type(exc).__name__}: {exc}'}
+                  result[key]={'error':f'{type(exc).__name__}: {exc}'}
           Path('out/probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps(result,ensure_ascii=False))
+          print(json.dumps({k:{x:v for x,v in box.items() if x not in {'head','json_head'}} for k,box in result.items()},ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: krx-history-probe-direct
+          name: naver-history-probe
           path: out
           retention-days: 3
