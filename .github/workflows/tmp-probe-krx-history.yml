@@ -16,73 +16,48 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Probe Naver market, chart, theme, news and time pages
+      - name: Probe Naver theme membership payload
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet requests beautifulsoup4
+          python3 -m pip install --quiet requests
           mkdir -p out
           python3 - <<'PY'
-          import json, re
+          import json
           from pathlib import Path
           import requests
-          from bs4 import BeautifulSoup
 
-          session=requests.Session()
-          session.headers.update({
-              'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36',
-              'Referer':'https://finance.naver.com/',
-          })
-          urls={
-              'market_sum':'https://finance.naver.com/sise/sise_market_sum.naver?sosok=0&page=1',
-              'chart':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=day&count=80&requestType=0',
-              'themes':'https://stock.naver.com/api/stockSecurity/rankings/v2/domestic/themes?sortType=changeRate&period=daily&size=200',
-              'news1':'https://stock.naver.com/api/domestic/detail/news?itemCode=005930&page=1&pageSize=30',
-              'news5':'https://stock.naver.com/api/domestic/detail/news?itemCode=005930&page=5&pageSize=30',
-              'notice':'https://stock.naver.com/api/domestic/detail/notice?itemCode=005930&startIdx=0&pageSize=30',
-              'signal_time':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260831151800&page=1',
-              'outcome_time':'https://finance.naver.com/item/sise_time.naver?code=005930&thistime=20260901090600&page=1',
-          }
+          s=requests.Session()
+          s.headers.update({'User-Agent':'Mozilla/5.0 (compatible; LargoResearch/1.0; read-only)','Referer':'https://stock.naver.com/'})
           result={}
-          for key,url in urls.items():
-              try:
-                  r=session.get(url,timeout=30)
-                  box={'status':r.status_code,'content_type':r.headers.get('content-type'),'length':len(r.content),'head':r.text[:300]}
-                  if key=='market_sum':
-                      text=r.content.decode('euc-kr',errors='replace')
-                      soup=BeautifulSoup(text,'html.parser')
-                      rows=[]
-                      for tr in soup.select('table.type_2 tr'):
-                          a=tr.select_one('a.tltle')
-                          cols=[c.get_text(' ',strip=True) for c in tr.select('td')]
-                          if a:
-                              code=re.search(r'code=(\d{6})',a.get('href',''))
-                              rows.append({'code':code.group(1) if code else None,'name':a.get_text(strip=True),'cols':cols[:12]})
-                      box['rows']=len(rows); box['sample']=rows[:3]
-                  elif key=='chart':
-                      text=r.content.decode('utf-8',errors='replace')
-                      rows=re.findall(r'data="([^"]+)"',text)
-                      box['rows']=len(rows); box['sample']=rows[-3:]
-                  elif key in {'themes','news1','news5','notice'}:
-                      try:
-                          payload=r.json(); box['json_type']=type(payload).__name__
-                          if isinstance(payload,dict):
-                              box['keys']=list(payload)[:20]
-                          box['json_head']=str(payload)[:1000]
-                      except Exception as exc:
-                          box['json_error']=f'{type(exc).__name__}: {exc}'
-                  elif key.endswith('_time'):
-                      text=r.content.decode('euc-kr',errors='replace')
-                      times=re.findall(r'>(\d{2}:\d{2})</span>',text)
-                      box['times']=times[:15]
-                  result[key]=box
-              except Exception as exc:
-                  result[key]={'error':f'{type(exc).__name__}: {exc}'}
+          u='https://stock.naver.com/api/stockSecurity/rankings/v2/domestic/themes?sortType=changeRate&period=daily&size=100'
+          r=s.get(u,timeout=30)
+          result['themes_status']=r.status_code
+          try:
+              p=r.json(); result['themes_type']=type(p).__name__; result['themes_payload']=p
+              rows=[]
+              if isinstance(p,list): rows=p
+              elif isinstance(p,dict):
+                  for k in ('items','data','result','themes','content'):
+                      if isinstance(p.get(k),list): rows=p[k]; break
+              result['theme_rows']=len(rows)
+              if rows:
+                  result['theme_first']=rows[0]
+                  code=str(rows[0].get('code') or rows[0].get('no') or rows[0].get('themeCode') or '')
+                  result['theme_code']=code
+                  if code:
+                      su=f'https://stock.naver.com/api/domestic/market/theme/{code}/stocklist?marketType=ALL&orderType=priceTop&startIdx=0&pageSize=100'
+                      sr=s.get(su,timeout=30)
+                      result['stocklist_status']=sr.status_code
+                      try: result['stocklist_payload']=sr.json()
+                      except Exception: result['stocklist_text']=sr.text[:1000]
+          except Exception as exc:
+              result['error']=f'{type(exc).__name__}: {exc}'; result['text']=r.text[:1000]
           Path('out/probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps({k:{x:v for x,v in box.items() if x not in {'head','json_head'}} for k,box in result.items()},ensure_ascii=False))
+          print(json.dumps({k:v for k,v in result.items() if k not in {'themes_payload','stocklist_payload'}},ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: naver-history-probe
+          name: naver-theme-probe
           path: out
           retention-days: 3
