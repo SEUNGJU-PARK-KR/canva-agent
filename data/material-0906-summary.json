@@ -1,13 +1,13 @@
 {
   "version": "largo-material-0906-v1",
-  "target3_version": "largo-target3-v1",
-  "generated_at": "2026-09-02T00:39:10.526727+09:00",
+  "target3_version": "largo-close-v5",
+  "generated_at": "2026-09-02T00:40:18.474168+09:00",
   "definition": {
     "signal": "15:18 best ask with an observed best bid",
     "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
     "outcome": "maximum observed top bid",
     "target": "+3% versus the 15:18 best ask",
-    "selection": "explicit theme-continuation or direct-event intersection; no blended score threshold"
+    "selection": "momentum-digestion or direct-event lane; risk <=10%; one lowest-risk pick per day"
   },
   "evaluated_rows": 72,
   "evaluated_dates": [
@@ -32,10 +32,10 @@
     "avg_last_return_pct": -1.1957
   },
   "target3_selected": {
-    "n": 5,
-    "avg_score": 51.3,
-    "avg_max_return_pct": 4.1754,
-    "median_max_return_pct": 3.5758,
+    "n": 1,
+    "avg_score": 67.06,
+    "avg_max_return_pct": 6.1208,
+    "median_max_return_pct": 6.1208,
     "positive_rate": 1.0,
     "hit_0_5_rate": 1.0,
     "hit_1_rate": 1.0,
@@ -43,7 +43,7 @@
     "hit_3_rate": 1.0,
     "avg_policy_3_return_pct": 3.0,
     "policy_3_loss_rate": 0.0,
-    "avg_last_return_pct": 3.5624
+    "avg_last_return_pct": 5.6439
   },
   "high_70": {
     "n": 6,
@@ -165,10 +165,10 @@
         "avg_last_return_pct": -0.6743
       },
       "target3": {
-        "n": 2,
-        "avg_score": 53.25,
-        "avg_max_return_pct": 4.8483,
-        "median_max_return_pct": 4.8483,
+        "n": 1,
+        "avg_score": 67.06,
+        "avg_max_return_pct": 6.1208,
+        "median_max_return_pct": 6.1208,
         "positive_rate": 1.0,
         "hit_0_5_rate": 1.0,
         "hit_1_rate": 1.0,
@@ -176,11 +176,10 @@
         "hit_3_rate": 1.0,
         "avg_policy_3_return_pct": 3.0,
         "policy_3_loss_rate": 0.0,
-        "avg_last_return_pct": 4.6098
+        "avg_last_return_pct": 5.6439
       },
       "target3_names": [
-        "SK이노베이션",
-        "금호건설"
+        "SK이노베이션"
       ],
       "proxy": true
     },
@@ -269,24 +268,19 @@
         "avg_last_return_pct": -0.3193
       },
       "target3": {
-        "n": 3,
-        "avg_score": 50.0,
-        "avg_max_return_pct": 3.7268,
-        "median_max_return_pct": 3.3935,
-        "positive_rate": 1.0,
-        "hit_0_5_rate": 1.0,
-        "hit_1_rate": 1.0,
-        "hit_2_rate": 1.0,
-        "hit_3_rate": 1.0,
-        "avg_policy_3_return_pct": 3.0,
-        "policy_3_loss_rate": 0.0,
-        "avg_last_return_pct": 2.864
+        "n": 0,
+        "avg_score": null,
+        "avg_max_return_pct": null,
+        "median_max_return_pct": null,
+        "positive_rate": null,
+        "hit_0_5_rate": null,
+        "hit_1_rate": null,
+        "hit_2_rate": null,
+        "hit_3_rate": null,
+        "avg_policy_3_return_pct": null,
+        "policy_3_loss_rate": null
       },
-      "target3_names": [
-        "HD현대일렉트릭",
-        "효성중공업",
-        "삼성전기"
-      ],
+      "target3_names": [],
       "proxy": true
     }
   ],
@@ -455,11 +449,11 @@
       "threshold": 90
     }
   ],
-  "verdict": "+3% 통과 규칙은 표본 내 발굴 결과입니다. 20거래일 전진검증 전에는 매수 기준으로 사용하지 않습니다.",
+  "verdict": "v5 종가베팅 규칙은 과거 6개 평가일 재검증 결과입니다. 20개 실제 신호 전에는 매수 기준으로 사용하지 않습니다.",
   "limitations": [
-    "과거 보관분은 2026-08-27, 2026-08-28, 2026-08-31 세 신호일뿐입니다.",
-    "8월 27일과 28일은 15:30 구조를, 8월 31일은 14:47 구조를 15:18 대리값으로 사용했습니다.",
-    "+3% 조건은 같은 표본에서 발굴했으므로 표본 내 결과입니다. 20거래일 이상 고정 전진검증이 필요합니다.",
+    "기존 공개 이력의 정확한 15:18 신호일은 제한적이며 v5는 오늘부터 별도 누적합니다.",
+    "20거래일 재검증 중 성과 호가가 모두 남은 날은 6거래일뿐입니다.",
+    "v5 조건은 같은 6개 평가일을 보며 선택했으므로 최소 20개 실제 신호의 고정 전진검증이 필요합니다.",
     "09:06 이전 성과는 09:00~09:05 분별 최우선 매수호가의 최대값이며 수량과 체결 지연은 반영하지 않습니다.",
     "생성형 AI를 쓰지 않고 뉴스·공시 사건, 발표 시각, 테마 확산, 순위와 15:18 호가 간격으로 판정합니다."
   ]
