@@ -1,4 +1,4 @@
-name: Temporary probe reverse historical minute data
+name: Temporary probe Yahoo Korea minute history
 
 on:
   push:
@@ -16,50 +16,56 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Probe reverse minute requests
+      - name: Probe Yahoo one-minute Korean equity history
         shell: bash
         run: |
           set -euo pipefail
           python3 -m pip install --quiet requests
           mkdir -p out
           python3 - <<'PY'
-          import json, re
+          import datetime as dt
+          import json
           from pathlib import Path
+          from zoneinfo import ZoneInfo
           import requests
 
-          s=requests.Session()
-          s.headers.update({'User-Agent':'Mozilla/5.0 (compatible; LargoMinuteProbe/1.0; read-only)','Referer':'https://finance.naver.com/'})
-          urls={
-            'json_r2_12_400':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=202608031530&timeframe=minute',
-            'json_r2_14_400':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=20260803153000&timeframe=minute',
-            'json_r2_12_10000':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=10000&startTime=202608031530&timeframe=minute',
-            'fchart_r2_12_400':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&requestType=2&count=400&startTime=202608031530&timeframe=minute',
-            'fchart_r2_14_400':'https://fchart.stock.naver.com/sise.nhn?symbol=005930&requestType=2&count=400&startTime=20260803153000&timeframe=minute',
-            'json_r2_aug24':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=202608241530&timeframe=minute',
-            'json_r2_aug25':'https://api.finance.naver.com/siseJson.naver?symbol=005930&requestType=2&count=400&startTime=202608251530&timeframe=minute',
+          kst=ZoneInfo('Asia/Seoul')
+          def epoch(text):
+              return int(dt.datetime.fromisoformat(text).replace(tzinfo=kst).timestamp())
+          tests={
+              'samsung_aug3':('005930.KS','2026-08-03T08:30:00','2026-08-04T10:00:00'),
+              'samsung_aug31':('005930.KS','2026-08-31T08:30:00','2026-09-01T10:00:00'),
+              'kosdaq_aug3':('196170.KQ','2026-08-03T08:30:00','2026-08-04T10:00:00'),
           }
+          s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0'})
           result={}
-          for key,url in urls.items():
+          for key,(symbol,start,end) in tests.items():
+              url=f'https://query1.finance.yahoo.com/v8/finance/chart/{symbol}'
+              params={'period1':epoch(start),'period2':epoch(end),'interval':'1m','includePrePost':'false','events':'history'}
               try:
-                  r=s.get(url,timeout=40)
-                  text=r.content.decode('utf-8',errors='replace')
-                  stamps=re.findall(r'20\d{10,12}',text)
-                  result[key]={
-                      'status':r.status_code,
-                      'length':len(r.content),
-                      'count':len(stamps),
-                      'first':stamps[:5],
-                      'last':stamps[-5:],
-                      'head':text[:500],
-                      'tail':text[-500:],
-                  }
+                  r=s.get(url,params=params,timeout=40)
+                  box={'status':r.status_code,'length':len(r.content),'url':r.url}
+                  try:
+                      payload=r.json(); box['error']=payload.get('chart',{}).get('error')
+                      rows=(payload.get('chart',{}).get('result') or [])
+                      if rows:
+                          row=rows[0]; ts=row.get('timestamp') or []
+                          meta=row.get('meta') or {}
+                          box['count']=len(ts); box['timezone']=meta.get('exchangeTimezoneName')
+                          box['first']=[dt.datetime.fromtimestamp(x,kst).isoformat() for x in ts[:5]]
+                          box['last']=[dt.datetime.fromtimestamp(x,kst).isoformat() for x in ts[-5:]]
+                          quote=((row.get('indicators') or {}).get('quote') or [{}])[0]
+                          box['sample']=[{name:(values[:3] if isinstance(values,list) else values) for name,values in quote.items()}]
+                  except Exception as exc:
+                      box['parse_error']=f'{type(exc).__name__}: {exc}'; box['text']=r.text[:1000]
+                  result[key]=box
               except Exception as exc:
                   result[key]={'error':f'{type(exc).__name__}: {exc}'}
-          Path('out/reverse_minute_probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps({k:{x:v for x,v in box.items() if x not in {'head','tail'}} for k,box in result.items()},ensure_ascii=False))
+          Path('out/yahoo_minute_probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: reverse-historical-minute-probe
+          name: yahoo-korea-minute-probe
           path: out
           retention-days: 3
