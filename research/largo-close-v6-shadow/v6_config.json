@@ -1,0 +1,28 @@
+{
+  "version": "largo-close-v6-shadow",
+  "status": "shadow_only",
+  "baseline": "largo-close-v5",
+  "target_pct": 3.0,
+  "training_sample": "2026-07 proxy OHLC only",
+  "validation_sample": "2026-08, 6 days and 144 candidates with executable quotes",
+  "sample_comparison": {
+    "v5": {
+      "trades": 4,
+      "hit3": 2,
+      "sum_policy_return_pct": 9.8641
+    },
+    "v6_shadow": {
+      "trades": 4,
+      "hit3": 3,
+      "sum_policy_return_pct": 10.6253
+    }
+  },
+  "promotion_gate": {
+    "official_signals": 20,
+    "signal_days": 40,
+    "friction_pct": 0.3,
+    "positive_mean_and_median": true,
+    "beat_v5_hit3_and_mean": true,
+    "max_single_stock_share": 0.25
+  }
+}
