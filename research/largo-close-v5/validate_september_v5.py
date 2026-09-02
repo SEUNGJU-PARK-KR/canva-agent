@@ -11,6 +11,7 @@ import argparse
 import csv
 import datetime as dt
 import html
+import hashlib
 import json
 import math
 import statistics
@@ -41,6 +42,33 @@ NEXT_SESSION = {
     "2026-09-01": "2026-09-02",
     "2026-09-02": "2026-09-03",
 }
+
+KNOWN_RECONSTRUCTION_VARIANTS = [
+    {
+        "run_id": 33619084738,
+        "generated_at": "2026-09-02T19:24:37+09:00",
+        "signal_date": "2026-09-01",
+        "selected_code": "096770",
+        "selected_name": "SK이노베이션",
+        "lane": "DIRECT_EVENT",
+        "entry_ask": 135400.0,
+        "max_executable_return_pct": 0.0739,
+        "policy_return_3pct": -0.9601,
+        "result": "LOSS",
+    },
+    {
+        "run_id": 33620235904,
+        "generated_at": "2026-09-02T19:38:12+09:00",
+        "signal_date": "2026-09-01",
+        "selected_code": "047770",
+        "selected_name": "코데즈컴바인",
+        "lane": "MOMENTUM_DIGESTION",
+        "entry_ask": 3910.0,
+        "max_executable_return_pct": 3.4527,
+        "policy_return_3pct": 3.0,
+        "result": "HIT_3",
+    },
+]
 
 
 def num(value: Any) -> float | None:
@@ -81,6 +109,18 @@ def evaluate_candidate(candidate: Mapping[str, Any], signal_date: str, timeout: 
     code = str(candidate.get("code") or "").zfill(6)
     signal_at = dt.datetime.fromisoformat(signal_date + "T15:18:00+09:00").astimezone(KST)
     items, errors = fetch_news_box(code, timeout)
+    evidence_payload = [
+        {
+            "title": str(item.get("title") or ""),
+            "body": str(item.get("body") or ""),
+            "at": item.get("at").isoformat() if isinstance(item.get("at"), dt.datetime) else None,
+            "source": str(item.get("source") or ""),
+        }
+        for item in items
+    ]
+    news_input_hash = hashlib.sha256(
+        json.dumps(evidence_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     scored = score_candidate(
         candidate,
         signal_at,
@@ -116,6 +156,8 @@ def evaluate_candidate(candidate: Mapping[str, Any], signal_date: str, timeout: 
         "freshness_points": evidence.get("freshness_points"),
         "evidence_title": evidence.get("title"),
         "evidence_at": evidence.get("at"),
+        "news_input_hash": news_input_hash,
+        "news_item_count": len(evidence_payload),
         "change_rate": structure.get("change_rate"),
         "digest_ratio": structure.get("digest_ratio"),
         "risk_rate": structure.get("risk_rate"),
@@ -203,9 +245,9 @@ def build_report(summary: Mapping[str, Any], selected: list[dict[str, Any]]) -> 
     cards = [
         ("검사일", str(summary["signal_days"])),
         ("검사 후보", str(summary["candidate_rows"])),
-        ("v5 통과", str(summary["eligible_rows"])),
-        ("날짜별 선택", str(summary["selected_rows"])),
-        ("결과 완료", str(summary["evaluated_picks"])),
+        ("최신 재구성 통과", str(summary["eligible_rows"])),
+        ("알려진 재구성 변형", str(len(summary["known_reconstruction_variants"]))),
+        ("정식 완료", str(summary["official_evaluated_picks"])),
     ]
     cards_html = "".join(f"<div class='card'><b>{html.escape(v)}</b><span>{html.escape(k)}</span></div>" for k, v in cards)
     day_rows = []
@@ -227,14 +269,25 @@ def build_report(summary: Mapping[str, Any], selected: list[dict[str, Any]]) -> 
             f"<td>{result}</td>"
             "</tr>"
         )
+    variant_rows = "".join(
+        "<tr>"
+        f"<td>{item['run_id']}</td>"
+        f"<td>{html.escape(item['selected_name'])}<small>{html.escape(item['selected_code'])} · {html.escape(item['lane'])}</small></td>"
+        f"<td>{fmt_price(item['entry_ask'])}</td>"
+        f"<td>{fmt_pct(item['max_executable_return_pct'])}</td>"
+        f"<td>{fmt_pct(item['policy_return_3pct'])}</td>"
+        "</tr>"
+        for item in summary["known_reconstruction_variants"]
+    )
     warnings = "".join(f"<li>{html.escape(str(item))}</li>" for item in summary["limitations"])
     return f"""<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
 <title>라르고 v5 2026년 9월 검증</title><style>
 :root{{--bg:#eef3f8;--paper:#fff;--ink:#17243a;--muted:#65758a;--line:#d5dee9;--navy:#0b315d;--blue:#2367ad;--amber:#9a6200}}
 *{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,'Malgun Gothic',sans-serif;line-height:1.55}}main{{max-width:1240px;margin:auto;padding:20px}}.hero{{padding:28px;border-radius:22px;background:linear-gradient(135deg,var(--navy),var(--blue));color:white}}.hero p{{color:#deecfb;max-width:900px}}.cards{{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}}.card,.section{{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:16px;margin-bottom:16px}}.card b{{font-size:26px;display:block}}.card span,small{{color:var(--muted)}}.warning{{border-left:6px solid var(--amber)}}table{{border-collapse:collapse;width:100%;font-size:14px}}th,td{{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}}td small{{display:block}}@media(max-width:850px){{.cards{{grid-template-columns:repeat(2,1fr)}}}}@media(max-width:560px){{main{{padding:10px}}.cards{{grid-template-columns:1fr}}.hero{{padding:20px}}}}
-</style></head><body><main><section class='hero'><span>읽기 전용 · 주문 기능 없음</span><h1>라르고 종가베팅 v5 9월 재구성 검증</h1><p>보존된 장 마감 후보 스냅샷을 v5 임계값에 그대로 넣고, 15시 18분 최우선 매도호가와 다음 거래일 09시 06분 전 최우선 매수호가를 다시 조회했습니다.</p></section>
+</style></head><body><main><section class='hero'><span>읽기 전용 · 주문 기능 없음</span><h1>라르고 종가베팅 v5 9월 안정성 검증</h1><p>시장 스냅샷과 15시 18분 호가는 고정됐지만 과거 뉴스·공시 입력을 실행 때마다 다시 조회해 9월 1일 선택 종목이 달라졌습니다. 9월 공식 성과는 아직 0건입니다.</p></section>
 <section class='cards'>{cards_html}</section>
-<section class='section'><h2>날짜별 최종 선택</h2><div style='overflow:auto'><table><thead><tr><th>신호일</th><th>종목</th><th>15:18 가상 진입</th><th>09:06 전 최고</th><th>정책 결과</th></tr></thead><tbody>{''.join(day_rows)}</tbody></table></div></section>
+<section class='section warning'><h2>9월 1일 재현성 실패</h2><p>동일한 종가 후보 스냅샷으로 두 번 실행했지만 첫 실행은 SK이노베이션을 골라 -0.9601%, 두 번째 실행은 코데즈컴바인을 골라 +3.0000%로 계산했습니다. 변한 입력은 과거 뉴스·공시 응답입니다. 어느 한쪽도 공식 승패로 확정하지 않습니다.</p><div style='overflow:auto'><table><thead><tr><th>실행</th><th>선택 종목</th><th>15:18 진입</th><th>09:06 전 최고</th><th>정책수익</th></tr></thead><tbody>{variant_rows}</tbody></table></div></section>
+<section class='section'><h2>최신 재구성 선택</h2><div style='overflow:auto'><table><thead><tr><th>신호일</th><th>종목</th><th>15:18 가상 진입</th><th>09:06 전 최고</th><th>정책 결과</th></tr></thead><tbody>{''.join(day_rows)}</tbody></table></div></section>
 <section class='section warning'><h2>해석 제한</h2><ul>{warnings}</ul></section>
 <section class='section'><h2>고정 규칙</h2><p>추세·거래대금형은 당일 상승률 10~15%, 거래대금 소화 0.10~1.00, 호가 간격 0.20% 이하입니다. 직접 재료형은 직접성 14점 이상, 신선도 3점 이상, 소화 0.10~1.50, 호가 간격 0.10% 이하입니다. 공통으로 하드 제외 없음, 보통주, 구조 위험 10% 이하를 요구합니다.</p></section>
 </main></body></html>"""
@@ -283,7 +336,7 @@ def main() -> None:
     policy_returns = [num(row.get("policy_return_3pct")) for row in evaluated]
     policy_returns = [value for value in policy_returns if value is not None]
     summary = {
-        "version": "largo-close-v5-september-reconstruction-v1",
+        "version": "largo-close-v5-september-reconstruction-v2",
         "generated_at": dt.datetime.now(KST).isoformat(),
         "today": args.today,
         "dates": list(SNAPSHOTS),
@@ -291,14 +344,22 @@ def main() -> None:
         "candidate_rows": len(all_rows),
         "eligible_rows": sum(bool(row.get("v5_eligible")) for row in all_rows),
         "selected_rows": len(selected),
-        "evaluated_picks": len(evaluated),
-        "positive_picks": sum((num(row.get("policy_return_3pct")) or 0) > 0 for row in evaluated),
-        "hit3_picks": sum(bool(row.get("hit_3_exec")) for row in evaluated),
-        "mean_policy_return_pct": round(statistics.fmean(policy_returns), 4) if policy_returns else None,
-        "sum_policy_return_pct": round(sum(policy_returns), 4) if policy_returns else None,
+        "latest_reconstruction_evaluated_picks": len(evaluated),
+        "latest_reconstruction_positive_picks": sum((num(row.get("policy_return_3pct")) or 0) > 0 for row in evaluated),
+        "latest_reconstruction_hit3_picks": sum(bool(row.get("hit_3_exec")) for row in evaluated),
+        "latest_reconstruction_mean_policy_return_pct": round(statistics.fmean(policy_returns), 4) if policy_returns else None,
+        "latest_reconstruction_sum_policy_return_pct": round(sum(policy_returns), 4) if policy_returns else None,
+        "official_status": "EXCLUDED_UNSTABLE_HISTORICAL_EVIDENCE_INPUT",
+        "official_evaluated_picks": 0,
+        "official_positive_picks": 0,
+        "official_hit3_picks": 0,
+        "official_mean_policy_return_pct": None,
+        "official_sum_policy_return_pct": None,
+        "known_reconstruction_variants": KNOWN_RECONSTRUCTION_VARIANTS,
         "snapshots": snapshot_meta,
         "selected": selected,
         "limitations": [
+            "동일한 시장 스냅샷으로 두 번 실행했지만 과거 뉴스·공시 응답이 달라 2026-09-01 선택 종목이 바뀌었습니다. 9월 공식 성과는 0건입니다.",
             "9월 1일과 2일의 보존 스냅샷은 장 마감 뒤 생성됐습니다. 정확한 15:18 후보 화면을 복원한 전진검증이 아니라 사후 재구성입니다.",
             "진입 가격은 정확한 15:18 최우선 매도호가를 사용합니다. 결과는 다음 거래일 09:00~09:05 분별 최우선 매수호가입니다.",
             "테마 구성과 마감 구조 일부는 보존 스냅샷 값을 사용합니다.",
@@ -314,6 +375,7 @@ def main() -> None:
         "dates": summary["dates"],
         "candidates": summary["candidate_rows"],
         "eligible": summary["eligible_rows"],
+        "official_status": summary["official_status"],
         "selected": [{key: row.get(key) for key in ("signal_date", "code", "name", "v5_lane", "entry_ask", "outcome_status", "max_executable_return_pct", "policy_return_3pct")} for row in selected],
     }, ensure_ascii=False, indent=2))
 
