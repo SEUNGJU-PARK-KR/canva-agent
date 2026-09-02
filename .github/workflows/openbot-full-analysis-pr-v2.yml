@@ -1,0 +1,195 @@
+name: OpenBot complete LargoTV analysis PR pilot v2
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/openbot-full-analysis-pr-v2.yml"
+      - "scripts/openbot_full_video_analyzer.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        video_id: [nucIUdFTkZY, rYLFvo7LPfc, 0u8MIJVpa-4, zGpBq2PCv4M]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: openbot-largo-full-pilot-run-20260825
+
+      - name: Patch source discovery to use OpenBot's Bun network stack
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('scripts/openbot_full_video_analyzer.py')
+          text=p.read_text(encoding='utf-8')
+          replacement=r'''def koutu_source(video_id: str) -> tuple[str, dict[str, Any]]:
+              url = f"https://koutu.be/{video_id}"
+              js = (
+                  "const u=" + json.dumps(url) + ";"
+                  "const r=await fetch(u,{headers:{'user-agent':" + json.dumps(UA_DISCORD) + ",'accept':'text/html,application/xhtml+xml'}});"
+                  "const t=await r.text();"
+                  "if(!r.ok){console.error('HTTP '+r.status+' '+t.slice(0,500));process.exit(2)};"
+                  "process.stdout.write(t);"
+              )
+              proc = run(["bun", "-e", js], timeout=90, check=False)
+              body = proc.stdout
+              if proc.returncode != 0 or "twitter:player:stream" not in body:
+                  proc = run(["curl", "-sS", "-L", "--fail", "--retry", "3", "--max-time", "60", "-A", UA_DISCORD, url], timeout=90, check=False)
+                  body = proc.stdout
+              if proc.returncode != 0:
+                  raise RuntimeError(f"Koutube source page failed: {body[-1500:]}")
+              soup = BeautifulSoup(body, "html.parser")
+              stream = ""
+              for selector in [
+                  ('meta[name="twitter:player:stream"]', "content"),
+                  ('meta[property="og:video"]', "content"),
+                  ('meta[property="og:video:secure_url"]', "content"),
+              ]:
+                  node = soup.select_one(selector[0])
+                  if node and node.get(selector[1]):
+                      stream = str(node.get(selector[1]))
+                      break
+              if not stream:
+                  raise RuntimeError("Koutube response did not contain a media stream URL")
+              title_node = soup.select_one('meta[name="twitter:title"]')
+              description_node = soup.select_one('meta[name="twitter:description"]')
+              metadata = {
+                  "source_page": url,
+                  "media_host": urlparse(stream).netloc,
+                  "title": title_node.get("content") if title_node else "",
+                  "description": description_node.get("content") if description_node else "",
+                  "html_bytes": len(body.encode("utf-8")),
+                  "source_page_fetcher": "OpenBot Bun fetch",
+              }
+              return stream, metadata
+
+
+          def set_itag'''
+          text2,count=re.subn(r'def koutu_source\(video_id: str\).*?\n\ndef set_itag',replacement,text,flags=re.S)
+          if count!=1:
+              raise SystemExit(f'koutu_source patch count={count}')
+          p.write_text(text2,encoding='utf-8')
+          print('patched koutu_source with Bun fetch')
+          PY
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py
+
+      - name: Build official OpenBot computer with analysis tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:base -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.analysis <<'DOCKERFILE'
+          FROM openbot-agent-computer:base
+          USER root
+          RUN apt-get update \
+            && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+               ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+            && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models \
+            && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-analyzer:${{ matrix.video_id }} -f Dockerfile.analysis .
+
+      - name: Complete source, transcript, frame and order-book analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          docker run --rm --shm-size=2g \
+            -e COMPUTER_TOKEN=openbot-analysis-token \
+            -e COMPUTER_BOT_ID=analysis${{ strategy.job-index }} \
+            -e VIDEO_ID=${{ matrix.video_id }} \
+            -e OUT=/workspace/analysis \
+            -e WHISPER_MODEL=small \
+            -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-analyzer:${{ matrix.video_id }} \
+            python3 /app/openbot_full_video_analyzer.py
+
+      - name: Validate and trim temporary files
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          mkdir -p output/analysis
+          rm -rf output/analysis/work
+          find output/analysis -type f -printf '%P\t%s\n' | sort > output/analysis/manifest.tsv
+          du -sh output/analysis > output/analysis/size.txt 2>&1 || true
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('output/analysis')
+          keys=['summary.json','report.html','transcript.csv','transcript.srt','strategy_events.csv','sparse_frame_metrics.csv','contact_sheet_scene.jpg','contact_sheet_orderbook.jpg']
+          result={'video_id':'${{ matrix.video_id }}','files':{name:(root/name).exists() for name in keys}}
+          result['complete']=all(result['files'].values())
+          if (root/'summary.json').exists():
+            try: result['summary']=json.loads((root/'summary.json').read_text())
+            except Exception as e: result['summary_parse_error']=str(e)
+          if (root/'failure.json').exists():
+            try: result['failure']=json.loads((root/'failure.json').read_text())
+            except Exception as e: result['failure_parse_error']=str(e)
+          (root/'validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+          exit 0
+
+      - name: Upload verified video analysis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-complete-v2-${{ matrix.video_id }}
+          path: output/analysis
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
+
+  status:
+    if: always()
+    needs: analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: openbot-complete-v2-*
+          path: results
+          merge-multiple: false
+      - name: Aggregate completion status
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import html,json
+          rows=[]
+          for artifact in sorted(Path('results').glob('openbot-complete-v2-*')):
+            v=list(artifact.rglob('validation.json'))
+            rows.append(json.loads(v[0].read_text()) if v else {'video_id':artifact.name.replace('openbot-complete-v2-',''),'complete':False,'reason':'validation 없음'})
+          report={'runtime':'CopilotKit/OpenBot agent-computer','requested':4,'completed':sum(bool(x.get('complete')) for x in rows),'results':rows}
+          Path('openbot-complete-v2-status.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          trs=''.join(f"<tr><td>{html.escape(str(x.get('video_id','')))}</td><td>{'완료' if x.get('complete') else '실패'}</td><td>{html.escape(str((x.get('summary') or {}).get('title','')))}</td><td>{html.escape(str((x.get('summary') or {}).get('frame_summary','')))}</td><td>{html.escape(str(x.get('failure','')))}</td></tr>" for x in rows)
+          Path('openbot-complete-v2-status.html').write_text(f"<!doctype html><html lang='ko'><head><meta charset='utf-8'><style>body{{font-family:Arial,'Malgun Gothic';background:#eef3f8}}main{{max-width:1300px;margin:24px auto;background:white;padding:28px;border-radius:16px}}table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #d9e2ec;padding:8px;text-align:left}}th{{background:#f1f5f9}}</style></head><body><main><h1>OpenBot 원본 완주 분석 파일럿 v2</h1><p>완료 {report['completed']} / 4</p><table><tr><th>영상</th><th>상태</th><th>제목</th><th>프레임 분석</th><th>실패 사유</th></tr>{trs}</table></main></body></html>")
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openbot-complete-v2-status
+          path: |
+            openbot-complete-v2-status.json
+            openbot-complete-v2-status.html
+          retention-days: 7
+          compression-level: 6

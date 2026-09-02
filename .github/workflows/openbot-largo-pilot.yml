@@ -1,0 +1,155 @@
+name: OpenBot LargoTV parallel playback pilot
+
+on:
+  push:
+    branches:
+      - openbot-largo-pilot-20260825-b
+    paths:
+      - ".github/workflows/openbot-largo-pilot.yml"
+      - "scripts/openbot_embed_probe.ts"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/openbot-largo-pilot.yml"
+      - "scripts/openbot_embed_probe.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: openbot-largo-pilot-20260825-b
+
+      - name: Build CopilotKit OpenBot computer image
+        run: |
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:largo-pilot -f OpenBot/agent-computer/Dockerfile OpenBot
+          docker image inspect openbot-agent-computer:largo-pilot > openbot-image-inspect.json
+
+      - name: Start four isolated OpenBot computers
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p openbot-pilot-output
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-largo-$index"
+            mkdir -p "openbot-pilot-output/$id"
+            docker run -d --name "$name" --shm-size=1g \
+              -e COMPUTER_TOKEN=largo-pilot-token \
+              -e COMPUTER_BOT_ID="largo$index" \
+              -v "$PWD/openbot-pilot-output/$id:/workspace" \
+              openbot-agent-computer:largo-pilot
+            docker cp scripts/openbot_embed_probe.ts "$name:/app/openbot_embed_probe.ts"
+          done
+          for index in "${!videos[@]}"; do
+            name="openbot-largo-$index"
+            for attempt in $(seq 1 60); do
+              status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$name" 2>/dev/null || true)"
+              [[ "$status" == healthy ]] && break
+              [[ "$status" == unhealthy ]] && { docker logs "$name"; exit 1; }
+              sleep 2
+            done
+          done
+
+      - name: Verify network and public watch responses
+        shell: bash
+        run: |
+          set +e
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-largo-$index"
+            docker exec "$name" bash -lc "
+              echo '=== DNS ==='
+              getent hosts www.youtube.com || true
+              echo '=== YouTube 204 ==='
+              curl -4 -I -L --max-time 20 https://www.youtube.com/generate_204 || true
+              echo '=== Watch page ==='
+              curl -4 -L --compressed --max-time 25 -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/145 Safari/537.36' \
+                -o /workspace/watch-response.html -w 'status=%{http_code} bytes=%{size_download} time=%{time_total}\\n' \
+                'https://www.youtube.com/watch?v=$id&hl=ko&gl=KR' || true
+              grep -Eo 'LOGIN_REQUIRED|Sign in to confirm|로그인하여 본인 확인|playabilityStatus|storyboards' /workspace/watch-response.html 2>/dev/null | head -30 || true
+            " > "openbot-pilot-output/$id/network.log" 2>&1
+          done
+          exit 0
+
+      - name: Run four bounded embedded-player workers concurrently
+        shell: bash
+        run: |
+          set +e
+          videos=(nucIUdFTkZY rYLFvo7LPfc 0u8MIJVpa-4 zGpBq2PCv4M)
+          pids=()
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-largo-$index"
+            (
+              timeout 190s docker exec -e VIDEO_ID="$id" -e OUT=/workspace/embed-probe "$name" \
+                xvfb-run -a bun /app/openbot_embed_probe.ts \
+                > "openbot-pilot-output/$id/worker.log" 2>&1
+              echo $? > "openbot-pilot-output/$id/worker.exit"
+            ) &
+            pids+=("$!")
+          done
+          for pid in "${pids[@]}"; do wait "$pid" || true; done
+          for index in "${!videos[@]}"; do
+            id="${videos[$index]}"
+            name="openbot-largo-$index"
+            docker logs "$name" > "openbot-pilot-output/$id/computer.log" 2>&1 || true
+            docker stop -t 10 "$name" >/dev/null 2>&1 || true
+          done
+          exit 0
+
+      - name: Summarize evidence
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('openbot-pilot-output')
+          rows=[]
+          for d in sorted(p for p in root.iterdir() if p.is_dir()):
+              p=d/'embed-probe'/'summary.json'
+              row={'video_id':d.name,'summary_exists':p.exists()}
+              if p.exists():
+                  try:
+                      data=json.loads(p.read_text())
+                      row['success']=data.get('success')
+                      row['success_variant']=data.get('successVariant')
+                      row['attempts']=[{
+                          'name':a.get('name'),'time_delta':a.get('timeDelta'),'duration':a.get('duration'),
+                          'max_pixels':a.get('maxPixels'),'media_url_count':a.get('mediaUrlCount'),
+                          'navigation_committed':a.get('navigationCommitted'),'frame_urls':a.get('frameUrls'),
+                          'visible_texts':a.get('visibleTexts'),'error':a.get('error')
+                      } for a in data.get('results',[])]
+                  except Exception as e: row['parse_error']=str(e)
+              q=d/'worker.exit'; row['worker_exit']=q.read_text().strip() if q.exists() else None
+              n=d/'network.log'; row['network_log']=n.read_text(errors='replace')[:6000] if n.exists() else None
+              rows.append(row)
+          report={'runtime':'CopilotKit/OpenBot agent-computer','parallel_computers':len(rows),
+                  'successful_videos':[r['video_id'] for r in rows if r.get('success')],'results':rows}
+          (root/'pilot-summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          find openbot-pilot-output -type f -printf '%P\t%s\n' | sort > openbot-pilot-output/manifest.tsv
+          du -sh openbot-pilot-output || true
+
+      - name: Upload OpenBot pilot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-largotv-parallel-pilot
+          path: |
+            openbot-pilot-output
+            openbot-image-inspect.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6

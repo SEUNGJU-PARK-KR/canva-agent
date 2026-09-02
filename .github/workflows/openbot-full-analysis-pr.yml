@@ -1,0 +1,146 @@
+name: OpenBot complete LargoTV analysis PR pilot
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/openbot-full-analysis-pr.yml"
+      - "scripts/openbot_full_video_analyzer.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        video_id: [nucIUdFTkZY, rYLFvo7LPfc, 0u8MIJVpa-4, zGpBq2PCv4M]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: openbot-largo-full-pilot-run-20260825
+
+      - name: Build official OpenBot computer with analysis tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:base -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.analysis <<'DOCKERFILE'
+          FROM openbot-agent-computer:base
+          USER root
+          RUN apt-get update \
+            && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+               ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+            && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models \
+            && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-analyzer:${{ matrix.video_id }} -f Dockerfile.analysis .
+
+      - name: Complete source, transcript, frame and order-book analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          docker run --rm --shm-size=2g \
+            -e COMPUTER_TOKEN=openbot-analysis-token \
+            -e COMPUTER_BOT_ID=analysis${{ strategy.job-index }} \
+            -e VIDEO_ID=${{ matrix.video_id }} \
+            -e OUT=/workspace/analysis \
+            -e WHISPER_MODEL=small \
+            -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-analyzer:${{ matrix.video_id }} \
+            python3 /app/openbot_full_video_analyzer.py
+
+      - name: Validate and trim temporary files
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          mkdir -p output/analysis
+          rm -rf output/analysis/work
+          find output/analysis -type f -printf '%P\t%s\n' | sort > output/analysis/manifest.tsv
+          du -sh output/analysis > output/analysis/size.txt 2>&1 || true
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('output/analysis')
+          result={
+            'video_id':'${{ matrix.video_id }}',
+            'summary_exists':(root/'summary.json').exists(),
+            'failure_exists':(root/'failure.json').exists(),
+            'report_exists':(root/'report.html').exists(),
+            'transcript_exists':(root/'transcript.csv').exists(),
+            'strategy_events_exists':(root/'strategy_events.csv').exists(),
+            'frame_metrics_exists':(root/'sparse_frame_metrics.csv').exists(),
+            'scene_sheet_exists':(root/'contact_sheet_scene.jpg').exists(),
+            'orderbook_sheet_exists':(root/'contact_sheet_orderbook.jpg').exists(),
+          }
+          if (root/'summary.json' in list(root.glob('summary.json')):
+            try: result['summary']=json.loads((root/'summary.json').read_text())
+            except Exception as e: result['summary_parse_error']=str(e)
+          if (root/'failure.json').exists():
+            try: result['failure']=json.loads((root/'failure.json').read_text())
+            except Exception as e: result['failure_parse_error']=str(e)
+          result['complete']=all(result[k] for k in ['summary_exists','report_exists','transcript_exists','strategy_events_exists','frame_metrics_exists','scene_sheet_exists','orderbook_sheet_exists'])
+          (root/'validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+          exit 0
+
+      - name: Upload verified video analysis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: openbot-complete-${{ matrix.video_id }}
+          path: output/analysis
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 6
+
+  status:
+    if: always()
+    needs: analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: openbot-complete-*
+          path: results
+          merge-multiple: false
+      - name: Aggregate completion status
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import html,json
+          rows=[]
+          for artifact in sorted(Path('results').glob('openbot-complete-*')):
+            v=list(artifact.rglob('validation.json'))
+            data=json.loads(v[0].read_text()) if v else {'video_id':artifact.name.replace('openbot-complete-',''),'complete':False,'reason':'validation 없음'}
+            rows.append(data)
+          report={'runtime':'CopilotKit/OpenBot agent-computer','requested':4,'completed':sum(bool(x.get('complete')) for x in rows),'results':rows}
+          Path('openbot-complete-status.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          trs=''.join(f"<tr><td>{html.escape(str(x.get('video_id','')))}</td><td>{'완료' if x.get('complete') else '실패'}</td><td>{html.escape(str((x.get('summary') or {}).get('title','')))}</td><td>{html.escape(str((x.get('summary') or {}).get('frame_summary','')))}</td><td>{html.escape(str(x.get('failure','')))}</td></tr>" for x in rows)
+          Path('openbot-complete-status.html').write_text(f"<!doctype html><html lang='ko'><head><meta charset='utf-8'><style>body{{font-family:Arial,'Malgun Gothic';background:#eef3f8}}main{{max-width:1300px;margin:24px auto;background:white;padding:28px;border-radius:16px}}table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #d9e2ec;padding:8px;text-align:left}}th{{background:#f1f5f9}}</style></head><body><main><h1>OpenBot 원본 완주 분석 파일럿</h1><p>완료 {report['completed']} / 4</p><table><tr><th>영상</th><th>상태</th><th>제목</th><th>프레임 분석</th><th>실패 사유</th></tr>{trs}</table></main></body></html>")
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openbot-complete-status
+          path: |
+            openbot-complete-status.json
+            openbot-complete-status.html
+          retention-days: 7
+          compression-level: 6
