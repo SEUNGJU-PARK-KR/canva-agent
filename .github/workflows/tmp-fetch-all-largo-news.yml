@@ -1,0 +1,48 @@
+name: Temporary fetch all Largo candidate news
+
+on:
+  push:
+    branches:
+      - analysis/largo-winrate-v4-20260901
+    paths:
+      - ".github/workflows/tmp-fetch-all-largo-news.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Fetch bounded public news and notices
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python3 - <<'PY'
+          import json, time, urllib.request
+          codes='000500,000660,001210,001820,002990,003670,004770,005380,005930,005935,006400,009150,010120,010170,011070,012330,019170,028300,030530,032940,034020,034220,035420,041190,042510,047040,047050,049080,062040,066570,066970,067290,069540,096530,096770,105560,161890,178320,192650,192820,196170,204620,222800,232140,256840,257720,267260,294570,298040,387690,402340,432470,476060,484870'.split(',')
+          headers={'User-Agent':'Mozilla/5.0','Referer':'https://stock.naver.com/'}
+          result={}
+          for code in codes:
+              result[code]={}
+              for kind,url in {
+                  'news':f'https://stock.naver.com/api/domestic/detail/news?itemCode={code}&page=1&pageSize=50',
+                  'notice':f'https://stock.naver.com/api/domestic/detail/notice?itemCode={code}&startIdx=0&pageSize=50',
+              }.items():
+                  try:
+                      req=urllib.request.Request(url,headers=headers)
+                      with urllib.request.urlopen(req,timeout=20) as response:
+                          result[code][kind]={'status':response.status,'payload':json.loads(response.read())}
+                  except Exception as exc:
+                      result[code][kind]={'error':repr(exc)}
+                  time.sleep(0.08)
+          open('out/all_news_notice.json','w',encoding='utf-8').write(json.dumps(result,ensure_ascii=False,indent=2))
+          print({'codes':len(result),'bytes':len(json.dumps(result,ensure_ascii=False))})
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-all-news-notice
+          path: out/all_news_notice.json
+          retention-days: 2

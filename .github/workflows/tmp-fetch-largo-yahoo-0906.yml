@@ -1,0 +1,160 @@
+name: Temporary fetch Largo 09:06 minute windows
+
+on:
+  push:
+    branches:
+      - analysis/largo-winrate-v4-20260901
+    paths:
+      - ".github/workflows/tmp-fetch-largo-yahoo-0906.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Fetch exchange map and recent one-minute windows
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python3 - <<'PY'
+          from __future__ import annotations
+          import datetime as dt
+          import json
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from zoneinfo import ZoneInfo
+
+          KST = ZoneInfo('Asia/Seoul')
+          CODES = {
+            '000500':'가온전선','000660':'SK하이닉스','001210':'금호전기','001820':'삼화콘덴서',
+            '002990':'금호건설','003670':'포스코퓨처엠','004770':'써니전자','005380':'현대차',
+            '005930':'삼성전자','005935':'삼성전자우','006400':'삼성SDI','009150':'삼성전기',
+            '010120':'LS ELECTRIC','010170':'대한광통신','011070':'LG이노텍','012330':'현대모비스',
+            '012450':'한화에어로스페이스','017670':'SK텔레콤','019170':'신풍제약','028300':'HLB',
+            '030530':'원익홀딩스','032940':'원익','034020':'두산에너빌리티','034220':'LG디스플레이',
+            '035420':'NAVER','041190':'우리기술투자','042510':'라온시큐어','047040':'대우건설',
+            '047050':'포스코인터내셔널','049080':'기가레인','062040':'산일전기','066570':'LG전자',
+            '066970':'엘앤에프','067290':'JW신약','069540':'빛과전자','096530':'씨젠',
+            '096770':'SK이노베이션','105560':'KB금융','161890':'한국콜마','178320':'서진시스템',
+            '192650':'드림텍','192820':'코스맥스','196170':'알테오젠','204620':'글로벌텍스프리',
+            '222800':'심텍','232140':'와이씨','256840':'한국비엔씨','257720':'실리콘투',
+            '267260':'HD현대일렉트릭','294570':'쿠콘','298040':'효성중공업','387690':'레메디',
+            '402340':'SK스퀘어','432470':'케이엔에스','476060':'온코닉테라퓨틱스','484870':'엠앤씨솔루션',
+          }
+          HEADERS = {
+            'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/128 Safari/537.36',
+            'Accept':'application/json,text/plain,*/*',
+          }
+
+          def get_json(url: str, timeout: int = 25):
+              req = urllib.request.Request(url, headers=HEADERS)
+              with urllib.request.urlopen(req, timeout=timeout) as response:
+                  return json.loads(response.read().decode('utf-8'))
+
+          def exchange_for(code: str) -> tuple[str | None, dict]:
+              info = {}
+              try:
+                  payload = get_json(f'https://m.stock.naver.com/api/stock/{code}/basic')
+                  box = payload.get('stockExchangeType') if isinstance(payload, dict) else None
+                  name = str((box or {}).get('name') or payload.get('stockExchangeTypeName') or '').upper()
+                  info = {'naver_exchange': name, 'localTradedAt': payload.get('localTradedAt')}
+                  if 'KOSDAQ' in name:
+                      return 'KQ', info
+                  if 'KOSPI' in name or 'KONEX' not in name:
+                      return 'KS', info
+              except Exception as exc:
+                  info = {'naver_error': f'{type(exc).__name__}: {exc}'}
+              return None, info
+
+          start = dt.datetime(2026, 8, 17, 0, 0, tzinfo=KST)
+          end = dt.datetime(2026, 9, 2, 10, 0, tzinfo=KST)
+          period1, period2 = int(start.timestamp()), int(end.timestamp())
+          output = {
+              'generated_at': dt.datetime.now(KST).isoformat(),
+              'range': {'start':start.isoformat(),'end':end.isoformat()},
+              'codes':{}, 'errors':[],
+          }
+
+          for idx, (code, name) in enumerate(CODES.items(), 1):
+              guessed, exchange_info = exchange_for(code)
+              suffixes = [guessed] if guessed else []
+              suffixes += [s for s in ('KS','KQ') if s not in suffixes]
+              selected = None
+              result_data = None
+              attempts = []
+              for suffix in suffixes:
+                  symbol = f'{code}.{suffix}'
+                  query = urllib.parse.urlencode({
+                      'period1':period1,'period2':period2,'interval':'1m',
+                      'includePrePost':'false','events':'div,splits',
+                  })
+                  url = f'https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?{query}'
+                  try:
+                      payload = get_json(url)
+                      chart = payload.get('chart') or {}
+                      error = chart.get('error')
+                      result = (chart.get('result') or [None])[0]
+                      timestamps = (result or {}).get('timestamp') or []
+                      attempts.append({'symbol':symbol,'count':len(timestamps),'error':error})
+                      if result and timestamps:
+                          selected = symbol
+                          result_data = result
+                          break
+                  except Exception as exc:
+                      attempts.append({'symbol':symbol,'error':f'{type(exc).__name__}: {exc}'})
+                  time.sleep(0.15)
+
+              entry = {
+                  'name':name,'selected_symbol':selected,'exchange_info':exchange_info,
+                  'attempts':attempts,'bars':[],
+              }
+              if result_data:
+                  stamps = result_data.get('timestamp') or []
+                  quote = (((result_data.get('indicators') or {}).get('quote') or [{}])[0])
+                  adjclose = (((result_data.get('indicators') or {}).get('adjclose') or [{}])[0]).get('adjclose') or []
+                  keys = ('open','high','low','close','volume')
+                  arrays = {key: quote.get(key) or [] for key in keys}
+                  for i, stamp in enumerate(stamps):
+                      local = dt.datetime.fromtimestamp(stamp, tz=dt.timezone.utc).astimezone(KST)
+                      t = local.time()
+                      in_open = dt.time(9,0) <= t < dt.time(9,6)
+                      in_signal = dt.time(14,30) <= t <= dt.time(15,30)
+                      if not (in_open or in_signal):
+                          continue
+                      bar = {'at':local.isoformat(),'epoch':stamp}
+                      for key in keys:
+                          values = arrays[key]
+                          bar[key] = values[i] if i < len(values) else None
+                      bar['adjclose'] = adjclose[i] if i < len(adjclose) else None
+                      entry['bars'].append(bar)
+              else:
+                  output['errors'].append({'code':code,'name':name,'attempts':attempts})
+              output['codes'][code] = entry
+              print(idx, code, name, selected, len(entry['bars']))
+              time.sleep(0.25)
+
+          with open('out/yahoo_0906_windows.json','w',encoding='utf-8') as f:
+              json.dump(output,f,ensure_ascii=False,indent=2)
+          summary = {
+              'generated_at':output['generated_at'],
+              'requested':len(CODES),
+              'resolved':sum(1 for value in output['codes'].values() if value['selected_symbol']),
+              'with_bars':sum(1 for value in output['codes'].values() if value['bars']),
+              'errors':len(output['errors']),
+              'bar_count':sum(len(value['bars']) for value in output['codes'].values()),
+          }
+          with open('out/summary.json','w',encoding='utf-8') as f:
+              json.dump(summary,f,ensure_ascii=False,indent=2)
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-yahoo-0906-windows
+          path: out
+          retention-days: 2
