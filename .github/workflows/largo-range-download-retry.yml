@@ -1,0 +1,64 @@
+name: LargoTV complete byte-range source retry
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-range-download-retry.yml"
+      - "scripts/largo_range_downloader.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { video_id: "03-AcIXuUpI", expected_duration: 524 }
+          - { video_id: "65Hl6i_4poE", expected_duration: 533 }
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-range-download-retry-20260825
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install media and HTTP tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg curl
+          python -m pip install --upgrade requests
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
+          python -m py_compile scripts/largo_range_downloader.py
+      - name: Download and verify every byte of the progressive MP4
+        id: retry
+        continue-on-error: true
+        run: |
+          python scripts/largo_range_downloader.py \
+            --video-id '${{ matrix.video_id }}' \
+            --expected-duration '${{ matrix.expected_duration }}' \
+            --output output \
+            --chunk-mib 4
+      - name: Keep verification evidence but remove the full source file
+        if: always()
+        run: |
+          printf '%s\n' '${{ steps.retry.outcome }}' > output/workflow_outcome.txt
+          rm -f output/source_complete.mp4
+          find output -type f -printf '%P\t%s\n' | sort > output/manifest.tsv
+          du -sh output || true
+      - name: Upload range verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-range-retry-${{ matrix.video_id }}
+          path: output
+          if-no-files-found: warn
+          retention-days: 2
+          compression-level: 6
