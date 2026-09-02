@@ -1,0 +1,100 @@
+name: Temporary Largo v6 June 2026 backtest
+
+on:
+  push:
+    branches:
+      - research/largo-v6-june-2026-backtest
+    paths:
+      - ".github/workflows/tmp-largo-v6-june-2026-backtest.yml"
+      - "research/largo-close-v6-shadow/backfill_june_v6.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: largo-v6-june-2026-backtest
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install research dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+
+      - name: Compile fixed v6 gate and backtest scripts
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            scripts/largo_material_0906.py \
+            scripts/largo_close_v6_shadow.py \
+            research/largo-target3-20day/source/backfill_largo_target3_20day.py \
+            research/largo-close-v6-shadow/backfill_june_v6.py
+          PYTHONPATH=scripts python - <<'PY'
+          import largo_close_v6_shadow as v6
+          assert v6.VERSION == "largo-close-v6-shadow-v1", v6.VERSION
+          print({"version": v6.VERSION, "target_pct": v6.TARGET_PCT})
+          PY
+
+      - name: Reconstruct historical candidates and quote windows
+        run: |
+          set -euo pipefail
+          rm -rf june-v6
+          mkdir -p june-v6/raw june-v6/output
+          PYTHONPATH=scripts python research/largo-target3-20day/source/backfill_largo_target3_20day.py \
+            --output-dir june-v6/raw \
+            --end-date 2026-06-30 \
+            --days 25 \
+            --preselect 80 \
+            --workers 24 \
+            2>&1 | tee june-v6/output/backfill.log
+
+      - name: Apply unchanged v6 shadow gate and build daily table
+        run: |
+          set -euo pipefail
+          PYTHONPATH=scripts python research/largo-close-v6-shadow/backfill_june_v6.py \
+            --detail june-v6/raw/target3_20day_detail.json \
+            --output-dir june-v6/output \
+            --month 2026-06 \
+            2>&1 | tee june-v6/output/postprocess.log
+
+      - name: Validate retained result files
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          root = Path('june-v6/output')
+          summary = json.loads((root/'june-v6-summary.json').read_text(encoding='utf-8'))
+          daily = list(csv.DictReader((root/'june-v6-daily.csv').open(encoding='utf-8-sig')))
+          selected = list(csv.DictReader((root/'june-v6-selected.csv').open(encoding='utf-8-sig')))
+          assert summary['rule_version'] == 'largo-close-v6-shadow-v1-unchanged'
+          assert summary['month'] == '2026-06'
+          assert 20 <= summary['signal_days'] <= 22, summary['signal_days']
+          assert len(daily) == summary['signal_days']
+          assert len(selected) == summary['proxy_selected_days']
+          assert summary['candidate_rows'] >= summary['signal_days'] * 20
+          assert all(row['signal_date'].startswith('2026-06') for row in daily)
+          print({
+            'signal_days': summary['signal_days'],
+            'candidate_rows': summary['candidate_rows'],
+            'exact_entry_quote_rows': summary['exact_entry_quote_rows'],
+            'official_selected_days': summary['official_selected_days'],
+            'proxy_selected_days': summary['proxy_selected_days'],
+            'proxy_hit3_full_day_count': summary['proxy_hit3_full_day_count'],
+          })
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-v6-june-2026-backtest
+          path: june-v6
+          retention-days: 90
