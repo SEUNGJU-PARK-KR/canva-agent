@@ -1,0 +1,64 @@
+{
+  "common": {
+    "min_trade_value_krw": 100000000000
+  },
+  "MOMENTUM_CONFIRMED": {
+    "change_rate_min_pct": 10.0,
+    "change_rate_max_pct": 15.0,
+    "digest_ratio_min": 0.3,
+    "digest_ratio_max": 1.0,
+    "close_location_min": 0.65,
+    "upper_wick_max": 0.35,
+    "body_ratio_min": 0.6,
+    "theme_breadth_min": 0.8,
+    "leader_rank_max": 5,
+    "follower_strong_count_min": 2,
+    "pattern_score_min": 70.0,
+    "pattern_score_max_exclusive": 90.0,
+    "risk_rate_max": 0.1,
+    "spread_pct_max": 0.2
+  },
+  "DIRECT_UNREACTED": {
+    "directness_min": 15.0,
+    "freshness_min": 3.0,
+    "change_rate_min_pct": -5.0,
+    "change_rate_max_pct": 3.0,
+    "close_location_max": 0.35,
+    "digest_ratio_min": 0.1,
+    "digest_ratio_max": 1.5,
+    "risk_rate_max": 0.05,
+    "spread_pct_max": 0.1
+  },
+  "DIRECT_REACTED": {
+    "directness_min": 14.0,
+    "freshness_min": 7.0,
+    "event_strength_min": 2.0,
+    "change_rate_min_exclusive_pct": 3.0,
+    "change_rate_max_pct": 10.0,
+    "close_location_min": 0.8,
+    "upper_wick_max": 0.2,
+    "body_ratio_min": 0.55,
+    "digest_ratio_min": 0.2,
+    "digest_ratio_max": 0.8,
+    "risk_rate_max": 0.06,
+    "spread_pct_max": 0.1
+  },
+  "THEME_CONTINUATION": {
+    "change_rate_min_pct": 4.0,
+    "change_rate_max_pct": 9.0,
+    "digest_ratio_min": 0.3,
+    "digest_ratio_max": 0.6,
+    "close_location_min": 0.65,
+    "close_location_max": 0.9,
+    "upper_wick_min": 0.1,
+    "upper_wick_max": 0.35,
+    "body_ratio_min": 0.55,
+    "body_ratio_max": 0.75,
+    "theme_breadth_min": 0.9,
+    "leader_rank_max": 3,
+    "follower_strong_count_min": 1,
+    "volume_ratio_min": 1.2,
+    "risk_rate_max": 0.05,
+    "spread_pct_max": 0.1
+  }
+}

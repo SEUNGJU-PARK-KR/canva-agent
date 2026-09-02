@@ -1,0 +1,60 @@
+{
+  "version": "largo-close-v6-shadow",
+  "generated_for": "2026-09-02",
+  "status": "SHADOW_ONLY",
+  "target_pct": 3.0,
+  "v5_baseline": {
+    "trades": 4,
+    "positive": 4,
+    "losses": 0,
+    "hit3": 2,
+    "mean_policy_return_pct": 2.466025,
+    "sum_policy_return_pct": 9.8641,
+    "worst_policy_return_pct": 1.6253
+  },
+  "august_exact": {
+    "trades": 4,
+    "positive": 4,
+    "losses": 0,
+    "hit3": 3,
+    "mean_policy_return_pct": 2.6563,
+    "median_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 10.6253,
+    "worst_policy_return_pct": 1.6253
+  },
+  "august_evaluable_rows": 144,
+  "july_proxy": {
+    "selected_days": 4,
+    "evaluated_proxy_rows": 4,
+    "positive_open": 2,
+    "positive_close": 4,
+    "hit3_day_high": 4,
+    "mean_proxy_policy_return_pct": 3.0,
+    "sum_proxy_policy_return_pct": 12.0,
+    "worst_next_close_return_pct": 1.4656
+  },
+  "july_candidate_rows": 528,
+  "july_structural_eligible_rows": 7,
+  "improvement_vs_v5": {
+    "hit3_count_delta": 1,
+    "mean_policy_return_pp": 0.1903,
+    "sum_policy_return_pp": 0.7612
+  },
+  "forward_promotion_gate": {
+    "minimum_sessions": 40,
+    "minimum_completed_signals": 20,
+    "round_trip_friction_pct": 0.3,
+    "requirements": [
+      "마찰 차감 평균 정책수익 > 0",
+      "마찰 차감 중앙값 > 0",
+      "같은 날짜 v5보다 평균수익과 +3% 도달률이 모두 우수",
+      "단일 종목 비중 25% 이하"
+    ]
+  },
+  "limitations": [
+    "7월은 정확한 15:18 매도·매수호가와 09:06 전 매수호가가 없어 일봉 대용입니다.",
+    "8월 표본은 6거래일 144건뿐입니다.",
+    "조건을 만드는 과정에서 8월 결과도 확인했으므로 완전한 독립 표본이 아닙니다.",
+    "수수료, 세금, 호가 잔량과 주문 지연은 과거 수익률에 반영하지 않았습니다."
+  ]
+}
