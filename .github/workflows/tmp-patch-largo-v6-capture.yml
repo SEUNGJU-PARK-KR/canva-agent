@@ -1,0 +1,47 @@
+name: Temporary preserve Largo v6 capture metrics
+
+on:
+  push:
+    branches:
+      - feat/largo-close-v6-shadow-20260902
+    paths:
+      - ".github/workflows/tmp-patch-largo-v6-capture.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/largo-close-v6-shadow-20260902
+
+      - name: Preserve metrics needed by the v6 shadow rule
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('scripts/capture_largo_material_0906.py')
+          text=path.read_text(encoding='utf-8')
+          old='''            "trade_value": (num(candidate.get("trade_value")) or num((candidate.get("metrics") or {}).get("trade_value"))) if isinstance(candidate.get("metrics"), Mapping) else num(candidate.get("trade_value")),
+            "research_rank": index,
+'''
+          new='''            "trade_value": (num(candidate.get("trade_value")) or num((candidate.get("metrics") or {}).get("trade_value"))) if isinstance(candidate.get("metrics"), Mapping) else num(candidate.get("trade_value")),
+            "metrics": json_safe(candidate.get("metrics") if isinstance(candidate.get("metrics"), Mapping) else {}),
+            "volume_ratio": num((candidate.get("metrics") or {}).get("volume_ratio")) if isinstance(candidate.get("metrics"), Mapping) else None,
+            "research_rank": index,
+'''
+          if old not in text:
+              raise SystemExit('capture insertion point not found')
+          path.write_text(text.replace(old,new,1),encoding='utf-8')
+          PY
+          python -m py_compile scripts/capture_largo_material_0906.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/capture_largo_material_0906.py
+          git commit -m "Preserve volume metrics for Largo v6 shadow research"
+          git push origin HEAD:feat/largo-close-v6-shadow-20260902
