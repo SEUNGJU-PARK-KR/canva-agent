@@ -2,245 +2,6 @@
   "schema_version": 1,
   "snapshots": [
     {
-      "at": "2026-08-28T00:19:08.908405+09:00",
-      "items": {
-        "006400": {
-          "status": "WATCH",
-          "quality": 94.1,
-          "trade_value": 525727000000,
-          "pattern": "C1",
-          "sources": {
-            "trading_value": 5,
-            "rise": 39,
-            "volume_surge": 80
-          }
-        },
-        "010120": {
-          "status": "WATCH",
-          "quality": 91.2,
-          "trade_value": 242993000000,
-          "pattern": "C3",
-          "sources": {
-            "trading_value": 12,
-            "rise": 65
-          }
-        },
-        "062040": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 174525000000,
-          "pattern": "C1",
-          "sources": {
-            "trading_value": 19,
-            "rise": 22,
-            "volume_surge": 65
-          }
-        },
-        "267260": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 181703000000,
-          "pattern": "C3",
-          "sources": {
-            "trading_value": 17,
-            "rise": 30
-          }
-        },
-        "010170": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 403347909000,
-          "pattern": "C1",
-          "sources": {
-            "trading_value": 9,
-            "rise": 41
-          }
-        },
-        "000660": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 5498407000000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 1
-          }
-        },
-        "005930": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 4426878000000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 2
-          }
-        },
-        "003670": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 119333000000,
-          "pattern": "C1",
-          "sources": {
-            "trading_value": 34,
-            "rise": 62
-          }
-        },
-        "402340": {
-          "status": "EXCLUDE",
-          "quality": 88.2,
-          "trade_value": 502823000000,
-          "pattern": "C3",
-          "sources": {
-            "trading_value": 6
-          }
-        },
-        "000500": {
-          "status": "EXCLUDE",
-          "quality": 85.3,
-          "trade_value": 156395000000,
-          "pattern": "C4",
-          "sources": {
-            "trading_value": 23,
-            "rise": 9,
-            "volume_surge": 62
-          }
-        },
-        "222800": {
-          "status": "EXCLUDE",
-          "quality": 85.3,
-          "trade_value": 213656900000,
-          "pattern": "C6",
-          "sources": {
-            "trading_value": 13,
-            "rise": 25
-          }
-        },
-        "298040": {
-          "status": "EXCLUDE",
-          "quality": 85.3,
-          "trade_value": 206980000000,
-          "pattern": "C3",
-          "sources": {
-            "trading_value": 14,
-            "rise": 40
-          }
-        },
-        "178320": {
-          "status": "EXCLUDE",
-          "quality": 82.4,
-          "trade_value": 88909933000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 51,
-            "rise": 34
-          }
-        },
-        "009150": {
-          "status": "EXCLUDE",
-          "quality": 82.4,
-          "trade_value": 820004000000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 3
-          }
-        },
-        "005380": {
-          "status": "EXCLUDE",
-          "quality": 82.4,
-          "trade_value": 459988000000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 7
-          }
-        },
-        "047040": {
-          "status": "EXCLUDE",
-          "quality": 79.4,
-          "trade_value": 450873000000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 8
-          }
-        },
-        "034020": {
-          "status": "EXCLUDE",
-          "quality": 79.4,
-          "trade_value": 322361000000,
-          "pattern": "C3",
-          "sources": {
-            "trading_value": 10
-          }
-        },
-        "012330": {
-          "status": "EXCLUDE",
-          "quality": 79.4,
-          "trade_value": 306042000000,
-          "pattern": "C5",
-          "sources": {
-            "trading_value": 11
-          }
-        },
-        "005935": {
-          "status": "EXCLUDE",
-          "quality": 76.5,
-          "trade_value": 763233000000,
-          "pattern": "C3",
-          "sources": {
-            "trading_value": 4
-          }
-        },
-        "232140": {
-          "status": "EXCLUDE",
-          "quality": 76.5,
-          "trade_value": 130652245000,
-          "pattern": "C2",
-          "sources": {
-            "trading_value": 29,
-            "volume_surge": 67
-          }
-        },
-        "069540": {
-          "status": "EXCLUDE",
-          "quality": 73.5,
-          "trade_value": 97204499000,
-          "pattern": "C4",
-          "sources": {
-            "trading_value": 41,
-            "rise": 63
-          }
-        },
-        "049080": {
-          "status": "EXCLUDE",
-          "quality": 67.6,
-          "trade_value": 26964711000,
-          "pattern": "C4",
-          "sources": {
-            "rise": 13,
-            "volume_surge": 7
-          }
-        },
-        "432470": {
-          "status": "EXCLUDE",
-          "quality": 64.7,
-          "trade_value": 29486562000,
-          "pattern": "C3",
-          "sources": {
-            "rise": 14,
-            "volume_surge": 15
-          }
-        },
-        "192650": {
-          "status": "EXCLUDE",
-          "quality": 55.9,
-          "trade_value": 26043000000,
-          "pattern": "C6",
-          "sources": {
-            "rise": 31,
-            "volume_surge": 17
-          }
-        }
-      }
-    },
-    {
       "at": "2026-08-28T01:30:37.551505+09:00",
       "items": {
         "006400": {
@@ -4523,6 +4284,245 @@
     },
     {
       "at": "2026-09-02T18:52:49.525897+09:00",
+      "items": {
+        "003160": {
+          "status": "WATCH",
+          "quality": 94.1,
+          "trade_value": 89040000000,
+          "pattern": "C1",
+          "sources": {
+            "trading_value": 41,
+            "rise": 17
+          }
+        },
+        "443670": {
+          "status": "EXCLUDE",
+          "quality": 85.3,
+          "trade_value": 69649279000,
+          "pattern": "C2",
+          "sources": {
+            "trading_value": 56,
+            "rise": 20
+          }
+        },
+        "249420": {
+          "status": "EXCLUDE",
+          "quality": 82.4,
+          "trade_value": 65673000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 59,
+            "rise": 21,
+            "volume_surge": 8
+          }
+        },
+        "000660": {
+          "status": "EXCLUDE",
+          "quality": 82.4,
+          "trade_value": 4127901000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 1
+          }
+        },
+        "402340": {
+          "status": "EXCLUDE",
+          "quality": 82.4,
+          "trade_value": 536329000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 5
+          }
+        },
+        "005380": {
+          "status": "EXCLUDE",
+          "quality": 82.4,
+          "trade_value": 311197000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 8
+          }
+        },
+        "006400": {
+          "status": "EXCLUDE",
+          "quality": 82.4,
+          "trade_value": 253303000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 9
+          }
+        },
+        "105560": {
+          "status": "EXCLUDE",
+          "quality": 82.4,
+          "trade_value": 240010000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 10
+          }
+        },
+        "055550": {
+          "status": "EXCLUDE",
+          "quality": 79.4,
+          "trade_value": 174616000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 15,
+            "high52": 9
+          }
+        },
+        "012330": {
+          "status": "EXCLUDE",
+          "quality": 79.4,
+          "trade_value": 193962000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 12
+          }
+        },
+        "036930": {
+          "status": "EXCLUDE",
+          "quality": 79.4,
+          "trade_value": 178660196000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 13
+          }
+        },
+        "005930": {
+          "status": "EXCLUDE",
+          "quality": 76.5,
+          "trade_value": 3821070000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 2
+          }
+        },
+        "024060": {
+          "status": "EXCLUDE",
+          "quality": 73.5,
+          "trade_value": 104774565000,
+          "pattern": "C1",
+          "sources": {
+            "trading_value": 29,
+            "rise": 23,
+            "volume_surge": 44
+          }
+        },
+        "058730": {
+          "status": "EXCLUDE",
+          "quality": 73.5,
+          "trade_value": 58124000000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 66,
+            "rise": 31,
+            "volume_surge": 18
+          }
+        },
+        "091590": {
+          "status": "EXCLUDE",
+          "quality": 73.5,
+          "trade_value": 44899771000,
+          "pattern": "C2",
+          "sources": {
+            "rise": 11,
+            "volume_surge": 25
+          }
+        },
+        "079650": {
+          "status": "EXCLUDE",
+          "quality": 73.5,
+          "trade_value": 53994054000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 75,
+            "rise": 8
+          }
+        },
+        "002990": {
+          "status": "EXCLUDE",
+          "quality": 73.5,
+          "trade_value": 354564000000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 6
+          }
+        },
+        "005935": {
+          "status": "EXCLUDE",
+          "quality": 73.5,
+          "trade_value": 346713000000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 7
+          }
+        },
+        "196170": {
+          "status": "EXCLUDE",
+          "quality": 70.6,
+          "trade_value": 685621503000,
+          "pattern": "C5",
+          "sources": {
+            "trading_value": 3,
+            "volume_surge": 39
+          }
+        },
+        "067290": {
+          "status": "EXCLUDE",
+          "quality": 70.6,
+          "trade_value": 178077879000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 14,
+            "high52": 3
+          }
+        },
+        "044490": {
+          "status": "EXCLUDE",
+          "quality": 70.6,
+          "trade_value": 53544112000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 76,
+            "rise": 27,
+            "volume_surge": 33
+          }
+        },
+        "387690": {
+          "status": "EXCLUDE",
+          "quality": 67.6,
+          "trade_value": 136087875000,
+          "pattern": "C6",
+          "sources": {
+            "trading_value": 21,
+            "rise": 15,
+            "volume_surge": 63
+          }
+        },
+        "336260": {
+          "status": "EXCLUDE",
+          "quality": 67.6,
+          "trade_value": 137310000000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 20,
+            "volume_surge": 70
+          }
+        },
+        "009150": {
+          "status": "EXCLUDE",
+          "quality": 64.7,
+          "trade_value": 601835000000,
+          "pattern": "C4",
+          "sources": {
+            "trading_value": 4
+          }
+        }
+      }
+    },
+    {
+      "at": "2026-09-02T18:59:20.942728+09:00",
       "items": {
         "003160": {
           "status": "WATCH",
