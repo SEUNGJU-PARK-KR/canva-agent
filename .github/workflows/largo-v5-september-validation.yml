@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - main
-      - fix/largo-september-validation-20260902
     paths:
       - "research/largo-close-v5/validate_september_v5.py"
-      - "research/largo-close-v5/forward/2026-09/**"
+      - ".github/workflows/largo-v5-september-validation.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "research/largo-close-v5/validate_september_v5.py"
       - ".github/workflows/largo-v5-september-validation.yml"
   workflow_dispatch:
 
@@ -57,13 +61,18 @@ jobs:
           summary=json.loads((root/'september-v5-summary.json').read_text(encoding='utf-8'))
           all_rows=list(csv.DictReader((root/'september-v5-all.csv').open(encoding='utf-8-sig')))
           selected=list(csv.DictReader((root/'september-v5-selected.csv').open(encoding='utf-8-sig')))
-          assert summary['version']=='largo-close-v5-september-reconstruction-v1'
+          report=(root/'september-v5-report.html').read_text(encoding='utf-8')
+          assert summary['version']=='largo-close-v5-september-reconstruction-v2'
           assert summary['candidate_rows']==48
           assert len(all_rows)==48
           assert summary['selected_rows']==len(selected)
           assert summary['dates']==['2026-09-01','2026-09-02']
-          assert '라르고 종가베팅 v5 9월 재구성 검증' in (root/'september-v5-report.html').read_text(encoding='utf-8')
-          print({'selected':[(row['signal_date'],row['name'],row['v5_lane'],row.get('policy_return_3pct')) for row in selected]})
+          assert summary['official_status']=='EXCLUDED_UNSTABLE_HISTORICAL_EVIDENCE_INPUT'
+          assert summary['official_evaluated_picks']==0
+          assert len(summary['known_reconstruction_variants'])==2
+          assert '9월 1일 재현성 실패' in report
+          assert '9월 공식 성과는 아직 0건' in report
+          print({'official':summary['official_status'],'latest_selected':[(row['signal_date'],row['name']) for row in selected]})
           PY
 
       - name: Upload September validation artifact
@@ -74,7 +83,7 @@ jobs:
           retention-days: 90
 
       - name: Publish September validation page
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -83,4 +92,4 @@ jobs:
           keep_files: true
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Publish Largo v5 September validation
+          full_commit_message: Publish Largo v5 September stability validation
