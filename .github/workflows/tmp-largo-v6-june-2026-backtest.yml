@@ -57,6 +57,32 @@ jobs:
             --workers 24 \
             2>&1 | tee june-v6/output/backfill.log
 
+      - name: Normalize reconstructed fields for the unchanged v6 gate
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path('june-v6/raw/target3_20day_detail.json')
+          rows = json.loads(path.read_text(encoding='utf-8'))
+          injected = 0
+          for item in rows:
+              if not isinstance(item, dict):
+                  continue
+              candidate = item.get('candidate') if isinstance(item.get('candidate'), dict) else {}
+              metrics = candidate.get('metrics') if isinstance(candidate.get('metrics'), dict) else {}
+              score = item.get('score') if isinstance(item.get('score'), dict) else {}
+              structure = score.get('structure') if isinstance(score.get('structure'), dict) else {}
+              if structure.get('change_rate') is None and metrics.get('change_rate') is not None:
+                  structure['change_rate'] = metrics.get('change_rate')
+                  score['structure'] = structure
+                  item['score'] = score
+                  injected += 1
+          path.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding='utf-8')
+          assert injected > 0, injected
+          print({'change_rate_injected': injected})
+          PY
+
       - name: Apply unchanged v6 shadow gate and build daily table
         run: |
           set -euo pipefail
