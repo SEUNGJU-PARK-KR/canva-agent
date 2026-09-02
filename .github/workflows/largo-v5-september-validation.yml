@@ -1,0 +1,86 @@
+name: Largo v5 September validation
+
+on:
+  push:
+    branches:
+      - main
+      - fix/largo-september-validation-20260902
+    paths:
+      - "research/largo-close-v5/validate_september_v5.py"
+      - "research/largo-close-v5/forward/2026-09/**"
+      - ".github/workflows/largo-v5-september-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-v5-september-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile canonical v5 engine and September validator
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/largo_material_0906.py research/largo-close-v5/validate_september_v5.py
+
+      - name: Reconstruct September signals with fixed v5 thresholds
+        run: |
+          set -euo pipefail
+          rm -rf september-v5-public
+          mkdir -p september-v5-public/data
+          PYTHONPATH=scripts python3 research/largo-close-v5/validate_september_v5.py \
+            --output-dir september-v5-public/data \
+            --today 2026-09-02 \
+            --timeout 20 \
+            --delay 0.08
+          cp september-v5-public/data/september-v5-report.html september-v5-public/close-v5-september.html
+          touch september-v5-public/.nojekyll
+
+      - name: Validate reconstructed output
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import csv, json
+          from pathlib import Path
+          root=Path('september-v5-public/data')
+          summary=json.loads((root/'september-v5-summary.json').read_text(encoding='utf-8'))
+          all_rows=list(csv.DictReader((root/'september-v5-all.csv').open(encoding='utf-8-sig')))
+          selected=list(csv.DictReader((root/'september-v5-selected.csv').open(encoding='utf-8-sig')))
+          assert summary['version']=='largo-close-v5-september-reconstruction-v1'
+          assert summary['candidate_rows']==48
+          assert len(all_rows)==48
+          assert summary['selected_rows']==len(selected)
+          assert summary['dates']==['2026-09-01','2026-09-02']
+          assert '라르고 종가베팅 v5 9월 재구성 검증' in (root/'september-v5-report.html').read_text(encoding='utf-8')
+          print({'selected':[(row['signal_date'],row['name'],row['v5_lane'],row.get('policy_return_3pct')) for row in selected]})
+          PY
+
+      - name: Upload September validation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v5-september-validation
+          path: september-v5-public
+          retention-days: 90
+
+      - name: Publish September validation page
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./september-v5-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Publish Largo v5 September validation
