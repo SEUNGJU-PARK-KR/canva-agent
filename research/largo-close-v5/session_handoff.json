@@ -1,0 +1,82 @@
+{
+  "project": "largo-closing-bet",
+  "generated_at": "2026-09-02T12:25:48+09:00",
+  "canonical": {
+    "version": "largo-close-v5",
+    "strategy_commit": "777768ffbce3cc008c8636d774a2af267fc07b7d",
+    "pull_request": 22,
+    "report_path": "docs/largo-v5-evolution-report.md",
+    "start_path": "LARGO_V5_START_HERE.md",
+    "summary_path": "research/largo-close-v5/v5_summary.json",
+    "selected_trades_path": "research/largo-close-v5/v5_selected_trades.csv"
+  },
+  "scope": {
+    "read_only": true,
+    "external_order": false,
+    "automatic_buy": false,
+    "account_connection": false
+  },
+  "rule": {
+    "safety": "hard_reject=false, common stock, exact 15:18 ask/bid, structural risk <=10%",
+    "momentum_digest": "10% <= change <= 15%, 0.10 <= digest <= 1.00, spread <=0.20%",
+    "direct_event": "directness >=14, freshness >=3, 0.10 <= digest <=1.50, spread <=0.10%",
+    "daily_selection": "one per signal date: lowest risk, then tightest spread, then largest turnover",
+    "exit": "+3% if observed before 09:06; otherwise last observed top bid at 09:05"
+  },
+  "canonical_result": {
+    "trades": 4,
+    "positive": 4,
+    "losses": 0,
+    "hit3": 2,
+    "positive_rate": 1.0,
+    "loss_rate": 0.0,
+    "hit3_rate": 0.5,
+    "mean_policy_return_pct": 2.466025,
+    "median_policy_return_pct": 2.6194,
+    "sum_policy_return_pct": 9.8641,
+    "compound_return_pct": 10.228027,
+    "mean_last_return_pct": 2.863625,
+    "mean_max_return_pct": 3.475525
+  },
+  "coverage": {
+    "sessions_rebuilt": 20,
+    "candidate_rows": 480,
+    "evaluated_sessions": 6,
+    "evaluated_rows": 144,
+    "development_dates": [
+      "2026-08-24",
+      "2026-08-25",
+      "2026-08-26"
+    ],
+    "validation_dates": [
+      "2026-08-27",
+      "2026-08-28",
+      "2026-08-31"
+    ]
+  },
+  "known_issues": [
+    "v5 thresholds were selected after reviewing the same six evaluable dates",
+    "historical theme membership partly uses a current-catalog proxy",
+    "exact entry and outcome quotes coexist for only six signal dates",
+    "direct-event evidence can confuse an affiliate or negative-context article with a positive direct catalyst",
+    "quote depth and actual fill order are not modeled"
+  ],
+  "next_session_tasks": [
+    "read LARGO_V5_START_HERE.md and docs/largo-v5-evolution-report.md",
+    "verify the latest main commit and v5 configuration hash",
+    "count forward-test signals and completed outcomes after the v5 baseline commit",
+    "report missing snapshot and quote rates before discussing returns",
+    "keep v5 thresholds frozen until at least 40 sessions and 20 actual signals are available",
+    "improve legal-entity matching and catalyst polarity without changing performance thresholds"
+  ],
+  "promotion_criteria": {
+    "minimum_sessions": 40,
+    "minimum_signals": 20,
+    "round_trip_friction_pct": 0.3,
+    "mean_net_policy_return_gt_pct": 0,
+    "median_policy_return_gt_pct": 0,
+    "max_single_name_share": 0.25,
+    "must_outperform_same_day_safe_universe": true,
+    "no_midwindow_threshold_changes": true
+  }
+}
