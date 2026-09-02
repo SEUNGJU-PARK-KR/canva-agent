@@ -23,16 +23,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Patch, compile and commit
+      - name: Patch non-workflow files, compile and commit
         shell: bash
         run: |
           set -euo pipefail
           python3 research/largo-close-v5/patch_september_stability.py
           python3 -m py_compile research/largo-close-v5/validate_september_v5.py
+          git checkout -- .github/workflows/largo-v5-september-validation.yml
           rm research/largo-close-v5/patch_september_stability.py
-          rm .github/workflows/tmp-apply-september-stability.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add research/largo-close-v5/validate_september_v5.py research/largo-close-v5/forward/2026-09 research/largo-close-v5/patch_september_stability.py
           git commit -m "Exclude unstable September reconstructions from official v5 results"
           git push origin HEAD:fix/largo-september-reconstruction-stability-20260902
