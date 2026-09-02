@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate retained v5 analysis
+      - name: Validate retained v5 analysis and journey handoff
         shell: bash
         run: |
           set -euo pipefail
@@ -38,15 +38,27 @@ jobs:
           import csv, json
           root=Path('research/largo-close-v5')
           summary=json.loads((root/'v5_summary.json').read_text(encoding='utf-8'))
+          handoff=json.loads((root/'session_handoff.json').read_text(encoding='utf-8'))
           report=(root/'v5_report.html').read_text(encoding='utf-8')
+          journey=(root/'v5_journey_report.html').read_text(encoding='utf-8')
           selected=list(csv.DictReader((root/'v5_selected_trades.csv').open(encoding='utf-8-sig')))
           assert summary.get('version')=='largo-close-v5'
+          assert handoff.get('canonical',{}).get('version')=='largo-close-v5'
+          assert handoff.get('canonical',{}).get('strategy_commit')=='777768ffbce3cc008c8636d774a2af267fc07b7d'
           assert (summary.get('v5_daily') or {}).get('trades')==4
           assert len(selected)==4
           assert '라르고 종가베팅 v5 재검증' in report
           assert '자동주문 없음' in report
-          assert 'fetch(' not in report
-          print({'trades':len(selected),'mean':summary['v5_daily']['mean_policy_return_pct']})
+          assert '라르고 종가베팅 v5까지의 설계 여정' in journey
+          assert '향후 진행 방향' in journey
+          assert '자동주문 없음' in journey
+          assert 'fetch(' not in report and 'fetch(' not in journey
+          assert 'http://' not in journey and 'https://' not in journey
+          print({
+              'trades':len(selected),
+              'mean':summary['v5_daily']['mean_policy_return_pct'],
+              'handoff_version':handoff['canonical']['version'],
+          })
           PY
 
       - name: Build public bundle
@@ -56,11 +68,13 @@ jobs:
           rm -rf close-v5-public
           mkdir -p close-v5-public/data
           cp research/largo-close-v5/v5_report.html close-v5-public/close-v5.html
+          cp research/largo-close-v5/v5_journey_report.html close-v5-public/close-v5-journey.html
           cp research/largo-close-v5/v5_summary.json close-v5-public/data/largo-close-v5-summary.json
           cp research/largo-close-v5/v5_selected_trades.csv close-v5-public/data/largo-close-v5-selected.csv
           cp research/largo-close-v5/v5_sensitivity.csv close-v5-public/data/largo-close-v5-sensitivity.csv
           cp research/largo-close-v5/v5_condition_effects.csv close-v5-public/data/largo-close-v5-condition-effects.csv
           cp research/largo-close-v5/v5_friction_scenarios.csv close-v5-public/data/largo-close-v5-friction.csv
+          cp research/largo-close-v5/session_handoff.json close-v5-public/data/largo-close-v5-session-handoff.json
           touch close-v5-public/.nojekyll
 
       - name: Upload retained v5 artifact
@@ -80,4 +94,4 @@ jobs:
           keep_files: true
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Publish Largo closing-bet v5 historical report
+          full_commit_message: Publish Largo closing-bet v5 historical and journey reports
