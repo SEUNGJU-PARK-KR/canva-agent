@@ -83,8 +83,10 @@ jobs:
               stage="15:18"
             fi
           fi
+          safe_stage="${stage//:/-}"
           echo "stage=$stage" >> "$GITHUB_OUTPUT"
-          echo "Selected stage: $stage"
+          echo "artifact_stage=$safe_stage" >> "$GITHUB_OUTPUT"
+          echo "Selected stage: $stage (artifact: $safe_stage)"
 
       - name: Compile and validate rule engine
         shell: bash
@@ -206,9 +208,10 @@ jobs:
           PY
 
       - name: Upload validation artifact
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: largo-material-0906-${{ steps.stage.outputs.stage }}
+          name: largo-material-0906-${{ steps.stage.outputs.artifact_stage }}
           path: material-public
           retention-days: 90
 
