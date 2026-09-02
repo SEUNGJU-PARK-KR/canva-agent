@@ -1,0 +1,108 @@
+name: LargoTV blocked and portrait recovery
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-blocked-and-portrait-recovery.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recover:
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        video_id:
+          - -j3VrQpENJU
+          - E-5tzfLS1R4
+          - d2mheunkGcQ
+          - e-XqpjlcsBM
+          - sSj8ttMZuYA
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Patch verified analyzer for Bun fetch and portrait video
+        shell: bash
+        run: |
+          python scripts/patch_largo_fullscan_analyzer.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/openbot_full_video_analyzer.py')
+          text=p.read_text(encoding='utf-8')
+          old='probe and probe.get("width", 0) >= 640 and probe.get("duration", 0) > 1'
+          new='probe and max(probe.get("width", 0), probe.get("height", 0)) >= 640 and min(probe.get("width", 0), probe.get("height", 0)) >= 320 and probe.get("duration", 0) > 1'
+          if old not in text:
+              raise SystemExit('portrait threshold target not found')
+          p.write_text(text.replace(old,new),encoding='utf-8')
+          PY
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py
+
+      - name: Build OpenBot analyzer computer
+        shell: bash
+        run: |
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:recovery -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.recovery <<'DOCKERFILE'
+          FROM openbot-agent-computer:recovery
+          USER root
+          RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          RUN mkdir -p /opt/whisper-models && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-recovery:${{ strategy.job-index }} -f Dockerfile.recovery .
+
+      - name: Analyze recovery target
+        shell: bash
+        run: |
+          mkdir -p output
+          set +e
+          docker run --rm --shm-size=2g \
+            -e COMPUTER_TOKEN=recovery-token \
+            -e COMPUTER_BOT_ID=recovery${{ strategy.job-index }} \
+            -e VIDEO_ID='${{ matrix.video_id }}' \
+            -e OUT=/workspace/analysis \
+            -e WHISPER_MODEL=small \
+            -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-recovery:${{ strategy.job-index }} \
+            python3 /app/openbot_full_video_analyzer.py
+          echo $? > output/analyzer.exit
+          rm -rf output/analysis/work
+          exit 0
+
+      - name: Validate recovery result
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('output/analysis')
+          result={'video_id':'${{ matrix.video_id }}','complete':(root/'summary.json').exists() and (root/'transcript.csv').exists() and (root/'report.html').exists()}
+          if (root/'summary.json').exists():
+              result['summary']=json.loads((root/'summary.json').read_text())
+          if (root/'failure.json').exists():
+              result['failure']=json.loads((root/'failure.json').read_text())
+          root.mkdir(parents=True,exist_ok=True)
+          (root/'recovery_status.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-recovery-${{ strategy.job-index }}
+          path: output/analysis
+          if-no-files-found: warn
+          retention-days: 2
+          compression-level: 6

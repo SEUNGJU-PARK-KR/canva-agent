@@ -1,0 +1,182 @@
+name: LargoTV priority opening and closing strategy analysis
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/largo-priority-opening-closing.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        include:
+          - { video_id: "03-AcIXuUpI", group: closing }
+          - { video_id: "3DyDaIdJuWU", group: closing }
+          - { video_id: "65Hl6i_4poE", group: closing }
+          - { video_id: "DWzMWH8enJA", group: closing }
+          - { video_id: "E-5tzfLS1R4", group: closing }
+          - { video_id: "M9rBXtlIQe0", group: closing }
+          - { video_id: "d2mheunkGcQ", group: closing }
+          - { video_id: "e-XqpjlcsBM", group: closing }
+          - { video_id: "e4fHw1uADI4", group: closing }
+          - { video_id: "eG4Wf_mPR84", group: closing }
+          - { video_id: "hWhuTQjGHhM", group: closing }
+          - { video_id: "sSj8ttMZuYA", group: closing }
+          - { video_id: "sZgu4Dmc77M", group: closing }
+          - { video_id: "wrTvBlDpYYQ", group: closing }
+          - { video_id: "-j3VrQpENJU", group: opening }
+          - { video_id: "0QCAVJ50CoY", group: opening }
+          - { video_id: "324LJuyGxGw", group: opening }
+          - { video_id: "3jg7GeYHqO0", group: opening }
+          - { video_id: "EaRBzJje1yA", group: opening }
+          - { video_id: "MSQ6AjNJaVs", group: opening }
+          - { video_id: "N6AV2HzuepU", group: opening }
+          - { video_id: "O3Pvk9L2FD4", group: opening }
+          - { video_id: "R4AWA-XmOoU", group: opening }
+          - { video_id: "XsxHx2hSvBg", group: opening }
+          - { video_id: "YQv9eIURAKw", group: opening }
+          - { video_id: "bSiOAUkMRnc", group: opening }
+          - { video_id: "lxNIUYHRUu8", group: opening }
+          - { video_id: "zqt5xSs698k", group: opening }
+          - { video_id: "1exZ3uA7sIc", group: selection }
+          - { video_id: "bkuqoyHjRPk", group: selection }
+          - { video_id: "_QUFT6Ja_pA", group: selection }
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: largo-openbot-fullscan-20260825
+
+      - name: Patch and build the official OpenBot analyzer computer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/patch_largo_fullscan_analyzer.py scripts/openbot_full_video_analyzer.py
+          python3 -m py_compile scripts/openbot_full_video_analyzer.py
+          git clone --depth 1 https://github.com/CopilotKit/OpenBot.git OpenBot
+          docker build -t openbot-agent-computer:priority-base -f OpenBot/agent-computer/Dockerfile OpenBot
+          cat > Dockerfile.priority <<'DOCKERFILE'
+          FROM openbot-agent-computer:priority-base
+          USER root
+          RUN apt-get update \
+            && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+                 ffmpeg python3 python3-pip curl ca-certificates fonts-noto-cjk \
+            && rm -rf /var/lib/apt/lists/*
+          RUN python3 -m pip install --break-system-packages --no-cache-dir \
+              requests beautifulsoup4 pillow numpy opencv-python-headless faster-whisper
+          COPY scripts/openbot_full_video_analyzer.py /app/openbot_full_video_analyzer.py
+          COPY scripts/largo_fullscan_runner.py /app/largo_fullscan_runner.py
+          RUN mkdir -p /opt/whisper-models \
+            && python3 -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8', download_root='/opt/whisper-models')"
+          DOCKERFILE
+          docker build -t openbot-largo-priority:${{ matrix.video_id }} -f Dockerfile.priority .
+
+      - name: Perform high-density full-video analysis
+        id: analysis
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p output
+          docker run --rm --shm-size=2g \
+            -e COMPUTER_TOKEN=largo-priority-token \
+            -e COMPUTER_BOT_ID=priority${{ strategy.job-index }} \
+            -e VIDEO_ID=${{ matrix.video_id }} \
+            -e OUT=/workspace/analysis \
+            -e WHISPER_MODEL=small \
+            -e WHISPER_MODEL_ROOT=/opt/whisper-models \
+            -e SPARSE_INTERVAL=5 \
+            -e DENSE_WINDOWS=15 \
+            -e EVENT_FRAME_LIMIT=80 \
+            -v "$PWD/output:/workspace" \
+            openbot-largo-priority:${{ matrix.video_id }} \
+            python3 /app/openbot_full_video_analyzer.py
+
+      - name: Preserve evidence and trim repeated frames
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          python3 - <<'PY'
+          import json,sys
+          from pathlib import Path
+          sys.path.insert(0,'scripts')
+          from largo_fullscan_runner import trim_output
+          root=Path('output/analysis'); root.mkdir(parents=True,exist_ok=True)
+          trim_output(root)
+          result={'video_id':'${{ matrix.video_id }}','group':'${{ matrix.group }}','workflow_outcome':'${{ steps.analysis.outcome }}'}
+          if (root/'summary.json').exists():
+            try: result['summary']=json.loads((root/'summary.json').read_text())
+            except Exception as e: result['summary_error']=str(e)
+          if (root/'failure.json').exists():
+            try: result['failure']=json.loads((root/'failure.json').read_text())
+            except Exception as e: result['failure_error']=str(e)
+          result['complete']=all((root/name).exists() for name in ['summary.json','transcript.csv','strategy_events.csv','sparse_frame_metrics.csv','report.html'])
+          (root/'priority_validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+          find output/analysis -type f -printf '%P\t%s\n' | sort > output/analysis/manifest.tsv
+          du -sh output/analysis > output/analysis/size.txt 2>&1 || true
+          exit 0
+
+      - name: Upload high-density evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-priority-${{ matrix.group }}-${{ matrix.video_id }}
+          path: output/analysis
+          if-no-files-found: warn
+          retention-days: 2
+          compression-level: 6
+
+  aggregate:
+    if: always()
+    needs: analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: largo-priority-*
+          path: priority-results
+          merge-multiple: false
+      - name: Build priority completion index
+        run: |
+          python3 - <<'PY'
+          import csv,html,json
+          from pathlib import Path
+          rows=[]
+          for artifact in sorted(Path('priority-results').glob('largo-priority-*')):
+            p=list(artifact.rglob('priority_validation.json'))
+            data=json.loads(p[0].read_text()) if p else {'video_id':artifact.name,'complete':False,'failure':'validation 없음'}
+            rows.append(data)
+          report={'requested':31,'completed':sum(bool(x.get('complete')) for x in rows),'results':rows}
+          Path('priority-status.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          fields=['video_id','group','complete','workflow_outcome','title','duration','strategy_events','failure']
+          with Path('priority-status.csv').open('w',encoding='utf-8-sig',newline='') as f:
+            w=csv.DictWriter(f,fieldnames=fields);w.writeheader()
+            for x in rows:
+              s=x.get('summary') or {}
+              w.writerow({'video_id':x.get('video_id'),'group':x.get('group'),'complete':x.get('complete'),'workflow_outcome':x.get('workflow_outcome'),'title':s.get('title'),'duration':(s.get('file_probe') or {}).get('duration'),'strategy_events':s.get('strategy_events'),'failure':x.get('failure')})
+          trs=''.join(f"<tr><td>{html.escape(str(x.get('video_id','')))}</td><td>{html.escape(str(x.get('group','')))}</td><td>{'완료' if x.get('complete') else '막힘'}</td><td>{html.escape(str((x.get('summary') or {}).get('title','')))}</td><td>{html.escape(str(x.get('failure','')))}</td></tr>" for x in rows)
+          Path('priority-status.html').write_text(f"<!doctype html><html lang='ko'><head><meta charset='utf-8'><style>body{{font-family:Arial,'Malgun Gothic';background:#eef3f8}}main{{max-width:1300px;margin:24px auto;background:white;padding:28px;border-radius:16px}}table{{border-collapse:collapse;width:100%}}th,td{{border:1px solid #d9e2ec;padding:8px;text-align:left}}th{{background:#f1f5f9}}</style></head><body><main><h1>시초가·종가 우선 분석</h1><p>완료 {report['completed']} / 31</p><table><tr><th>영상</th><th>분류</th><th>상태</th><th>제목</th><th>막힌 사유</th></tr>{trs}</table></main></body></html>")
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-priority-status
+          path: |
+            priority-status.json
+            priority-status.csv
+            priority-status.html
+          retention-days: 2
+          compression-level: 6
