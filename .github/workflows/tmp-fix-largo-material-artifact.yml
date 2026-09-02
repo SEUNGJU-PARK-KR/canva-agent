@@ -1,0 +1,51 @@
+name: Temporary fix Largo material artifact naming
+
+on:
+  push:
+    branches:
+      - fix/largo-september-validation-20260902
+    paths:
+      - ".github/workflows/tmp-fix-largo-material-artifact.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/largo-september-validation-20260902
+
+      - name: Sanitize stage names and keep publication independent
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('.github/workflows/largo-material-0906.yml')
+          text = path.read_text(encoding='utf-8')
+          old = '          echo "stage=$stage" >> "$GITHUB_OUTPUT"\n          echo "Selected stage: $stage"\n'
+          new = '          echo "stage=$stage" >> "$GITHUB_OUTPUT"\n          safe_stage="${stage//:/-}"\n          echo "artifact_stage=$safe_stage" >> "$GITHUB_OUTPUT"\n          echo "Selected stage: $stage (artifact: $safe_stage)"\n'
+          if old not in text:
+              raise SystemExit('stage output block not found')
+          text = text.replace(old, new, 1)
+          old_name = '          name: largo-material-0906-${{ steps.stage.outputs.stage }}'
+          new_name = '          name: largo-material-0906-${{ steps.stage.outputs.artifact_stage }}'
+          if old_name not in text:
+              raise SystemExit('artifact name block not found')
+          text = text.replace(old_name, new_name, 1)
+          upload_header = '      - name: Upload validation artifact\n        uses: actions/upload-artifact@v4'
+          upload_replacement = '      - name: Upload validation artifact\n        continue-on-error: true\n        uses: actions/upload-artifact@v4'
+          if upload_header not in text:
+              raise SystemExit('upload header not found')
+          text = text.replace(upload_header, upload_replacement, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          rm .github/workflows/tmp-fix-largo-material-artifact.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix Largo material artifact naming and publication flow"
+          git push origin HEAD:fix/largo-september-validation-20260902
