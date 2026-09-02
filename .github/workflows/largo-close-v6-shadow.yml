@@ -1,0 +1,106 @@
+name: Largo closing-bet v6 shadow validation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/largo_close_v6_shadow.py"
+      - "scripts/capture_largo_v6_shadow.py"
+      - "scripts/validate_largo_close_v6_shadow.py"
+      - ".github/workflows/largo-close-v6-shadow.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/largo_close_v6_shadow.py"
+      - "scripts/capture_largo_v6_shadow.py"
+      - "scripts/validate_largo_close_v6_shadow.py"
+      - ".github/workflows/largo-close-v6-shadow.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "25 6 * * 1-5"
+    - cron: "10 0 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-close-v6-shadow-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile and test v6 shadow engine
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/largo_close_v6_shadow.py scripts/capture_largo_v6_shadow.py scripts/validate_largo_close_v6_shadow.py
+          PYTHONPATH=scripts python scripts/validate_largo_close_v6_shadow.py
+
+      - name: Recover canonical v5 material history
+        run: |
+          set -euo pipefail
+          rm -rf v6-shadow-public v6-shadow-work
+          mkdir -p v6-shadow-public/data v6-shadow-work
+          curl -fsSL --max-time 25 https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/material-0906-history.json -o v6-shadow-work/material-history.json
+          curl -fsSL --max-time 20 https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/gh-pages/data/largo-close-v6-shadow-history.json -o v6-shadow-work/previous-history.json || echo '{"signals":[]}' > v6-shadow-work/previous-history.json
+
+      - name: Rebuild cumulative v6 shadow history and report
+        run: |
+          set -euo pipefail
+          PYTHONPATH=scripts python scripts/capture_largo_v6_shadow.py \
+            --material-history v6-shadow-work/material-history.json \
+            --previous-history v6-shadow-work/previous-history.json \
+            --output-history v6-shadow-public/data/largo-close-v6-shadow-history.json \
+            --output-summary v6-shadow-public/data/largo-close-v6-shadow-summary.json \
+            --output-csv v6-shadow-public/data/largo-close-v6-shadow-signals.csv \
+            --output-report v6-shadow-public/close-v6-shadow.html
+          touch v6-shadow-public/.nojekyll
+
+      - name: Validate generated read-only report
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          root=Path('v6-shadow-public')
+          history=json.loads((root/'data/largo-close-v6-shadow-history.json').read_text(encoding='utf-8'))
+          summary=json.loads((root/'data/largo-close-v6-shadow-summary.json').read_text(encoding='utf-8'))
+          rows=list(csv.DictReader((root/'data/largo-close-v6-shadow-signals.csv').open(encoding='utf-8-sig')))
+          report=(root/'close-v6-shadow.html').read_text(encoding='utf-8')
+          assert history['version']=='largo-close-v6-shadow-history-v1'
+          assert history['gate_version']=='largo-close-v6-shadow-v1'
+          assert summary['signal_days']==len(rows)
+          assert 'v5 유지' in report and '주문 기능 없음' in report
+          assert 'fetch(' not in report
+          assert 'http://' not in report and 'https://' not in report
+          assert len(report.encode('utf-8')) > 5000
+          print({'signals':len(rows),'completed':summary['completed'],'official':summary['official']['n']})
+          PY
+
+      - name: Upload 90-day v6 shadow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-close-v6-shadow
+          path: v6-shadow-public
+          retention-days: 90
+
+      - name: Publish v6 shadow report
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./v6-shadow-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Update Largo closing-bet v6 shadow validation
