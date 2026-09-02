@@ -1,0 +1,67 @@
+{
+  "version": "largo-close-v6-shadow-v1",
+  "status": "shadow_research_only",
+  "target_pct": 3.0,
+  "exit_policy": {
+    "target": "09:06 전 최우선 매수호가가 15:18 최우선 매도호가 대비 +3% 도달",
+    "fallback": "+3% 미도달 시 09:05 마지막 최우선 매수호가",
+    "costs_included": false
+  },
+  "common": {
+    "hard_exclusion_clear": true,
+    "common_stock_only": true,
+    "exact_1518_ask_bid_required": true,
+    "max_structural_risk": 0.10,
+    "min_digest_ratio": 0.30
+  },
+  "lanes": {
+    "THEME_LEADER": {
+      "change_rate_pct": [10.0, 15.0],
+      "digest_ratio": [0.30, 1.00],
+      "min_theme_breadth": 0.80,
+      "max_leader_rank": 2,
+      "min_close_location": 0.70,
+      "max_upper_wick": 0.20,
+      "max_spread_pct": 0.20,
+      "theme_fade_block": true
+    },
+    "CLOSE_POWER": {
+      "change_rate_pct": [8.0, 15.0],
+      "digest_ratio": [0.30, 0.80],
+      "min_close_location": 0.90,
+      "max_upper_wick": 0.10,
+      "min_body_ratio": 0.45,
+      "max_spread_pct": 0.15,
+      "supporting_context_required": true
+    },
+    "DIRECT_UNPRICED": {
+      "evidence_audit_required": true,
+      "min_directness": 14.0,
+      "min_freshness": 7.0,
+      "change_rate_pct": [-2.0, 8.0],
+      "digest_ratio": [0.30, 1.20],
+      "min_close_location": 0.60,
+      "max_spread_pct": 0.10,
+      "same_event_cooldown_signals": 5
+    },
+    "DIRECT_CONFIRMED": {
+      "evidence_audit_required": true,
+      "min_directness": 15.0,
+      "min_freshness": 9.0,
+      "change_rate_pct": [5.0, 12.0],
+      "digest_ratio": [0.30, 1.00],
+      "max_spread_pct": 0.10,
+      "confirmation_required": "테마 확산·대장 또는 고가권 마감·작은 윗꼬리 또는 강한 후속주",
+      "same_event_cooldown_signals": 5
+    }
+  },
+  "selection": {
+    "daily_max_picks": 1,
+    "order": ["quality_desc", "risk_asc", "spread_asc", "turnover_desc"]
+  },
+  "promotion_gate": {
+    "minimum_trading_days": 40,
+    "minimum_official_signals": 20,
+    "friction_pct": 0.30
+  }
+}
