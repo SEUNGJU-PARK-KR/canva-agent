@@ -23,12 +23,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Unpack, validate and commit v6 files
+      - name: Rebuild, validate and commit v6 files
         shell: bash
         run: |
           set -euo pipefail
-          unzip -oq research/largo-close-v6/payload.zip -d .
-          rm research/largo-close-v6/payload.zip
+          cat research/largo-close-v6/payload.part* | base64 -d > /tmp/largo-v6-payload.zip
+          echo "863bdf1c48818704822d4c4b769c2525fb294c30d58a0fde5a97908a06810b94  /tmp/largo-v6-payload.zip" | sha256sum -c -
+          unzip -t /tmp/largo-v6-payload.zip
+          unzip -oq /tmp/largo-v6-payload.zip -d .
+          rm -f research/largo-close-v6/payload.zip research/largo-close-v6/payload.part*
           python -m py_compile \
             scripts/largo_close_v6.py \
             scripts/build_largo_close_v6_shadow.py \
@@ -36,12 +39,6 @@ jobs:
           PYTHONPATH=scripts python scripts/validate_largo_close_v6.py --unit-only
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            LARGO_V6_START_HERE.md \
-            docs/largo-v6-profit-filter-report.md \
-            scripts/largo_close_v6.py \
-            scripts/build_largo_close_v6_shadow.py \
-            scripts/validate_largo_close_v6.py \
-            research/largo-close-v6
+          git add -A
           git commit -m "Add Largo closing-bet v6 shadow research"
           git push origin HEAD:feat/largo-close-v6-shadow-20260902
