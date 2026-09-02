@@ -23,6 +23,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "Applying the deterministic v6 metric-preservation patch"
           python - <<'PY'
           from pathlib import Path
           path=Path('scripts/capture_largo_material_0906.py')
