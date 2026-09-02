@@ -1,7 +1,7 @@
 {
   "version": "largo-material-0906-v1",
   "target3_version": "largo-close-v5",
-  "generated_at": "2026-09-02T20:10:17.160960+09:00",
+  "generated_at": "2026-09-02T20:15:35.736405+09:00",
   "definition": {
     "signal": "15:18 best ask with an observed best bid",
     "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
@@ -16,7 +16,9 @@
     "2026-08-27"
   ],
   "live_completed_dates": [],
-  "pending_signal_dates": [],
+  "pending_signal_dates": [
+    "2026-09-02"
+  ],
   "overall": {
     "n": 72,
     "avg_score": 43.3271,
