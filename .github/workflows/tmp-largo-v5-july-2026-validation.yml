@@ -5,6 +5,7 @@ on:
     branches:
       - research/largo-v5-july-2026-validation
     paths:
+      - "research/largo-close-v5/run_july_v5_canonical.py"
       - ".github/workflows/tmp-largo-v5-july-2026-validation.yml"
   workflow_dispatch:
 
@@ -29,210 +30,40 @@ jobs:
       - name: Install research dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
 
-      - name: Prepare canonical v5 historical runner
+      - name: Compile canonical engine and July runner
         run: |
-          set -euo pipefail
           python -m py_compile scripts/largo_material_0906.py
-          cp research/largo-target3-20day/source/backfill_largo_target3_20day.py /tmp/backfill_largo_v5_july.py
-          python - <<'PY'
-          from pathlib import Path
-          path=Path('/tmp/backfill_largo_v5_july.py')
-          text=path.read_text(encoding='utf-8')
-          needle='''            max_return = num(outcome.get("max_executable_return_pct"))
-            row = {
-                "signal_date": f"{date_text[:4]}-{date_text[4:6]}-{date_text[6:]}",
-                "next_date": f"{next_map[date_text][:4]}-{next_map[date_text][4:6]}-{next_map[date_text][6:]}",
-                "code": code, "name": base["name"], "market": base["market"],
-'''
-          replacement='''            max_return = num(outcome.get("max_executable_return_pct"))
-            next_position = indices.get(code, {}).get(next_map[date_text])
-            next_bar = charts.get(code, [])[next_position] if next_position is not None else None
-            signal_close = num(candidate.get("price"))
-            next_open = num(next_bar.get("o")) if next_bar else None
-            next_high = num(next_bar.get("h")) if next_bar else None
-            next_close = num(next_bar.get("c")) if next_bar else None
-            row = {
-                "signal_date": f"{date_text[:4]}-{date_text[4:6]}-{date_text[6:]}",
-                "next_date": f"{next_map[date_text][:4]}-{next_map[date_text][4:6]}-{next_map[date_text][6:]}",
-                "code": code, "name": base["name"], "market": base["market"],
-                "signal_close_proxy": signal_close,
-                "change_rate": scored.get("structure", {}).get("change_rate"),
-                "next_open_proxy": next_open,
-                "next_high_proxy": next_high,
-                "next_close_proxy": next_close,
-                "next_open_return_from_close_pct": ((next_open / signal_close - 1) * 100) if signal_close and next_open else None,
-                "next_high_return_from_close_pct": ((next_high / signal_close - 1) * 100) if signal_close and next_high else None,
-                "next_close_return_from_close_pct": ((next_close / signal_close - 1) * 100) if signal_close and next_close else None,
-'''
-          if needle not in text:
-              raise SystemExit('flat row patch point not found')
-          path.write_text(text.replace(needle,replacement,1),encoding='utf-8')
-          PY
-          python -m py_compile /tmp/backfill_largo_v5_july.py
-          PYTHONPATH="$GITHUB_WORKSPACE/scripts" python - <<'PY'
-          import largo_material_0906 as m
-          assert m.TARGET3_VERSION == "largo-close-v5", m.TARGET3_VERSION
-          print({"module":m.__file__,"target3_version":m.TARGET3_VERSION,"target_pct":m.TARGET3_PCT})
-          PY
+          python -m py_compile research/largo-close-v5/run_july_v5_canonical.py
 
-      - name: Reconstruct July trading days with fixed v5 thresholds
+      - name: Run fixed v5 over July 2026
         run: |
-          set -euo pipefail
-          rm -rf july-v5
-          mkdir -p july-v5/raw july-v5/output
-          PYTHONPATH="$GITHUB_WORKSPACE/scripts" python /tmp/backfill_largo_v5_july.py \
-            --output-dir july-v5/raw \
-            --end-date 2026-07-31 \
-            --days 22 \
-            --preselect 80 \
+          python research/largo-close-v5/run_july_v5_canonical.py \
+            --output-dir july-v5 \
             --workers 24 \
-            2>&1 | tee july-v5/output/run.log
+            --timeout 25 \
+            2>&1 | tee july-v5-run.log
 
-      - name: Build date-by-date official and quote-missing table
+      - name: Validate retained tables
         run: |
-          set -euo pipefail
           python - <<'PY'
-          from __future__ import annotations
-          import csv, json, math, statistics
-          from collections import defaultdict
+          import csv
+          import json
           from pathlib import Path
-
-          root=Path('july-v5')
-          with (root/'raw/target3_20day_rows.csv').open(encoding='utf-8-sig',newline='') as f:
-              rows=[r for r in csv.DictReader(f) if str(r.get('signal_date','')).startswith('2026-07')]
-
-          def num(value):
-              try:
-                  x=float(value)
-                  return x if math.isfinite(x) else None
-              except (TypeError,ValueError):
-                  return None
-
-          def truth(value):
-              return str(value).strip().lower() in {'true','1','yes'}
-
-          quote_blockers={'entry_quote_known','spread_at_most_0_20pct','spread_at_most_0_10pct'}
-          grouped=defaultdict(list)
-          for row in rows:
-              grouped[row['signal_date']].append(row)
-
-          daily=[]
-          selected=[]
-          for date in sorted(grouped):
-              day=grouped[date]
-              official=[r for r in day if truth(r.get('target3_eligible'))]
-              provisional=[]
-              for r in day:
-                  blockers={x for x in str(r.get('target3_blockers') or '').split('|') if x}
-                  if blockers and blockers.issubset(quote_blockers):
-                      provisional.append(r)
-              rank_key=lambda r:(
-                  num(r.get('risk_rate')) if num(r.get('risk_rate')) is not None else math.inf,
-                  num(r.get('spread_pct')) if num(r.get('spread_pct')) is not None else math.inf,
-                  -(num(r.get('trade_value')) or 0.0),
-                  r.get('code') or '',
-              )
-              official.sort(key=rank_key)
-              provisional.sort(key=rank_key)
-              pick=official[0] if official else (provisional[0] if provisional else None)
-              status='OFFICIAL' if official else ('PROVISIONAL_NO_QUOTE' if provisional else 'NO_CANDIDATE')
-              item={
-                  'signal_date':date,
-                  'candidate_count':len(day),
-                  'official_eligible_count':len(official),
-                  'provisional_no_quote_count':len(provisional),
-                  'selection_status':status,
-                  'code':'','name':'','lane':'','entry_ask':'','next_date':day[0].get('next_date','') if day else '',
-                  'max_executable_return_pct':'','last_executable_return_pct':'','policy_return_pct':'','hit_3_exec':'',
-                  'signal_close_proxy':'','next_open_proxy':'','next_open_return_from_close_pct':'',
-                  'next_high_return_from_close_pct':'','next_close_return_from_close_pct':'',
-                  'risk_rate':'','evidence_title':'','target3_blockers':'',
-              }
-              if pick:
-                  max_ret=num(pick.get('max_executable_return_pct'))
-                  last_ret=num(pick.get('last_executable_return_pct'))
-                  policy=3.0 if max_ret is not None and max_ret>=3 else last_ret
-                  item.update({
-                      'code':(pick.get('code') or '').zfill(6),
-                      'name':pick.get('name') or '',
-                      'lane':pick.get('target3_lane') or ('MOMENTUM_OR_DIRECT_WITHOUT_QUOTE' if status!='OFFICIAL' else ''),
-                      'entry_ask':pick.get('entry_ask') or '',
-                      'next_date':pick.get('next_date') or '',
-                      'max_executable_return_pct':'' if max_ret is None else round(max_ret,4),
-                      'last_executable_return_pct':'' if last_ret is None else round(last_ret,4),
-                      'policy_return_pct':'' if policy is None else round(policy,4),
-                      'hit_3_exec':'' if max_ret is None else max_ret>=3,
-                      'signal_close_proxy':pick.get('signal_close_proxy') or '',
-                      'next_open_proxy':pick.get('next_open_proxy') or '',
-                      'next_open_return_from_close_pct':pick.get('next_open_return_from_close_pct') or '',
-                      'next_high_return_from_close_pct':pick.get('next_high_return_from_close_pct') or '',
-                      'next_close_return_from_close_pct':pick.get('next_close_return_from_close_pct') or '',
-                      'risk_rate':pick.get('risk_rate') or '',
-                      'evidence_title':pick.get('evidence_title') or '',
-                      'target3_blockers':pick.get('target3_blockers') or '',
-                  })
-                  selected.append(dict(item))
-              daily.append(item)
-
-          fields=list(daily[0])
-          for filename,data in [('july-v5-daily.csv',daily),('july-v5-selected.csv',selected)]:
-              with (root/'output'/filename).open('w',encoding='utf-8-sig',newline='') as f:
-                  w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(data)
-
-          official_rows=[r for r in selected if r['selection_status']=='OFFICIAL' and r['policy_return_pct']!='']
-          returns=[num(r['policy_return_pct']) for r in official_rows]
-          returns=[x for x in returns if x is not None]
-          summary={
-              'version':'largo-close-v5-july-2026-backfill-v2',
-              'rule_version':'largo-close-v5-unchanged',
-              'signal_days':len(daily),
-              'candidate_rows':len(rows),
-              'entry_quote_rows':sum(num(r.get('entry_ask')) is not None for r in rows),
-              'outcome_quote_rows':sum(num(r.get('max_executable_return_pct')) is not None for r in rows),
-              'official_eligible_rows':sum(int(r['official_eligible_count']) for r in daily),
-              'official_selected_days':sum(r['selection_status']=='OFFICIAL' for r in daily),
-              'provisional_no_quote_rows':sum(int(r['provisional_no_quote_count']) for r in daily),
-              'provisional_selected_days':sum(r['selection_status']=='PROVISIONAL_NO_QUOTE' for r in daily),
-              'no_candidate_days':sum(r['selection_status']=='NO_CANDIDATE' for r in daily),
-              'evaluated_official_picks':len(official_rows),
-              'positive_official_picks':sum((num(r['policy_return_pct']) or 0)>0 for r in official_rows),
-              'loss_official_picks':sum((num(r['policy_return_pct']) or 0)<0 for r in official_rows),
-              'hit3_official_picks':sum(truth(r['hit_3_exec']) for r in official_rows),
-              'mean_policy_return_pct':round(statistics.fmean(returns),4) if returns else None,
-              'sum_policy_return_pct':round(sum(returns),4) if returns else None,
-              'dates':[r['signal_date'] for r in daily],
-              'selected':selected,
-              'limitations':[
-                  '7월 과거 15:18 호가와 다음 날 09:00~09:05 호가가 네이버에 남아 있지 않으면 공식 거래와 수익을 확정하지 않습니다.',
-                  '잠정 후보는 v5의 비호가 조건을 통과했으나 진입 호가와 호가 간격을 검증하지 못한 종목입니다.',
-                  '시가 갭 대용치는 종가와 다음 날 일봉 시가를 비교한 값이며 15:18 실제 진입 수익률이 아닙니다.',
-                  '후보군과 테마는 과거 일봉 및 현재 상장·테마 목록으로 재구성했습니다.',
-                  '수수료, 세금, 호가 잔량과 주문 지연은 반영하지 않았습니다.',
-              ],
-          }
-          (root/'output/july-v5-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps(summary,ensure_ascii=False,indent=2))
-          PY
-
-      - name: Validate and retain results
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import csv,json
-          from pathlib import Path
-          root=Path('july-v5/output')
-          summary=json.loads((root/'july-v5-summary.json').read_text(encoding='utf-8'))
-          daily=list(csv.DictReader((root/'july-v5-daily.csv').open(encoding='utf-8-sig')))
-          assert summary['version']=='largo-close-v5-july-2026-backfill-v2'
-          assert summary['rule_version']=='largo-close-v5-unchanged'
-          assert summary['signal_days']==22
-          assert len(daily)==22
-          assert summary['candidate_rows']==528
-          print({k:summary[k] for k in ('signal_days','candidate_rows','entry_quote_rows','official_eligible_rows','provisional_no_quote_rows','provisional_selected_days')})
+          root = Path("july-v5/output")
+          summary = json.loads((root / "july-v5-summary.json").read_text(encoding="utf-8"))
+          daily = list(csv.DictReader((root / "july-v5-daily.csv").open(encoding="utf-8-sig")))
+          assert summary["version"] == "largo-close-v5-july-2026-canonical-v1"
+          assert summary["rule_version"] == "largo-close-v5"
+          assert summary["signal_days"] == 22
+          assert summary["candidate_rows"] == 528
+          assert len(daily) == 22
+          print(summary)
           PY
 
       - uses: actions/upload-artifact@v4
         with:
-          name: largo-v5-july-2026-validation-canonical
-          path: july-v5
+          name: largo-v5-july-2026-canonical
+          path: |
+            july-v5
+            july-v5-run.log
           retention-days: 90
