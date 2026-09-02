@@ -1,4 +1,4 @@
-name: Temporary fix Largo material artifact naming
+name: Temporary expand September eligible outcomes
 
 on:
   push:
@@ -18,34 +18,51 @@ jobs:
         with:
           ref: fix/largo-september-validation-20260902
 
-      - name: Sanitize stage names and keep publication independent
+      - name: Evaluate every eligible candidate before choosing the daily pick
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          path = Path('.github/workflows/largo-material-0906.yml')
+          path = Path('research/largo-close-v5/validate_september_v5.py')
           text = path.read_text(encoding='utf-8')
-          old = '          echo "stage=$stage" >> "$GITHUB_OUTPUT"\n          echo "Selected stage: $stage"\n'
-          new = '          echo "stage=$stage" >> "$GITHUB_OUTPUT"\n          safe_stage="${stage//:/-}"\n          echo "artifact_stage=$safe_stage" >> "$GITHUB_OUTPUT"\n          echo "Selected stage: $stage (artifact: $safe_stage)"\n'
+          old = '''        eligible = sorted((row for row in day_rows if row.get("v5_eligible")), key=selection_key)
+        for rank, row in enumerate(eligible, 1):
+            row["daily_rank"] = rank
+        if eligible:
+            pick = eligible[0]
+            pick["daily_pick"] = True
+            next_date = NEXT_SESSION[signal_date]
+            if dt.date.fromisoformat(next_date) <= today:
+                add_outcome(pick, next_date, args.timeout)
+            else:
+                pick["next_date"] = next_date
+                pick["outcome_status"] = "PENDING"
+            selected.append(dict(pick))
+        all_rows.extend(day_rows)
+'''
+          new = '''        eligible = sorted((row for row in day_rows if row.get("v5_eligible")), key=selection_key)
+        next_date = NEXT_SESSION[signal_date]
+        for rank, row in enumerate(eligible, 1):
+            row["daily_rank"] = rank
+            if dt.date.fromisoformat(next_date) <= today:
+                add_outcome(row, next_date, args.timeout)
+            else:
+                row["next_date"] = next_date
+                row["outcome_status"] = "PENDING"
+        if eligible:
+            pick = eligible[0]
+            pick["daily_pick"] = True
+            selected.append(dict(pick))
+        all_rows.extend(day_rows)
+'''
           if old not in text:
-              raise SystemExit('stage output block not found')
-          text = text.replace(old, new, 1)
-          old_name = '          name: largo-material-0906-${{ steps.stage.outputs.stage }}'
-          new_name = '          name: largo-material-0906-${{ steps.stage.outputs.artifact_stage }}'
-          if old_name not in text:
-              raise SystemExit('artifact name block not found')
-          text = text.replace(old_name, new_name, 1)
-          upload_header = '      - name: Upload validation artifact\n        uses: actions/upload-artifact@v4'
-          upload_replacement = '      - name: Upload validation artifact\n        continue-on-error: true\n        uses: actions/upload-artifact@v4'
-          if upload_header not in text:
-              raise SystemExit('upload header not found')
-          text = text.replace(upload_header, upload_replacement, 1)
-          path.write_text(text, encoding='utf-8')
+              raise SystemExit('validator block not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
           PY
-          rm .github/workflows/tmp-fix-largo-material-artifact.yml
+          python3 -m py_compile research/largo-close-v5/validate_september_v5.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Fix Largo material artifact naming and publication flow"
+          git add research/largo-close-v5/validate_september_v5.py
+          git commit -m "Evaluate all eligible September v5 candidates"
           git push origin HEAD:fix/largo-september-validation-20260902
