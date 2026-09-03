@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/tmp-largo-v6-june-2026-backtest.yml"
       - "research/largo-close-v6-shadow/backfill_june_v6.py"
+      - "research/largo-close-v6-shadow/export_june_candidate_outcomes.py"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +20,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +38,8 @@ jobs:
             scripts/largo_material_0906.py \
             scripts/largo_close_v6_shadow.py \
             research/largo-target3-20day/source/backfill_largo_target3_20day.py \
-            research/largo-close-v6-shadow/backfill_june_v6.py
+            research/largo-close-v6-shadow/backfill_june_v6.py \
+            research/largo-close-v6-shadow/export_june_candidate_outcomes.py
           PYTHONPATH=scripts python - <<'PY'
           import largo_close_v6_shadow as v6
           assert v6.VERSION == "largo-close-v6-shadow-v1", v6.VERSION
@@ -83,6 +85,16 @@ jobs:
           print({'change_rate_injected': injected})
           PY
 
+      - name: Export daily OHLC outcomes for every June candidate
+        run: |
+          set -euo pipefail
+          python research/largo-close-v6-shadow/export_june_candidate_outcomes.py \
+            --detail june-v6/raw/target3_20day_detail.json \
+            --output june-v6/output/june-candidate-outcomes.csv \
+            --month 2026-06 \
+            --workers 18 \
+            2>&1 | tee june-v6/output/outcome-export.log
+
       - name: Apply unchanged v6 shadow gate and build daily table
         run: |
           set -euo pipefail
@@ -102,16 +114,21 @@ jobs:
           summary = json.loads((root/'june-v6-summary.json').read_text(encoding='utf-8'))
           daily = list(csv.DictReader((root/'june-v6-daily.csv').open(encoding='utf-8-sig')))
           selected = list(csv.DictReader((root/'june-v6-selected.csv').open(encoding='utf-8-sig')))
+          all_outcomes = list(csv.DictReader((root/'june-candidate-outcomes.csv').open(encoding='utf-8-sig')))
+          all_summary = json.loads((root/'june-candidate-outcomes.summary.json').read_text(encoding='utf-8'))
           assert summary['rule_version'] == 'largo-close-v6-shadow-v1-unchanged'
           assert summary['month'] == '2026-06'
           assert 20 <= summary['signal_days'] <= 22, summary['signal_days']
           assert len(daily) == summary['signal_days']
           assert len(selected) == summary['proxy_selected_days']
           assert summary['candidate_rows'] >= summary['signal_days'] * 20
+          assert len(all_outcomes) == summary['candidate_rows']
+          assert all_summary['known_outcomes'] == len(all_outcomes)
           assert all(row['signal_date'].startswith('2026-06') for row in daily)
           print({
             'signal_days': summary['signal_days'],
             'candidate_rows': summary['candidate_rows'],
+            'all_outcomes': len(all_outcomes),
             'exact_entry_quote_rows': summary['exact_entry_quote_rows'],
             'official_selected_days': summary['official_selected_days'],
             'proxy_selected_days': summary['proxy_selected_days'],
