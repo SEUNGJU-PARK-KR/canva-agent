@@ -1,6 +1,75 @@
 {
   "version": "largo-winrate-v4.1",
-  "signal_at": "2026-09-02T18:59:20.942728+09:00",
-  "market_date": "2026-09-02",
-  "candidates": []
+  "signal_at": "2026-09-03T18:09:01.914654+09:00",
+  "market_date": "2026-09-03",
+  "candidates": [
+    {
+      "code": "010140",
+      "name": "삼성중공업",
+      "lane": "NEXT_DAY_CONFIRM",
+      "close_variant": null,
+      "signal_price": 21650.0,
+      "risk": {
+        "status": "PASS",
+        "entry": 21650.0,
+        "stop": 21217.0,
+        "stop_source": "20일선",
+        "rate": 0.02,
+        "one_r": 22083.0,
+        "reason": "가장 가까운 구조선까지 위험거리는 2.00%입니다."
+      },
+      "plans": {
+        "close_entry": {
+          "entry": 21650.0,
+          "stop": 21217.0,
+          "target1": 21866.5,
+          "target2": 22083.0,
+          "target1_size": 0.5,
+          "target2_size": 0.3,
+          "runner_size": 0.2,
+          "time_exit": "10:30까지 +1% 미도달이고 전일 종가 아래면 잔여 물량 정리",
+          "rule": "15:18 이후 핵심형 또는 초강한 마감형과 반복 유지가 모두 통과한 경우에만 검토"
+        },
+        "next_day_confirm": {
+          "reference_close": 21650.0,
+          "cancel_below": 21217.0,
+          "reclaim_trigger": 21650.0,
+          "target1": 21866.5,
+          "target2": 22083.0,
+          "target1_size": 0.5,
+          "target2_size": 0.3,
+          "runner_size": 0.2,
+          "no_chase_gap_pct": 3.0,
+          "confirm_times": [
+            "09:05",
+            "09:15"
+          ],
+          "rule": "다음 날 갭이 3% 이상이면 추격하지 않고, 전일 종가 회복과 09:05·09:15 유지 확인 뒤 검토"
+        }
+      },
+      "features": {
+        "grade": "S",
+        "rank": 1,
+        "pattern_id": "C1",
+        "pattern_name": "이평 수렴 돌파",
+        "pattern_score": 80.0,
+        "close_location": 0.875,
+        "upper_wick": 0.125,
+        "body_ratio": 0.725,
+        "digest_ratio": 0.87,
+        "volume_ratio": 2.917,
+        "change_rate": 8.58,
+        "trade_value": 151618000000.0,
+        "theme_breadth": 1.0
+      },
+      "freshness": {
+        "status": "STALE",
+        "hours": 74.3,
+        "at": "2026-08-31T15:50:58+09:00",
+        "title": "삼성중공업(주) (정정)단일판매ㆍ공급계약체결",
+        "source": "notice",
+        "reason": "재료 발표 후 74.3시간이 지났습니다."
+      }
+    }
+  ]
 }
