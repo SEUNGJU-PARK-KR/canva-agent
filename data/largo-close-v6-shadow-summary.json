@@ -1,0 +1,48 @@
+{
+  "signal_days": 0,
+  "completed": 0,
+  "pending": 0,
+  "official": {
+    "n": 0,
+    "positive": 0,
+    "loss": 0,
+    "hit3": 0,
+    "positive_rate": null,
+    "hit3_rate": null,
+    "mean_policy_return_pct": null,
+    "median_policy_return_pct": null,
+    "sum_policy_return_pct": null,
+    "worst_policy_return_pct": null
+  },
+  "proxy": {
+    "n": 0,
+    "positive": 0,
+    "loss": 0,
+    "hit3": 0,
+    "positive_rate": null,
+    "hit3_rate": null,
+    "mean_policy_return_pct": null,
+    "median_policy_return_pct": null,
+    "sum_policy_return_pct": null,
+    "worst_policy_return_pct": null
+  },
+  "all_completed": {
+    "n": 0,
+    "positive": 0,
+    "loss": 0,
+    "hit3": 0,
+    "positive_rate": null,
+    "hit3_rate": null,
+    "mean_policy_return_pct": null,
+    "median_policy_return_pct": null,
+    "sum_policy_return_pct": null,
+    "worst_policy_return_pct": null
+  },
+  "limitations": [
+    "v5는 정본 비교 기준으로 유지하고 v6는 그림자 신호로만 기록합니다.",
+    "공식 성과는 정확한 15:18 후보·재료·테마·매도·매수호가가 함께 보존된 신호만 포함합니다.",
+    "과거 프록시 신호는 조건 연구용이며 정식 승률에 포함하지 않습니다.",
+    "정책수익은 09:06 전 +3% 도달 시 +3%, 미도달 시 09:05 마지막 최우선 매수호가입니다.",
+    "수수료, 세금, 잔량과 주문 지연은 포함하지 않습니다."
+  ]
+}
