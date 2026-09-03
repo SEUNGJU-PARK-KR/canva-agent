@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-03T18:41:31.398335+09:00",
+  "generated_at": "2026-09-03T19:59:51.680895+09:00",
   "market_date": "2026-09-03",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1045,19 +1045,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 74.8,
+          "hours": 76.1,
           "at": "2026-08-31T15:50:58+09:00",
           "title": "삼성중공업(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 74.8시간이 지났습니다."
+          "reason": "재료 발표 후 76.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1146,7 +1146,9 @@
         "grade": "S",
         "reason": "은행 관련주 10/11 상승",
         "positive_titles": [
-          "\"연기금, 신흥국·대체자산 분산투자 확대를\""
+          "장중 4%P 널뛴 코스피…1.8% 급등→1.9% 급락에도 6579선 강보합 [투자...",
+          "제논, 상반기에 지난해 매출 초과 달성…영업이익 22억원",
+          "제논, AX 수요 확대에 실적 성장…상반기 매출 331% 증가"
         ],
         "titles": [
           "주식관련사채",
@@ -1633,25 +1635,50 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.8,
-          "at": "2026-09-03T17:56:00+09:00",
-          "title": "\"연기금, 신흥국·대체자산 분산투자 확대를\"",
+          "hours": 3.6,
+          "at": "2026-09-03T16:24:00+09:00",
+          "title": "장중 4%P 널뛴 코스피…1.8% 급등→1.9% 급락에도 6579선 강보합 [투자...",
           "source": "news",
-          "reason": "재료 발표 후 0.8시간이 지났습니다."
+          "reason": "재료 발표 후 3.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "\"연기금, 신흥국·대체자산 분산투자 확대를\"",
-            "at": "2026-09-03T17:56:00+09:00",
+            "title": "장중 4%P 널뛴 코스피…1.8% 급등→1.9% 급락에도 6579선 강보합 [투자...",
+            "at": "2026-09-03T16:24:00+09:00",
             "source": "news"
+          },
+          {
+            "title": "제논, 상반기에 지난해 매출 초과 달성…영업이익 22억원",
+            "at": "2026-09-03T15:18:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "제논, AX 수요 확대에 실적 성장…상반기 매출 331% 증가",
+            "at": "2026-09-03T08:16:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "(주)KB금융지주 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-23T15:51:28+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)KB금융지주 연결재무제표기준영업(잠정)실적(공정공시)(자회사의 주요경영사항)",
+            "at": "2026-07-23T15:51:25+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)KB금융지주 연결재무제표기준영업(잠정)실적(공정공시)(자회사의 주요경영사항)",
+            "at": "2026-07-23T15:51:24+09:00",
+            "source": "notice"
           }
         ],
         "after_signal_items": [],
@@ -1684,9 +1711,9 @@
         "grade": "S",
         "reason": "은행 관련주 10/11 상승",
         "positive_titles": [
+          "신용 7등급도 대출 승인…은행권 2.2조 '성장성 대출' 실험",
           "신한금융, 성실상환 청년에 최대 300만원 환급",
-          "신한금융, 성실상환 청년에 최대 300만원 환급 시행",
-          "신한금융, 성실하게 빚 갚는 청년에 최대 300만원 지원"
+          "신한금융, 성실상환 청년에 최대 300만원 환급 시행"
         ],
         "titles": [
           "주식관련사채",
@@ -2178,21 +2205,26 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.3,
+          "hours": 1.6,
           "at": "2026-09-03T18:21:00+09:00",
           "title": "신한금융, 성실상환 청년에 최대 300만원 환급",
           "source": "news",
-          "reason": "재료 발표 후 0.3시간이 지났습니다."
+          "reason": "재료 발표 후 1.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
+          {
+            "title": "신용 7등급도 대출 승인…은행권 2.2조 '성장성 대출' 실험",
+            "at": "2026-09-03T11:48:00+09:00",
+            "source": "news"
+          },
           {
             "title": "신한금융, 성실상환 청년에 최대 300만원 환급",
             "at": "2026-09-03T18:21:00+09:00",
@@ -2201,11 +2233,6 @@
           {
             "title": "신한금융, 성실상환 청년에 최대 300만원 환급 시행",
             "at": "2026-09-03T14:09:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "신한금융, 성실하게 빚 갚는 청년에 최대 300만원 지원",
-            "at": "2026-09-03T11:33:00+09:00",
             "source": "news"
           }
         ],
@@ -2722,19 +2749,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 818.8,
+          "hours": 820.1,
           "at": "2026-07-31T15:51:01+09:00",
           "title": "(주)녹십자웰빙 (정정)연결재무제표 기준 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 818.8시간이 지났습니다."
+          "reason": "재료 발표 후 820.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3268,11 +3295,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3282,13 +3309,7 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [
-          {
-            "title": "삼성화재해상보험(주) 풍문 또는 보도에 대한 해명(미확정)",
-            "at": "2026-09-03T19:08:58+09:00",
-            "source": "notice"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -3806,19 +3827,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 554.8,
+          "hours": 556.2,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 554.8시간이 지났습니다."
+          "reason": "재료 발표 후 556.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3852,11 +3873,11 @@
       "theme": null,
       "catalyst": {
         "grade": "A",
-        "reason": "영업이익 N% 성과급 요구 파업은 ‘불법’…노동부 지침 발표",
+        "reason": "美상무장관, ‘반도체 표적 관세’ 예고…“미국 현지 투자 부담 더 커...",
         "positive_titles": [
-          "영업이익 N% 성과급 요구 파업은 ‘불법’…노동부 지침 발표",
-          "반도체 관세 엄포로 메모리 투자 압박 강도 높이는 미국에 고심 깊어...",
-          "美, ‘현지투자 연계’ 반도체 관세에… 정부, 방어 총력전"
+          "美상무장관, ‘반도체 표적 관세’ 예고…“미국 현지 투자 부담 더 커...",
+          "대만 지렛대 삼은 美 … 삼전닉스에 대미투자 압박",
+          "3분기 이익 10% 낮춰…원화 강세에 삼전·닉스 실적 눈높이 ‘뚝’ [투..."
         ],
         "titles": [
           "조회공시답변",
@@ -4153,7 +4174,7 @@
           "value": "A",
           "threshold": "S 또는 A",
           "status": "PASS",
-          "reason": "영업이익 N% 성과급 요구 파업은 ‘불법’…노동부 지침 발표",
+          "reason": "美상무장관, ‘반도체 표적 관세’ 예고…“미국 현지 투자 부담 더 커...",
           "data_source": "Naver theme/news/notice"
         },
         {
@@ -4317,34 +4338,24 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.5,
-          "at": "2026-09-03T18:12:00+09:00",
-          "title": "영업이익 N% 성과급 요구 파업은 ‘불법’…노동부 지침 발표",
+          "hours": 0.3,
+          "at": "2026-09-03T19:41:00+09:00",
+          "title": "3분기 이익 10% 낮춰…원화 강세에 삼전·닉스 실적 눈높이 ‘뚝’ [투...",
           "source": "news",
-          "reason": "재료 발표 후 0.5시간이 지났습니다."
+          "reason": "재료 발표 후 0.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "영업이익 N% 성과급 요구 파업은 ‘불법’…노동부 지침 발표",
-            "at": "2026-09-03T18:12:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "영업이익 N% 성과급 요구 파업은 ‘불법’…노동부 지침 발표",
-            "at": "2026-09-03T17:02:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "美, ‘현지투자 연계’ 반도체 관세에... 정부, 방어 총력전",
-            "at": "2026-09-03T16:53:00+09:00",
+            "title": "3분기 이익 10% 낮춰…원화 강세에 삼전·닉스 실적 눈높이 ‘뚝’ [투...",
+            "at": "2026-09-03T19:41:00+09:00",
             "source": "news"
           }
         ],
@@ -4368,9 +4379,11 @@
       "theme": null,
       "catalyst": {
         "grade": "A",
-        "reason": "李대통령, 정의선 회장과 비공개 회동...새만금 투자 논의 가능성",
+        "reason": "美상무장관, ‘반도체 표적 관세’ 예고…“미국 현지 투자 부담 더 커...",
         "positive_titles": [
-          "李대통령, 정의선 회장과 비공개 회동...새만금 투자 논의 가능성"
+          "美상무장관, ‘반도체 표적 관세’ 예고…“미국 현지 투자 부담 더 커...",
+          "대만 지렛대 삼은 美 … 삼전닉스에 대미투자 압박",
+          "李대통령-정의선 비공개 회동…새만금 투자 논의 가능성"
         ],
         "titles": [
           "파생상품시장",
@@ -4672,7 +4685,7 @@
           "value": "A",
           "threshold": "S 또는 A",
           "status": "PASS",
-          "reason": "李대통령, 정의선 회장과 비공개 회동...새만금 투자 논의 가능성",
+          "reason": "美상무장관, ‘반도체 표적 관세’ 예고…“미국 현지 투자 부담 더 커...",
           "data_source": "Naver theme/news/notice"
         },
         {
@@ -4836,24 +4849,24 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.3,
-          "at": "2026-09-03T18:22:00+09:00",
-          "title": "李대통령, 정의선 회장과 비공개 회동...새만금 투자 논의 가능성",
+          "hours": 0.2,
+          "at": "2026-09-03T19:46:00+09:00",
+          "title": "李대통령-정의선 비공개 회동…새만금 투자 논의 가능성",
           "source": "news",
-          "reason": "재료 발표 후 0.3시간이 지났습니다."
+          "reason": "재료 발표 후 0.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "李대통령, 정의선 회장과 비공개 회동...새만금 투자 논의 가능성",
-            "at": "2026-09-03T18:22:00+09:00",
+            "title": "李대통령-정의선 비공개 회동…새만금 투자 논의 가능성",
+            "at": "2026-09-03T19:46:00+09:00",
             "source": "news"
           }
         ],
@@ -5342,19 +5355,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 3.0,
+          "hours": 4.3,
           "at": "2026-09-03T15:41:00+09:00",
           "title": "[특징주] 알테오젠, 노바티스와 최대 4.4조원 계약에도 하락(종합)",
           "source": "news",
-          "reason": "재료 발표 후 3.0시간이 지났습니다."
+          "reason": "재료 발표 후 4.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5888,19 +5901,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.3,
+          "hours": 3.6,
           "at": "2026-09-03T16:24:00+09:00",
           "title": "장중 4%P 널뛴 코스피…1.8% 급등→1.9% 급락에도 6579선 강보합 [투자...",
           "source": "news",
-          "reason": "재료 발표 후 2.3시간이 지났습니다."
+          "reason": "재료 발표 후 3.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6416,19 +6429,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "RECENT",
-          "hours": 50.8,
+          "hours": 52.1,
           "at": "2026-09-01T15:52:37+09:00",
           "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 50.8시간이 지났습니다."
+          "reason": "재료 발표 후 52.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6972,19 +6985,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 746.8,
+          "hours": 748.1,
           "at": "2026-08-03T15:51:53+09:00",
           "title": "전진건설로봇(주) 중간(분기)배당락 기준가격 안내",
           "source": "notice",
-          "reason": "재료 발표 후 746.8시간이 지났습니다."
+          "reason": "재료 발표 후 748.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7524,19 +7537,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.8,
+          "hours": 3.1,
           "at": "2026-09-03T16:51:00+09:00",
           "title": "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "source": "news",
-          "reason": "재료 발표 후 1.8시간이 지났습니다."
+          "reason": "재료 발표 후 3.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8072,19 +8085,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 74.8,
+          "hours": 76.1,
           "at": "2026-08-31T15:52:46+09:00",
           "title": "에스케이오션플랜트(주) (정정)투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 74.8시간이 지났습니다."
+          "reason": "재료 발표 후 76.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8634,19 +8647,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 8.4,
+          "hours": 9.7,
           "at": "2026-09-03T10:17:00+09:00",
           "title": "철강주, 알래스카 LNG 프로젝트 수혜 기대감에 급등…금강철강 20%대↑",
           "source": "news",
-          "reason": "재료 발표 후 8.4시간이 지났습니다."
+          "reason": "재료 발표 후 9.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9153,11 +9166,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9673,11 +9686,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9687,7 +9700,13 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "제이더블유신약(주) [투자주의]투자경고종목 지정예고",
+            "at": "2026-09-04T05:00:32+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -10203,11 +10222,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10217,7 +10236,13 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "(주)파인엠텍 공매도 과열종목 지정(공매도 거래 금지 적용)",
+            "at": "2026-09-04T05:00:58+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -10726,11 +10751,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11257,11 +11282,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11771,11 +11796,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11785,7 +11810,13 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "(주)서산 [투자주의]투자경고종목 지정예고",
+            "at": "2026-09-04T05:00:30+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -12303,11 +12334,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12833,11 +12864,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12847,7 +12878,13 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "(주)원익 (예고)단기과열종목 지정예고",
+            "at": "2026-09-04T05:00:54+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -13355,11 +13392,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-03T18:41:31.398335+09:00",
+      "updated_at": "2026-09-03T19:59:51.680895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-03T18:41:31.398335+09:00",
+        "enriched_at": "2026-09-03T19:59:51.680895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13376,13 +13413,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-08-28T02:23:21.147601+09:00",
-    "last": "2026-09-03T18:41:31.398335+09:00"
+    "first": "2026-08-31T14:47:45.977726+09:00",
+    "last": "2026-09-03T19:59:51.680895+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-03T18:41:31.398335+09:00",
+    "source_at": "2026-09-03T19:59:51.680895+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
