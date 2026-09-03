@@ -1,11 +1,104 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-03T13:02:17.324200+09:00",
+  "generated_at": "2026-09-03T19:07:28.858935+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
       "stage": "15:18",
       "at": "2026-09-02T20:15:35.736405+09:00",
+      "source_at": "2026-09-02T18:59:20.942728+09:00",
+      "themes": {
+        "547": {
+          "name": "CXL(컴퓨트익스프레스링크)",
+          "code": "547",
+          "rising": 5,
+          "total": 12,
+          "breadth": 0.4166666666666667,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "269": {
+          "name": "LED장비",
+          "code": "269",
+          "rising": 5,
+          "total": 11,
+          "breadth": 0.45454545454545453,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "177": {
+          "name": "LPG(액화석유가스)",
+          "code": "177",
+          "rising": 3,
+          "total": 8,
+          "breadth": 0.375,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "121": {
+          "name": "남북경협",
+          "code": "121",
+          "rising": 13,
+          "total": 28,
+          "breadth": 0.4642857142857143,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "44": {
+          "name": "시멘트/레미콘",
+          "code": "44",
+          "rising": 6,
+          "total": 14,
+          "breadth": 0.42857142857142855,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "322": {
+          "name": "건설 중소형",
+          "code": "322",
+          "rising": 9,
+          "total": 24,
+          "breadth": 0.375,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-03",
+      "stage": "14:53",
+      "at": "2026-09-03T19:07:28.858935+09:00",
       "source_at": "2026-09-02T18:59:20.942728+09:00",
       "themes": {
         "547": {
@@ -23335,12 +23428,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-03T19:07:28.858935+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 6개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-03T13:02:17.324200+09:00",
+    "generated_at": "2026-09-03T19:07:28.858935+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
