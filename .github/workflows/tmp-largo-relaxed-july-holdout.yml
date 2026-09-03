@@ -1,0 +1,80 @@
+name: Temporary Largo relaxed July holdout
+
+on:
+  push:
+    branches:
+      - research/largo-relaxed-july-holdout-20260903
+    paths:
+      - ".github/workflows/tmp-largo-relaxed-july-holdout.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: largo-relaxed-july-holdout
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install research dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+
+      - name: Reconstruct July candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf july-holdout
+          mkdir -p july-holdout/raw july-holdout/output july-holdout/source
+          PYTHONPATH=scripts python research/largo-target3-20day/source/backfill_largo_target3_20day.py \
+            --output-dir july-holdout/raw \
+            --end-date 2026-07-31 \
+            --days 23 \
+            --preselect 80 \
+            --workers 24 \
+            2>&1 | tee july-holdout/output/backfill.log
+
+      - name: Export every July candidate outcome
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            https://raw.githubusercontent.com/SEUNGJU-PARK-KR/canva-agent/research/largo-v6-june-2026-backtest/research/largo-close-v6-shadow/export_june_candidate_outcomes.py \
+            -o july-holdout/source/export_month_candidate_outcomes.py
+          python july-holdout/source/export_month_candidate_outcomes.py \
+            --detail july-holdout/raw/target3_20day_detail.json \
+            --output july-holdout/output/july-candidate-outcomes.csv \
+            --month 2026-07 \
+            --workers 18 \
+            2>&1 | tee july-holdout/output/outcome-export.log
+
+      - name: Validate output
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          root=Path('july-holdout/output')
+          rows=list(csv.DictReader((root/'july-candidate-outcomes.csv').open(encoding='utf-8-sig')))
+          summary=json.loads((root/'july-candidate-outcomes.summary.json').read_text(encoding='utf-8'))
+          assert summary['month']=='2026-07'
+          assert len(summary['dates']) >= 20
+          assert len(rows) >= 480
+          assert summary['known_outcomes'] >= len(rows)-2
+          print({k:summary[k] for k in ('rows','dates','known_outcomes','baseline_hit3_rate','baseline_mean_policy3_pct')})
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-relaxed-july-holdout
+          path: july-holdout
+          retention-days: 90
