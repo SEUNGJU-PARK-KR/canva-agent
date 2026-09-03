@@ -28,27 +28,54 @@ def entry(ask=10000, bid=9990):
 def main():
     direct = v6_shadow_gate(fixture(), entry())
     assert direct["version"] == VERSION and direct["qualified"] and direct["lane"] == "DIRECT_CONFIRMED"
+
     mismatch = fixture(title="다른회사, 합병 비율 부담에 급락", body="다른 회사 관련 기사")
     blocked = v6_shadow_gate(mismatch, entry())
     assert not blocked["qualified"] and not blocked["evidence_audit"]["passed"] and blocked["evidence_audit"]["negative_context"]
+
     theme = fixture(title="", body="", direct_benefit=False, event_strength=0, directness_points=0, freshness_points=0, change_rate=12, digest_ratio=.50, close_location=.82, upper_wick=.12, body_ratio=.55, breadth=.85, leader_rank=1)
     theme["evidence"]["observed"] = False
     theme_gate = v6_shadow_gate(theme, entry())
     assert theme_gate["qualified"] and theme_gate["lane"] == "THEME_LEADER"
-    weak = deepcopy(theme); weak["structure"]["digest_ratio"] = .20
+
+    weak = deepcopy(theme)
+    weak["structure"]["digest_ratio"] = .20
     assert not v6_shadow_gate(weak, entry())["qualified"]
+
+    # 2026-09-02 흥구석유 사후 재구성치입니다. 상승률·거래대금·호가만 보면
+    # 통과하지만 약한 종가 위치, 큰 윗꼬리, 좁은 테마 확산, 직접 재료 부재로 차단해야 합니다.
+    heunggu = fixture(
+        code="024060", name="흥구석유", trade_value=104_774_565_000,
+        title="", body="", direct_benefit=False, event_strength=0,
+        directness_points=0, freshness_points=0,
+        change_rate=13.32, digest_ratio=.459, risk_rate=.00605,
+        close_location=.50, upper_wick=.50, body_ratio=.4914,
+        breadth=.375, leader_rank=2,
+    )
+    heunggu["evidence"]["observed"] = False
+    heunggu_gate = v6_shadow_gate(heunggu, entry(11550, 11530))
+    assert not heunggu_gate["qualified"] and heunggu_gate["lane"] == "NONE"
+    assert {
+        "theme_breadth_at_least_0_80",
+        "close_location_at_least_0_70",
+        "upper_wick_at_most_0_20",
+    }.issubset(set(heunggu_gate["blockers"]))
+
     first = fixture(code="111111", name="반복기업", title="반복기업, 공급계약 체결", body="반복기업 직접 수주")
     first_gate = v6_shadow_gate(first, entry())
     prior = [{"code": "111111", "signal_date": "2026-08-01", "v6_shadow": {"daily_pick": True, "event_hash": first_gate["event_hash"]}}]
     repeat = v6_shadow_gate(first, entry(), prior_signals=prior)
     assert repeat["duplicate_event"] and repeat["lane"] not in {"DIRECT_CONFIRMED", "DIRECT_UNPRICED"}
+
     a = fixture(code="000001", name="A기업", title="A기업, 공급계약 체결", body="A기업 직접 수주")
     b = fixture(code="000002", name="B기업", title="B기업, 공급계약 체결", body="B기업 직접 수주", risk_rate=.02)
-    a["v6_shadow"] = v6_shadow_gate(a, entry()); b["v6_shadow"] = v6_shadow_gate(b, entry())
+    a["v6_shadow"] = v6_shadow_gate(a, entry())
+    b["v6_shadow"] = v6_shadow_gate(b, entry())
     apply_daily_selection([a, b])
     assert sum(row["v6_shadow"]["daily_pick"] for row in (a, b)) == 1
     assert sum(row["v6_shadow"]["eligible"] for row in (a, b)) == 1
-    print({"version": VERSION, "tests": 7, "status": "PASS"})
+
+    print({"version": VERSION, "tests": 8, "status": "PASS"})
 
 
 if __name__ == "__main__":

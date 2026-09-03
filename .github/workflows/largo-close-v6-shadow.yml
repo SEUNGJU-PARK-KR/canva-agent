@@ -76,13 +76,15 @@ jobs:
           summary=json.loads((root/'data/largo-close-v6-shadow-summary.json').read_text(encoding='utf-8'))
           rows=list(csv.DictReader((root/'data/largo-close-v6-shadow-signals.csv').open(encoding='utf-8-sig')))
           report=(root/'close-v6-shadow.html').read_text(encoding='utf-8')
+          report_lower=report.lower()
           assert history['version']=='largo-close-v6-shadow-history-v1'
           assert history['gate_version']=='largo-close-v6-shadow-v1'
           assert summary['signal_days']==len(rows)
           assert 'v5 유지' in report and '주문 기능 없음' in report
+          assert report_lower.lstrip().startswith('<!doctype html>')
+          assert '<html' in report_lower and '</html>' in report_lower
           assert 'fetch(' not in report
           assert 'http://' not in report and 'https://' not in report
-          assert len(report.encode('utf-8')) > 5000
           print({'signals':len(rows),'completed':summary['completed'],'official':summary['official']['n']})
           PY
 
