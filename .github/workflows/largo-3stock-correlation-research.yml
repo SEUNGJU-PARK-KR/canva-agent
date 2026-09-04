@@ -1,0 +1,38 @@
+name: Largo three-stock GS Quant correlation research
+on:
+  push:
+    branches: [research/largo-3stock-gsquant-20260904]
+    paths:
+      - research/largo-3stock-gsquant/collect_gs_correlations.py
+      - .github/workflows/largo-3stock-correlation-research.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install actual GS Quant
+        run: |
+          mkdir -p three-stock-research/qc three-stock-research/source
+          python -m pip install gs-quant requests
+          python -m pip freeze > three-stock-research/qc/requirements-lock.txt
+      - name: Archive inputs and compute prior-only correlations
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cp research/largo-3stock-gsquant/collect_gs_correlations.py three-stock-research/source/
+          python research/largo-3stock-gsquant/collect_gs_correlations.py 2>&1 | tee three-stock-research/qc/run.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: largo-three-stock-gsquant-correlation
+          path: three-stock-research
+          retention-days: 90
