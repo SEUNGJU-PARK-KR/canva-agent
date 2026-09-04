@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-04T18:58:20.547838+09:00",
+  "generated_at": "2026-09-04T18:58:57.597563+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -327,141 +327,6 @@
       "date": "2026-09-03",
       "stage": "15:18",
       "at": "2026-09-03T20:11:41.613648+09:00",
-      "source_at": "2026-09-03T19:09:54.507701+09:00",
-      "themes": {
-        "30": {
-          "name": "조선",
-          "code": "30",
-          "rising": 6,
-          "total": 6,
-          "breadth": 1.0,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "165": {
-          "name": "은행",
-          "code": "165",
-          "rising": 10,
-          "total": 11,
-          "breadth": 0.9090909090909091,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "164": {
-          "name": "손해보험",
-          "code": "164",
-          "rising": 8,
-          "total": 8,
-          "breadth": 1.0,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "449": {
-          "name": "2차전지(생산)",
-          "code": "449",
-          "rising": 2,
-          "total": 3,
-          "breadth": 0.6666666666666666,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "323": {
-          "name": "셰일가스(Shale Gas)",
-          "code": "323",
-          "rising": 8,
-          "total": 11,
-          "breadth": 0.7272727272727273,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "378": {
-          "name": "건설기계",
-          "code": "378",
-          "rising": 15,
-          "total": 16,
-          "breadth": 0.9375,
-          "leader_rank": 2,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "313": {
-          "name": "남-북-러 가스관사업",
-          "code": "313",
-          "rising": 11,
-          "total": 13,
-          "breadth": 0.8461538461538461,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "72": {
-          "name": "철강 중소형",
-          "code": "72",
-          "rising": 24,
-          "total": 36,
-          "breadth": 0.6666666666666666,
-          "leader_rank": 2,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "283": {
-          "name": "생명보험",
-          "code": "283",
-          "rising": 4,
-          "total": 4,
-          "breadth": 1.0,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        }
-      },
-      "errors": []
-    },
-    {
-      "date": "2026-09-04",
-      "stage": "14:53",
-      "at": "2026-09-04T18:58:20.547838+09:00",
       "source_at": "2026-09-03T19:09:54.507701+09:00",
       "themes": {
         "30": {
@@ -43998,16 +43863,16 @@
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
     },
     {
-      "at": "2026-09-04T18:58:20.547838+09:00",
-      "stage": "14:53",
-      "status": "SNAPSHOT_CAPTURED",
-      "detail": "후보 24개, 테마 9개, 오류 0건"
+      "at": "2026-09-04T18:58:57.597563+09:00",
+      "stage": "bootstrap",
+      "status": "BOOTSTRAP",
+      "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-04T18:58:20.547838+09:00",
+    "generated_at": "2026-09-04T18:58:57.597563+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
