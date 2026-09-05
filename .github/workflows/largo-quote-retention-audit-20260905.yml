@@ -1,0 +1,57 @@
+name: Largo historical quote retention audit 20260905
+on:
+  push:
+    branches: [research/largo-history-audit-20260905]
+    paths: [.github/workflows/largo-quote-retention-audit-20260905.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests beautifulsoup4
+      - name: Inspect exact-time quote retention
+        run: |
+          mkdir -p output/quote-retention
+          PYTHONPATH=scripts:research/largo-target3-20day/source python - <<'PY'
+          import concurrent.futures as cf
+          import datetime as dt
+          import gzip, hashlib, json
+          from pathlib import Path
+          import backfill_largo_target3_20day as b
+          from largo_material_0906 import legacy_quote, parse_legacy_rows
+          root=Path('output/quote-retention')
+          dates=['20200102','20210104','20220103','20230102','20240102','20250102','20260102','20260701','20260803','20260824','20260901','20260904']
+          tasks=[('005930',d,t) for d in dates for t in ['151800','090600']]
+          tasks += [('267260','20260827','151800'),('267260','20260828','090600'),('096770','20260831','151800'),('096770','20260901','090600')]
+          def probe(task):
+              code,date,clock=task
+              url=f'https://finance.naver.com/item/sise_time.naver?code={code}&thistime={date}{clock}&page=1'
+              item={'code':code,'requested_date':date,'requested_clock':clock,'url':url,'retrieved_at':dt.datetime.now(dt.timezone.utc).isoformat()}
+              try:
+                  response=b.get(url,timeout=20,retries=2)
+                  data=response.content
+                  filename=f'{code}-{date}-{clock}.html.gz'
+                  with gzip.open(root/filename,'wb') as stream:stream.write(data)
+                  qs=[q for row in parse_legacy_rows(data) if (q:=legacy_quote(row))]
+                  wanted='15:18' if clock=='151800' else '09:05'
+                  exact=[q for q in qs if q.get('time')==wanted]
+                  item.update({'http_status':response.status_code,'raw_path':filename,'sha256':hashlib.sha256(data).hexdigest(),'quote_rows':len(qs),'exact_time':wanted,'exact_quote':exact[0] if exact else None,'first_returned_time':qs[0].get('time') if qs else None,'valid_actual_quote_fields':bool(exact and exact[0].get('ask') and exact[0].get('bid'))})
+              except Exception as exc:item['error']=str(exc)
+              return item
+          with cf.ThreadPoolExecutor(max_workers=8) as executor:rows=list(executor.map(probe,tasks))
+          result={'scope':'Selected historical dates; not proof of whole-endpoint retention. Requested dates are retained. No last-price fallback.','rows':rows}
+          (root/'quote_retention_audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: largo-quote-retention-20260905
+          path: output/quote-retention
+          retention-days: 90
