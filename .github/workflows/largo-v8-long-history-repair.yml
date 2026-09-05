@@ -1,0 +1,51 @@
+name: Largo v8 corrected historical market-cap reconstruction
+on:
+  push:
+    branches: [research/largo-3stock-gsquant-20260904]
+    paths:
+      - '.github/workflows/largo-v8-long-history-repair.yml'
+      - 'research/largo-3stock-gsquant/repair_v8_market_cap.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: largo-v8-long-history-repair
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONUNBUFFERED: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: largo-v8-long-history-2022-2026
+          run-id: 33973297417
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: frozen-original
+      - name: Install fixed dependency version
+        run: python -m pip install gs-quant==2.1.12 pandas numpy requests beautifulsoup4
+      - name: Repair market metadata only and recalculate unchanged features
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p long-history-corrected/qc
+          git rev-parse HEAD > long-history-corrected/qc/source-commit.txt
+          python -m pip freeze > long-history-corrected/qc/requirements-lock.txt
+          python research/largo-3stock-gsquant/repair_v8_market_cap.py 2>&1 | tee long-history-corrected/qc/run.log
+      - name: Preserve corrected raw inputs and all failure diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v8-long-history-corrected
+          path: long-history-corrected
+          retention-days: 90
+          if-no-files-found: error
