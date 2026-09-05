@@ -1,0 +1,55 @@
+name: Largo v8 long-history research inputs
+on:
+  push:
+    branches: [research/largo-v8-extended-20260905]
+    paths:
+      - research/largo-v8-extended/collect_extended.py
+      - .github/workflows/largo-v8-extended-research.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: largo-v8-long-history
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned GS Quant and research dependencies
+        run: pip install gs-quant==2.1.12 pandas numpy requests beautifulsoup4
+      - name: Compile and collect retrospective inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p v8-extended-data/qc
+          python -m py_compile research/largo-v8-extended/collect_extended.py
+          python -u research/largo-v8-extended/collect_extended.py 2>&1 | tee v8-extended-data/qc/run.log
+      - name: Verify collection integrity
+        run: |
+          python - <<'PY'
+          import json, pandas as pd
+          from pathlib import Path
+          root=Path('v8-extended-data')
+          rows=pd.read_csv(root/'output/extended_candidates.csv')
+          info=json.loads((root/'qc/collection_metadata.json').read_text())
+          assert rows.d.min()<'2024-01-01'
+          assert rows.d.max()=='2026-04-30'
+          assert not rows.duplicated(['d','c']).any()
+          assert len(rows)>12000
+          assert info['gs_calls']>0
+          assert info['gs_max_numpy_error']<1e-8
+          print(rows.groupby('m').size().to_string())
+          PY
+      - name: Retain raw inputs even when a validation step fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v8-long-history-inputs
+          path: v8-extended-data
+          retention-days: 90
+          if-no-files-found: error
