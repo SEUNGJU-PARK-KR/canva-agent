@@ -1,0 +1,50 @@
+name: Largo v8 verified historical replay
+on:
+  push:
+    branches: [research/largo-v8-extended-20260905]
+    paths: [.github/workflows/largo-v8-evaluate-replay.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RESULT_COMMIT: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare writable research storage
+        run: |
+          sudo mkdir -p /home/oai/my-project/files
+          sudo chown -R "$USER":"$(id -gn)" /home/oai
+          mkdir -p v8-extended-delivery
+          pip install pandas numpy requests pyyaml
+      - name: Execute the already-frozen evaluation and packaging steps
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u - <<'PY' 2>&1 | tee v8-extended-delivery/evaluation-run.log
+          from pathlib import Path
+          import subprocess,yaml
+          workflow=yaml.safe_load(Path('.github/workflows/largo-v8-evaluate-extended.yml').read_text())
+          for step in workflow['jobs']['evaluate']['steps']:
+              if 'run' not in step:continue
+              if step.get('name')=='Install evaluation dependencies':continue
+              print('\nEXECUTING:',step.get('name'),flush=True)
+              subprocess.run(['bash','-e','-o','pipefail','-c',step['run']],check=True)
+          print('ALL_EVALUATION_STEPS_SUCCESS',flush=True)
+          PY
+      - name: Preserve diagnostic log and replay project
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v8-extended-final-replay
+          path: v8-extended-delivery
+          retention-days: 90
+          if-no-files-found: error
