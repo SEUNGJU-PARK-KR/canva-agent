@@ -1,0 +1,167 @@
+name: Largo v8 extended historical evaluation
+on:
+  push:
+    branches: [research/largo-v8-extended-20260905]
+    paths: [.github/workflows/largo-v8-evaluate-extended.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: largo-v8-extended-evaluation
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install evaluation dependencies
+        run: pip install pandas numpy requests
+      - name: Restore corrected and original archived inputs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u - <<'PY'
+          import os,hashlib,json,zipfile,shutil
+          from pathlib import Path
+          import requests
+          root=Path('/home/oai/my-project/files/2026-09-05_largo_v8_extended')
+          for sub in ['input','work','source','output','qc']:(root/sub).mkdir(parents=True,exist_ok=True)
+          selected_prefixes=('output/extended_candidates.csv','output/gs_correlations.csv','qc/collection_metadata.json','qc/market_cap_parser_audit.json','qc/cache_provenance.json','source/')
+          archives=[('corrected',9971831156,'b535136c14e7f8eeea9770e1b3ed202024683e3498470d2d6be8b80c7cb00e39'),('legacy',9971739636,'09f150bee32e21182778fae731d0cb4a3ba2cabf2413f35c7b360aa728d5f184')]
+          provenance=[]
+          for label,aid,expected in archives:
+              url=f'https://api.github.com/repos/SEUNGJU-PARK-KR/canva-agent/actions/artifacts/{aid}/zip'
+              headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+              res=requests.get(url,headers=headers,stream=True,timeout=180);res.raise_for_status()
+              path=root/'work'/f'{label}-raw-artifact.zip';dig=hashlib.sha256()
+              with path.open('wb') as f:
+                  for chunk in res.iter_content(1024*1024):
+                      if chunk:f.write(chunk);dig.update(chunk)
+              assert dig.hexdigest()==expected,(label,dig.hexdigest())
+              dest=root/'input'/label;dest.mkdir(exist_ok=True)
+              with zipfile.ZipFile(path) as z:
+                  for name in z.namelist():
+                      if name.startswith(selected_prefixes):
+                          target=(dest/name).resolve()
+                          if not target.is_relative_to(dest.resolve()):raise RuntimeError('Unsafe archive path')
+                          z.extract(name,dest)
+              for filename in ['output/extended_candidates.csv','output/gs_correlations.csv','qc/collection_metadata.json']:assert (dest/filename).exists(),filename
+              provenance.append({'label':label,'artifact_id':aid,'zip_sha256':dig.hexdigest(),'zip_bytes':path.stat().st_size,'extracted':'Immutable replay inputs; full raw archives retained in Actions and source artifact'})
+              print('Restored',label,path.stat().st_size,flush=True)
+          (root/'qc/input_provenance.json').write_text(json.dumps(provenance,indent=2))
+          for f in Path('research/largo-v8-extended').glob('*'):
+              if f.is_file():shutil.copy2(f,root/'source'/f.name)
+          PY
+      - name: Correct monthly output aggregation before execution
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('research/largo-v8-extended/evaluate_extended.py')
+          text=path.read_text()
+          if ';monthrows=[]' in text:
+              text=text.replace(';monthrows=[]','')
+              begin=text.index('    for (policy,m),g in all_days.groupby')
+              end=text.index('    monthly.to_csv',begin)
+              fixed="    monthly_records=[{'policy':policy,'month':m,**stats(g)} for (policy,m),g in all_days.groupby(['policy','m'])]\n    monthly=pd.DataFrame(monthly_records)\n"
+              text=text[:begin]+fixed+text[end:]
+          compile(text,str(path),'exec')
+          path.write_text(text)
+          Path('/home/oai/my-project/files/2026-09-05_largo_v8_extended/source/evaluate_extended.py').write_text(text)
+          PY
+      - name: Evaluate corrected inputs without parameter search
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=/home/oai/my-project/files/2026-09-05_largo_v8_extended
+          python -u research/largo-v8-extended/evaluate_extended.py --input "$ROOT/input/corrected" --output "$ROOT/output" 2>&1 | tee "$ROOT/qc/evaluation.log"
+      - name: Measure legacy parser sensitivity using the identical frozen recipe
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=/home/oai/my-project/files/2026-09-05_largo_v8_extended
+          python -u research/largo-v8-extended/evaluate_extended.py --input "$ROOT/input/legacy" --output "$ROOT/work/legacy_evaluation" 2>&1 | tee "$ROOT/qc/legacy_evaluation.log"
+      - name: Independent numerical checks and final package
+        env:
+          RESULT_COMMIT: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd,numpy as np,json,hashlib,datetime as dt,shutil,zipfile,os
+          root=Path('/home/oai/my-project/files/2026-09-05_largo_v8_extended');o=root/'output'
+          trades=pd.read_csv(o/'v8_trades.csv',dtype={'c':str});daily=pd.read_csv(o/'v8_daily.csv');monthly=pd.read_csv(o/'monthly_results.csv');summary=json.loads((o/'summary.json').read_text());legacy=json.loads((root/'work/legacy_evaluation/summary.json').read_text())
+          assert daily.d.min().startswith('2024-01') and daily.d.max()=='2026-04-30'
+          assert daily.m.nunique()==28
+          assert trades.groupby('d').size().max()<=3
+          assert np.allclose(trades.groupby('d').weight.sum(),1)
+          good=trades[trades.ret.notna()].copy();assert np.allclose(good.ret,np.where(good.high>=3,2.7,good['exit']-.3))
+          calculated=good.groupby('d').apply(lambda g:(g.ret*g.weight).sum(),include_groups=False)
+          check=daily.set_index('d').loc[calculated.index,'ret']
+          assert np.allclose(check,calculated,equal_nan=True)
+          expected=np.prod(1+daily.ret/100)-1
+          if daily.evaluated.all():assert abs(expected*100-summary['v8']['compound_pct'])<1e-7
+          years=[]
+          for year,g in daily.groupby(daily.d.str[:4]):
+              active=g[g.stocks>0];eq=np.r_[1.,np.cumprod(1+g.ret/100)]
+              years.append({'year':year,'calendar_days':len(g),'trade_days':len(active),'stocks':int(active.stocks.sum()),'wins':int((active.ret>0).sum()),'losses':int((active.ret<0).sum()),'compound_pct':float((eq[-1]-1)*100),'mdd_pct':float((eq/np.maximum.accumulate(eq)-1).min()*100),'mean_trade_pct':float(active.ret.mean()) if len(active) else None,'worst_day_pct':float(g.ret.min())})
+          pd.DataFrame(years).to_csv(o/'yearly_summary.csv',index=False,encoding='utf-8-sig')
+          comparison=pd.DataFrame([{'input':label,**result[key]} for label,result in [('legacy_parser',legacy),('corrected_parser',summary)] for key in ['v8']])
+          comparison.to_csv(o/'parser_sensitivity.csv',index=False,encoding='utf-8-sig')
+          policies=pd.read_csv(o/'all_policy_daily.csv');sens=[]
+          for cost in [.15,.30,.60,1.0]:
+              for p,g in policies.groupby('policy'):
+                  returns=g.ret-np.where(g.stocks>0,cost-.30,0)
+                  sens.append({'policy':p,'cost_pct':cost,'compound_pct':float((np.prod(1+returns/100)-1)*100) if g.evaluated.all() else None,'mean_trade_pct':float(returns[g.stocks>0].mean())})
+          pd.DataFrame(sens).to_csv(o/'cost_sensitivity.csv',index=False,encoding='utf-8-sig')
+          runmax=cur=0
+          for value in daily.ret:
+              cur=cur+1 if pd.notna(value) and value<0 else (cur if value==0 else 0);runmax=max(runmax,cur)
+          facts={'years':years,'max_consecutive_loss_trades':runmax,'legacy_parser_v8':legacy['v8'],'corrected_parser_v8':summary['v8'],'positive_months':int(((monthly.policy=='v8_max3')&(monthly.compound_pct>0)).sum()),'negative_months':int(((monthly.policy=='v8_max3')&(monthly.compound_pct<0)).sum()),'zero_months':int(((monthly.policy=='v8_max3')&(monthly.compound_pct==0)).sum()),'nontrading_days':int((daily.stocks==0).sum()),'position_count_distribution':daily.stocks.value_counts().sort_index().to_dict(),'source_commit':os.environ['RESULT_COMMIT']}
+          (o/'final_facts.json').write_text(json.dumps(facts,ensure_ascii=False,indent=2))
+          audit={'created_at':dt.datetime.now(dt.timezone.utc).isoformat(),'row_return_recalculation':True,'weight_sums':True,'daily_weighted_recalculation':True,'compound_recalculation':True,'all_28_months':True,'browser_render_tested':False,'production_strategy_changed':False,'original_live_v8_not_replaced':True}
+          (root/'qc/final_integrity.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2))
+          readme='# Largo v8 extended historical validation\n\nPurpose: validate the frozen v8 recipe on January 2024-April 2026 with October-December 2023 initial training.\n\nThis is DAILY proxy research, not 15:18 to 09:06 executable performance. Current universe and theme membership, incomplete historic news and unknown historic alerts remain limitations.\n\nThe old market-cap parser read trading volume as market cap. Corrected inputs are the primary result. Same cached sources were used for the legacy sensitivity comparison.\n\nDirectories: input contains immutable candidate/correlation snapshots and metadata; source contains reproducible scripts; output contains primary results; qc contains numerical checks. Heavy original raw archives are separately retained in GitHub Actions for 90 days.\n\nReplay: pip install pandas numpy; python source/evaluate_extended.py --input input/corrected --output replay_output\n\nNo live strategy or order function was changed. HTML was generated; browser rendering was not tested in this run.\n'
+          (root/'README.md').write_text(readme)
+          replay=Path('v8-extended-delivery/largo_v8_extended');replay.mkdir(parents=True,exist_ok=True)
+          for sub in ['input','source','output','qc']:shutil.copytree(root/sub,replay/sub,dirs_exist_ok=True)
+          (replay/'work').mkdir(exist_ok=True);shutil.copy2(root/'README.md',replay/'README.md')
+          entries=[]
+          for f in sorted(replay.rglob('*')):
+              if f.is_file():entries.append({'path':str(f.relative_to(replay)),'bytes':f.stat().st_size,'mtime_utc':dt.datetime.fromtimestamp(f.stat().st_mtime,dt.timezone.utc).isoformat(),'sha256':hashlib.sha256(f.read_bytes()).hexdigest()})
+          (replay/'manifest.json').write_text(json.dumps({'created_at':audit['created_at'],'files':entries},ensure_ascii=False,indent=2))
+          package=Path('v8-extended-delivery/largo_v8_extended_project.zip')
+          with zipfile.ZipFile(package,'w',zipfile.ZIP_DEFLATED) as z:
+              for f in replay.rglob('*'):
+                  if f.is_file():z.write(f,str(f.relative_to(replay)))
+          dst=Path('research/largo-v8-extended/results');dst.mkdir(exist_ok=True)
+          for name in ['VERIFIED_RESULTS.md','summary.json','monthly_results.csv','yearly_summary.csv','v8_trades.csv','v8_daily.csv','training_folds.csv','final_facts.json','parser_sensitivity.csv','cost_sensitivity.csv','worst_days.csv','worst_trades.csv','extended-v8-report.html','config.json','qc.json']:shutil.copy2(o/name,dst/name)
+          shutil.copy2(package,dst/package.name)
+          print(json.dumps(facts,ensure_ascii=False,indent=2));print('Replay archive bytes',package.stat().st_size)
+          PY
+      - name: Preserve results on the research branch only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Largo Research Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/largo-v8-extended/evaluate_extended.py research/largo-v8-extended/results
+          if ! git diff --cached --quiet; then
+            git commit -m 'Retain verified v8 long-history results and corrected-input audit'
+            git push origin HEAD:research/largo-v8-extended-20260905
+          fi
+      - name: Retain full replay bundle for 90 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v8-extended-verified-results
+          path: |
+            v8-extended-delivery
+            /home/oai/my-project/files/2026-09-05_largo_v8_extended/qc
+          retention-days: 90
+          if-no-files-found: error
