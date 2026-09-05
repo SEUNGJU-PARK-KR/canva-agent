@@ -1,0 +1,17 @@
+{
+  "threshold": 0.75,
+  "alpha": 20.0,
+  "max_positions": 3,
+  "correlation_cap": 0.5,
+  "correlation_penalty": 0.5,
+  "shortlist": 8,
+  "target_pct": 3.0,
+  "cost_pct": 0.3,
+  "min_train_rows": 20,
+  "start": "2024-01-01",
+  "end": "2026-04-30",
+  "training_start": "2023-10-01",
+  "allocation": "1/k among selected k; cash only when k=0",
+  "label_cutoff": "outcome day < first signal day of test month",
+  "data_scope": "DAILY_PROXY; current universe and theme membership, incomplete old news, unverified historical alerts"
+}

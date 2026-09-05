@@ -122,9 +122,9 @@ def main():
     for d,g in x[x.d.isin(dates)&x.base_pool].groupby('d'):
         s=g.sort_values(['risk','tv','c'],ascending=[True,False,True]).head(1).copy();s['weight']=1.;base.append(s)
     base=pd.concat(base) if base else empty
-    daily=to_daily(selected,dates,'v8_max3');bd=to_daily(base,dates,'v61_single');od=to_daily(one,dates,'v8_single');all_days=pd.concat([daily,bd,od]);monthrows=[]
-    for (policy,m),g in all_days.groupby(['policy','m']):monthrows={'policy':policy,'month':m,**stats(g)};monthrows['loss_days']=monthrows['losses'];monthrows['positive_days']=monthrows['wins'];monthrows['max_drawdown_pct']=monthrows['mdd_pct'];monthrows['worst']=monthrows['worst_day_pct'];monthrows.append(monthrows)
-    monthly=pd.DataFrame(monthrows for monthrows_item in [] for monthrows in []) if False else pd.DataFrame(monthrows for monthrows in []) if False else pd.DataFrame(monthrows for monthrows_item in []) if False else pd.DataFrame(monthrows)
+    daily=to_daily(selected,dates,'v8_max3');bd=to_daily(base,dates,'v61_single');od=to_daily(one,dates,'v8_single');all_days=pd.concat([daily,bd,od])
+    monthly_records=[{'policy':policy,'month':m,**stats(g)} for (policy,m),g in all_days.groupby(['policy','m'])]
+    monthly=pd.DataFrame(monthly_records)
     monthly.to_csv(out/'monthly_results.csv',index=False,encoding='utf-8-sig');selected.to_csv(out/'v8_trades.csv',index=False,encoding='utf-8-sig');base.to_csv(out/'v61_trades.csv',index=False,encoding='utf-8-sig');daily.to_csv(out/'v8_daily.csv',index=False,encoding='utf-8-sig');all_days.to_csv(out/'all_policy_daily.csv',index=False,encoding='utf-8-sig');pd.DataFrame(folds).to_csv(out/'training_folds.csv',index=False,encoding='utf-8-sig');x.to_csv(out/'all_scored_candidates.csv',index=False,encoding='utf-8-sig')
     (out/'monthly_models.json').write_text(json.dumps(models,ensure_ascii=False,indent=2))
     check_m=months[-1];first=min(d for d in dates if d.startswith(check_m));tr=x[x.pool&x.ret.notna()&(x.m<check_m)&(x.n<first)];te=x[x.pool&(x.m==check_m)].copy();p1,_=predict(tr,te)

@@ -1,0 +1,92 @@
+{
+  "years": [
+    {
+      "year": "2024",
+      "calendar_days": 244,
+      "trade_days": 11,
+      "stocks": 11,
+      "wins": 4,
+      "losses": 7,
+      "compound_pct": -12.898844605059988,
+      "mdd_pct": -17.418450241777727,
+      "mean_trade_pct": -1.2061213619541038,
+      "worst_day_pct": -6.13090379008746
+    },
+    {
+      "year": "2025",
+      "calendar_days": 242,
+      "trade_days": 6,
+      "stocks": 6,
+      "wins": 5,
+      "losses": 1,
+      "compound_pct": 5.210115498620338,
+      "mdd_pct": -6.611044327573257,
+      "mean_trade_pct": 0.9098023975237685,
+      "worst_day_pct": -6.611044327573256
+    },
+    {
+      "year": "2026",
+      "calendar_days": 81,
+      "trade_days": 0,
+      "stocks": 0,
+      "wins": 0,
+      "losses": 0,
+      "compound_pct": 0.0,
+      "mdd_pct": 0.0,
+      "mean_trade_pct": null,
+      "worst_day_pct": 0.0
+    }
+  ],
+  "max_consecutive_loss_trades": 4,
+  "legacy_parser_v8": {
+    "calendar_days": 567,
+    "trade_days": 19,
+    "stocks": 20,
+    "evaluated_trade_days": 19,
+    "missing_days": 0,
+    "wins": 8,
+    "losses": 11,
+    "hit3": 7,
+    "mean_trade_pct": -0.6922294491045957,
+    "mean_calendar_pct": -0.02319640129274659,
+    "sum_pct": -13.152359532987315,
+    "compound_pct": -13.174759184322959,
+    "mdd_pct": -19.644047094025773,
+    "worst_day_pct": -6.611044327573256,
+    "best_day_pct": 2.7,
+    "open_compound_pct": -0.045886880772894045,
+    "stop_lower_compound_pct": -20.917906879596572,
+    "stop_upper_compound_pct": -10.799745270460914,
+    "fixed_slots_compound_pct": -5.047310899020962
+  },
+  "corrected_parser_v8": {
+    "calendar_days": 567,
+    "trade_days": 17,
+    "stocks": 17,
+    "evaluated_trade_days": 17,
+    "missing_days": 0,
+    "wins": 9,
+    "losses": 8,
+    "hit3": 7,
+    "mean_trade_pct": -0.45932474096191345,
+    "mean_calendar_pct": -0.01377164126340834,
+    "sum_pct": -7.808520596352529,
+    "compound_pct": -8.36077380835084,
+    "mdd_pct": -17.418450241777727,
+    "worst_day_pct": -6.611044327573256,
+    "best_day_pct": 2.7,
+    "open_compound_pct": 14.526632426241548,
+    "stop_lower_compound_pct": -1.4518575343037354,
+    "stop_upper_compound_pct": -1.4518575343037354,
+    "fixed_slots_compound_pct": -2.667676172928435
+  },
+  "positive_months": 5,
+  "negative_months": 7,
+  "zero_months": 16,
+  "nontrading_days": 550,
+  "position_count_distribution": {
+    "0": 550,
+    "1": 17
+  },
+  "source_commit": "91e93b2f66e437293e97b38274d8fad83292a304"
+}
