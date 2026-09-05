@@ -1,0 +1,67 @@
+name: Largo v8 cached market-cap correction
+on:
+  push:
+    branches: [research/largo-v8-extended-20260905]
+    paths: [.github/workflows/largo-v8-corrected-cache.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  correct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned research dependencies
+        run: pip install gs-quant==2.1.12 pandas numpy requests beautifulsoup4
+      - name: Read the original run artifact without refreshing market data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -u - <<'PY'
+          import os,time,json,hashlib,io,zipfile
+          from pathlib import Path
+          import requests
+          repo='SEUNGJU-PARK-KR/canva-agent'; run=33973088640
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+          base='https://api.github.com/repos/'+repo+'/actions/runs/'+str(run)
+          artifact=None
+          for attempt in range(100):
+              r=requests.get(base+'/artifacts',headers=headers,timeout=30);r.raise_for_status()
+              artifact=next((a for a in r.json().get('artifacts',[]) if a['name']=='largo-v8-long-history-inputs'),None)
+              if artifact:break
+              state=requests.get(base,headers=headers,timeout=30).json()
+              if state.get('status')=='completed':raise RuntimeError('Source run completed without retained artifact: '+str(state.get('conclusion')))
+              if attempt%8==0:print('Source collection is active; no new market data requested.',flush=True)
+              time.sleep(15)
+          if artifact is None:raise RuntimeError('Source artifact did not become available')
+          r=requests.get(artifact['archive_download_url'],headers=headers,timeout=180);r.raise_for_status()
+          root=Path('cached-v8-data');root.mkdir(exist_ok=True)
+          z=zipfile.ZipFile(io.BytesIO(r.content))
+          for name in z.namelist():
+              if not (root/name).resolve().is_relative_to(root.resolve()):raise RuntimeError('Unsafe ZIP path')
+          z.extractall(root)
+          out=Path('v8-extended-corrected/qc');out.mkdir(parents=True,exist_ok=True)
+          (out/'cache_provenance.json').write_text(json.dumps({'source_run':run,'artifact_id':artifact['id'],'sha256':hashlib.sha256(r.content).hexdigest(),'source_digest':artifact.get('digest')},indent=2))
+          for name in ['price_history.json.gz','news_history.json.gz','themes.json']:
+              assert (root/'output'/name).exists(),name
+          print('Archived input restored',artifact['id'],len(r.content))
+          PY
+      - name: Correct market-cap parsing and recompute frozen candidate inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile research/largo-v8-extended/correct_cached.py
+          python -u research/largo-v8-extended/correct_cached.py 2>&1 | tee v8-extended-corrected/qc/correction.log
+      - name: Retain corrected inputs and audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v8-long-history-corrected
+          path: v8-extended-corrected
+          retention-days: 90
+          if-no-files-found: error
