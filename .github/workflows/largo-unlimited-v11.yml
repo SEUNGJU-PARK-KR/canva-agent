@@ -1,0 +1,79 @@
+name: Largo no-weekly-cap v11 research
+on:
+  push:
+    branches: ['research/largo-unlimited-v11-20260907']
+    paths: ['.github/workflows/largo-unlimited-v11.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      LARGO_PROJECT: /home/oai/my-project/files/2026-09-07_largo_unlimited_v11
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare writable project and replay source
+        run: |
+          sudo mkdir -p /home/oai/my-project/files /mnt/data
+          sudo chown -R "$(id -u):$(id -g)" /home/oai /mnt/data
+          mkdir -p "$LARGO_PROJECT"/{input,work,source,output,qc}
+          cp research/largo-unlimited-v11/*.py "$LARGO_PROJECT/source/"
+          python - <<'PY'
+          import os,py_compile
+          from pathlib import Path
+          root=Path(os.environ['LARGO_PROJECT'])/'source'
+          p=root/'run_research.py';s=p.read_text()
+          s=s.replace("fill=count<2 and (schedule=='early'||False) if False else count<2 and", "fill=count<2 and")
+          s=s.replace("eval_masks={k:v&(outcome_day<starts[k][1]) for k,v in perf_masks.items()}","eval_masks={k:(v&(outcome_day<starts[k][1]) if k in ['development','selection'] else v.copy()) for k,v in perf_masks.items()}")
+          p.write_text(s)
+          p=root/'package_report.py';s=p.read_text().replace('import numpy as np','from run_research import dump\nimport numpy as np').replace("&(daily.n<'2026-05-01')",'');p.write_text(s)
+          for p in root.glob('*.py'):py_compile.compile(str(p),doraise=True)
+          PY
+          git rev-parse HEAD > "$LARGO_PROJECT/qc/source_commit.txt"
+      - name: Install GS Quant and numerical dependencies
+        run: |
+          pip install 'gs-quant==2.1.12' pandas numpy requests
+          pip freeze > "$LARGO_PROJECT/qc/requirements-lock.txt"
+      - name: Optimize archived inputs without weekly entry ceiling
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python "$LARGO_PROJECT/source/run_research.py" 2>&1 | tee "$LARGO_PROJECT/qc/run.log"
+      - name: Independently check results and create full project ZIP
+        run: |
+          python "$LARGO_PROJECT/source/package_report.py"
+      - name: Preserve small verified results on research branch only
+        run: |
+          set -euo pipefail
+          mkdir -p research/largo-unlimited-v11/results
+          cp "$LARGO_PROJECT/source/"*.py research/largo-unlimited-v11/
+          cp "$LARGO_PROJECT/output/"{summary.json,UNLIMITED_OPTIMIZATION_REPORT.md,frozen_before_followup.json,policy_comparison.csv,monthly_results.csv,stress_scenarios.csv,position_count_sensitivity.csv,weekly_frequency.csv,selected_trades.csv,uncertainty.json,unlimited-optimization-report.html} research/largo-unlimited-v11/results/
+          cp "$LARGO_PROJECT/qc/"{checks.json,provenance.json} research/largo-unlimited-v11/results/
+          cp "$LARGO_PROJECT/README.md" research/largo-unlimited-v11/README.md
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/largo-unlimited-v11
+          git commit -m 'Archive verified weekly-minimum/no-maximum optimization results; no live changes'
+          git push origin HEAD:research/largo-unlimited-v11-20260907
+      - name: Retain all inputs, sources, and diagnostics for 90 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-unlimited-v11-replay
+          path: |
+            /mnt/data/largo_unlimited_v11_project.zip
+            /home/oai/my-project/files/2026-09-07_largo_unlimited_v11/output
+            /home/oai/my-project/files/2026-09-07_largo_unlimited_v11/qc
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 1
