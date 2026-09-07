@@ -1,7 +1,7 @@
 {
   "signal_days": 1,
-  "completed": 0,
-  "pending": 1,
+  "completed": 1,
+  "pending": 0,
   "official": {
     "n": 0,
     "positive": 0,
@@ -15,28 +15,28 @@
     "worst_policy_return_pct": null
   },
   "proxy": {
-    "n": 0,
-    "positive": 0,
+    "n": 1,
+    "positive": 1,
     "loss": 0,
-    "hit3": 0,
-    "positive_rate": null,
-    "hit3_rate": null,
-    "mean_policy_return_pct": null,
-    "median_policy_return_pct": null,
-    "sum_policy_return_pct": null,
-    "worst_policy_return_pct": null
+    "hit3": 1,
+    "positive_rate": 1.0,
+    "hit3_rate": 1.0,
+    "mean_policy_return_pct": 3.0,
+    "median_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 3.0,
+    "worst_policy_return_pct": 3.0
   },
   "all_completed": {
-    "n": 0,
-    "positive": 0,
+    "n": 1,
+    "positive": 1,
     "loss": 0,
-    "hit3": 0,
-    "positive_rate": null,
-    "hit3_rate": null,
-    "mean_policy_return_pct": null,
-    "median_policy_return_pct": null,
-    "sum_policy_return_pct": null,
-    "worst_policy_return_pct": null
+    "hit3": 1,
+    "positive_rate": 1.0,
+    "hit3_rate": 1.0,
+    "mean_policy_return_pct": 3.0,
+    "median_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 3.0,
+    "worst_policy_return_pct": 3.0
   },
   "limitations": [
     "v5는 정본 비교 기준으로 유지하고 v6는 그림자 신호로만 기록합니다.",
