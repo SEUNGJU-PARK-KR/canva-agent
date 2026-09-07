@@ -2,17 +2,25 @@ name: Largo manual 15:15 dashboard
 
 on:
   push:
-    branches: [main, feat/largo-manual1515-20260907]
+    branches: [main, feat/largo-manual1515-20260907, feat/largo-auto-journal-20260907]
     paths:
       - "bundles/largo_manual_1515_v1/**"
       - ".github/workflows/largo-manual-1515.yml"
       - "research/largo-manual-1515/**"
+      - "scripts/largo_auto_journal.py"
+      - "scripts/validate_largo_auto_journal_browser.py"
+      - "scripts/package_largo_auto_journal.py"
+      - "tests/test_largo_auto_journal.py"
   pull_request:
     branches: [main]
     paths:
       - "bundles/largo_manual_1515_v1/**"
       - ".github/workflows/largo-manual-1515.yml"
       - "research/largo-manual-1515/**"
+      - "scripts/largo_auto_journal.py"
+      - "scripts/validate_largo_auto_journal_browser.py"
+      - "scripts/package_largo_auto_journal.py"
+      - "tests/test_largo_auto_journal.py"
   workflow_dispatch:
     inputs:
       mode:
@@ -42,7 +50,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Restore and verify source
+      - name: Restore and verify unchanged source
         run: |
           set -euo pipefail
           mkdir -p manual-source manual-work manual-public manual-raw
@@ -70,12 +78,13 @@ jobs:
               z.extractall("manual-source")
           PY
 
-      - name: Verify read-only engine and original collector
+      - name: Verify read-only engine and automatic journal
         run: |
           set -euo pipefail
           python -m pip install requests beautifulsoup4
-          python -m py_compile manual-source/manual1515.py manual-source/test_manual1515.py
+          python -m py_compile manual-source/manual1515.py manual-source/test_manual1515.py scripts/largo_auto_journal.py
           PYTHONPATH=manual-source python -m unittest discover -s manual-source -p 'test_*.py' -v 2>&1 | tee manual-work/unit-tests.txt
+          PYTHONPATH=scripts python -m unittest discover -s tests -p 'test_largo_auto_journal.py' -v 2>&1 | tee manual-work/auto-journal-tests.txt
           PYTHONPATH=manual-source python - <<'PY'
           import py_compile
           from manual1515 import restore_scraper
@@ -127,33 +136,73 @@ jobs:
             --raw manual-raw \
             --bundle bundles/largo_close_site_v2
           touch manual-public/.nojekyll
-          python - <<'PY'
-          import csv,json
+          cp manual-public/manual-1515/state.json manual-work/source-state-before-journal.json
+          cp manual-public/manual-1515/index.html manual-work/dashboard-before-journal.html
+
+      - name: Build and validate automatic simulated journal
+        run: |
+          set -euo pipefail
+          python scripts/largo_auto_journal.py \
+            --state manual-work/source-state-before-journal.json \
+            --out manual-public/manual-1515 \
+            --template research/largo-manual-1515/auto-dashboard.html
+          PYTHONPATH=manual-source python - <<'PY'
+          import csv, json
           from pathlib import Path
+          from manual1515 import load_state
           root=Path("manual-public/manual-1515")
+          original=json.loads(Path("manual-work/source-state-before-journal.json").read_text())
           state=json.loads((root/"state.json").read_text())
+          restored=load_state(str(root/"state.json"))
+          journal=json.loads((root/"journal.json").read_text())
+          rows=list(csv.DictReader((root/"journal.csv").open(encoding="utf-8-sig")))
           text=(root/"index.html").read_text()
-          rows=list(csv.DictReader((root/"history.csv").open(encoding="utf-8-sig")))
-          assert len(rows)==len(state["days"])
-          assert "__INITIAL_STATE__" not in text
-          assert "15:15" in text and "localStorage" in text
-          assert len({d["date"] for d in state["days"]})==len(state["days"])
+          assert state["days"]==original["days"]==restored["days"]
+          assert state["config_hash"]==original["config_hash"]==restored["config_hash"]
+          assert journal==state["auto_journal"]
+          assert len(rows)==len(state["days"])==len(journal["rows"])
+          assert len({r["id"] for r in journal["rows"]})==len(rows)
+          assert all(r["simulation_only"] and not r["real_order"] for r in journal["rows"])
+          assert journal["summary"]["completed"]==sum(r["status"]=="CLOSED" for r in journal["rows"])
+          assert all(r["net_pct"] is None for r in journal["rows"] if r["status"]!="CLOSED")
           assert all(d.get("selected") is None for d in state["days"] if d["status"]!="SIGNAL")
-          assert state["summary"]["completed"]==sum(d["reference"]["status"]=="COMPLETE" for d in state["days"])
-          print({"days":len(rows),"completed":state["summary"]["completed"],"orders":False})
+          assert "__INITIAL_STATE__" not in text and "tradeForm" not in text and "<form" not in text
+          assert "자동 모의매매 일지" in text and "실제 주문 없음" in text
+          result={"status":"PASS","journal_rows":len(rows),"completed":journal["summary"]["completed"],"frozen_selection_unchanged":True,"legacy_state_reload_passed":True,"csv_json_consistent":True,"orders":False}
+          Path("manual-work/journal-validation.json").write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(result)
           PY
+
+      - name: Check real desktop and mobile browsers with synthetic data
+        if: steps.mode.outputs.value == 'render'
+        run: |
+          set -euo pipefail
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+          PYTHONPATH=scripts python scripts/validate_largo_auto_journal_browser.py \
+            --template research/largo-manual-1515/auto-dashboard.html \
+            --out manual-work/browser
+
+      - name: Package original inputs, generated output and reproducible sources
+        run: |
+          set -euo pipefail
+          sudo install -d -o "$(id -u)" -g "$(id -g)" /home/oai/my-project/files/2026-09-07_largo_auto_journal /mnt/data
+          python scripts/package_largo_auto_journal.py
 
       - name: Preserve verified code, reference data and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: largo-manual-1515-${{ github.run_id }}
+          name: largo-auto-journal-${{ github.run_id }}
           path: |
+            /mnt/data/largo_auto_journal_project.zip
             manual-public
             manual-work/unit-tests.txt
+            manual-work/auto-journal-tests.txt
+            manual-work/journal-validation.json
+            manual-work/browser
             manual-source
             manual-raw
-            bundles/largo_manual_1515_v1
           retention-days: 90
           if-no-files-found: error
 
@@ -167,4 +216,4 @@ jobs:
           keep_files: true
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Update Largo manual 15:15 read-only dashboard
+          full_commit_message: Update Largo 15:15 automatic simulated journal
