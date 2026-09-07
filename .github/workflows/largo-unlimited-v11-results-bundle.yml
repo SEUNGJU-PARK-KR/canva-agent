@@ -1,0 +1,29 @@
+name: Largo v11 verified result bundle
+on:
+  push:
+    branches: ['research/largo-unlimited-v11-20260907']
+    paths: ['.github/workflows/largo-unlimited-v11-results-bundle.yml']
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package already verified results without recalculation
+        run: |
+          python3 - <<'PY'
+          import pathlib,zipfile,json,hashlib
+          root=pathlib.Path('research/largo-unlimited-v11')
+          assert (root/'results/summary.json').exists()
+          files=[p for p in root.rglob('*') if p.is_file()]
+          with zipfile.ZipFile('largo-v11-results-and-source.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for p in files:z.write(p,pathlib.Path('largo-v11-results-and-source')/p.relative_to(root))
+          print('Verified source and result files:',len(files))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-v11-results-and-source
+          path: largo-v11-results-and-source.zip
+          retention-days: 90
+          if-no-files-found: error
