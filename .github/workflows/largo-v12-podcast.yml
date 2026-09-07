@@ -1,0 +1,74 @@
+name: Largo V12 Korean report podcast
+on:
+  workflow_dispatch:
+  push:
+    branches: ['media/largo-v12-podcast-20260907']
+    paths:
+      - 'media/largo-v12-podcast/source/**'
+      - 'media/largo-v12-podcast/input/**'
+      - '.github/workflows/largo-v12-podcast.yml'
+permissions:
+  contents: write
+concurrency:
+  group: largo-v12-podcast
+  cancel-in-progress: false
+jobs:
+  podcast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PROJECT_DIR: /home/oai/my-project/files/2026-09-07_largo_v12_podcast
+      DELIVERY_DIR: ${{ github.workspace }}/podcast-delivery
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare isolated project and audio dependencies
+        run: |
+          set -euo pipefail
+          sudo mkdir -p "$PROJECT_DIR"
+          sudo chown -R "$(id -u):$(id -g)" "$PROJECT_DIR"
+          mkdir -p "$PROJECT_DIR"/{input,work,source,output,qc}
+          if ! command -v ffmpeg >/dev/null; then sudo apt-get update -qq && sudo apt-get install -y ffmpeg; fi
+          python -m pip install --no-deps podcastfy==0.4.3
+          python -m pip install edge-tts==7.2.8 nest-asyncio==1.6.0 pydub==0.25.1
+          python -m pip freeze > "$PROJECT_DIR/qc/requirements-lock.txt"
+          git rev-parse HEAD > "$PROJECT_DIR/qc/source_commit.txt"
+          cp .github/workflows/largo-v12-podcast.yml "$PROJECT_DIR/source/"
+      - name: Narrate approved script using actual Podcastfy provider
+        run: |
+          set -euo pipefail
+          python -m py_compile media/largo-v12-podcast/source/generate_podcast.py
+          python media/largo-v12-podcast/source/generate_podcast.py 2>&1 | tee "$PROJECT_DIR/qc/run.log"
+      - name: Retain audio on media branch only
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = media/largo-v12-podcast-20260907
+          mkdir -p media/largo-v12-podcast/output media/largo-v12-podcast/qc
+          cp "$PROJECT_DIR/output/"* media/largo-v12-podcast/output/
+          cp "$PROJECT_DIR/qc/status.json" media/largo-v12-podcast/qc/
+          cp "$PROJECT_DIR/README.md" media/largo-v12-podcast/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add media/largo-v12-podcast/output media/largo-v12-podcast/qc media/largo-v12-podcast/README.md
+          git commit -m 'Archive verified V12 podcast audio and transcript [skip ci]'
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Preserve deliverables and diagnostics for 90 days
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v12-podcast
+          path: |
+            podcast-delivery
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Preserve diagnostics even if synthesis fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-v12-podcast-diagnostics
+          path: ${{ env.PROJECT_DIR }}/qc
+          if-no-files-found: warn
+          retention-days: 90
