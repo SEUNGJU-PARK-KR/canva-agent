@@ -179,7 +179,7 @@ def run():
     starts={'development':('2024-01-01','2025-01-01'),'selection':('2025-01-01','2025-07-01'),'followup':('2025-07-01','2026-05-01'),'all':('2024-01-01','2026-05-01')}
     perf_masks={k:(date_arr>=a)&(date_arr<b) for k,(a,b) in starts.items()}
     outcome_day=np.array([str(x.loc[ids,'n'].max()) for ids in groups])
-    eval_masks={k:v&(outcome_day<starts[k][1]) for k,v in perf_masks.items()}
+    eval_masks={k:(v&(outcome_day<starts[k][1]) if k in ['development','selection'] else v.copy()) for k,v in perf_masks.items()}
     eligible_weeks={}
     for key,(a,b) in starts.items():
         ws=[]
@@ -197,7 +197,7 @@ def run():
             if weeks[j]!=wprev:wprev=weeks[j];count=0
             if capweek and count>=2:continue
             loc=np.flatnonzero(mask[ids]&np.isfinite(score[ids]));regular=True
-            fill=count<2 and (schedule=='early'||False) if False else count<2 and (schedule=='early' or remaining[j]<=2-count)
+            fill=count<2 and (schedule=='early' or remaining[j]<=2-count)
             if not len(loc) and fill:loc=np.flatnonzero(backup[ids]&np.isfinite(score[ids]));regular=False
             if not len(loc):continue
             loc=sorted(loc,key=lambda k:(-score[ids[k]],x.at[ids[k],'risk'] if pd.notna(x.at[ids[k],'risk']) else 99,-x.at[ids[k],'tv'],x.at[ids[k],'c']))[:10]

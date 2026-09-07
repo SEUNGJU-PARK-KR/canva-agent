@@ -1,0 +1,893 @@
+{
+  "selected": {
+    "balanced": {
+      "id": 5635,
+      "pi": 13,
+      "profile": "momentum_0.1_4_8_0.8",
+      "ranker": "gap_ridge",
+      "maxn": 1,
+      "schedule": "deadline",
+      "mi": 1,
+      "mode": "tp0.75_close",
+      "dev_win_rate": 0.8454545454545455,
+      "dev_return": 72.89371355771017,
+      "dev_mdd": -11.521345906204017,
+      "days": 52,
+      "stocks": 52,
+      "wins": 34,
+      "losses": 18,
+      "win_rate": 0.6538461538461539,
+      "compound_pct": 10.07662778362537,
+      "log_growth": 0.09600655349464798,
+      "mdd_pct": -22.33806358041608,
+      "mean_trade_pct": 0.3797769470873537,
+      "worst_day_pct": -12.862814070351758,
+      "profit_factor": 1.213595892364878,
+      "eligible_weeks": 24,
+      "covered_weeks": 24,
+      "coverage": 1.0,
+      "missing": 0,
+      "balanced": 1.6666666666666667
+    },
+    "win_priority": {
+      "id": 5959,
+      "pi": 13,
+      "profile": "momentum_0.1_4_8_0.8",
+      "ranker": "stop_ridge",
+      "maxn": 1,
+      "schedule": "deadline",
+      "mi": 1,
+      "mode": "tp0.75_close",
+      "dev_win_rate": 0.8454545454545455,
+      "dev_return": 69.74694362147285,
+      "dev_mdd": -11.521345906204017,
+      "days": 52,
+      "stocks": 52,
+      "wins": 36,
+      "losses": 16,
+      "win_rate": 0.6923076923076923,
+      "compound_pct": 2.640466176186118,
+      "log_growth": 0.026062076165814463,
+      "mdd_pct": -24.496594782843985,
+      "mean_trade_pct": 0.16983336324541953,
+      "worst_day_pct": -12.862814070351758,
+      "profit_factor": 1.1096322363436633,
+      "eligible_weeks": 24,
+      "covered_weeks": 24,
+      "coverage": 1.0,
+      "missing": 0,
+      "balanced": 1.25
+    },
+    "return_priority": {
+      "id": 5636,
+      "pi": 13,
+      "profile": "momentum_0.1_4_8_0.8",
+      "ranker": "gap_ridge",
+      "maxn": 1,
+      "schedule": "deadline",
+      "mi": 2,
+      "mode": "tp1_close",
+      "dev_win_rate": 0.8272727272727273,
+      "dev_return": 90.33209429559956,
+      "dev_mdd": -11.521345906204028,
+      "days": 52,
+      "stocks": 52,
+      "wins": 33,
+      "losses": 19,
+      "win_rate": 0.6346153846153846,
+      "compound_pct": 12.035443768086562,
+      "log_growth": 0.11364509745845569,
+      "mdd_pct": -22.33806358041609,
+      "mean_trade_pct": 0.4141237939342003,
+      "worst_day_pct": -12.862814070351758,
+      "profit_factor": 1.2304811887496026,
+      "eligible_weeks": 24,
+      "covered_weeks": 24,
+      "coverage": 1.0,
+      "missing": 0,
+      "balanced": 1.5
+    }
+  },
+  "profiles": [
+    {
+      "name": "v10_broad",
+      "chg": [
+        0,
+        25
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.4,
+      "body": 0.2,
+      "pat": 0,
+      "context": "loose",
+      "vol": 50,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "classic",
+      "chg": [
+        8,
+        18
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.2,
+        1.2
+      ],
+      "cl": 0.9,
+      "body": 0.45,
+      "pat": 80,
+      "context": "strong",
+      "vol": 50,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.06_3_0_0.5",
+      "chg": [
+        0,
+        10
+      ],
+      "risk": 0.06,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.06_3_0_0.8",
+      "chg": [
+        0,
+        10
+      ],
+      "risk": 0.06,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.06_3_3_0.5",
+      "chg": [
+        3,
+        15
+      ],
+      "risk": 0.06,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.06_3_3_0.8",
+      "chg": [
+        3,
+        15
+      ],
+      "risk": 0.06,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.06_3_8_0.5",
+      "chg": [
+        8,
+        20
+      ],
+      "risk": 0.06,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.06_3_8_0.8",
+      "chg": [
+        8,
+        20
+      ],
+      "risk": 0.06,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.1_4_0_0.5",
+      "chg": [
+        0,
+        10
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 4,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.1_4_0_0.8",
+      "chg": [
+        0,
+        10
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 4,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.1_4_3_0.5",
+      "chg": [
+        3,
+        15
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 4,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.1_4_3_0.8",
+      "chg": [
+        3,
+        15
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 4,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.1_4_8_0.5",
+      "chg": [
+        8,
+        20
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 4,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.1_4_8_0.8",
+      "chg": [
+        8,
+        20
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 4,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.15_6_0_0.5",
+      "chg": [
+        0,
+        10
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 6,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.15_6_0_0.8",
+      "chg": [
+        0,
+        10
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 6,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.15_6_3_0.5",
+      "chg": [
+        3,
+        15
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 6,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.15_6_3_0.8",
+      "chg": [
+        3,
+        15
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 6,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.15_6_8_0.5",
+      "chg": [
+        8,
+        20
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.5,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 6,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "momentum_0.15_6_8_0.8",
+      "chg": [
+        8,
+        20
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.15,
+        2
+      ],
+      "cl": 0.8,
+      "body": 0.25,
+      "pat": 0,
+      "context": "loose",
+      "vol": 6,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "liquid_50000000000.0_0.4_none",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.4,
+      "body": 0.15,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 50000000000.0
+    },
+    {
+      "name": "liquid_50000000000.0_0.4_loose",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.4,
+      "body": 0.15,
+      "pat": 0,
+      "context": "loose",
+      "vol": 5,
+      "tv": 50000000000.0
+    },
+    {
+      "name": "liquid_50000000000.0_0.7_none",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.7,
+      "body": 0.15,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 50000000000.0
+    },
+    {
+      "name": "liquid_50000000000.0_0.7_loose",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.7,
+      "body": 0.15,
+      "pat": 0,
+      "context": "loose",
+      "vol": 5,
+      "tv": 50000000000.0
+    },
+    {
+      "name": "liquid_100000000000.0_0.4_none",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.4,
+      "body": 0.15,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 100000000000.0
+    },
+    {
+      "name": "liquid_100000000000.0_0.4_loose",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.4,
+      "body": 0.15,
+      "pat": 0,
+      "context": "loose",
+      "vol": 5,
+      "tv": 100000000000.0
+    },
+    {
+      "name": "liquid_100000000000.0_0.7_none",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.7,
+      "body": 0.15,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 100000000000.0
+    },
+    {
+      "name": "liquid_100000000000.0_0.7_loose",
+      "chg": [
+        -3,
+        18
+      ],
+      "risk": 0.15,
+      "dig": [
+        0.1,
+        3
+      ],
+      "cl": 0.7,
+      "body": 0.15,
+      "pat": 0,
+      "context": "loose",
+      "vol": 5,
+      "tv": 100000000000.0
+    },
+    {
+      "name": "lowvol_-8_3",
+      "chg": [
+        -8,
+        3
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.1,
+        2.5
+      ],
+      "cl": 0.35,
+      "body": 0.1,
+      "pat": 0,
+      "context": "none",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "lowvol_-8_5",
+      "chg": [
+        -8,
+        3
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.1,
+        2.5
+      ],
+      "cl": 0.35,
+      "body": 0.1,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "lowvol_-3_3",
+      "chg": [
+        -3,
+        8
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.1,
+        2.5
+      ],
+      "cl": 0.35,
+      "body": 0.1,
+      "pat": 0,
+      "context": "none",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "lowvol_-3_5",
+      "chg": [
+        -3,
+        8
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.1,
+        2.5
+      ],
+      "cl": 0.35,
+      "body": 0.1,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "lowvol_0_3",
+      "chg": [
+        0,
+        15
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.1,
+        2.5
+      ],
+      "cl": 0.35,
+      "body": 0.1,
+      "pat": 0,
+      "context": "none",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "lowvol_0_5",
+      "chg": [
+        0,
+        15
+      ],
+      "risk": 0.1,
+      "dig": [
+        0.1,
+        2.5
+      ],
+      "cl": 0.35,
+      "body": 0.1,
+      "pat": 0,
+      "context": "none",
+      "vol": 5,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "close_strength_3",
+      "chg": [
+        3,
+        20
+      ],
+      "risk": 0.12,
+      "dig": [
+        0.2,
+        2
+      ],
+      "cl": 0.85,
+      "body": 0.45,
+      "pat": 70,
+      "context": "loose",
+      "vol": 3,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "close_strength_5",
+      "chg": [
+        3,
+        20
+      ],
+      "risk": 0.12,
+      "dig": [
+        0.2,
+        2
+      ],
+      "cl": 0.85,
+      "body": 0.45,
+      "pat": 70,
+      "context": "loose",
+      "vol": 5,
+      "tv": 20000000000.0
+    },
+    {
+      "name": "close_strength_8",
+      "chg": [
+        3,
+        20
+      ],
+      "risk": 0.12,
+      "dig": [
+        0.2,
+        2
+      ],
+      "cl": 0.85,
+      "body": 0.45,
+      "pat": 70,
+      "context": "loose",
+      "vol": 8,
+      "tv": 20000000000.0
+    }
+  ],
+  "exit_modes": [
+    {
+      "name": "tp0.5_close",
+      "tp": 0.5,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp0.75_close",
+      "tp": 0.75,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1_close",
+      "tp": 1,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1.5_close",
+      "tp": 1.5,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp2_close",
+      "tp": 2,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp3_close",
+      "tp": 3,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp4_close",
+      "tp": 4,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp0.75_gapstop1.5",
+      "tp": 0.75,
+      "sl": null,
+      "gap_stop": 1.5,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1_gapstop2",
+      "tp": 1,
+      "sl": null,
+      "gap_stop": 2,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1.5_gapstop2",
+      "tp": 1.5,
+      "sl": null,
+      "gap_stop": 2,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp2_gapstop3",
+      "tp": 2,
+      "sl": null,
+      "gap_stop": 3,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp0.75_stop3",
+      "tp": 0.75,
+      "sl": 3,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1_stop3",
+      "tp": 1,
+      "sl": 3,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1.5_stop3",
+      "tp": 1.5,
+      "sl": 3,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp1_stop5",
+      "tp": 1,
+      "sl": 5,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "tp2_stop5",
+      "tp": 2,
+      "sl": 5,
+      "gap_stop": null,
+      "open_fraction": 0
+    },
+    {
+      "name": "half_open_half_tp1.5",
+      "tp": 1.5,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 0.5
+    },
+    {
+      "name": "all_open",
+      "tp": 1,
+      "sl": null,
+      "gap_stop": null,
+      "open_fraction": 1
+    }
+  ],
+  "search_count": 15984,
+  "shortlist_count": 47,
+  "selection_constraints_relaxation": "none",
+  "followup_not_used_for_selection": true,
+  "weekly_cap": null,
+  "previously_seen_periods": true
+}

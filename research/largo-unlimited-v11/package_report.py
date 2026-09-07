@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import os,json,hashlib,shutil,zipfile,datetime as dt,html
+from run_research import dump
 import numpy as np
 import pandas as pd
 ROOT=Path(os.environ.get('LARGO_PROJECT','/home/oai/my-project/files/2026-09-07_largo_unlimited_v11'))
@@ -21,7 +22,7 @@ allr=comp[(comp.period=='all')&(comp.policy=='balanced')].iloc[0]
 f=follow[follow.policy=='balanced'].iloc[0]
 # Independent numerical checks on daily account returns and weights.
 daily=pd.read_csv(OUT/'daily_results.csv');trades=pd.read_csv(OUT/'selected_trades.csv',dtype={'c':str})
-b=daily[(daily.policy=='balanced')&(daily.d>='2025-07-01')&(daily.n<'2026-05-01')]
+b=daily[(daily.policy=='balanced')&(daily.d>='2025-07-01')]
 assert abs(((1+b.return_pct/100).prod()-1)*100-f.compound_pct)<1e-7
 assert (b.stocks>0).sum()==f.days
 for (policy,d),g in trades.groupby(['policy','d']):
