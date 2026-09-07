@@ -1,0 +1,100 @@
+name: Largo weekly two-day constrained research
+on:
+  push:
+    branches: [research/largo-weekly-two-20260907]
+    paths: ['.github/workflows/largo-weekly-two-research.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: largo-weekly-two-research
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      PYTHONUNBUFFERED: '1'
+      PROJECT: /home/oai/my-project/files/2026-09-07_largo_weekly_two
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore verified corrected archive without requerying market data
+        uses: actions/download-artifact@v4
+        with:
+          name: largo-v8-extended-final-replay
+          run-id: 33974968980
+          github-token: ${{ github.token }}
+          path: restored
+      - name: Install numerical dependencies and writable project directories
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy<3' 'pandas<4'
+          sudo install -d -o "$USER" /home/oai/my-project/files /mnt/data
+          mkdir -p "$PROJECT"/{input,work,source,output,qc}
+          python -m pip freeze > "$PROJECT/qc/requirements-lock.txt"
+          git rev-parse HEAD > "$PROJECT/qc/research-source-commit.txt"
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          p=Path('research/largo-weekly-two/optimize_weekly.py')
+          s=p.read_text()
+          old="if '/input/' not in p.as_posix() and '/work/' not in p.as_posix()"
+          new="if 'input' not in p.relative_to(args.restored).parts and 'work' not in p.relative_to(args.restored).parts"
+          assert old in s
+          p.write_text(s.replace(old,new))
+          r=Path(os.environ['PROJECT'])
+          (r/'qc/restored-file-index.txt').write_text('\n'.join(str(p) for p in Path('restored').rglob('*') if p.is_file()))
+          PY
+      - name: Compare frequency and profitability without live strategy changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile research/largo-weekly-two/optimize_weekly.py
+          python research/largo-weekly-two/optimize_weekly.py --restored restored --root "$PROJECT" 2>&1 | tee "$PROJECT/qc/run.log"
+      - name: Package complete research and preserve key results on this branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os,shutil,zipfile,json,hashlib,datetime
+          from pathlib import Path
+          root=Path(os.environ['PROJECT'])
+          replay='''from pathlib import Path\nimport argparse,shutil,subprocess,sys\np=argparse.ArgumentParser();p.add_argument('--output',default='replay_result');a=p.parse_args()\nroot=Path(__file__).resolve().parents[1];stage=Path(a.output)/'upstream'/'corrected';(stage/'output').mkdir(parents=True,exist_ok=True);(stage/'qc').mkdir(exist_ok=True)\nfor src,dst in [('corrected_candidates.csv','output/extended_candidates.csv'),('gs_correlations.csv','output/gs_correlations.csv'),('collection_metadata.json','qc/collection_metadata.json')]:shutil.copy2(root/'input'/src,stage/dst)\nsubprocess.run([sys.executable,str(root/'source/optimize_weekly.py'),'--restored',str(stage.parent),'--root',str(Path(a.output)/'project')],check=True)\n'''
+          (root/'source/replay.py').write_text(replay)
+          files=[]
+          for p in sorted(root.rglob('*')):
+              if p.is_file() and p.name!='manifest.json':files.append({'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'created_at':datetime.datetime.fromtimestamp(p.stat().st_mtime,datetime.timezone.utc).isoformat()})
+          (root/'manifest.json').write_text(json.dumps({'created_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'files':files},indent=2))
+          dest=Path('/mnt/data/largo_weekly_two');shutil.copytree(root,dest,dirs_exist_ok=True)
+          arc=Path('/mnt/data/largo_weekly_two_project.zip')
+          with zipfile.ZipFile(arc,'w',zipfile.ZIP_DEFLATED) as z:
+              for p in dest.rglob('*'):
+                  if p.is_file():z.write(p,Path('largo_weekly_two')/p.relative_to(dest))
+          out=Path('research/largo-weekly-two/results');out.mkdir(parents=True,exist_ok=True)
+          for name in ['VERIFIED_RESULTS.md','summary.json','frozen_rules.json','period_results.csv','baselines.csv','weekly_coverage.csv','monthly_results.csv','cost_sensitivity.csv']:
+              shutil.copy2(root/'output'/name,out/name)
+          shutil.copy2(root/'qc/validation.json',out/'validation.json')
+          print('PACKAGE',arc.stat().st_size,hashlib.sha256(arc.read_bytes()).hexdigest())
+          PY
+          git config user.name 'Largo Research'
+          git config user.email 'research@users.noreply.github.com'
+          git add research/largo-weekly-two
+          git commit -m 'Preserve weekly-frequency optimization results and audit trail [skip ci]'
+          git push origin HEAD:research/largo-weekly-two-20260907
+      - name: Retain completed output or failure diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-weekly-two-research
+          path: |
+            /mnt/data/largo_weekly_two_project.zip
+            /home/oai/my-project/files/2026-09-07_largo_weekly_two
+          retention-days: 90
+          if-no-files-found: error
