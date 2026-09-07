@@ -1,0 +1,170 @@
+name: Largo manual 15:15 dashboard
+
+on:
+  push:
+    branches: [main, feat/largo-manual1515-20260907]
+    paths:
+      - "bundles/largo_manual_1515_v1/**"
+      - ".github/workflows/largo-manual-1515.yml"
+      - "research/largo-manual-1515/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "bundles/largo_manual_1515_v1/**"
+      - ".github/workflows/largo-manual-1515.yml"
+      - "research/largo-manual-1515/**"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "render displays history; capture is valid only around 15:15 KST"
+        type: choice
+        options: [render, capture, settle]
+        default: render
+  schedule:
+    - cron: "57 5 * * 1-5"
+    - cron: "40 6 * * 1-5"
+    - cron: "12 0 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: largo-manual-1515
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore and verify source
+        run: |
+          set -euo pipefail
+          mkdir -p manual-source manual-work manual-public manual-raw
+          python - <<'PY'
+          import base64, hashlib, io, json, zipfile
+          from pathlib import Path
+          root=Path("bundles/largo_manual_1515_v1")
+          m=json.loads((root/"manifest.json").read_text())
+          encoded="".join((root/n).read_text().strip() for n in m["parts"])
+          for repair in m.get("transport_repairs", []):
+              old,new=repair["old"],repair["new"]
+              if old in encoded:
+                  assert encoded.count(old)==1
+                  encoded=encoded.replace(old,new)
+          raw=base64.b64decode(encoded,validate=True)
+          got=hashlib.sha256(raw).hexdigest()
+          print({"bytes":len(raw),"sha256":got,"expected":m["sha256"]})
+          assert len(raw)==m["bytes"] and got==m["sha256"], "Source bundle integrity failed"
+          with zipfile.ZipFile(io.BytesIO(raw)) as z:
+              assert z.testzip() is None
+              assert sorted(z.namelist())==sorted(m["files"])
+              for name in z.namelist():
+                  assert Path(name).name==name
+                  assert hashlib.sha256(z.read(name)).hexdigest()==m["source_hashes"][name]
+              z.extractall("manual-source")
+          PY
+
+      - name: Verify read-only engine and original collector
+        run: |
+          set -euo pipefail
+          python -m pip install requests beautifulsoup4
+          python -m py_compile manual-source/manual1515.py manual-source/test_manual1515.py
+          PYTHONPATH=manual-source python -m unittest discover -s manual-source -p 'test_*.py' -v 2>&1 | tee manual-work/unit-tests.txt
+          PYTHONPATH=manual-source python - <<'PY'
+          import py_compile
+          from manual1515 import restore_scraper
+          tool=restore_scraper("bundles/largo_close_site_v2","manual-work/collector-check")
+          py_compile.compile(str(tool),doraise=True)
+          print("Original collector archive checksum and Python syntax verified")
+          PY
+
+      - name: Recover history without silently resetting it
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin gh-pages --depth=1
+          if git cat-file -e FETCH_HEAD:manual-1515/state.json 2>/dev/null; then
+            git show FETCH_HEAD:manual-1515/state.json > manual-work/state.json
+            PYTHONPATH=manual-source python - <<'PY'
+          from manual1515 import load_state
+          state=load_state("manual-work/state.json")
+          print({"restored_days":len(state["days"])})
+          PY
+          else
+            echo "First publication: no prior manual-1515 state exists."
+          fi
+
+      - name: Choose explicit read-only mode
+        id: mode
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          INPUT_MODE: ${{ inputs.mode }}
+        run: |
+          mode=render
+          if [ "$EVENT" = schedule ]; then
+            if [ "$SCHEDULE" = "57 5 * * 1-5" ]; then mode=capture; else mode=settle; fi
+          elif [ "$EVENT" = workflow_dispatch ]; then
+            mode="${INPUT_MODE:-render}"
+          fi
+          case "$mode" in render|capture|settle) ;; *) exit 1 ;; esac
+          echo "value=$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Capture or update immutable reference history
+        env:
+          RUN_MODE: ${{ steps.mode.outputs.value }}
+        run: |
+          set -euo pipefail
+          python manual-source/manual1515.py --mode "$RUN_MODE" \
+            --state manual-work/state.json \
+            --out manual-public/manual-1515 \
+            --work manual-work/collection \
+            --raw manual-raw \
+            --bundle bundles/largo_close_site_v2
+          touch manual-public/.nojekyll
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          root=Path("manual-public/manual-1515")
+          state=json.loads((root/"state.json").read_text())
+          text=(root/"index.html").read_text()
+          rows=list(csv.DictReader((root/"history.csv").open(encoding="utf-8-sig")))
+          assert len(rows)==len(state["days"])
+          assert "__INITIAL_STATE__" not in text
+          assert "15:15" in text and "localStorage" in text
+          assert len({d["date"] for d in state["days"]})==len(state["days"])
+          assert all(d.get("selected") is None for d in state["days"] if d["status"]!="SIGNAL")
+          assert state["summary"]["completed"]==sum(d["reference"]["status"]=="COMPLETE" for d in state["days"])
+          print({"days":len(rows),"completed":state["summary"]["completed"],"orders":False})
+          PY
+
+      - name: Preserve verified code, reference data and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: largo-manual-1515-${{ github.run_id }}
+          path: |
+            manual-public
+            manual-work/unit-tests.txt
+            manual-source
+            manual-raw
+            bundles/largo_manual_1515_v1
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Publish separate read-only dashboard
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./manual-public
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          full_commit_message: Update Largo manual 15:15 read-only dashboard
