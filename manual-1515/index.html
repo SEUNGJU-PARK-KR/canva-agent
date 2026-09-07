@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light"><title>LARGO 15:15 · 수동매매 관찰실</title>
+<style>
+:root{--ink:#162c43;--muted:#61758a;--line:#dce5ed;--bg:#f3f6f9;--paper:#fff;--teal:#087d81;--teall:#e8f6f5;--navy:#17334b;--orange:#99611b;--orangep:#fff5e5;--red:#ba4242;--blue:#3568b1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Noto Sans CJK KR","Malgun Gothic",sans-serif}button,input,select{font:inherit}button,a.btn{border:1px solid var(--line);background:white;color:var(--ink);padding:9px 15px;border-radius:9px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}button:hover,a.btn:hover{border-color:var(--teal);background:var(--teall)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #6bbfc3;outline-offset:2px}button.primary{background:var(--teal);color:white;border-color:var(--teal)}button:disabled{opacity:.5;cursor:not-allowed}input,select{border:1px solid #c8d5e1;border-radius:8px;padding:9px 11px;background:white;min-width:0;max-width:100%;color:var(--ink)}label{display:block;font-size:13px;color:var(--muted)}.shell{max-width:1380px;margin:auto;padding:0 32px 40px}.top{background:var(--paper);border-bottom:1px solid var(--line)}.topin{max-width:1380px;margin:auto;padding:21px 32px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:12px}.logo{background:var(--navy);color:white;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:22px}.brand strong{font-size:20px;letter-spacing:2px}.brand small{display:block;color:var(--muted);font-size:12px;letter-spacing:.2px}.badge{border-radius:30px;display:inline-block;padding:4px 10px;font-size:12px;font-weight:600;white-space:nowrap;background:var(--teall);color:var(--teal)}.badge.warn{background:var(--orangep);color:var(--orange)}.badge.dim{background:#eef2f6;color:#62758a}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.clock{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}.heading{padding:29px 0 17px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}h1{font-size:29px;line-height:1.4;margin:0 0 5px;letter-spacing:-1px}.subtitle{margin:0;color:var(--muted);font-size:14px}.notice{background:var(--orangep);border:1px solid #efdfc5;border-radius:10px;padding:12px 16px;font-size:13px;margin:0 0 18px;color:#805821}.demo-banner{background:#ffedd9;border:2px solid #bc7c2f;padding:12px 18px;border-radius:12px;margin-top:18px;font-weight:700}.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin-bottom:22px}.tabs button{background:transparent;border:0;border-bottom:3px solid transparent;border-radius:0;padding:12px 1px}.tabs button.active{border-bottom-color:var(--teal);color:var(--teal);font-weight:700}.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(330px,1fr);gap:20px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:23px;min-width:0;margin-bottom:20px}.panel h2{font-size:17px;margin:0 0 16px;letter-spacing:-.35px}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}.panelhead h2{margin:0}.hero{background:linear-gradient(120deg,#17334b,#214958);color:#fff;min-height:220px;position:relative;overflow:hidden}.hero .muted{color:#c3d8df}.hero h2{font-size:13px;color:#bddee2;font-weight:500;letter-spacing:1px;margin:0}.hero h3{font-size:32px;margin:16px 0 4px;line-height:1.35;letter-spacing:-1px}.hero p{margin:7px 0}.hero .badge{background:#e7f6f2;color:#146561}.hero .badge.warn{background:#fcf1db;color:#805821}.hero .split{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}.hero .price{font-size:30px;font-variant-numeric:tabular-nums;white-space:nowrap}.hero .bottom{margin-top:22px;padding-top:16px;border-top:1px solid #52707c;font-size:12px;color:#d0e0e6}.hero button{margin-top:16px}.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 0}.mini div{border-top:1px solid #57727c;padding-top:12px}.mini b{font-size:20px;display:block}.mini small{color:#c3d8df;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 20px}.stat{border:1px solid var(--line);background:#fff;border-radius:12px;padding:18px 16px}.stat span{display:block;color:var(--muted);font-size:12px}.stat b{font-size:26px;font-weight:650;letter-spacing:-.7px;display:block;margin-top:3px}.stat small{font-size:11px;color:var(--muted)}.metriclist{display:grid;gap:10px}.metricrow{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #edf1f5;padding-bottom:10px;font-size:13px}.metricrow:last-child{border:0;padding-bottom:0}.metricrow span{color:var(--muted)}.metricrow b{font-weight:600;text-align:right}.timeline{display:grid;gap:15px}.step{display:grid;grid-template-columns:46px 1fr;gap:12px}.step time{color:var(--teal);font-size:13px;font-weight:700}.step b{font-size:13px}.step p{font-size:12px;color:var(--muted);margin:1px 0}.muted{color:var(--muted)}.small{font-size:12px}.chart{height:210px;position:relative}.chart svg{width:100%;height:100%;display:block}.chartempty{height:190px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 46px,#edf2f6 47px);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted)}.chartempty b{font-size:15px;font-weight:500}.chartempty span{font-size:12px;margin-top:8px}.sectionhead{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:13px}.tablewrap{width:100%;overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}th{text-align:left;font-size:11px;color:var(--muted);padding:11px 13px;background:#f6f8fb;border-bottom:1px solid var(--line);font-weight:600}td{padding:13px;border-bottom:1px solid #eaf0f5;vertical-align:middle}tbody tr:hover{background:#fafcfd}td.right,th.right{text-align:right}.positive{color:#b8463c}.negative{color:#326bbc}.emptyrow{text-align:center!important;white-space:normal;color:var(--muted);padding:34px 12px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.formgrid label input,.formgrid label select{display:block;width:100%;margin-top:6px}.wide{grid-column:1/-1}.formfoot{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.rule{background:#f6f9fb;padding:17px;border:1px solid var(--line);border-radius:12px}.rule b{display:block;margin:5px 0;font-size:20px}.rule span{font-size:12px;color:var(--muted)}.rule small{display:block;color:var(--muted);font-size:12px}.foot{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:15px;margin-top:24px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#17334b;color:white;border-radius:10px;padding:12px 20px;max-width:90%;z-index:20;box-shadow:0 8px 25px #17334b33}.hidden{display:none!important}.cost{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.cost input{width:76px;font-size:13px;padding:7px}.audit{font-size:12px;color:var(--muted);margin:14px 0 0;word-break:break-all}.pill{display:inline-block;background:#f0f4f7;border-radius:5px;padding:3px 7px;font-size:11px;margin:0 3px 4px 0}.statusline{font-size:12px;color:var(--muted);margin:6px 0 0;max-width:550px}.flash{border:2px solid #a26224}.linkish{padding:5px 8px;font-size:12px}.checkline{display:flex;gap:9px;align-items:flex-start;color:var(--muted);font-size:12px;margin-top:15px}.checkline input{margin-top:4px}
+@media(max-width:1040px){.grid{grid-template-columns:minmax(0,1fr) 330px}.stats{gap:9px}.stat{padding:14px 11px}.stat b{font-size:23px}}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.heading{display:block}.heading>.toolbar{margin-top:15px}.topin{align-items:flex-start}.topin>.toolbar{justify-content:flex-end}.clock{display:none}.shell{padding:0 17px 28px}.topin{padding:17px}.stats{grid-template-columns:repeat(2,1fr)}.hero h3{font-size:28px}.panel{padding:19px}.rules{gap:10px}.foot{display:block}}
+@media(max-width:480px){.topin>.toolbar button{font-size:12px;padding:7px}.brand small{font-size:10px}.logo{width:34px;height:34px}.brand strong{font-size:17px}.brand{gap:8px}h1{font-size:25px}.hero .split{display:block}.hero .price{font-size:26px;margin-top:13px}.mini b{font-size:18px}.tabs{gap:16px}.tabs button{font-size:13px}.sectionhead{align-items:flex-start;flex-direction:column}.formgrid,.rules{grid-template-columns:1fr}.wide{grid-column:auto}.stat b{font-size:24px}.rule b{font-size:19px}}
+@media print{button,.tabs,input,select,.demo-banner{display:none!important}.shell{padding:0}.panel{break-inside:avoid}.hidden{display:none!important}}
+</style></head>
+<body>
+<header class="top"><div class="topin"><div class="brand"><div class="logo" aria-hidden="true">L</div><div><strong>LARGO</strong><small>15:15 MANUAL DESK</small></div></div><div class="toolbar"><span class="clock" id="clock"></span><button id="refresh">새로고침</button><button id="notifyBtn">화면 알림</button><button id="demo">예시 보기</button></div></div></header>
+<main class="shell">
+<div id="demoBanner" class="demo-banner hidden">가상 예시 화면입니다. 아래 종목과 수익은 실제 신호·성과가 아닙니다.</div>
+<div class="heading"><div><h1>매매는 직접, 기록은 자동으로.</h1><p class="subtitle">15시 15분 후보를 확인하고, 종가와 다음 시가의 결과를 차분히 비교하세요.</p><p class="statusline" id="connection">보존 데이터 확인 중</p></div><span class="badge dim">수동매매 전용 · 주문 기능 없음</span></div>
+<div class="notice">이 화면의 종가→다음 시가 수익은 종목 참고수익입니다. 실제 체결수익은 직접 입력한 체결가로 따로 계산합니다. 과거 최적화 승률을 실시간 성과에 합산하지 않습니다.</div>
+<nav class="tabs" aria-label="대시보드 메뉴"><button class="active" data-tab="overview">신호·성과</button><button data-tab="journal">내 매매 기록</button><button data-tab="rules">조건·운영 기준</button></nav>
+
+<section id="overview">
+<div class="stats">
+<div class="stat"><span>완료된 종목 참고결과</span><b id="n">—</b><small>미평가·자료 오류 제외</small></div>
+<div class="stat"><span>참고 승률 · 비용 가정 후</span><b id="win">—</b><small>손익이 양수인 비율</small></div>
+<div class="stat"><span>거래당 평균 참고수익</span><b id="mean">—</b><small>수동 체결수익과 별도</small></div>
+<div class="stat"><span>참고 최대낙폭</span><b id="dd">—</b><small>종목 수익 전액재투자 가정</small></div>
+</div>
+<div class="grid"><div>
+<article class="panel hero" id="hero">
+<div class="panelhead"><h2 id="heroEyebrow">15:15 고정 후보</h2><span id="signalStatus" class="badge warn">대기</span></div>
+<div class="split"><div><h3 id="stockName">아직 확정된 후보가 없습니다</h3><p class="muted" id="stockMeta">조건을 통과한 종목이 없거나 정시 자료가 확보되지 않았습니다.</p></div><div><div class="price" id="stockPrice">—</div><div class="small muted" id="priceLabel">신호 시점 관찰가격</div></div></div>
+<div class="mini"><div><b id="chg">—</b><small>당일 상승률</small></div><div><b id="tv">—</b><small>거래대금 대용값</small></div><div><b id="breadth">—</b><small>테마 확산</small></div></div>
+<button id="recordTrade">수동 체결 기록하기</button>
+<div class="bottom" id="signalNote">과거 종목을 오늘 후보로 표시하지 않습니다. 유효한 당일 자료만 사용합니다.</div>
+</article>
+<article class="panel"><div class="panelhead"><h2>참고 자산곡선</h2><span class="badge dim" id="compound">누적 —</span></div><div class="chart" id="chart"></div><p class="small muted">종가→다음 시가의 비용후 참고수익을 순서대로 복리 계산합니다. 실제 계좌 자산이나 미래 손실 한도가 아닙니다.</p></article>
+</div><aside>
+<article class="panel"><h2>오늘 확인할 순서</h2><div class="timeline">
+<div class="step"><time>15:15</time><div><b>고정 후보를 확인합니다</b><p>15:10~15:15에 수집한 자료로 한 종목만 선정합니다. 지연·오류는 차단합니다.</p></div></div>
+<div class="step"><time>직접</time><div><b>증권사에서 수동으로 주문합니다</b><p>매수 여부와 가격은 직접 결정합니다. 체결 후 이 화면에 기록할 수 있습니다.</p></div></div>
+<div class="step"><time>장후</time><div><b>확정 종가를 기록합니다</b><p>기존 후보는 바꾸지 않고 해당 종목의 종가만 보충합니다.</p></div></div>
+<div class="step"><time>익일</time><div><b>다음 거래일 시가와 비교합니다</b><p>주말·휴장일은 건너뜁니다. 실제 매도가와는 별개로 계산됩니다.</p></div></div>
+</div></article>
+<article class="panel"><div class="panelhead"><h2>필수 조건</h2><span class="badge">절충안 이식 연구</span></div><div class="metriclist">
+<div class="metricrow"><span>당일 상승률</span><b>3~20%</b></div>
+<div class="metricrow"><span>거래대금 대용값</span><b>1,000억원 이상</b></div>
+<div class="metricrow"><span>테마 확산</span><b>70% 이상</b></div>
+<div class="metricrow"><span>거래대금 소화</span><b>5.00 이하</b></div>
+<div class="metricrow"><span>구조 위험거리</span><b>10% 이하</b></div>
+<div class="metricrow"><span>복수 후보 순위</span><b>상승률 낮은 순</b></div>
+</div><p class="small muted">종가 완성 후 고른 기존 전략과 측정 시각이 다릅니다. 새 전진검증으로 따로 기록합니다.</p></article>
+</aside></div>
+<article class="panel">
+<div class="sectionhead"><h2 style="margin:0">날짜별 신호와 종목 참고수익</h2><div class="toolbar"><label class="cost">왕복 비용 가정 <input id="cost" type="number" min="0" max="5" step=".05" value=".30" aria-label="왕복 비용 가정 퍼센트"> %p</label><button id="exportRef">CSV 내보내기</button></div></div>
+<div class="toolbar" style="margin-bottom:13px"><input type="search" id="search" placeholder="날짜 또는 종목 검색" aria-label="날짜 또는 종목 검색"><select id="statusFilter" aria-label="상태 필터"><option value="">모든 상태</option><option value="SIGNAL">선정된 신호</option><option value="COMPLETE">결과 완료</option><option value="DATA_BLOCK">자료 차단</option><option value="NO_TRADE">후보 없음</option></select></div>
+<div class="tablewrap"><table><thead><tr><th>신호일 / 상태</th><th>고정 종목</th><th class="right">관찰가격</th><th class="right">확정 종가</th><th>평가일</th><th class="right">다음 시가</th><th class="right">비용전</th><th class="right">비용후</th><th>체결 기록</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+<p class="small muted">빈칸은 0%가 아닙니다. 미체결·미거래도 종목 참고결과에는 남습니다. 본인 성과에서는 실제 기록한 완료 매매만 셉니다.</p>
+</article>
+</section>
+
+<section id="journal" class="hidden">
+<div class="notice">체결 기록은 이 브라우저의 로컬 저장소에만 보관합니다. 서버·GitHub에는 전송하지 않습니다. 브라우저를 바꾸거나 저장소를 지우기 전에 백업하세요.</div>
+<div class="grid"><article class="panel"><h2>체결 내역 입력</h2><form id="tradeForm">
+<div class="formgrid">
+<label class="wide">신호 선택<select id="tradeId" required></select></label>
+<label>매수 평균 체결가 · 원<input id="entry" type="number" min=".0001" step="any" required></label>
+<label>체결 수량 · 주<input id="qty" type="number" min="1" step="1" required></label>
+<label>매수 체결 시각 · 한국 시각<input id="entryAt" type="datetime-local" required></label>
+<label>매도 평균 체결가 · 원<input id="exit" type="number" min=".0001" step="any" placeholder="미입력 시 보유중"></label>
+<label>매도 체결 시각 · 한국 시각<input id="exitAt" type="datetime-local"></label>
+<label>실제 왕복 수수료·세금 합계 · 원<input id="fees" type="number" min="0" step="any" placeholder="미입력 시 비용 가정 사용"></label>
+<label class="wide">기록 메모<input id="memo" maxlength="160" placeholder="분할 체결이면 평균 체결가로 기록하세요."></label>
+</div><label class="checkline"><input type="checkbox" id="fullExit">매도 가격을 입력한 경우 해당 수량을 전량 청산했음을 확인합니다.</label>
+<div class="formfoot"><button class="primary" type="submit">이 브라우저에 저장</button><span class="small muted">주문을 실행하지 않습니다.</span></div>
+</form></article><article class="panel"><h2>내 체결 기록 요약</h2><div class="metriclist"><div class="metricrow"><span>실제 완료 기록</span><b id="actualN">0건</b></div><div class="metricrow"><span>체결가 기준 승률</span><b id="actualWin">—</b></div><div class="metricrow"><span>체결가 기준 평균수익</span><b id="actualMean">—</b></div><div class="metricrow"><span>보유중 기록</span><b id="held">0건</b></div><div class="metricrow"><span>기록된 손익 합계</span><b id="pnl">—</b></div></div><p class="small muted">실제 비용을 비워두면 입력 체결가에 비용 가정을 차감합니다. 계좌 전체 수익률은 아닙니다.</p><div class="toolbar"><button id="backup">기록 백업</button><button id="restoreBtn">백업 불러오기</button><input class="hidden" id="restore" type="file" accept=".json,application/json"></div></article></div>
+<article class="panel"><h2>내 매매 기록</h2><div class="tablewrap"><table><thead><tr><th>신호일</th><th>종목</th><th>상태</th><th class="right">매수가</th><th class="right">매도가</th><th class="right">수량</th><th class="right">손익</th><th class="right">수익률</th><th>비용 기준</th><th>관리</th></tr></thead><tbody id="journalBody"></tbody></table></div></article>
+</section>
+
+<section id="rules" class="hidden">
+<article class="panel"><h2>수동매매 절충안 · 15:15 버전</h2><p class="muted">조건값은 고정하고 매일 달라지는 입력만 수집합니다. 기존 v5·v6 전략의 판정 파일과 임계값은 건드리지 않습니다.</p>
+<div class="rules">
+<div class="rule"><span>가격 흐름</span><b>당일 상승률 3~20%</b><small>마감까지의 수익률을 미리 넣지 않습니다. 수집 당시의 값만 씁니다.</small></div>
+<div class="rule"><span>자금 유입</span><b>거래대금 대용값 ≥ 1,000억원</b><small>수집 당시 가격×누적거래량입니다. 실제 누적 체결금액과 다릅니다.</small></div>
+<div class="rule"><span>소화 비율</span><b>0 초과 · 5.00 이하</b><small>가격×누적거래량을 이전 60봉의 일봉 평균가격×거래량 최대값으로 나눕니다.</small></div>
+<div class="rule"><span>테마 확인</span><b>상승 종목 비율 ≥ 70%</b><small>정치 관련 테마는 제외합니다. 분모가 확인되지 않으면 통과시키지 않습니다.</small></div>
+<div class="rule"><span>구조 위험</span><b>거리 ≤ 10%</b><small>기존 수집기의 구조선 기준입니다. 손절 주문이나 최대손실 보장이 아닙니다.</small></div>
+<div class="rule"><span>하루 한 종목</span><b>낮은 상승률 → 큰 거래대금</b><small>동률은 종목코드 순서로 정합니다. 주간 횟수를 맞추려고 강제 선정하지 않습니다.</small></div>
+</div><p>별도 캔들 형태 제한과 합산점수는 사용하지 않습니다. 보통주·시장경보 확인을 요구합니다. 가격 1,000원과 시가총액 500억원 하한도 적용합니다. 신호일 이전 252봉의 가격 범위 오류가 있으면 차단합니다.</p></article>
+<article class="panel"><h2>시각과 데이터 처리</h2><div class="tablewrap"><table><thead><tr><th>항목</th><th>동작</th></tr></thead><tbody>
+<tr><td>발표 목표</td><td>15:15. 수집은 15:10부터 시작하며 15:15 이후 자료는 선정에 쓰지 않습니다.</td></tr>
+<tr><td>발표 지연</td><td>내부 판정이 15:17을 넘으면 당일 신호를 만들지 않습니다. 외부 게시 지연은 화면에서 별도로 표시합니다.</td></tr>
+<tr><td>신호 변경 금지</td><td>선정·후보 없음·자료 차단을 날짜별 한 번만 기록합니다. 장후에 종목을 바꾸지 않습니다.</td></tr>
+<tr><td>참고수익</td><td>(다음 거래일 시가 ÷ 신호일 확정 종가 − 1) × 100 − 왕복 비용 가정</td></tr>
+<tr><td>휴장일·거래정지</td><td>두 대표 종목 일봉의 공통 거래일을 참고 달력으로 씁니다. 해당 평가일의 시가가 없으면 나중 시가로 대체하지 않습니다.</td></tr>
+<tr><td>실제 체결</td><td>사용자가 입력한 평균 체결가와 수량으로 별도 계산합니다. 미입력은 가상의 매매로 채우지 않습니다.</td></tr>
+<tr><td>운영 한계</td><td>공개 비공식 시세를 사용합니다. GitHub 예약 실행과 Pages 게시가 지연되면 15:15 표시를 보장하지 못합니다.</td></tr>
+</tbody></table></div><p id="hash" class="audit"></p></article>
+</section>
+<footer class="foot"><span>LARGO 15:15 · 데이터 보존 / 수동 실행 / 자동 참고평가</span><span id="updated"></span></footer>
+<div id="toast" class="toast hidden" role="status"></div>
+</main>
+<script id="initial" type="application/json">{"schema": 1, "version": "largo-manual-1515-v1", "config": {"change_min_pct": 3.0, "change_max_pct": 20.0, "turnover_proxy_min_krw": 100000000000, "digest_max": 5.0, "theme_breadth_min": 0.7, "structural_risk_max": 0.1, "price_min_krw": 1000, "market_cap_min_krw": 50000000000, "max_picks": 1, "sort": ["change_pct_asc", "turnover_proxy_desc", "code_asc"], "signal_time": "15:15:00", "collection_window_start": "15:10:00", "latest_publication_time": "15:17:00", "display_expiry": "15:25:00", "cost_assumption_pct": 0.3, "orders_enabled": false, "candle_filters": false, "return_basis": "signal-day final close to next market-session open"}, "config_hash": "dcf2913fcb36fad20fab9184f8465dca3555f84da95b4ec6d3ee4fb58850e3d9", "updated_at": "2026-09-07T12:31:35.572779+09:00", "days": [], "health": {"status": "NOT_STARTED", "message": "15:15에 보존된 신호가 아직 없습니다."}, "notices": ["사람이 주문합니다. 이 시스템에는 계좌 연결·자동주문 기능이 없습니다.", "15:15 발표용 직전 5분 수집 연구안입니다. 최종 종가 최적화의 과거 성과를 승계하지 않습니다.", "종가→다음 시가는 종목 참고수익입니다. 실제 수동 체결수익과 다릅니다.", "공개 비공식 시세의 지연·필드 변경, 종가 정정, 권리변동을 별도로 확인해야 합니다.", "완료 신호가 없으면 승률과 수익률을 0%로 채우지 않습니다."], "summary": {"completed": 0, "win_rate_pct": null, "mean_pct": null, "compound_pct": null, "drawdown_pct": null}, "engine_sha256": "9b5950bac0a406dcf333dc73ce2ab1b38a2a15570eafc3e0242a0c0f2c054b59"}</script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+let liveState=JSON.parse($('initial').textContent),state=liveState,isDemo=false,transportOK=true,active='overview';
+const labels={SIGNAL:'후보 확정',NO_TRADE:'후보 없음',DATA_BLOCK:'자료 차단',WAIT_CLOSE:'종가 대기',WAIT_OPEN:'다음 시가 대기',MISSING_CLOSE:'종가 누락',MISSING_NEXT_OPEN:'평가일 시가 누락',CALENDAR_MISSING:'거래일 확인 필요',PRICE_REVISION_REVIEW:'가격 정정 검토',CORPORATE_ACTION_REVIEW:'권리변동 검토',COMPLETE:'평가 완료',NOT_APPLICABLE:'평가 대상 아님'};
+let cost=.3;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct=v=>v===null||v===undefined||!Number.isFinite(Number(v))?'—':(Number(v)>0?'+':'')+Number(v).toFixed(2)+'%';
+const money=v=>v===null||v===undefined?'—':Number(v).toLocaleString('ko-KR',{maximumFractionDigits:2});
+const tone=v=>v>0?'positive':v<0?'negative':'';
+const dayNow=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+function clockText(){return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date())}
+const key=()=>isDemo?'largo-manual-1515-demo-journal':'largo-manual-1515-private-journal-v1';
+function readJournal(){try{return JSON.parse(localStorage.getItem(key())||'{}')}catch{return {}}}
+function writeJournal(v){localStorage.setItem(key(),JSON.stringify(v))}
+function notify(t){$('toast').textContent=t;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),4500)}
+function showTab(t){active=t;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));['overview','journal','rules'].forEach(x=>$(x).classList.toggle('hidden',x!==t));if(t==='journal')renderJournal()}
+document.querySelectorAll('[data-tab]').forEach(x=>x.addEventListener('click',()=>showTab(x.dataset.tab)));
+function referenceRows(){return (state.days||[]).filter(d=>d.status==='SIGNAL'&&d.reference.status==='COMPLETE'&&Number.isFinite(d.reference.gross_pct))}
+function net(d){return Number.isFinite(d.reference?.gross_pct)?d.reference.gross_pct-cost:null}
+function stats(){const a=referenceRows(),rs=a.map(net);let eq=1,peak=1,dd=0;const curve=[{v:1,date:''}];a.forEach(d=>{eq*=1+net(d)/100;peak=Math.max(peak,eq);dd=Math.min(dd,eq/peak-1);curve.push({v:eq,date:d.date})});
+return {n:rs.length,win:rs.length?100*rs.filter(r=>r>0).length/rs.length:null,mean:rs.length?rs.reduce((a,b)=>a+b,0)/rs.length:null,dd:rs.length?dd*100:null,compound:rs.length?(eq-1)*100:null,curve}}
+function renderChart(s){if(!s.n){$('chart').innerHTML='<div class="chartempty"><b>완료된 참고결과가 없습니다</b><span>종가와 다음 거래일 시가가 확보되면 자동으로 누적됩니다.</span></div>';return}
+const W=760,H=210,L=48,R=18,T=15,B=30,vals=s.curve.map(x=>x.v);let lo=Math.min(...vals),hi=Math.max(...vals);if(hi===lo){lo-=.01;hi+=.01}let pad=(hi-lo)*.12;lo-=pad;hi+=pad;
+const points=vals.map((v,i)=>`${L+i*(W-L-R)/(vals.length-1)},${T+(hi-v)/(hi-lo)*(H-T-B)}`).join(' ');
+let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="참고 자산곡선">`;
+for(let i=0;i<4;i++){let y=T+i*(H-T-B)/3,v=hi-i*(hi-lo)/3;svg+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#e6edf2"/><text x="${L-9}" y="${y+4}" text-anchor="end" fill="#708295" font-size="11">${v.toFixed(2)}</text>`}
+svg+=`<polyline points="${points}" fill="none" stroke="#0b8185" stroke-width="2.6" stroke-linejoin="round"/><text x="${L}" y="${H-5}" fill="#708295" font-size="11">시작자산 1.00</text><text x="${W-R}" y="${H-5}" text-anchor="end" fill="#708295" font-size="11">${esc(s.curve.at(-1).date)}</text></svg>`;$('chart').innerHTML=svg}
+function renderHero(){
+const rows=state.days||[],d=rows.at(-1),today=isDemo?(d?.date||dayNow()):dayNow(),fresh=d?.date===today;
+$('heroEyebrow').textContent=fresh?'15:15 고정 후보':d?'마지막 보존 신호 · '+d.date:'15:15 고정 후보';
+let status='대기',name='아직 확정된 후보가 없습니다',meta='정시 자료를 수집하기 전에는 종목을 표시하지 않습니다.',note='15:15 목표 · 수집 실패와 후보 없음을 구분합니다.',s=null;
+if(d&&fresh){status=labels[d.status]||d.status;if(d.status==='SIGNAL'){s=d.selected;name=s.name;meta=s.code+' · '+s.theme_name;note=`수집 ${d.source_started_at?.slice(11,19)||'—'}~${d.source_completed_at?.slice(11,19)||'—'} · 발표 ${d.published_at?.slice(11,19)||'—'} · 조건을 보고 직접 판단하세요.`;
+if(!isDemo&&new Date()>new Date(d.date+'T15:25:00+09:00')){status='유효시간 종료';note='15:25 이후에는 당일 신규 진입 안내로 사용하지 않습니다. 보존 신호는 아래 기록에서 확인하세요.';}
+if(!transportOK&&!isDemo){status='연결 확인 필요';note='데이터 연결이 끊겼습니다. 저장된 종목을 실시간 후보로 간주하지 마세요.';}
+}else{name=d.status==='NO_TRADE'?'오늘은 통과 후보가 없습니다':'자료를 확인할 수 없어 차단했습니다';meta=(d.reason||[]).join(' · ');note='거래 횟수를 채우려고 후보를 만들거나 늦은 자료로 재선정하지 않습니다.'}}
+else if(d){status='오늘 자료 대기';name='오늘 후보는 아직 발표되지 않았습니다';meta=`마지막 기록 ${d.date} · ${labels[d.status]||d.status}`;note='지난 거래일 종목은 오늘 후보로 재사용하지 않습니다.'}
+if(!fresh&&!isDemo&&new Date()>new Date(today+'T15:17:00+09:00')){
+status='정시 신호 미확인';name='오늘 15:15 신호가 확인되지 않았습니다';
+meta='휴장 여부와 예약 실행·수집·게시 상태를 확인해야 합니다.';
+note='과거 후보를 오늘 매수 후보로 표시하지 않습니다. 이전 기록은 날짜별 표에서 확인하세요.'}
+
+$('signalStatus').textContent=status;$('stockName').textContent=name;$('stockMeta').textContent=meta;$('signalNote').textContent=note;$('stockPrice').textContent=s?money(s.price)+'원':'—';$('chg').textContent=s?pct(s.change_pct):'—';$('tv').textContent=s?money(Math.round(s.turnover_proxy/1e8))+'억원':'—';$('breadth').textContent=s?(s.theme_breadth*100).toFixed(0)+'%':'—';
+$('recordTrade').disabled=!s;$('recordTrade').onclick=()=>{showTab('journal');$('tradeId').value=d.date;loadTradeForm()}}
+function renderHistory(){
+const q=$('search').value.trim().toLowerCase(),filter=$('statusFilter').value;
+const rows=[...(state.days||[])].reverse().filter(d=>(!q||[d.date,d.selected?.name,d.selected?.code].join(' ').toLowerCase().includes(q))&&(!filter||d.status===filter||d.reference.status===filter));
+$('historyBody').innerHTML=rows.length?rows.map(d=>{const r=d.reference,s=d.selected||{},v=net(d);return `<tr><td>${esc(d.date)}<br><span class="badge ${d.status==='DATA_BLOCK'?'warn':'dim'}">${esc(labels[d.status]||d.status)}</span></td><td>${esc(s.name||'—')}<br><small class="muted">${esc(s.code||((d.reason||[]).join(' · ')))}</small></td><td class="right">${money(s.price)}</td><td class="right">${money(r.close)}</td><td>${esc(r.next_date||'—')}<br><small class="muted">${esc(labels[r.status]||r.status)}</small></td><td class="right">${money(r.open)}</td><td class="right ${tone(r.gross_pct)}">${pct(r.gross_pct)}</td><td class="right ${tone(v)}">${pct(v)}</td><td>${d.status==='SIGNAL'?`<button class="linkish" data-record="${esc(d.date)}">기록</button>`:'—'}</td></tr>`}).join(''):'<tr><td colspan="9" class="emptyrow">조건에 맞는 기록이 없습니다. 정시 선정 후 종가와 다음 거래일 시가가 자동으로 쌓입니다.</td></tr>';
+document.querySelectorAll('[data-record]').forEach(b=>b.onclick=()=>{showTab('journal');$('tradeId').value=b.dataset.record;loadTradeForm()})}
+function actualResult(t){if(!t.exit||!t.entry||!t.qty)return null;const fees=t.fees===null?t.entry*t.qty*cost/100:t.fees,pnl=(t.exit-t.entry)*t.qty-fees;return {pct:pnl/(t.entry*t.qty)*100,pnl}}
+function renderJournal(){
+const picks=(state.days||[]).filter(d=>d.status==='SIGNAL'),old=$('tradeId').value;
+$('tradeId').innerHTML='<option value="">신호를 선택하세요</option>'+[...picks].reverse().map(d=>`<option value="${esc(d.date)}">${esc(d.date+' · '+d.selected.name)}</option>`).join('');if(picks.some(d=>d.date===old))$('tradeId').value=old;
+const j=readJournal(),entries=Object.entries(j).filter(([id])=>picks.some(d=>d.date===id)),closed=entries.map(([,t])=>actualResult(t)).filter(Boolean);
+$('actualN').textContent=closed.length+'건';$('actualWin').textContent=closed.length?(100*closed.filter(r=>r.pct>0).length/closed.length).toFixed(2)+'%':'—';$('actualMean').textContent=closed.length?pct(closed.reduce((a,r)=>a+r.pct,0)/closed.length):'—';$('held').textContent=(entries.length-closed.length)+'건';$('pnl').textContent=closed.length?money(closed.reduce((a,r)=>a+r.pnl,0))+'원':'—';
+$('journalBody').innerHTML=entries.length?entries.sort((a,b)=>b[0].localeCompare(a[0])).map(([id,t])=>{const d=picks.find(d=>d.date===id),r=actualResult(t);return `<tr><td>${esc(id)}</td><td>${esc(d.selected.name)}</td><td>${r?'전량 청산':'보유중'}</td><td class="right">${money(t.entry)}</td><td class="right">${money(t.exit)}</td><td class="right">${money(t.qty)}</td><td class="right ${tone(r?.pnl)}">${r?money(r.pnl)+'원':'—'}</td><td class="right ${tone(r?.pct)}">${r?pct(r.pct):'—'}</td><td>${t.fees===null?'비용 가정':'입력 실비'}</td><td><button class="linkish" data-edit="${esc(id)}">수정</button> <button class="linkish" data-delete="${esc(id)}">삭제</button></td></tr>`}).join(''):'<tr><td colspan="10" class="emptyrow">직접 입력한 체결 기록이 없습니다. 매수하지 않은 날은 입력하지 않아도 됩니다.</td></tr>';
+document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{$('tradeId').value=b.dataset.edit;loadTradeForm()});document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{if(confirm('이 브라우저의 해당 체결 기록을 삭제할까요?')){let j=readJournal();delete j[b.dataset.delete];try{writeJournal(j);renderJournal();notify('체결 기록을 삭제했습니다.')}catch{notify('저장 공간에 접근하지 못했습니다.')}}})}
+function loadTradeForm(){let id=$('tradeId').value,t=readJournal()[id];$('tradeForm').reset();$('tradeId').value=id;for(let k of ['entry','qty','entryAt','exit','exitAt','fees','memo'])$(k).value=t?.[k]??'';$('fullExit').checked=!!t?.exit}
+$('tradeId').onchange=loadTradeForm;
+$('tradeForm').onsubmit=e=>{e.preventDefault();const id=$('tradeId').value,entry=Number($('entry').value),qty=Number($('qty').value),exit=$('exit').value?Number($('exit').value):null,fees=$('fees').value===''?null:Number($('fees').value),entryAt=$('entryAt').value,exitAt=$('exitAt').value;
+if(!id||!Number.isFinite(entry)||entry<=0||!Number.isInteger(qty)||qty<=0||!entryAt||(exit!==null&&(!Number.isFinite(exit)||exit<=0))||(fees!==null&&(!Number.isFinite(fees)||fees<0)))return notify('입력값을 확인해주세요.');
+if(exit&&(!$('fullExit').checked||!exitAt||new Date(exitAt)<new Date(entryAt)))return notify('전량 청산 여부와 매도 체결 시각을 확인해주세요.');
+const day=state.days.find(d=>d.date===id);if(new Date(entryAt+'+09:00')<new Date(day.published_at||day.signal_at))return notify('신호 발표 이전 체결은 이 신호의 매매로 기록할 수 없습니다.');
+const j=readJournal();j[id]={entry,qty,exit,fees,entryAt,exitAt:exit?exitAt:null,memo:$('memo').value,updated_at:new Date().toISOString()};
+try{writeJournal(j);renderJournal();notify('이 브라우저에 저장했습니다. 주문은 실행되지 않습니다.')}catch{notify('브라우저 저장에 실패했습니다. 저장소 권한을 확인하세요.')}};
+function render(){
+$('demoBanner').classList.toggle('hidden',!isDemo);$('demo').textContent=isDemo?'실제 화면으로':'예시 보기';
+const s=stats();$('n').textContent=s.n+'건';$('win').textContent=s.win===null?'—':s.win.toFixed(2)+'%';$('mean').textContent=pct(s.mean);$('dd').textContent=pct(s.dd);$('compound').textContent='누적 '+pct(s.compound);renderHero();renderChart(s);renderHistory();renderJournal();
+$('updated').textContent='화면 갱신 '+(state.updated_at?state.updated_at.slice(0,19).replace('T',' '):'미확인')+' KST';$('hash').textContent='판정 버전 '+state.version+' / 설정 SHA-256 '+state.config_hash}
+async function refresh(){
+if(isDemo)return notify('예시 화면에서는 실시간 데이터를 가져오지 않습니다.');
+if(location.protocol==='file:'){$('connection').textContent='로컬 보존본 · 자동 수집은 배포된 화면 또는 실행 프로그램이 필요합니다.';render();return}
+try{const res=await fetch('state.json?t='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const v=await res.json();if(v.version!==liveState.version||v.config_hash!==liveState.config_hash||!Array.isArray(v.days))throw Error('버전·설정 불일치');
+liveState=v;state=v;transportOK=true;$('connection').textContent='데이터 연결됨 · '+(v.health?.message||'보존 이력을 확인했습니다.');render()}
+catch(e){transportOK=false;$('connection').textContent='데이터 연결 오류 · 보존본만 표시합니다. '+e.message;renderHero()}}
+$('refresh').onclick=refresh;
+$('notifyBtn').onclick=async()=>{
+ if(!('Notification' in window))return notify('이 브라우저에서는 알림을 지원하지 않습니다.');
+ if(location.protocol!=='https:'&&location.hostname!=='localhost')return notify('배포된 HTTPS 화면에서 알림을 켜주세요.');
+ try{const result=await Notification.requestPermission();notify(result==='granted'?'화면이 열려 있는 동안 새 후보를 알립니다. 화면을 닫으면 알림도 중단됩니다.':'알림 권한이 허용되지 않았습니다.');}
+ catch{notify('브라우저 알림 권한을 확인해주세요.')}
+};
+setInterval(()=>{
+ if(isDemo||!transportOK||!('Notification' in window)||Notification.permission!=='granted')return;
+ const d=liveState.days?.at(-1);
+ if(!d||d.date!==dayNow()||d.status!=='SIGNAL'||new Date()>new Date(d.date+'T15:25:00+09:00'))return;
+ try{const k='largo1515-notified-'+d.date;if(localStorage.getItem(k))return;
+ new Notification('LARGO 15:15 후보',{body:d.selected.name+' · 조건과 자료 시각을 확인하세요. 자동주문이 아닙니다.',tag:k});
+ localStorage.setItem(k,'1');}catch{}
+},5000);
+
+$('search').oninput=renderHistory;$('statusFilter').onchange=renderHistory;
+$('cost').onchange=()=>{const n=Number($('cost').value);if(!Number.isFinite(n)||n<0||n>5){$('cost').value=cost;return notify('비용은 0~5%p 범위로 입력하세요.')}cost=n;render()};
+function download(name,text,mime){const a=document.createElement('a'),u=URL.createObjectURL(new Blob([text],{type:mime}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),5000)}
+const cell=x=>{let s=String(x??'');if(/^[=+@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+$('exportRef').onclick=()=>{const rows=[['신호일','상태','종목','종목코드','종가','다음거래일','다음시가','비용전%','비용가정%p','비용후%','평가상태']];for(let d of state.days){let r=d.reference,s=d.selected||{};rows.push([d.date,d.status,s.name,s.code,r.close,r.next_date,r.open,r.gross_pct,cost,net(d),r.status])}download((isDemo?'DEMO_':'')+'LARGO_1515_REFERENCE.csv','\ufeff'+rows.map(r=>r.map(cell).join(',')).join('\r\n'),'text/csv;charset=utf-8')};
+$('backup').onclick=()=>download((isDemo?'DEMO_':'')+'LARGO_PRIVATE_JOURNAL.json',JSON.stringify({schema:1,demo:isDemo,journal:readJournal()},null,2),'application/json');
+$('restoreBtn').onclick=()=>$('restore').click();
+$('restore').onchange=async e=>{try{const file=e.target.files[0];if(!file||file.size>2e6)throw Error('2MB 이하 JSON 파일만 허용합니다.');const v=JSON.parse(await file.text());if(v.schema!==1||v.demo!==isDemo||!v.journal||Array.isArray(v.journal)||typeof v.journal!=='object')throw Error('실제/예시 구분 또는 형식 불일치');
+const clean={};for(const [id,t] of Object.entries(v.journal)){if(!/^\d{4}-\d{2}-\d{2}$/.test(id)||!t||!Number.isFinite(t.entry)||t.entry<=0||!Number.isInteger(t.qty)||t.qty<=0||!(t.exit===null||(Number.isFinite(t.exit)&&t.exit>0))||!(t.fees===null||(Number.isFinite(t.fees)&&t.fees>=0)))throw Error('체결 값 형식 오류');clean[id]={entry:t.entry,qty:t.qty,exit:t.exit,fees:t.fees,entryAt:String(t.entryAt||''),exitAt:t.exitAt?String(t.exitAt):null,memo:String(t.memo||'').slice(0,160),updated_at:String(t.updated_at||'')}}
+if(!confirm('이 브라우저의 기록에 백업을 병합할까요? 같은 날짜는 백업으로 덮어씁니다.'))return;writeJournal({...readJournal(),...clean});renderJournal();notify('백업을 불러왔습니다.')}catch(e){notify('불러오기 실패: '+e.message)}finally{e.target.value=''}};
+function demoState(){const v=JSON.parse(JSON.stringify(liveState));v.days=[];const examples=[['2026-08-31','예시기업 A','DEMO-A',10000,10150],['2026-09-01','예시기업 B','DEMO-B',20000,19800],['2026-09-02','예시기업 C','DEMO-C',12500,12875]];
+examples.forEach(([date,name,code,close,open],i)=>v.days.push({date,status:'SIGNAL',signal_at:date+'T15:15:00+09:00',published_at:date+'T15:15:04+09:00',source_started_at:date+'T15:10:00+09:00',source_completed_at:date+'T15:14:35+09:00',selected:{name,code,price:close-50,change_pct:4.85+i*.9,turnover_proxy:1375e8,theme_name:'가상 전력설비',theme_breadth:.8,risk_rate:.052,digest_ratio:1.25},reference:{status:'COMPLETE',close,open,next_date:['2026-09-01','2026-09-02','2026-09-03'][i],gross_pct:(open/close-1)*100,cost_pct:.3}}));
+v.updated_at='2026-09-03T09:12:00+09:00';return v}
+$('demo').onclick=()=>{isDemo=!isDemo;state=isDemo?demoState():liveState;$('connection').textContent=isDemo?'가상 예시 · 기능 확인 전용, 실제 성과에 합산하지 않음':'보존 데이터';render();if(!isDemo)refresh()};
+$('clock').textContent=clockText();setInterval(()=>{$('clock').textContent=clockText();if(!isDemo)renderHero()},1000);
+render();refresh();setInterval(()=>{if(!isDemo&&document.visibilityState==='visible')refresh()},30000);
+</script></body></html>

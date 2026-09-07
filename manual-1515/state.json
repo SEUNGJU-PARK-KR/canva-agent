@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "version": "largo-manual-1515-v1",
+  "config": {
+    "change_min_pct": 3.0,
+    "change_max_pct": 20.0,
+    "turnover_proxy_min_krw": 100000000000,
+    "digest_max": 5.0,
+    "theme_breadth_min": 0.7,
+    "structural_risk_max": 0.1,
+    "price_min_krw": 1000,
+    "market_cap_min_krw": 50000000000,
+    "max_picks": 1,
+    "sort": [
+      "change_pct_asc",
+      "turnover_proxy_desc",
+      "code_asc"
+    ],
+    "signal_time": "15:15:00",
+    "collection_window_start": "15:10:00",
+    "latest_publication_time": "15:17:00",
+    "display_expiry": "15:25:00",
+    "cost_assumption_pct": 0.3,
+    "orders_enabled": false,
+    "candle_filters": false,
+    "return_basis": "signal-day final close to next market-session open"
+  },
+  "config_hash": "dcf2913fcb36fad20fab9184f8465dca3555f84da95b4ec6d3ee4fb58850e3d9",
+  "updated_at": "2026-09-07T12:31:35.572779+09:00",
+  "days": [],
+  "health": {
+    "status": "NOT_STARTED",
+    "message": "15:15에 보존된 신호가 아직 없습니다."
+  },
+  "notices": [
+    "사람이 주문합니다. 이 시스템에는 계좌 연결·자동주문 기능이 없습니다.",
+    "15:15 발표용 직전 5분 수집 연구안입니다. 최종 종가 최적화의 과거 성과를 승계하지 않습니다.",
+    "종가→다음 시가는 종목 참고수익입니다. 실제 수동 체결수익과 다릅니다.",
+    "공개 비공식 시세의 지연·필드 변경, 종가 정정, 권리변동을 별도로 확인해야 합니다.",
+    "완료 신호가 없으면 승률과 수익률을 0%로 채우지 않습니다."
+  ],
+  "summary": {
+    "completed": 0,
+    "win_rate_pct": null,
+    "mean_pct": null,
+    "compound_pct": null,
+    "drawdown_pct": null
+  },
+  "engine_sha256": "9b5950bac0a406dcf333dc73ce2ab1b38a2a15570eafc3e0242a0c0f2c054b59"
+}
