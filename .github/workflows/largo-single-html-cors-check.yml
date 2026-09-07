@@ -1,0 +1,73 @@
+name: Largo single HTML CORS check
+
+on:
+  push:
+    branches: [research/largo-single-html-cors-20260907]
+    paths: [.github/workflows/largo-single-html-cors-check.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Test browser cross-origin reads
+        run: |
+          cat > /tmp/check.py <<'PY'
+          import asyncio, json, threading, http.server, socketserver
+          from playwright.async_api import async_playwright
+
+          HTML='''<!doctype html><meta charset="utf-8"><script>
+          window.results={};
+          async function check(name,url){
+            try{
+              const r=await fetch(url,{cache:'no-store'});
+              const text=await r.text();
+              window.results[name]={ok:r.ok,status:r.status,type:r.type,len:text.length,head:text.slice(0,120)};
+            }catch(e){window.results[name]={ok:false,error:String(e)}}
+          }
+          Promise.all([
+            check('rank','https://stock.naver.com/api/domestic/market/stock/default?tradeType=KRX&marketType=ALL&orderType=priceTop&startIdx=0&pageSize=5'),
+            check('rise','https://stock.naver.com/api/domestic/market/stock/default?tradeType=KRX&marketType=ALL&orderType=up&startIdx=0&pageSize=5'),
+            check('detail','https://stock.naver.com/api/domestic/detail/005930/price'),
+            check('daily','https://stock.naver.com/api/domestic/detail/005930/siseDay?pageSize=5'),
+            check('fchart','https://fchart.stock.naver.com/sise.nhn?symbol=005930&timeframe=day&count=5&requestType=0')
+          ]).then(()=>window.done=true)
+          </script>'''
+
+          class H(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+              b=HTML.encode(); self.send_response(200); self.send_header('Content-Type','text/html; charset=utf-8'); self.send_header('Content-Length',str(len(b))); self.end_headers(); self.wfile.write(b)
+            def log_message(self,*a): pass
+
+          async def main():
+            srv=socketserver.TCPServer(('127.0.0.1',8765),H)
+            t=threading.Thread(target=srv.serve_forever,daemon=True); t.start()
+            async with async_playwright() as p:
+              browser=await p.chromium.launch()
+              page=await browser.new_page()
+              await page.goto('http://127.0.0.1:8765/')
+              await page.wait_for_function('window.done===true',timeout=20000)
+              res=await page.evaluate('window.results')
+              print(json.dumps(res,ensure_ascii=False,indent=2))
+              open('/tmp/cors-results.json','w').write(json.dumps(res,ensure_ascii=False,indent=2))
+              await browser.close()
+            srv.shutdown()
+          asyncio.run(main())
+          PY
+          python /tmp/check.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: largo-single-html-cors-results
+          path: /tmp/cors-results.json
+          retention-days: 7
