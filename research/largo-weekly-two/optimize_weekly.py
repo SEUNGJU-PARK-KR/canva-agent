@@ -244,7 +244,7 @@ def main():
             dd=eng.daily(eng.choose(p,days),ex);allbase.append(dd);baselines.append({'variant':label,'period':y,'exit_policy':ex,**metrics(dd)})
         baselines.append({'variant':label,'period':'2024-2026-04','exit_policy':ex,**metrics(pd.concat(allbase))})
     # Archived v8 baseline exactly reproduces the previously verified 17-trade study.
-    basepaths=[p for p in args.restored.rglob('v8_trades.csv') if '/input/' not in p.as_posix() and '/work/' not in p.as_posix()]
+    basepaths=[p for p in args.restored.rglob('v8_trades.csv') if 'input' not in p.relative_to(args.restored).parts and 'work' not in p.relative_to(args.restored).parts]
     archived_qc={}
     if basepaths:
         b=pd.read_csv(sorted(basepaths,key=lambda p:len(p.parts))[0]);rr=b.groupby('d')['ret'].mean()
