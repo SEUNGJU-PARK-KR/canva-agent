@@ -1,0 +1,1 @@
+Browser CORS check only.
