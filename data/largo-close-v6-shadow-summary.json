@@ -1,7 +1,7 @@
 {
   "signal_days": 2,
-  "completed": 1,
-  "pending": 1,
+  "completed": 2,
+  "pending": 0,
   "official": {
     "n": 0,
     "positive": 0,
@@ -15,27 +15,27 @@
     "worst_policy_return_pct": null
   },
   "proxy": {
-    "n": 1,
-    "positive": 1,
+    "n": 2,
+    "positive": 2,
     "loss": 0,
-    "hit3": 1,
+    "hit3": 2,
     "positive_rate": 1.0,
     "hit3_rate": 1.0,
     "mean_policy_return_pct": 3.0,
     "median_policy_return_pct": 3.0,
-    "sum_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 6.0,
     "worst_policy_return_pct": 3.0
   },
   "all_completed": {
-    "n": 1,
-    "positive": 1,
+    "n": 2,
+    "positive": 2,
     "loss": 0,
-    "hit3": 1,
+    "hit3": 2,
     "positive_rate": 1.0,
     "hit3_rate": 1.0,
     "mean_policy_return_pct": 3.0,
     "median_policy_return_pct": 3.0,
-    "sum_policy_return_pct": 3.0,
+    "sum_policy_return_pct": 6.0,
     "worst_policy_return_pct": 3.0
   },
   "limitations": [
