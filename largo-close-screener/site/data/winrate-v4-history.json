@@ -5658,6 +5658,990 @@
           "confirm_rule_passes": 1
         }
       }
+    },
+    {
+      "at": "2026-09-07T21:09:22.881502+09:00",
+      "market_date": "2026-09-07",
+      "items": {
+        "298040": {
+          "name": "효성중공업",
+          "lane": "CLOSE_VALIDATED",
+          "price": 2965000.0,
+          "pattern_id": "C3",
+          "close_fit": true,
+          "confirm_fit": true,
+          "close_rule_passes": 17,
+          "confirm_rule_passes": 9
+        },
+        "034020": {
+          "name": "두산에너빌리티",
+          "lane": "CLOSE_VALIDATED",
+          "price": 87900.0,
+          "pattern_id": "C1",
+          "close_fit": true,
+          "confirm_fit": true,
+          "close_rule_passes": 13,
+          "confirm_rule_passes": 9
+        },
+        "000660": {
+          "name": "SK하이닉스",
+          "lane": "WATCH",
+          "price": 1783000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 15,
+          "confirm_rule_passes": 8
+        },
+        "005930": {
+          "name": "삼성전자",
+          "lane": "WATCH",
+          "price": 270000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 15,
+          "confirm_rule_passes": 8
+        },
+        "386380": {
+          "name": "스카이랩스",
+          "lane": "WATCH",
+          "price": 30550.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 15,
+          "confirm_rule_passes": 7
+        },
+        "402340": {
+          "name": "SK스퀘어",
+          "lane": "WATCH",
+          "price": 1125000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 14,
+          "confirm_rule_passes": 8
+        },
+        "047040": {
+          "name": "대우건설",
+          "lane": "WATCH",
+          "price": 18410.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 13,
+          "confirm_rule_passes": 8
+        },
+        "005935": {
+          "name": "삼성전자우",
+          "lane": "WATCH",
+          "price": 199600.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 13,
+          "confirm_rule_passes": 7
+        },
+        "006400": {
+          "name": "삼성SDI",
+          "lane": "WATCH",
+          "price": 541000.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 10,
+          "confirm_rule_passes": 5
+        },
+        "066570": {
+          "name": "LG전자",
+          "lane": "WATCH",
+          "price": 214000.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "000150": {
+          "name": "두산",
+          "lane": "EXCLUDE",
+          "price": 1271000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 13,
+          "confirm_rule_passes": 7
+        },
+        "161580": {
+          "name": "필옵틱스",
+          "lane": "EXCLUDE",
+          "price": 33500.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 11,
+          "confirm_rule_passes": 5
+        },
+        "083650": {
+          "name": "비에이치아이",
+          "lane": "EXCLUDE",
+          "price": 67700.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 10,
+          "confirm_rule_passes": 6
+        },
+        "052690": {
+          "name": "한전기술",
+          "lane": "EXCLUDE",
+          "price": 122300.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 5
+        },
+        "012210": {
+          "name": "삼미금속",
+          "lane": "EXCLUDE",
+          "price": 10200.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 5
+        },
+        "000500": {
+          "name": "가온전선",
+          "lane": "EXCLUDE",
+          "price": 234500.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "336260": {
+          "name": "두산퓨얼셀",
+          "lane": "EXCLUDE",
+          "price": 49900.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "009150": {
+          "name": "삼성전기",
+          "lane": "EXCLUDE",
+          "price": 1454000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 5
+        },
+        "067290": {
+          "name": "JW신약",
+          "lane": "EXCLUDE",
+          "price": 3580.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 4
+        },
+        "190510": {
+          "name": "나무가",
+          "lane": "EXCLUDE",
+          "price": 16480.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 4
+        },
+        "000990": {
+          "name": "DB하이텍",
+          "lane": "EXCLUDE",
+          "price": 100800.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "036930": {
+          "name": "주성엔지니어링",
+          "lane": "EXCLUDE",
+          "price": 187200.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 2
+        },
+        "387690": {
+          "name": "레메디",
+          "lane": "EXCLUDE",
+          "price": 18140.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 2
+        },
+        "108490": {
+          "name": "로보티즈",
+          "lane": "EXCLUDE",
+          "price": 301500.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 3,
+          "confirm_rule_passes": 1
+        }
+      }
+    },
+    {
+      "at": "2026-09-08T18:02:40.998007+09:00",
+      "market_date": "2026-09-08",
+      "items": {
+        "000660": {
+          "name": "SK하이닉스",
+          "lane": "WATCH",
+          "price": 1793000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "005930": {
+          "name": "삼성전자",
+          "lane": "WATCH",
+          "price": 269500.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 4
+        },
+        "005935": {
+          "name": "삼성전자우",
+          "lane": "WATCH",
+          "price": 198400.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 2
+        },
+        "402340": {
+          "name": "SK스퀘어",
+          "lane": "WATCH",
+          "price": 1131000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 3,
+          "confirm_rule_passes": 3
+        },
+        "069540": {
+          "name": "빛과전자",
+          "lane": "EXCLUDE",
+          "price": 3640.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 11,
+          "confirm_rule_passes": 6
+        },
+        "010580": {
+          "name": "에스엠벡셀",
+          "lane": "EXCLUDE",
+          "price": 2095.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 7
+        },
+        "047040": {
+          "name": "대우건설",
+          "lane": "EXCLUDE",
+          "price": 19970.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 5
+        },
+        "004310": {
+          "name": "현대약품",
+          "lane": "EXCLUDE",
+          "price": 10440.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "046120": {
+          "name": "오르비텍",
+          "lane": "EXCLUDE",
+          "price": 6050.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "189860": {
+          "name": "서전기전",
+          "lane": "EXCLUDE",
+          "price": 5750.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "052690": {
+          "name": "한전기술",
+          "lane": "EXCLUDE",
+          "price": 142600.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 5
+        },
+        "475040": {
+          "name": "스트라드비젼",
+          "lane": "EXCLUDE",
+          "price": 3350.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 4
+        },
+        "034020": {
+          "name": "두산에너빌리티",
+          "lane": "EXCLUDE",
+          "price": 89500.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 3
+        },
+        "490470": {
+          "name": "세미파이브",
+          "lane": "EXCLUDE",
+          "price": 15930.0,
+          "pattern_id": "C6",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 4
+        },
+        "032820": {
+          "name": "우리기술",
+          "lane": "EXCLUDE",
+          "price": 11810.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 4
+        },
+        "067290": {
+          "name": "JW신약",
+          "lane": "EXCLUDE",
+          "price": 3890.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "010170": {
+          "name": "대한광통신",
+          "lane": "EXCLUDE",
+          "price": 13700.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "017900": {
+          "name": "광전자",
+          "lane": "EXCLUDE",
+          "price": 8180.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "388050": {
+          "name": "지투파워",
+          "lane": "EXCLUDE",
+          "price": 11040.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 2
+        },
+        "162300": {
+          "name": "신스틸",
+          "lane": "EXCLUDE",
+          "price": 2470.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 3
+        },
+        "079650": {
+          "name": "서산",
+          "lane": "EXCLUDE",
+          "price": 7680.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 3
+        },
+        "036930": {
+          "name": "주성엔지니어링",
+          "lane": "EXCLUDE",
+          "price": 194600.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 3,
+          "confirm_rule_passes": 1
+        },
+        "386380": {
+          "name": "스카이랩스",
+          "lane": "EXCLUDE",
+          "price": 29750.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 2,
+          "confirm_rule_passes": 1
+        },
+        "009150": {
+          "name": "삼성전기",
+          "lane": "EXCLUDE",
+          "price": 1370000.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 1,
+          "confirm_rule_passes": 1
+        }
+      }
+    },
+    {
+      "at": "2026-09-08T18:35:47.198833+09:00",
+      "market_date": "2026-09-08",
+      "items": {
+        "000660": {
+          "name": "SK하이닉스",
+          "lane": "WATCH",
+          "price": 1793000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "005930": {
+          "name": "삼성전자",
+          "lane": "WATCH",
+          "price": 269500.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 4
+        },
+        "005935": {
+          "name": "삼성전자우",
+          "lane": "WATCH",
+          "price": 198400.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 2
+        },
+        "402340": {
+          "name": "SK스퀘어",
+          "lane": "WATCH",
+          "price": 1131000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 3,
+          "confirm_rule_passes": 3
+        },
+        "069540": {
+          "name": "빛과전자",
+          "lane": "EXCLUDE",
+          "price": 3640.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 11,
+          "confirm_rule_passes": 6
+        },
+        "010580": {
+          "name": "에스엠벡셀",
+          "lane": "EXCLUDE",
+          "price": 2095.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 7
+        },
+        "047040": {
+          "name": "대우건설",
+          "lane": "EXCLUDE",
+          "price": 19970.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 5
+        },
+        "004310": {
+          "name": "현대약품",
+          "lane": "EXCLUDE",
+          "price": 10440.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "046120": {
+          "name": "오르비텍",
+          "lane": "EXCLUDE",
+          "price": 6050.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "189860": {
+          "name": "서전기전",
+          "lane": "EXCLUDE",
+          "price": 5750.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "052690": {
+          "name": "한전기술",
+          "lane": "EXCLUDE",
+          "price": 142600.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 5
+        },
+        "475040": {
+          "name": "스트라드비젼",
+          "lane": "EXCLUDE",
+          "price": 3350.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 4
+        },
+        "034020": {
+          "name": "두산에너빌리티",
+          "lane": "EXCLUDE",
+          "price": 89500.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 7,
+          "confirm_rule_passes": 3
+        },
+        "490470": {
+          "name": "세미파이브",
+          "lane": "EXCLUDE",
+          "price": 15930.0,
+          "pattern_id": "C6",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 4
+        },
+        "032820": {
+          "name": "우리기술",
+          "lane": "EXCLUDE",
+          "price": 11810.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 4
+        },
+        "067290": {
+          "name": "JW신약",
+          "lane": "EXCLUDE",
+          "price": 3890.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "010170": {
+          "name": "대한광통신",
+          "lane": "EXCLUDE",
+          "price": 13700.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "017900": {
+          "name": "광전자",
+          "lane": "EXCLUDE",
+          "price": 8180.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "388050": {
+          "name": "지투파워",
+          "lane": "EXCLUDE",
+          "price": 11040.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 2
+        },
+        "162300": {
+          "name": "신스틸",
+          "lane": "EXCLUDE",
+          "price": 2470.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 3
+        },
+        "079650": {
+          "name": "서산",
+          "lane": "EXCLUDE",
+          "price": 7680.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 3
+        },
+        "036930": {
+          "name": "주성엔지니어링",
+          "lane": "EXCLUDE",
+          "price": 194600.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 3,
+          "confirm_rule_passes": 1
+        },
+        "386380": {
+          "name": "스카이랩스",
+          "lane": "EXCLUDE",
+          "price": 29750.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 2,
+          "confirm_rule_passes": 1
+        },
+        "009150": {
+          "name": "삼성전기",
+          "lane": "EXCLUDE",
+          "price": 1370000.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 1,
+          "confirm_rule_passes": 1
+        }
+      }
+    },
+    {
+      "at": "2026-09-08T19:07:38.885003+09:00",
+      "market_date": "2026-09-08",
+      "items": {
+        "000660": {
+          "name": "SK하이닉스",
+          "lane": "WATCH",
+          "price": 1793000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 5
+        },
+        "005930": {
+          "name": "삼성전자",
+          "lane": "WATCH",
+          "price": 269500.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "005935": {
+          "name": "삼성전자우",
+          "lane": "WATCH",
+          "price": 198400.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 2
+        },
+        "402340": {
+          "name": "SK스퀘어",
+          "lane": "WATCH",
+          "price": 1131000.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 3
+        },
+        "069540": {
+          "name": "빛과전자",
+          "lane": "EXCLUDE",
+          "price": 3640.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 12,
+          "confirm_rule_passes": 6
+        },
+        "010580": {
+          "name": "에스엠벡셀",
+          "lane": "EXCLUDE",
+          "price": 2095.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 10,
+          "confirm_rule_passes": 7
+        },
+        "047040": {
+          "name": "대우건설",
+          "lane": "EXCLUDE",
+          "price": 19970.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 10,
+          "confirm_rule_passes": 5
+        },
+        "004310": {
+          "name": "현대약품",
+          "lane": "EXCLUDE",
+          "price": 10440.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 5
+        },
+        "046120": {
+          "name": "오르비텍",
+          "lane": "EXCLUDE",
+          "price": 6050.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 4
+        },
+        "189860": {
+          "name": "서전기전",
+          "lane": "EXCLUDE",
+          "price": 5750.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 9,
+          "confirm_rule_passes": 4
+        },
+        "052690": {
+          "name": "한전기술",
+          "lane": "EXCLUDE",
+          "price": 142600.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 5
+        },
+        "475040": {
+          "name": "스트라드비젼",
+          "lane": "EXCLUDE",
+          "price": 3350.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 4
+        },
+        "034020": {
+          "name": "두산에너빌리티",
+          "lane": "EXCLUDE",
+          "price": 89500.0,
+          "pattern_id": "C3",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 8,
+          "confirm_rule_passes": 3
+        },
+        "490470": {
+          "name": "세미파이브",
+          "lane": "EXCLUDE",
+          "price": 15930.0,
+          "pattern_id": "C6",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 6,
+          "confirm_rule_passes": 4
+        },
+        "032820": {
+          "name": "우리기술",
+          "lane": "EXCLUDE",
+          "price": 11810.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 6,
+          "confirm_rule_passes": 4
+        },
+        "067290": {
+          "name": "JW신약",
+          "lane": "EXCLUDE",
+          "price": 3890.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 6,
+          "confirm_rule_passes": 3
+        },
+        "010170": {
+          "name": "대한광통신",
+          "lane": "EXCLUDE",
+          "price": 13700.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 6,
+          "confirm_rule_passes": 3
+        },
+        "017900": {
+          "name": "광전자",
+          "lane": "EXCLUDE",
+          "price": 8180.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 6,
+          "confirm_rule_passes": 3
+        },
+        "388050": {
+          "name": "지투파워",
+          "lane": "EXCLUDE",
+          "price": 11040.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 6,
+          "confirm_rule_passes": 2
+        },
+        "162300": {
+          "name": "신스틸",
+          "lane": "EXCLUDE",
+          "price": 2470.0,
+          "pattern_id": "C2",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "079650": {
+          "name": "서산",
+          "lane": "EXCLUDE",
+          "price": 7680.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 5,
+          "confirm_rule_passes": 3
+        },
+        "036930": {
+          "name": "주성엔지니어링",
+          "lane": "EXCLUDE",
+          "price": 194600.0,
+          "pattern_id": "C4",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 4,
+          "confirm_rule_passes": 1
+        },
+        "386380": {
+          "name": "스카이랩스",
+          "lane": "EXCLUDE",
+          "price": 29750.0,
+          "pattern_id": "C1",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 3,
+          "confirm_rule_passes": 1
+        },
+        "009150": {
+          "name": "삼성전기",
+          "lane": "EXCLUDE",
+          "price": 1370000.0,
+          "pattern_id": "C5",
+          "close_fit": false,
+          "confirm_fit": false,
+          "close_rule_passes": 2,
+          "confirm_rule_passes": 1
+        }
+      }
     }
   ]
 }
