@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-08T18:02:40.998007+09:00",
+  "generated_at": "2026-09-08T18:35:47.198833+09:00",
   "market_date": "2026-09-08",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1036,11 +1036,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -1568,19 +1568,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 5834.2,
+          "hours": 5834.7,
           "at": "2026-01-08T15:51:24+09:00",
           "title": "(주)에스엠벡셀 (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 5834.2시간이 지났습니다."
+          "reason": "재료 발표 후 5834.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2095,19 +2095,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 5.4,
+          "hours": 6.0,
           "at": "2026-09-08T12:36:00+09:00",
           "title": "스트라드비젼, Arm '피지컬 AI 생태계' 합류",
           "source": "news",
-          "reason": "재료 발표 후 5.4시간이 지났습니다."
+          "reason": "재료 발표 후 6.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2165,7 +2165,9 @@
         "grade": "A",
         "reason": "반도체 대표주(생산) 관련주 2/3 상승",
         "positive_titles": [
-          "“커버드콜·채권 투자 현명치 않아… 단일 레버리지, 증시 폭락 원인..."
+          "10대 그룹, 2년간 17兆 사업 처분…미래 투자보다 리밸런싱 치우쳐 [시...",
+          "\"영업이익 N% 요구 파업 노동부 지침대로면 불법\" 김영훈 고용노동부...",
+          "K뷰티 진짜 수혜자는 ODM [한경 프리미엄9 TODAY]"
         ],
         "titles": [
           "에스케이하이닉스(주) 풍문 또는 보도에 대한 해명(미확정)",
@@ -2644,34 +2646,33 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.2,
-          "at": "2026-09-08T17:51:00+09:00",
-          "title": "“커버드콜·채권 투자 현명치 않아… 단일 레버리지, 증시 폭락 원인...",
+          "hours": 0.5,
+          "at": "2026-09-08T18:05:00+09:00",
+          "title": "\"영업이익 N% 요구 파업 노동부 지침대로면 불법\" 김영훈 고용노동부...",
           "source": "news",
-          "reason": "재료 발표 후 0.2시간이 지났습니다."
+          "reason": "재료 발표 후 0.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "“커버드콜·채권 투자 현명치 않아… 단일 레버리지, 증시 폭락 원인...",
-            "at": "2026-09-08T17:51:00+09:00",
+            "title": "\"영업이익 N% 요구 파업 노동부 지침대로면 불법\" 김영훈 고용노동부...",
+            "at": "2026-09-08T18:05:00+09:00",
             "source": "news"
-          }
-        ],
-        "after_signal_items": [
+          },
           {
             "title": "K뷰티 진짜 수혜자는 ODM [한경 프리미엄9 TODAY]",
             "at": "2026-09-08T18:04:00+09:00",
             "source": "news"
           }
         ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -2700,9 +2701,9 @@
         "grade": "A",
         "reason": "반도체 대표주(생산) 관련주 2/3 상승",
         "positive_titles": [
-          "시몬스, 삼성전자 '웨딩& 프로모션' 참여…최대 110만원 리워드",
-          "프랑스 미스트랄AI \"삼성전자 주도로 30억 유로 투자 유치\"",
-          "삼성전자, 유럽 대표 AI 기업 '미스트랄'에 4.7조원 투자"
+          "10대 그룹, 2년간 17兆 사업 처분…미래 투자보다 리밸런싱 치우쳐 [시...",
+          "삼성, 요코하마에 첨단 패키지랩…\"日 소부장 생태계와 협력 강화\"",
+          "삼성전자, 요코하마 '첨단 패키징 연구소' 개소…日 소부장 협력 강화"
         ],
         "titles": [
           "파생상품시장",
@@ -3181,49 +3182,33 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
           "hours": 0.1,
-          "at": "2026-09-08T17:59:00+09:00",
-          "title": "시몬스, 삼성전자 '웨딩& 프로모션' 참여…최대 110만원 리워드",
+          "at": "2026-09-08T18:27:00+09:00",
+          "title": "삼성, 요코하마에 첨단 패키지랩…\"日 소부장 생태계와 협력 강화\"",
           "source": "news",
           "reason": "재료 발표 후 0.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "시몬스, 삼성전자 '웨딩& 프로모션' 참여…최대 110만원 리워드",
-            "at": "2026-09-08T17:59:00+09:00",
+            "title": "삼성, 요코하마에 첨단 패키지랩…\"日 소부장 생태계와 협력 강화\"",
+            "at": "2026-09-08T18:27:00+09:00",
             "source": "news"
           },
           {
-            "title": "프랑스 미스트랄AI \"삼성전자 주도로 30억 유로 투자 유치\"",
-            "at": "2026-09-08T17:58:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "삼성전자, 유럽 대표 AI 기업 '미스트랄'에 4.7조원 투자",
-            "at": "2026-09-08T17:15:00+09:00",
+            "title": "삼성전자, 요코하마 '첨단 패키징 연구소' 개소…日 소부장 협력 강화",
+            "at": "2026-09-08T17:44:00+09:00",
             "source": "news"
           }
         ],
-        "after_signal_items": [
-          {
-            "title": "\"24시간 함께하는 개인비서 … AI 안경 확산으로 1인 기업 크게 늘 것...",
-            "at": "2026-09-08T18:04:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "K뷰티 진짜 수혜자는 ODM [한경 프리미엄9 TODAY]",
-            "at": "2026-09-08T18:04:00+09:00",
-            "source": "news"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -3725,19 +3710,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 770.2,
+          "hours": 770.7,
           "at": "2026-08-07T15:51:56+09:00",
           "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
           "source": "notice",
-          "reason": "재료 발표 후 770.2시간이 지났습니다."
+          "reason": "재료 발표 후 770.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3793,7 +3778,7 @@
           "단일판매/공급계약",
           "(주)대우건설 단일판매ㆍ공급계약체결",
           "(주)대우건설 (정정)단일판매ㆍ공급계약체결",
-          "대미투자 호재發 원전주 '동반 랠리'"
+          "터빈은 두산·시공은 현대·대우?…'얼마 남기나' 관건"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -4265,19 +4250,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 6.5,
+          "hours": 7.0,
           "at": "2026-09-08T11:33:00+09:00",
           "title": "'10.7조 가덕도신공항' 수의계약 기대…대우건설 11% 급등[핫종목]",
           "source": "news",
-          "reason": "재료 발표 후 6.5시간이 지났습니다."
+          "reason": "재료 발표 후 7.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4859,11 +4844,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -5386,11 +5371,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -5918,11 +5903,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -5932,13 +5917,7 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [
-          {
-            "title": "한국전력기술(주) 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
-            "at": "2026-09-08T18:08:17+09:00",
-            "source": "notice"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -6431,11 +6410,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6445,13 +6424,7 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [
-          {
-            "title": "K뷰티 진짜 수혜자는 ODM [한경 프리미엄9 TODAY]",
-            "at": "2026-09-08T18:04:00+09:00",
-            "source": "news"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -6964,19 +6937,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 170.2,
+          "hours": 170.7,
           "at": "2026-09-01T15:52:37+09:00",
           "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 170.2시간이 지났습니다."
+          "reason": "재료 발표 후 170.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7519,11 +7492,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8043,11 +8016,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8574,19 +8547,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 2312.5,
+          "hours": 2313.0,
           "at": "2026-06-04T09:33:00+09:00",
           "title": "에이스톤·SGI, 역대 최대 펀드 '청신호'",
           "source": "news",
-          "reason": "재료 발표 후 2312.5시간이 지났습니다."
+          "reason": "재료 발표 후 2313.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9113,11 +9086,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9151,8 +9124,8 @@
         "positive_titles": [],
         "titles": [
           "본전 찾기에 단타까지…개미 투매에 코스피 6950선 하락 마감 [시황]",
-          "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "[마감시황]코스피, 장중 7171.52 찍고 밀려 6954.52 마감…외국인·기관...",
+          "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "코스피 개미 3조 매도…모처럼 7000피, 반나절 만에 반납[시황종합]",
           "코스피, 개미 '팔자'에 6900선 후퇴…7100선은 '일장춘몽'",
           "고배당 ETF 수익률, 반도체가 갈랐다",
@@ -9634,19 +9607,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.8,
+          "hours": 1.4,
           "at": "2026-09-08T17:12:00+09:00",
           "title": "본전 찾기에 단타까지…개미 투매에 코스피 6950선 하락 마감 [시황]",
           "source": "news",
-          "reason": "재료 발표 후 0.8시간이 지났습니다."
+          "reason": "재료 발표 후 1.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -10195,11 +10168,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10712,11 +10685,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11246,11 +11219,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11755,19 +11728,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.1,
+          "hours": 0.7,
           "at": "2026-09-08T17:56:00+09:00",
           "title": "[단독] 미래에셋운용, 日서 ‘K반도체 ETF’ 첫선",
           "source": "news",
-          "reason": "재료 발표 후 0.1시간이 지났습니다."
+          "reason": "재료 발표 후 0.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -12306,11 +12279,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12786,11 +12759,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13319,11 +13292,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-08T18:02:40.998007+09:00",
+      "updated_at": "2026-09-08T18:35:47.198833+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-08T18:02:40.998007+09:00",
+        "enriched_at": "2026-09-08T18:35:47.198833+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13340,13 +13313,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-01T19:33:15.612071+09:00",
-    "last": "2026-09-08T18:02:40.998007+09:00"
+    "first": "2026-09-01T20:27:45.973259+09:00",
+    "last": "2026-09-08T18:35:47.198833+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-08T18:02:40.998007+09:00",
+    "source_at": "2026-09-08T18:35:47.198833+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
