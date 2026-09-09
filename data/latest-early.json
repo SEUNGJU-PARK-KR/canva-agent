@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-09T18:08:35.985162+09:00",
+  "generated_at": "2026-09-09T18:38:51.809843+09:00",
   "market_date": "2026-09-09",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -548,7 +548,11 @@
       "catalyst": {
         "grade": "A",
         "reason": "2차전지(생산) 관련주 3/3 상승",
-        "positive_titles": [],
+        "positive_titles": [
+          "“한국 기술·인니 젊은 시장 강점”…청년 창업으로 협력 넓히는 韓...",
+          "주한인니 부대사 \"한·인니 스타트업 협력, 양국 넘어 글로벌 시장으...",
+          "SK이노 E&S, 부산서 한·인니 청년 창업가 만났다…기후테크 협력 확대"
+        ],
         "titles": [
           "기업설명회",
           "SK이노베이션(주) 기업설명회(IR) 개최(안내공시)",
@@ -1034,25 +1038,35 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "STALE",
-          "hours": 170.3,
-          "at": "2026-09-02T15:51:09+09:00",
-          "title": "SK이노베이션(주) 기타 안내사항(안내공시)",
-          "source": "notice",
-          "reason": "재료 발표 후 170.3시간이 지났습니다."
+          "status": "FRESH",
+          "hours": 0.3,
+          "at": "2026-09-09T18:23:00+09:00",
+          "title": "“한국 기술·인니 젊은 시장 강점”…청년 창업으로 협력 넓히는 韓...",
+          "source": "news",
+          "reason": "재료 발표 후 0.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "SK이노베이션(주) 기타 안내사항(안내공시)",
-            "at": "2026-09-02T15:51:09+09:00",
-            "source": "notice"
+            "title": "“한국 기술·인니 젊은 시장 강점”…청년 창업으로 협력 넓히는 韓...",
+            "at": "2026-09-09T18:23:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "SK이노 E&S, 부산서 한·인니 청년 창업가 만났다…기후테크 협력 확대",
+            "at": "2026-09-09T08:00:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "주한인니 부대사 \"한·인니 스타트업 협력, 양국 넘어 글로벌 시장으...",
+            "at": "2026-09-09T08:00:00+09:00",
+            "source": "news"
           }
         ],
         "after_signal_items": [
@@ -1583,19 +1597,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 151.9,
+          "hours": 152.4,
           "at": "2026-09-03T10:17:00+09:00",
           "title": "철강주, 알래스카 LNG 프로젝트 수혜 기대감에 급등…금강철강 20%대↑",
           "source": "news",
-          "reason": "재료 발표 후 151.9시간이 지났습니다."
+          "reason": "재료 발표 후 152.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2128,19 +2142,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 698.3,
+          "hours": 698.8,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 698.3시간이 지났습니다."
+          "reason": "재료 발표 후 698.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2681,11 +2695,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3202,11 +3216,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3742,11 +3756,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3791,9 +3805,9 @@
         "grade": "S",
         "reason": "CXL(컴퓨트익스프레스링크) 관련주 10/12 상승",
         "positive_titles": [
-          "협력사 경쟁 붙여 가격 눌렀는데…애플 '갑질 공식' 흔들",
-          "기업 영업이익률 역대 최고…‘삼전닉스’ 빼도 호전",
-          "2분기 기업 매출·영업이익 사상 최고폭 증가… 반도체 ‘투톱’ 덕분"
+          "[단독] '삼전닉스 레버리지' 손 댔더니…손실률 최대 3배",
+          "\"삼전닉스에 절반 투자\"…미래에셋, 日서 ETF 출격",
+          "2분기 기업 영업이익률 16.9% 역대 최고… 삼전닉스가 견인"
         ],
         "titles": [
           "조회공시답변",
@@ -4270,34 +4284,34 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
           "hours": 0.2,
-          "at": "2026-09-09T17:55:00+09:00",
-          "title": "협력사 경쟁 붙여 가격 눌렀는데…애플 '갑질 공식' 흔들",
+          "at": "2026-09-09T18:28:00+09:00",
+          "title": "[단독] '삼전닉스 레버리지' 손 댔더니…손실률 최대 3배",
           "source": "news",
           "reason": "재료 발표 후 0.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "협력사 경쟁 붙여 가격 눌렀는데…애플 '갑질 공식' 흔들",
-            "at": "2026-09-09T17:55:00+09:00",
+            "title": "[단독] '삼전닉스 레버리지' 손 댔더니…손실률 최대 3배",
+            "at": "2026-09-09T18:28:00+09:00",
             "source": "news"
           },
           {
-            "title": "기업 영업이익률 역대 최고…‘삼전닉스’ 빼도 호전",
-            "at": "2026-09-09T17:54:00+09:00",
+            "title": "\"삼전닉스에 절반 투자\"…미래에셋, 日서 ETF 출격",
+            "at": "2026-09-09T18:23:00+09:00",
             "source": "news"
           },
           {
-            "title": "2분기 기업 매출·영업이익 사상 최고폭 증가… 반도체 ‘투톱’ 덕분",
-            "at": "2026-09-09T16:40:00+09:00",
+            "title": "2분기 기업 영업이익률 16.9% 역대 최고… 삼전닉스가 견인",
+            "at": "2026-09-09T18:19:00+09:00",
             "source": "news"
           }
         ],
@@ -4809,19 +4823,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 794.3,
+          "hours": 794.8,
           "at": "2026-08-07T15:51:56+09:00",
           "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
           "source": "notice",
-          "reason": "재료 발표 후 794.3시간이 지났습니다."
+          "reason": "재료 발표 후 794.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4864,7 +4878,8 @@
         "grade": "S",
         "reason": "CXL(컴퓨트익스프레스링크) 관련주 10/12 상승",
         "positive_titles": [
-          "이창용 “中 반도체, 다운턴 때 투자 늘리면 추격 가속…韓 안심 못해..."
+          "최태원 “국회가 플레잉 코치 돼 달라”… 국회·재계 상시 협력체 가...",
+          "[단독] '삼전닉스 레버리지' 손 댔더니…손실률 최대 3배"
         ],
         "titles": [
           "파생상품시장",
@@ -5343,20 +5358,32 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "UNKNOWN",
-          "hours": null,
-          "at": null,
-          "title": null,
-          "reason": "재료 발표 시각을 확인하지 못했습니다."
+          "status": "FRESH",
+          "hours": 0.2,
+          "at": "2026-09-09T18:29:00+09:00",
+          "title": "최태원 “국회가 플레잉 코치 돼 달라”… 국회·재계 상시 협력체 가...",
+          "source": "news",
+          "reason": "재료 발표 후 0.2시간이 지났습니다."
         },
-        "matched_catalyst_items": [],
+        "matched_catalyst_items": [
+          {
+            "title": "최태원 “국회가 플레잉 코치 돼 달라”… 국회·재계 상시 협력체 가...",
+            "at": "2026-09-09T18:29:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "[단독] '삼전닉스 레버리지' 손 댔더니…손실률 최대 3배",
+            "at": "2026-09-09T18:28:00+09:00",
+            "source": "news"
+          }
+        ],
         "after_signal_items": [],
         "source_errors": []
       }
@@ -5874,11 +5901,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6402,11 +6429,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6927,11 +6954,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7457,11 +7484,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7985,11 +8012,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8513,11 +8540,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8553,8 +8580,8 @@
           "이번엔 지켰다…코스피, 33거래일 만에 7000선 회복 마감[시황종합]",
           "33거래일만에 칠천피 회복…미 물가 발표 앞두고 수급 손바뀜",
           "네 마녀의 날·미 물가 발표 앞두고 칠천피…외인·개인은 매도",
-          "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "[마감시황]코스피, 33거래일 만에 7051.64 마감…반도체·배터리 강세...",
+          "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "코스피, 7000선 탈환 마감…장중 7112까지 뛰었다",
           "[속보] 코스피 33거래일 만에 7000선 탈환…1.4% 오른 7051.64 마감",
           "코스피, 중동 긴장 딛고 1%대 상승 마감…33일만에 7천피 회복"
@@ -9034,19 +9061,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.8,
+          "hours": 2.3,
           "at": "2026-09-09T16:22:00+09:00",
           "title": "이번엔 지켰다…코스피, 33거래일 만에 7000선 회복 마감[시황종합]",
           "source": "news",
-          "reason": "재료 발표 후 1.8시간이 지났습니다."
+          "reason": "재료 발표 후 2.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9608,19 +9635,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 194.3,
+          "hours": 194.8,
           "at": "2026-09-01T15:52:37+09:00",
           "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 194.3시간이 지났습니다."
+          "reason": "재료 발표 후 194.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -10152,11 +10179,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10684,11 +10711,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11212,11 +11239,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11254,9 +11281,9 @@
           "기업설명회",
           "주성엔지니어링(주) 기업설명회(IR) 개최",
           "주성엔지니어링(주) 주식선물 3단계 가격제한폭 확대요건 도달(상승)",
-          "유가 충격에도 … 33거래일만에 7천피 회복",
-          "“중동 악재 뚫고 코스피 7000선 회복”…SK하이닉스·LG엔솔 급등",
-          "\"2개월 걸렸다...쉽지 않네\" 2차전지株 '급속충전'"
+          "코스피 33거래일만에 7000선 회복… 기관 '매수세'",
+          "되살아난 AI 낙관론…48일 만에 7천피 탈환",
+          "유가 충격에도 … 33거래일만에 7천피 회복"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -11726,34 +11753,34 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.4,
-          "at": "2026-09-09T17:46:00+09:00",
-          "title": "유가 충격에도 … 33거래일만에 7천피 회복",
+          "hours": 0.2,
+          "at": "2026-09-09T18:29:00+09:00",
+          "title": "코스피 33거래일만에 7000선 회복… 기관 '매수세'",
           "source": "news",
-          "reason": "재료 발표 후 0.4시간이 지났습니다."
+          "reason": "재료 발표 후 0.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
+            "title": "코스피 33거래일만에 7000선 회복… 기관 '매수세'",
+            "at": "2026-09-09T18:29:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "되살아난 AI 낙관론…48일 만에 7천피 탈환",
+            "at": "2026-09-09T18:19:00+09:00",
+            "source": "news"
+          },
+          {
             "title": "유가 충격에도 … 33거래일만에 7천피 회복",
             "at": "2026-09-09T17:46:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "“중동 악재 뚫고 코스피 7000선 회복”…SK하이닉스·LG엔솔 급등",
-            "at": "2026-09-09T16:38:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "\"2개월 걸렸다...쉽지 않네\" 2차전지株 '급속충전'",
-            "at": "2026-09-09T16:25:00+09:00",
             "source": "news"
           }
         ],
@@ -12284,11 +12311,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12768,11 +12795,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13301,11 +13328,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-09T18:08:35.985162+09:00",
+      "updated_at": "2026-09-09T18:38:51.809843+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-09T18:08:35.985162+09:00",
+        "enriched_at": "2026-09-09T18:38:51.809843+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13322,13 +13349,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-02T18:52:49.525897+09:00",
-    "last": "2026-09-09T18:08:35.985162+09:00"
+    "first": "2026-09-02T18:59:20.942728+09:00",
+    "last": "2026-09-09T18:38:51.809843+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-09T18:08:35.985162+09:00",
+    "source_at": "2026-09-09T18:38:51.809843+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
