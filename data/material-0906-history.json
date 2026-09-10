@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-10T13:13:42.121256+09:00",
+  "generated_at": "2026-09-10T19:04:09.913181+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -1696,6 +1696,155 @@
       "date": "2026-09-09",
       "stage": "15:18",
       "at": "2026-09-09T20:20:08.247823+09:00",
+      "source_at": "2026-09-09T19:10:02.409990+09:00",
+      "themes": {
+        "449": {
+          "name": "2차전지(생산)",
+          "code": "449",
+          "rising": 3,
+          "total": 3,
+          "breadth": 1.0,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "401": {
+          "name": "원자력발전소 해체",
+          "code": "401",
+          "rising": 13,
+          "total": 15,
+          "breadth": 0.8666666666666667,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "178": {
+          "name": "전선",
+          "code": "178",
+          "rising": 8,
+          "total": 8,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "446": {
+          "name": "2차전지(소재/부품)",
+          "code": "446",
+          "rising": 58,
+          "total": 72,
+          "breadth": 0.8055555555555556,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "547": {
+          "name": "CXL(컴퓨트익스프레스링크)",
+          "code": "547",
+          "rising": 10,
+          "total": 12,
+          "breadth": 0.8333333333333334,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "586": {
+          "name": "광통신(광케이블/광섬유 등)",
+          "code": "586",
+          "rising": 13,
+          "total": 15,
+          "breadth": 0.8666666666666667,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "378": {
+          "name": "건설기계",
+          "code": "378",
+          "rising": 15,
+          "total": 15,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "472": {
+          "name": "2차전지(전고체)",
+          "code": "472",
+          "rising": 27,
+          "total": 29,
+          "breadth": 0.9310344827586207,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "559": {
+          "name": "고체산화물 연료전지(SOFC)",
+          "code": "559",
+          "rising": 14,
+          "total": 14,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "92": {
+          "name": "통신장비",
+          "code": "92",
+          "rising": 38,
+          "total": 46,
+          "breadth": 0.8260869565217391,
+          "leader_rank": 4,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-10",
+      "stage": "14:53",
+      "at": "2026-09-10T19:04:09.913181+09:00",
       "source_at": "2026-09-09T19:10:02.409990+09:00",
       "themes": {
         "449": {
@@ -134669,12 +134818,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-10T19:04:09.913181+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 10개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-10T13:13:42.121256+09:00",
+    "generated_at": "2026-09-10T19:04:09.913181+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
