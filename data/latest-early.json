@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-10T18:38:10.476933+09:00",
+  "generated_at": "2026-09-10T20:01:21.028895+09:00",
   "market_date": "2026-09-10",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -548,8 +548,7 @@
         "grade": "S",
         "reason": "뉴로모픽 반도체 관련주 6/7 상승",
         "positive_titles": [
-          "한은 “글로벌 AI 투자 올해 정점으로 완만 하락…빅테크 수익성은 리...",
-          "구리값 따라가는 전선株… 전력망 확대 수혜도"
+          "금호건설, 건축 포트폴리오 다각화…복합개발·첨단산업 수주"
         ],
         "titles": [
           "파생상품시장",
@@ -1033,20 +1032,27 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "UNKNOWN",
-          "hours": null,
-          "at": null,
-          "title": null,
-          "reason": "재료 발표 시각을 확인하지 못했습니다."
+          "status": "FRESH",
+          "hours": 0.5,
+          "at": "2026-09-10T19:29:00+09:00",
+          "title": "금호건설, 건축 포트폴리오 다각화…복합개발·첨단산업 수주",
+          "source": "news",
+          "reason": "재료 발표 후 0.5시간이 지났습니다."
         },
-        "matched_catalyst_items": [],
+        "matched_catalyst_items": [
+          {
+            "title": "금호건설, 건축 포트폴리오 다각화…복합개발·첨단산업 수주",
+            "at": "2026-09-10T19:29:00+09:00",
+            "source": "news"
+          }
+        ],
         "after_signal_items": [],
         "source_errors": []
       }
@@ -1553,19 +1559,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 218.8,
+          "hours": 220.1,
           "at": "2026-09-01T15:52:37+09:00",
           "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 218.8시간이 지났습니다."
+          "reason": "재료 발표 후 220.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1618,7 +1624,9 @@
       "catalyst": {
         "grade": "S",
         "reason": "콩/대두 관련주 5/5 상승",
-        "positive_titles": [],
+        "positive_titles": [
+          "식품연, 샘표식품 신규 패밀리기업 지정…기술협력 본격화"
+        ],
         "titles": [
           "주주총회관련",
           "샘표식품(주) 정기주주총회결과",
@@ -2104,70 +2112,25 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 4106.7,
-          "at": "2026-03-23T15:57:12+09:00",
-          "title": "샘표식품(주) 정기주주총회결과",
-          "source": "notice",
-          "reason": "재료 발표 후 4106.7시간이 지났습니다."
+          "hours": 195.3,
+          "at": "2026-09-02T16:43:00+09:00",
+          "title": "식품연, 샘표식품 신규 패밀리기업 지정…기술협력 본격화",
+          "source": "news",
+          "reason": "재료 발표 후 195.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "샘표식품(주) 정기주주총회결과",
-            "at": "2026-03-23T15:57:12+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 감사보고서 제출",
-            "at": "2026-03-13T15:54:50+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 주주총회소집결의",
-            "at": "2026-02-09T15:53:36+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 현금ㆍ현물 배당 결정",
-            "at": "2026-02-09T15:53:08+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 매출액또는손익구조30%(대규모법인은15%)이상변경",
-            "at": "2026-02-03T15:52:38+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 현금ㆍ현물배당을 위한 주주명부폐쇄(기준일) 결정",
-            "at": "2025-12-15T15:52:13+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 정기주주총회결과",
-            "at": "2025-03-24T15:53:02+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 감사보고서 제출",
-            "at": "2025-03-14T15:51:54+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 주주총회소집결의",
-            "at": "2025-02-19T15:52:07+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "샘표식품(주) 현금ㆍ현물 배당 결정",
-            "at": "2025-02-19T15:51:43+09:00",
-            "source": "notice"
+            "title": "식품연, 샘표식품 신규 패밀리기업 지정…기술협력 본격화",
+            "at": "2026-09-02T16:43:00+09:00",
+            "source": "news"
           }
         ],
         "after_signal_items": [],
@@ -2199,8 +2162,7 @@
         "grade": "S",
         "reason": "시스템반도체 관련주 43/58 상승",
         "positive_titles": [
-          "한은 “올 韓 증시 변동성 1위…레버리지 ETF 투자 급증이 요인”",
-          "한은 “레버리지 ETF 투자 급증이 주가 변동성 키워”"
+          "한은 “글로벌 AI 투자 올해 정점으로 완만 하락…빅테크 수익성은 리..."
         ],
         "titles": [
           "조회공시답변",
@@ -2677,33 +2639,34 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.5,
-          "at": "2026-09-10T18:10:00+09:00",
-          "title": "한은 “올 韓 증시 변동성 1위…레버리지 ETF 투자 급증이 요인”",
+          "hours": 1.4,
+          "at": "2026-09-10T18:36:00+09:00",
+          "title": "한은 “글로벌 AI 투자 올해 정점으로 완만 하락…빅테크 수익성은 리...",
           "source": "news",
-          "reason": "재료 발표 후 0.5시간이 지났습니다."
+          "reason": "재료 발표 후 1.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "한은 “올 韓 증시 변동성 1위…레버리지 ETF 투자 급증이 요인”",
-            "at": "2026-09-10T18:10:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "한은 “레버리지 ETF 투자 급증이 주가 변동성 키워”",
-            "at": "2026-09-10T17:14:00+09:00",
+            "title": "한은 “글로벌 AI 투자 올해 정점으로 완만 하락…빅테크 수익성은 리...",
+            "at": "2026-09-10T18:36:00+09:00",
             "source": "news"
           }
         ],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "네 마녀 날뛰었는데 ‘다말올’ 7천피 버텨줬다…다음 변수 있다는데",
+            "at": "2026-09-10T20:03:00+09:00",
+            "source": "news"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -3203,11 +3166,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3732,19 +3695,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 194.8,
+          "hours": 196.2,
           "at": "2026-09-02T15:51:09+09:00",
           "title": "SK이노베이션(주) 기타 안내사항(안내공시)",
           "source": "notice",
-          "reason": "재료 발표 후 194.8시간이 지났습니다."
+          "reason": "재료 발표 후 196.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3784,11 +3747,11 @@
         "reason": "LED장비 관련주 8/11 상승",
         "positive_titles": [],
         "titles": [
+          "주성엔지니어링(주) 공매도 과열종목 지정(공매도 거래 금지 적용)",
           "파생상품시장",
           "주성엔지니어링(주) 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
           "기업설명회",
           "주성엔지니어링(주) 기업설명회(IR) 개최",
-          "주성엔지니어링(주) 주식선물 3단계 가격제한폭 확대요건 도달(상승)",
           "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
           "NH아문디, ‘HANARO Fn K-반도체 ETF’ 연초 이후 수익률 1위"
@@ -4258,19 +4221,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.3,
+          "hours": 1.7,
           "at": "2026-09-10T18:21:00+09:00",
           "title": "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "source": "news",
-          "reason": "재료 발표 후 0.3시간이 지났습니다."
+          "reason": "재료 발표 후 1.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4293,6 +4256,11 @@
           {
             "title": "주성엔지니어링(주) 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
             "at": "2026-09-10T21:10:12+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "주성엔지니어링(주) 공매도 과열종목 지정(공매도 거래 금지 적용)",
+            "at": "2026-09-11T05:00:56+09:00",
             "source": "notice"
           }
         ],
@@ -4321,8 +4289,8 @@
           "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
           "'네 마녀의 날' 출렁인 코스피…외인 2.5조 매도에도 7000 사수[시황종...",
           "7000피 깨지자 강화된 기관 매수세…7030선 약보합 마감 [시황]",
-          "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "[마감시황]코스피, 장중 6898.45까지 밀렸다 낙폭 축소…7033.92로 마감",
+          "[서울데이터랩]마감 직후 인기 검색 종목 20選",
           "중동발 악재에 롤러코스터…개인은 사고 외국인은 팔고 이틀째 지켰다",
           "코스피, 외인 2조 '팔자' 약보합 마감…7000선 사수",
           "코스피 0.25% 내린 7033.92 마감…중동 악재에도 7000선 사수"
@@ -4804,19 +4772,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.4,
+          "hours": 2.8,
           "at": "2026-09-10T17:13:00+09:00",
           "title": "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
           "source": "news",
-          "reason": "재료 발표 후 1.4시간이 지났습니다."
+          "reason": "재료 발표 후 2.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5371,19 +5339,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 722.8,
+          "hours": 724.2,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 722.8시간이 지났습니다."
+          "reason": "재료 발표 후 724.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5917,11 +5885,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6455,11 +6423,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6972,11 +6940,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7493,19 +7461,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 842.8,
+          "hours": 844.2,
           "at": "2026-08-06T15:50:59+09:00",
           "title": "(주)원익아이피에스 연결재무제표 기준 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 842.8시간이 지났습니다."
+          "reason": "재료 발표 후 844.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7550,13 +7518,13 @@
         "reason": "시스템반도체 관련주 43/58 상승",
         "positive_titles": [],
         "titles": [
+          "리노공업(주) 공매도 과열종목 지정(공매도 거래 금지 적용)",
           "파생상품시장",
           "리노공업(주) 주식선물 2단계 가격제한폭 확대요건 도달(하락)",
           "기업설명회",
           "리노공업(주) 기업설명회(IR) 개최",
           "리노공업(주) 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
           "리노공업(주) 공매도 과열종목 연장(공매도 거래 금지 연장)",
-          "리노공업(주) 공매도 과열종목 지정(공매도 거래 금지 적용)",
           "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다"
         ]
       },
@@ -8023,19 +7991,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.5,
+          "hours": 1.9,
           "at": "2026-09-10T18:09:00+09:00",
           "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
           "source": "news",
-          "reason": "재료 발표 후 0.5시간이 지났습니다."
+          "reason": "재료 발표 후 1.9시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8044,7 +8012,13 @@
             "source": "news"
           }
         ],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "리노공업(주) 공매도 과열종목 지정(공매도 거래 금지 적용)",
+            "at": "2026-09-11T05:01:02+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -8074,14 +8048,14 @@
         "reason": "반도체 장비 관련주 63/95 상승",
         "positive_titles": [],
         "titles": [
+          "주식회사 에이치피에스피 공매도 과열종목 지정(공매도 거래 금지 적용)",
           "자기주식(신탁포함)",
           "주식회사 에이치피에스피 (정정)자기주식 처분 결정",
           "명의개서정지",
           "주식회사 에이치피에스피 주주명부폐쇄기간 또는 기준일 설정",
           "주주총회관련",
           "주식회사 에이치피에스피 주주총회소집결의(임시주주총회)",
-          "파생상품시장",
-          "주식회사 에이치피에스피 주식선물 2단계 가격제한폭 확대요건 도달(상승)"
+          "파생상품시장"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -8556,19 +8530,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 74.8,
+          "hours": 76.2,
           "at": "2026-09-07T15:51:40+09:00",
           "title": "주식회사 에이치피에스피 (정정)자기주식 처분 결정",
           "source": "notice",
-          "reason": "재료 발표 후 74.8시간이 지났습니다."
+          "reason": "재료 발표 후 76.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8587,7 +8561,13 @@
             "source": "notice"
           }
         ],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "주식회사 에이치피에스피 공매도 과열종목 지정(공매도 거래 금지 적용)",
+            "at": "2026-09-11T05:00:50+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -9077,11 +9057,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9626,11 +9606,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10160,11 +10140,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10205,14 +10185,14 @@
         "reason": "LED장비 관련주 8/11 상승",
         "positive_titles": [],
         "titles": [
+          "(주)이오테크닉스 공매도 과열종목 지정(공매도 거래 금지 적용)",
           "파생상품시장",
           "(주)이오테크닉스 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
           "(주)이오테크닉스 주식선물 3단계 가격제한폭 확대요건 도달(상승)",
           "(주)이오테크닉스 주식선물 2단계 가격제한폭 확대요건 도달(하락)",
           "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
-          "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
-          "‘네 마녀의 심술’에도 잘 버틴 코스피…7000선 턱걸이 마감"
+          "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -10689,19 +10669,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.3,
+          "hours": 1.7,
           "at": "2026-09-10T18:21:00+09:00",
           "title": "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "source": "news",
-          "reason": "재료 발표 후 0.3시간이 지났습니다."
+          "reason": "재료 발표 후 1.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -10718,14 +10698,15 @@
             "title": "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
             "at": "2026-09-10T17:13:00+09:00",
             "source": "news"
-          },
-          {
-            "title": "‘네 마녀의 심술’에도 잘 버틴 코스피…7000선 턱걸이 마감",
-            "at": "2026-09-10T16:33:00+09:00",
-            "source": "news"
           }
         ],
-        "after_signal_items": [],
+        "after_signal_items": [
+          {
+            "title": "(주)이오테크닉스 공매도 과열종목 지정(공매도 거래 금지 적용)",
+            "at": "2026-09-11T05:00:59+09:00",
+            "source": "notice"
+          }
+        ],
         "source_errors": []
       }
     },
@@ -11236,11 +11217,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11757,11 +11738,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12288,11 +12269,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12815,11 +12796,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13346,11 +13327,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "updated_at": "2026-09-10T20:01:21.028895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "enriched_at": "2026-09-10T20:01:21.028895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13367,13 +13348,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-03T19:09:54.507701+09:00",
-    "last": "2026-09-10T18:38:10.476933+09:00"
+    "first": "2026-09-04T18:01:17.446378+09:00",
+    "last": "2026-09-10T20:01:21.028895+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-10T18:38:10.476933+09:00",
+    "source_at": "2026-09-10T20:01:21.028895+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
