@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-10T18:07:53.004537+09:00",
+  "generated_at": "2026-09-10T18:38:10.476933+09:00",
   "market_date": "2026-09-10",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -548,8 +548,8 @@
         "grade": "S",
         "reason": "뉴로모픽 반도체 관련주 6/7 상승",
         "positive_titles": [
-          "코스닥 아직도 30년前 수준…투자→상장→스케일업 선순환 끊겨",
-          "AI 경쟁 수혜 다음 타자는 전력株 [한경 프리미엄9 TODAY]"
+          "한은 “글로벌 AI 투자 올해 정점으로 완만 하락…빅테크 수익성은 리...",
+          "구리값 따라가는 전선株… 전력망 확대 수혜도"
         ],
         "titles": [
           "파생상품시장",
@@ -1033,27 +1033,20 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "FRESH",
-          "hours": 0.2,
-          "at": "2026-09-10T17:54:00+09:00",
-          "title": "AI 경쟁 수혜 다음 타자는 전력株 [한경 프리미엄9 TODAY]",
-          "source": "news",
-          "reason": "재료 발표 후 0.2시간이 지났습니다."
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
-        "matched_catalyst_items": [
-          {
-            "title": "AI 경쟁 수혜 다음 타자는 전력株 [한경 프리미엄9 TODAY]",
-            "at": "2026-09-10T17:54:00+09:00",
-            "source": "news"
-          }
-        ],
+        "matched_catalyst_items": [],
         "after_signal_items": [],
         "source_errors": []
       }
@@ -1560,19 +1553,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 218.3,
+          "hours": 218.8,
           "at": "2026-09-01T15:52:37+09:00",
           "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 218.3시간이 지났습니다."
+          "reason": "재료 발표 후 218.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1625,9 +1618,7 @@
       "catalyst": {
         "grade": "S",
         "reason": "콩/대두 관련주 5/5 상승",
-        "positive_titles": [
-          "식품연, 샘표식품 신규 패밀리기업 지정…기술협력 본격화"
-        ],
+        "positive_titles": [],
         "titles": [
           "주주총회관련",
           "샘표식품(주) 정기주주총회결과",
@@ -2113,25 +2104,70 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 193.4,
-          "at": "2026-09-02T16:43:00+09:00",
-          "title": "식품연, 샘표식품 신규 패밀리기업 지정…기술협력 본격화",
-          "source": "news",
-          "reason": "재료 발표 후 193.4시간이 지났습니다."
+          "hours": 4106.7,
+          "at": "2026-03-23T15:57:12+09:00",
+          "title": "샘표식품(주) 정기주주총회결과",
+          "source": "notice",
+          "reason": "재료 발표 후 4106.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "식품연, 샘표식품 신규 패밀리기업 지정…기술협력 본격화",
-            "at": "2026-09-02T16:43:00+09:00",
-            "source": "news"
+            "title": "샘표식품(주) 정기주주총회결과",
+            "at": "2026-03-23T15:57:12+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 감사보고서 제출",
+            "at": "2026-03-13T15:54:50+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 주주총회소집결의",
+            "at": "2026-02-09T15:53:36+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 현금ㆍ현물 배당 결정",
+            "at": "2026-02-09T15:53:08+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 매출액또는손익구조30%(대규모법인은15%)이상변경",
+            "at": "2026-02-03T15:52:38+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 현금ㆍ현물배당을 위한 주주명부폐쇄(기준일) 결정",
+            "at": "2025-12-15T15:52:13+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 정기주주총회결과",
+            "at": "2025-03-24T15:53:02+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 감사보고서 제출",
+            "at": "2025-03-14T15:51:54+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 주주총회소집결의",
+            "at": "2025-02-19T15:52:07+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "샘표식품(주) 현금ㆍ현물 배당 결정",
+            "at": "2025-02-19T15:51:43+09:00",
+            "source": "notice"
           }
         ],
         "after_signal_items": [],
@@ -2163,7 +2199,8 @@
         "grade": "S",
         "reason": "시스템반도체 관련주 43/58 상승",
         "positive_titles": [
-          "AI 경쟁 수혜 다음 타자는 전력株 [한경 프리미엄9 TODAY]"
+          "한은 “올 韓 증시 변동성 1위…레버리지 ETF 투자 급증이 요인”",
+          "한은 “레버리지 ETF 투자 급증이 주가 변동성 키워”"
         ],
         "titles": [
           "조회공시답변",
@@ -2640,24 +2677,29 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.2,
-          "at": "2026-09-10T17:54:00+09:00",
-          "title": "AI 경쟁 수혜 다음 타자는 전력株 [한경 프리미엄9 TODAY]",
+          "hours": 0.5,
+          "at": "2026-09-10T18:10:00+09:00",
+          "title": "한은 “올 韓 증시 변동성 1위…레버리지 ETF 투자 급증이 요인”",
           "source": "news",
-          "reason": "재료 발표 후 0.2시간이 지났습니다."
+          "reason": "재료 발표 후 0.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "AI 경쟁 수혜 다음 타자는 전력株 [한경 프리미엄9 TODAY]",
-            "at": "2026-09-10T17:54:00+09:00",
+            "title": "한은 “올 韓 증시 변동성 1위…레버리지 ETF 투자 급증이 요인”",
+            "at": "2026-09-10T18:10:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "한은 “레버리지 ETF 투자 급증이 주가 변동성 키워”",
+            "at": "2026-09-10T17:14:00+09:00",
             "source": "news"
           }
         ],
@@ -3161,11 +3203,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3175,540 +3217,6 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [],
-        "source_errors": []
-      }
-    },
-    {
-      "code": "402340",
-      "name": "SK스퀘어",
-      "market": "2",
-      "price": 1135000,
-      "change_rate": -0.26,
-      "trade_value": 611107000000,
-      "market_cap": 149733737000000,
-      "volume": 540428,
-      "sources": {
-        "trading_value": 7
-      },
-      "source_rank_score": 376,
-      "theme": null,
-      "catalyst": {
-        "grade": "A",
-        "reason": "시설투자/자원개발",
-        "positive_titles": [
-          "시설투자/자원개발",
-          "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
-          "SK스퀘어, AX로 투자·포트폴리오 업무 혁신"
-        ],
-        "titles": [
-          "파생상품시장",
-          "에스케이스퀘어 주식회사 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
-          "이익소각",
-          "에스케이스퀘어 주식회사 주식 소각 결정(자회사의 주요경영사항)",
-          "자기주식(신탁포함)",
-          "에스케이스퀘어 주식회사 자기주식 취득 결정(자회사의 주요경영사항)",
-          "에스케이스퀘어 주식회사 주식선물 2단계 가격제한폭 확대요건 도달(하락)",
-          "파생상품"
-        ]
-      },
-      "limit_up_pattern": "NO_LIMIT",
-      "pattern": {
-        "id": "C3",
-        "name": "매집 미완료·바닥",
-        "score": 100,
-        "components": [
-          {
-            "name": "최근 상한가/강봉",
-            "pass": true,
-            "weight": 20
-          },
-          {
-            "name": "장기이평 근접",
-            "pass": true,
-            "weight": 25
-          },
-          {
-            "name": "전고점 아래",
-            "pass": true,
-            "weight": 10
-          },
-          {
-            "name": "종가 구조",
-            "pass": true,
-            "weight": 15
-          },
-          {
-            "name": "상승1파 매물",
-            "pass": true,
-            "weight": 15
-          },
-          {
-            "name": "재료 A/S",
-            "pass": true,
-            "weight": 15
-          }
-        ],
-        "initial": "VERY_SMALL",
-        "supports": [
-          "20·60·120일선",
-          "초기 가격대"
-        ]
-      },
-      "pattern_candidates": [
-        {
-          "id": "C3",
-          "name": "매집 미완료·바닥",
-          "score": 100,
-          "components": [
-            {
-              "name": "최근 상한가/강봉",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "장기이평 근접",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "전고점 아래",
-              "pass": true,
-              "weight": 10
-            },
-            {
-              "name": "종가 구조",
-              "pass": true,
-              "weight": 15
-            },
-            {
-              "name": "상승1파 매물",
-              "pass": true,
-              "weight": 15
-            },
-            {
-              "name": "재료 A/S",
-              "pass": true,
-              "weight": 15
-            }
-          ],
-          "initial": "VERY_SMALL",
-          "supports": [
-            "20·60·120일선",
-            "초기 가격대"
-          ]
-        },
-        {
-          "id": "C5",
-          "name": "초대량 매물대 박스",
-          "score": 80,
-          "components": [
-            {
-              "name": "과거 초대량",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "박스 수렴",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "전고점 미완전 돌파",
-              "pass": true,
-              "weight": 15
-            },
-            {
-              "name": "20·60일선 지지",
-              "pass": true,
-              "weight": 15
-            },
-            {
-              "name": "윗꼬리 허용",
-              "pass": true,
-              "weight": 10
-            },
-            {
-              "name": "재료 A/S",
-              "pass": true,
-              "weight": 15
-            }
-          ],
-          "initial": "VERY_SMALL",
-          "supports": [
-            "박스 하단",
-            "20·60일선"
-          ]
-        },
-        {
-          "id": "C4",
-          "name": "신규상장 매집",
-          "score": 60,
-          "components": [
-            {
-              "name": "상장 1년 이내",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "상장일 고가 돌파",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "최근 상한가/강봉",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "장대양봉",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "거래대금",
-              "pass": true,
-              "weight": 15
-            }
-          ],
-          "initial": "SMALL",
-          "supports": [
-            "5·11일선",
-            "상장일 고가·박스 상단"
-          ]
-        }
-      ],
-      "metrics": {
-        "close_location": 0.625,
-        "upper_wick": 0.2344,
-        "body_ratio": 0.0,
-        "volume_ratio": 0.947,
-        "ma5": 1114000,
-        "ma10": 1066500,
-        "ma20": 1079150,
-        "ma60": 1243633,
-        "ma120": 1072592,
-        "prev20_high": 1265000,
-        "prev60_high": 2189000,
-        "digest_ratio": 0.123,
-        "spread_bps": 8.81,
-        "sequence": {
-          "available": true,
-          "low_after_1430": 1132000.0,
-          "high_after_1500": 1143000.0,
-          "recovery_from_1430_low": 0.0469,
-          "high_retention_after_1500": 0.875,
-          "late_volume_share": 0.3354,
-          "late_return_from_1510": -0.0061,
-          "late_spike_without_volume": false,
-          "records": 100
-        }
-      },
-      "plan": {
-        "initial_size": "VERY_SMALL",
-        "supports": [
-          {
-            "name": "20일선",
-            "price": 1079150
-          },
-          {
-            "name": "120일선",
-            "price": 1072592
-          }
-        ],
-        "invalidation": 1072592,
-        "stop_distance": 0.055,
-        "next_day": [
-          "갭상승 추격 금지, 첫 눌림 지지 확인",
-          "보합 출발 시 전일 종가·돌파선 유지 확인",
-          "갭하락 후 무효화선 회복 실패 시 제외",
-          "실제 호가·체결이 좋을 때 첫 상승파동 청산"
-        ]
-      },
-      "checks": [
-        {
-          "id": "X_MARKET_CAP",
-          "name": "시가총액 500억",
-          "role": "required",
-          "value": 149733737000000,
-          "threshold": ">= 500억원",
-          "status": "PASS",
-          "reason": "시총 1,497,337억원",
-          "data_source": "Naver detail.marketSum"
-        },
-        {
-          "id": "X_TRADE_VALUE",
-          "name": "거래대금 500억",
-          "role": "required",
-          "value": 611107000000,
-          "threshold": ">= 500억원",
-          "status": "PASS",
-          "reason": "거래대금 6,111억원",
-          "data_source": "Naver price.tradeAmount"
-        },
-        {
-          "id": "X_RISK",
-          "name": "관리·거래 위험",
-          "role": "required",
-          "value": true,
-          "threshold": "정상",
-          "status": "PASS",
-          "reason": "위험 목록 또는 종목 상태 필드 확인",
-          "data_source": "Naver rankings/detail"
-        },
-        {
-          "id": "X_TYPE",
-          "name": "보통주",
-          "role": "required",
-          "value": true,
-          "threshold": "type=ST",
-          "status": "PASS",
-          "reason": "type=ST",
-          "data_source": "Naver price.type"
-        },
-        {
-          "id": "X_IPO",
-          "name": "당일 상장 제외",
-          "role": "required",
-          "value": null,
-          "threshold": "상장 1일 이상",
-          "status": "PASS",
-          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
-          "data_source": "Naver listedDate",
-          "original_status": "WARN",
-          "original_reason": "상장 경과 미확인일"
-        },
-        {
-          "id": "X_POLITICAL",
-          "name": "정치테마 제외",
-          "role": "required",
-          "value": true,
-          "threshold": "비정치",
-          "status": "PASS",
-          "reason": "테마·뉴스 제목 규칙",
-          "data_source": "Naver theme/news"
-        },
-        {
-          "id": "X_PENNY",
-          "name": "동전주 제외",
-          "role": "required",
-          "value": 1135000.0,
-          "threshold": ">= 1,000원",
-          "status": "PASS",
-          "reason": "현재가 1,135,000원",
-          "data_source": "Naver nowPrice"
-        },
-        {
-          "id": "S_CATALYST",
-          "name": "재료 S/A",
-          "role": "required",
-          "value": "A",
-          "threshold": "S 또는 A",
-          "status": "PASS",
-          "reason": "시설투자/자원개발",
-          "data_source": "Naver theme/news/notice"
-        },
-        {
-          "id": "S_LEADER",
-          "name": "현재 대장·2등주",
-          "role": "required",
-          "value": null,
-          "threshold": "테마 1~2위 또는 강한 개별재료",
-          "status": "PASS",
-          "reason": "개별재료 · 순위 -",
-          "data_source": "Naver theme stocklist"
-        },
-        {
-          "id": "L_LIMIT_PATTERN",
-          "name": "상한가 분봉 패턴",
-          "role": "supporting",
-          "value": "NO_LIMIT",
-          "threshold": "LOCKED/RELOCKED 우수",
-          "status": "PASS",
-          "reason": "NO_LIMIT",
-          "data_source": "Naver 1분 siseTick"
-        },
-        {
-          "id": "D_PATTERN",
-          "name": "종가 패턴 식별",
-          "role": "required",
-          "value": 100,
-          "threshold": "70점 이상",
-          "status": "PASS",
-          "reason": "C3 매집 미완료·바닥 100점",
-          "data_source": "Naver 일봉 + OpenBot 규칙"
-        },
-        {
-          "id": "C_LOCATION",
-          "name": "고가권 종가",
-          "role": "required",
-          "value": 0.625,
-          "threshold": ">=0.70 (엄격 0.75)",
-          "status": "FAIL",
-          "reason": "당일 범위 위치 0.62",
-          "data_source": "Naver OHLC"
-        },
-        {
-          "id": "C_WICK",
-          "name": "작은 윗꼬리 장대양봉",
-          "role": "required",
-          "value": 0.2344,
-          "threshold": "0.02~0.30, 0.45 초과 제외",
-          "status": "PASS",
-          "reason": "윗꼬리 0.23 · 몸통 0.00",
-          "data_source": "Naver OHLC"
-        },
-        {
-          "id": "C_SEQUENCE",
-          "name": "마감 과정",
-          "role": "required",
-          "value": {
-            "available": true,
-            "low_after_1430": 1132000.0,
-            "high_after_1500": 1143000.0,
-            "recovery_from_1430_low": 0.0469,
-            "high_retention_after_1500": 0.875,
-            "late_volume_share": 0.3354,
-            "late_return_from_1510": -0.0061,
-            "late_spike_without_volume": false,
-            "records": 100
-          },
-          "threshold": "장막판 회복·거래 동반",
-          "status": "PASS",
-          "reason": "거래 없는 막판 수직 급등 배제",
-          "data_source": "Naver siseTick"
-        },
-        {
-          "id": "A_DIGESTION",
-          "name": "과거 매물 소화",
-          "role": "required",
-          "value": 0.123,
-          "threshold": "전고점 돌파+과거대금 0.60 이상 또는 박스형",
-          "status": "WARN",
-          "reason": "현재/과거 최대 거래대금 0.12 · 전고점 미돌파",
-          "data_source": "Naver daily turnover proxy"
-        },
-        {
-          "id": "H_LIQUIDITY",
-          "name": "호가 유동성",
-          "role": "supporting",
-          "value": 8.81,
-          "threshold": "스프레드 40bp 이하",
-          "status": "PASS",
-          "reason": "스프레드 8.81bp",
-          "data_source": "Naver hoga snapshot"
-        },
-        {
-          "id": "H_ABSORPTION",
-          "name": "실제 물량 소화",
-          "role": "manual",
-          "value": null,
-          "threshold": "익일 실제 호가·체결 확인",
-          "status": "MISSING",
-          "reason": "정적 호가 스냅샷만으로 취소와 체결을 완전히 구분할 수 없음",
-          "data_source": "Actual HTS next day"
-        },
-        {
-          "id": "R_PLAN",
-          "name": "분할·무효화 계획",
-          "role": "required",
-          "value": {
-            "supports": [
-              {
-                "name": "20일선",
-                "price": 1079150
-              },
-              {
-                "name": "120일선",
-                "price": 1072592
-              }
-            ],
-            "invalidation": 1072592,
-            "distance": 0.055
-          },
-          "threshold": "패턴별 지지선 정의",
-          "status": "PASS",
-          "reason": "구조 손절 위험거리 4.92%",
-          "data_source": "OpenBot pattern rule + Naver MA",
-          "original_status": "PASS",
-          "original_reason": "초기 VERY_SMALL · 무효화 1,072,592원"
-        }
-      ],
-      "quality_score": 88.2,
-      "final_status": "EXCLUDE",
-      "orderbook": {
-        "spread_bps": 8.81,
-        "buy_total": 44441.0,
-        "sell_total": 6757.0,
-        "levels": [
-          {
-            "level": 1,
-            "ask": 1136000.0,
-            "bid": 1135000.0,
-            "ask_qty": 31.0,
-            "bid_qty": 3452.0
-          },
-          {
-            "level": 2,
-            "ask": 1137000.0,
-            "bid": 1134000.0,
-            "ask_qty": 3.0,
-            "bid_qty": 4076.0
-          },
-          {
-            "level": 3,
-            "ask": 1138000.0,
-            "bid": 1133000.0,
-            "ask_qty": 2.0,
-            "bid_qty": 4457.0
-          },
-          {
-            "level": 4,
-            "ask": 1139000.0,
-            "bid": 1132000.0,
-            "ask_qty": 2.0,
-            "bid_qty": 4276.0
-          },
-          {
-            "level": 5,
-            "ask": 1140000.0,
-            "bid": 1131000.0,
-            "ask_qty": 95.0,
-            "bid_qty": 6334.0
-          }
-        ]
-      },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
-      "market_status": "CLOSE",
-      "winrate_v4": {
-        "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
-        "prior_history_confirmed": true,
-        "catalyst_freshness": {
-          "status": "FRESH",
-          "hours": 0.9,
-          "at": "2026-09-10T17:15:00+09:00",
-          "title": "SK스퀘어, AX로 투자·포트폴리오 업무 혁신",
-          "source": "news",
-          "reason": "재료 발표 후 0.9시간이 지났습니다."
-        },
-        "matched_catalyst_items": [
-          {
-            "title": "SK스퀘어, AX로 투자·포트폴리오 업무 혁신",
-            "at": "2026-09-10T17:15:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
-            "at": "2026-08-07T15:51:56+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
-            "at": "2026-07-22T15:53:27+09:00",
-            "source": "notice"
-          }
-        ],
         "after_signal_items": [],
         "source_errors": []
       }
@@ -3738,9 +3246,7 @@
       "catalyst": {
         "grade": "A",
         "reason": "LPG(액화석유가스) 관련주 6/9 상승",
-        "positive_titles": [
-          "현대ENG, 발전소 2곳 2.3조에 수주"
-        ],
+        "positive_titles": [],
         "titles": [
           "기업설명회",
           "SK이노베이션(주) 기업설명회(IR) 개최(안내공시)",
@@ -4226,25 +3732,25 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "FRESH",
-          "hours": 0.6,
-          "at": "2026-09-10T17:30:00+09:00",
-          "title": "현대ENG, 발전소 2곳 2.3조에 수주",
-          "source": "news",
-          "reason": "재료 발표 후 0.6시간이 지났습니다."
+          "status": "STALE",
+          "hours": 194.8,
+          "at": "2026-09-02T15:51:09+09:00",
+          "title": "SK이노베이션(주) 기타 안내사항(안내공시)",
+          "source": "notice",
+          "reason": "재료 발표 후 194.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "현대ENG, 발전소 2곳 2.3조에 수주",
-            "at": "2026-09-10T17:30:00+09:00",
-            "source": "news"
+            "title": "SK이노베이션(주) 기타 안내사항(안내공시)",
+            "at": "2026-09-02T15:51:09+09:00",
+            "source": "notice"
           }
         ],
         "after_signal_items": [],
@@ -4283,9 +3789,9 @@
           "기업설명회",
           "주성엔지니어링(주) 기업설명회(IR) 개최",
           "주성엔지니어링(주) 주식선물 3단계 가격제한폭 확대요건 도달(상승)",
-          "NH아문디, ‘HANARO Fn K-반도체 ETF’ 연초 이후 수익률 1위",
-          "NH-아문디운용 “HANARO Fn K-반도체 ETF, 올해 수익률 1위”",
-          "K-반도체 질주 계속된다…수익률 180% 돌파한 HANARO ETF"
+          "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
+          "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
+          "NH아문디, ‘HANARO Fn K-반도체 ETF’ 연초 이후 수익률 1위"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -4752,43 +4258,38 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.6,
-          "at": "2026-09-10T17:34:00+09:00",
-          "title": "NH아문디, ‘HANARO Fn K-반도체 ETF’ 연초 이후 수익률 1위",
+          "hours": 0.3,
+          "at": "2026-09-10T18:21:00+09:00",
+          "title": "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "source": "news",
-          "reason": "재료 발표 후 0.6시간이 지났습니다."
+          "reason": "재료 발표 후 0.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "NH아문디, ‘HANARO Fn K-반도체 ETF’ 연초 이후 수익률 1위",
-            "at": "2026-09-10T17:34:00+09:00",
+            "title": "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
+            "at": "2026-09-10T18:21:00+09:00",
             "source": "news"
           },
-          {
-            "title": "NH-아문디운용 “HANARO Fn K-반도체 ETF, 올해 수익률 1위”",
-            "at": "2026-09-10T14:14:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "K-반도체 질주 계속된다…수익률 180% 돌파한 HANARO ETF",
-            "at": "2026-09-10T11:15:00+09:00",
-            "source": "news"
-          }
-        ],
-        "after_signal_items": [
           {
             "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
             "at": "2026-09-10T18:09:00+09:00",
             "source": "news"
           },
+          {
+            "title": "NH아문디, ‘HANARO Fn K-반도체 ETF’ 연초 이후 수익률 1위",
+            "at": "2026-09-10T17:34:00+09:00",
+            "source": "news"
+          }
+        ],
+        "after_signal_items": [
           {
             "title": "주성엔지니어링(주) 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
             "at": "2026-09-10T21:10:12+09:00",
@@ -4820,11 +4321,11 @@
           "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
           "'네 마녀의 날' 출렁인 코스피…외인 2.5조 매도에도 7000 사수[시황종...",
           "7000피 깨지자 강화된 기관 매수세…7030선 약보합 마감 [시황]",
-          "[마감시황]코스피, 장중 6898.45까지 밀렸다 낙폭 축소…7033.92로 마감",
           "[서울데이터랩]마감 직후 인기 검색 종목 20選",
+          "[마감시황]코스피, 장중 6898.45까지 밀렸다 낙폭 축소…7033.92로 마감",
           "중동발 악재에 롤러코스터…개인은 사고 외국인은 팔고 이틀째 지켰다",
-          "코스피 0.25% 내린 7033.92 마감…중동 악재에도 7000선 사수",
-          "코스피, 외인 2조 '팔자' 약보합 마감…7000선 사수"
+          "코스피, 외인 2조 '팔자' 약보합 마감…7000선 사수",
+          "코스피 0.25% 내린 7033.92 마감…중동 악재에도 7000선 사수"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -5303,19 +4804,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.9,
+          "hours": 1.4,
           "at": "2026-09-10T17:13:00+09:00",
           "title": "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
           "source": "news",
-          "reason": "재료 발표 후 0.9시간이 지났습니다."
+          "reason": "재료 발표 후 1.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5349,12 +4850,12 @@
             "source": "news"
           },
           {
-            "title": "코스피 0.25% 내린 7033.92 마감…중동 악재에도 7000선 사수",
+            "title": "코스피, 외인 2조 '팔자' 약보합 마감…7000선 사수",
             "at": "2026-09-10T16:06:00+09:00",
             "source": "news"
           },
           {
-            "title": "코스피, 외인 2조 '팔자' 약보합 마감…7000선 사수",
+            "title": "코스피 0.25% 내린 7033.92 마감…중동 악재에도 7000선 사수",
             "at": "2026-09-10T16:06:00+09:00",
             "source": "news"
           }
@@ -5870,19 +5371,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 722.3,
+          "hours": 722.8,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 722.3시간이 지났습니다."
+          "reason": "재료 발표 후 722.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5896,13 +5397,7 @@
             "source": "notice"
           }
         ],
-        "after_signal_items": [
-          {
-            "title": "삼성SDI, 성과급 산정 방식 바꾼다…'영업이익의 10%' 내년 적용",
-            "at": "2026-09-10T18:08:00+09:00",
-            "source": "news"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -6422,11 +5917,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6960,11 +6455,528 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
+      }
+    },
+    {
+      "code": "402340",
+      "name": "SK스퀘어",
+      "market": "2",
+      "price": 1135000,
+      "change_rate": -0.26,
+      "trade_value": 611107000000,
+      "market_cap": 149733737000000,
+      "volume": 540428,
+      "sources": {
+        "trading_value": 7
+      },
+      "source_rank_score": 376,
+      "theme": null,
+      "catalyst": {
+        "grade": "REJECT",
+        "reason": "KT·LGU+·서틱, 넥써쓰 주주로 합류…38억원 규모 유상증자",
+        "positive_titles": [
+          "KT·LGU+·서틱, 넥써쓰 주주로 합류…38억원 규모 유상증자",
+          "넥써쓰, KT·LG유플러스·서틱 대상 38억원 규모 3자배정 유상증자 결...",
+          "넥써쓰, KT·LG유플러스·서틱 대상 제3자배정 유상증자…38억원 조달"
+        ],
+        "titles": [
+          "파생상품시장",
+          "에스케이스퀘어 주식회사 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
+          "이익소각",
+          "에스케이스퀘어 주식회사 주식 소각 결정(자회사의 주요경영사항)",
+          "자기주식(신탁포함)",
+          "에스케이스퀘어 주식회사 자기주식 취득 결정(자회사의 주요경영사항)",
+          "에스케이스퀘어 주식회사 주식선물 2단계 가격제한폭 확대요건 도달(하락)",
+          "파생상품"
+        ]
+      },
+      "limit_up_pattern": "NO_LIMIT",
+      "pattern": {
+        "id": "C3",
+        "name": "매집 미완료·바닥",
+        "score": 85,
+        "components": [
+          {
+            "name": "최근 상한가/강봉",
+            "pass": true,
+            "weight": 20
+          },
+          {
+            "name": "장기이평 근접",
+            "pass": true,
+            "weight": 25
+          },
+          {
+            "name": "전고점 아래",
+            "pass": true,
+            "weight": 10
+          },
+          {
+            "name": "종가 구조",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "name": "상승1파 매물",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "name": "재료 A/S",
+            "pass": false,
+            "weight": 15
+          }
+        ],
+        "initial": "VERY_SMALL",
+        "supports": [
+          "20·60·120일선",
+          "초기 가격대"
+        ]
+      },
+      "pattern_candidates": [
+        {
+          "id": "C3",
+          "name": "매집 미완료·바닥",
+          "score": 85,
+          "components": [
+            {
+              "name": "최근 상한가/강봉",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "장기이평 근접",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "전고점 아래",
+              "pass": true,
+              "weight": 10
+            },
+            {
+              "name": "종가 구조",
+              "pass": true,
+              "weight": 15
+            },
+            {
+              "name": "상승1파 매물",
+              "pass": true,
+              "weight": 15
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 15
+            }
+          ],
+          "initial": "VERY_SMALL",
+          "supports": [
+            "20·60·120일선",
+            "초기 가격대"
+          ]
+        },
+        {
+          "id": "C5",
+          "name": "초대량 매물대 박스",
+          "score": 65,
+          "components": [
+            {
+              "name": "과거 초대량",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "박스 수렴",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "전고점 미완전 돌파",
+              "pass": true,
+              "weight": 15
+            },
+            {
+              "name": "20·60일선 지지",
+              "pass": true,
+              "weight": 15
+            },
+            {
+              "name": "윗꼬리 허용",
+              "pass": true,
+              "weight": 10
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 15
+            }
+          ],
+          "initial": "VERY_SMALL",
+          "supports": [
+            "박스 하단",
+            "20·60일선"
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "신규상장 매집",
+          "score": 60,
+          "components": [
+            {
+              "name": "상장 1년 이내",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "상장일 고가 돌파",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "최근 상한가/강봉",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "장대양봉",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "거래대금",
+              "pass": true,
+              "weight": 15
+            }
+          ],
+          "initial": "SMALL",
+          "supports": [
+            "5·11일선",
+            "상장일 고가·박스 상단"
+          ]
+        }
+      ],
+      "metrics": {
+        "close_location": 0.625,
+        "upper_wick": 0.2344,
+        "body_ratio": 0.0,
+        "volume_ratio": 0.947,
+        "ma5": 1114000,
+        "ma10": 1066500,
+        "ma20": 1079150,
+        "ma60": 1243633,
+        "ma120": 1072592,
+        "prev20_high": 1265000,
+        "prev60_high": 2189000,
+        "digest_ratio": 0.123,
+        "spread_bps": 8.81,
+        "sequence": {
+          "available": true,
+          "low_after_1430": 1132000.0,
+          "high_after_1500": 1143000.0,
+          "recovery_from_1430_low": 0.0469,
+          "high_retention_after_1500": 0.875,
+          "late_volume_share": 0.3354,
+          "late_return_from_1510": -0.0061,
+          "late_spike_without_volume": false,
+          "records": 100
+        }
+      },
+      "plan": {
+        "initial_size": "VERY_SMALL",
+        "supports": [
+          {
+            "name": "20일선",
+            "price": 1079150
+          },
+          {
+            "name": "120일선",
+            "price": 1072592
+          }
+        ],
+        "invalidation": 1072592,
+        "stop_distance": 0.055,
+        "next_day": [
+          "갭상승 추격 금지, 첫 눌림 지지 확인",
+          "보합 출발 시 전일 종가·돌파선 유지 확인",
+          "갭하락 후 무효화선 회복 실패 시 제외",
+          "실제 호가·체결이 좋을 때 첫 상승파동 청산"
+        ]
+      },
+      "checks": [
+        {
+          "id": "X_MARKET_CAP",
+          "name": "시가총액 500억",
+          "role": "required",
+          "value": 149733737000000,
+          "threshold": ">= 500억원",
+          "status": "PASS",
+          "reason": "시총 1,497,337억원",
+          "data_source": "Naver detail.marketSum"
+        },
+        {
+          "id": "X_TRADE_VALUE",
+          "name": "거래대금 500억",
+          "role": "required",
+          "value": 611107000000,
+          "threshold": ">= 500억원",
+          "status": "PASS",
+          "reason": "거래대금 6,111억원",
+          "data_source": "Naver price.tradeAmount"
+        },
+        {
+          "id": "X_RISK",
+          "name": "관리·거래 위험",
+          "role": "required",
+          "value": true,
+          "threshold": "정상",
+          "status": "PASS",
+          "reason": "위험 목록 또는 종목 상태 필드 확인",
+          "data_source": "Naver rankings/detail"
+        },
+        {
+          "id": "X_TYPE",
+          "name": "보통주",
+          "role": "required",
+          "value": true,
+          "threshold": "type=ST",
+          "status": "PASS",
+          "reason": "type=ST",
+          "data_source": "Naver price.type"
+        },
+        {
+          "id": "X_IPO",
+          "name": "당일 상장 제외",
+          "role": "required",
+          "value": null,
+          "threshold": "상장 1일 이상",
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
+        },
+        {
+          "id": "X_POLITICAL",
+          "name": "정치테마 제외",
+          "role": "required",
+          "value": true,
+          "threshold": "비정치",
+          "status": "PASS",
+          "reason": "테마·뉴스 제목 규칙",
+          "data_source": "Naver theme/news"
+        },
+        {
+          "id": "X_PENNY",
+          "name": "동전주 제외",
+          "role": "required",
+          "value": 1135000.0,
+          "threshold": ">= 1,000원",
+          "status": "PASS",
+          "reason": "현재가 1,135,000원",
+          "data_source": "Naver nowPrice"
+        },
+        {
+          "id": "S_CATALYST",
+          "name": "재료 S/A",
+          "role": "required",
+          "value": "REJECT",
+          "threshold": "S 또는 A",
+          "status": "FAIL",
+          "reason": "KT·LGU+·서틱, 넥써쓰 주주로 합류…38억원 규모 유상증자",
+          "data_source": "Naver theme/news/notice"
+        },
+        {
+          "id": "S_LEADER",
+          "name": "현재 대장·2등주",
+          "role": "required",
+          "value": null,
+          "threshold": "테마 1~2위 또는 강한 개별재료",
+          "status": "FAIL",
+          "reason": "개별재료 · 순위 -",
+          "data_source": "Naver theme stocklist"
+        },
+        {
+          "id": "L_LIMIT_PATTERN",
+          "name": "상한가 분봉 패턴",
+          "role": "supporting",
+          "value": "NO_LIMIT",
+          "threshold": "LOCKED/RELOCKED 우수",
+          "status": "PASS",
+          "reason": "NO_LIMIT",
+          "data_source": "Naver 1분 siseTick"
+        },
+        {
+          "id": "D_PATTERN",
+          "name": "종가 패턴 식별",
+          "role": "required",
+          "value": 85,
+          "threshold": "70점 이상",
+          "status": "PASS",
+          "reason": "C3 매집 미완료·바닥 85점",
+          "data_source": "Naver 일봉 + OpenBot 규칙"
+        },
+        {
+          "id": "C_LOCATION",
+          "name": "고가권 종가",
+          "role": "required",
+          "value": 0.625,
+          "threshold": ">=0.70 (엄격 0.75)",
+          "status": "FAIL",
+          "reason": "당일 범위 위치 0.62",
+          "data_source": "Naver OHLC"
+        },
+        {
+          "id": "C_WICK",
+          "name": "작은 윗꼬리 장대양봉",
+          "role": "required",
+          "value": 0.2344,
+          "threshold": "0.02~0.30, 0.45 초과 제외",
+          "status": "PASS",
+          "reason": "윗꼬리 0.23 · 몸통 0.00",
+          "data_source": "Naver OHLC"
+        },
+        {
+          "id": "C_SEQUENCE",
+          "name": "마감 과정",
+          "role": "required",
+          "value": {
+            "available": true,
+            "low_after_1430": 1132000.0,
+            "high_after_1500": 1143000.0,
+            "recovery_from_1430_low": 0.0469,
+            "high_retention_after_1500": 0.875,
+            "late_volume_share": 0.3354,
+            "late_return_from_1510": -0.0061,
+            "late_spike_without_volume": false,
+            "records": 100
+          },
+          "threshold": "장막판 회복·거래 동반",
+          "status": "PASS",
+          "reason": "거래 없는 막판 수직 급등 배제",
+          "data_source": "Naver siseTick"
+        },
+        {
+          "id": "A_DIGESTION",
+          "name": "과거 매물 소화",
+          "role": "required",
+          "value": 0.123,
+          "threshold": "전고점 돌파+과거대금 0.60 이상 또는 박스형",
+          "status": "WARN",
+          "reason": "현재/과거 최대 거래대금 0.12 · 전고점 미돌파",
+          "data_source": "Naver daily turnover proxy"
+        },
+        {
+          "id": "H_LIQUIDITY",
+          "name": "호가 유동성",
+          "role": "supporting",
+          "value": 8.81,
+          "threshold": "스프레드 40bp 이하",
+          "status": "PASS",
+          "reason": "스프레드 8.81bp",
+          "data_source": "Naver hoga snapshot"
+        },
+        {
+          "id": "H_ABSORPTION",
+          "name": "실제 물량 소화",
+          "role": "manual",
+          "value": null,
+          "threshold": "익일 실제 호가·체결 확인",
+          "status": "MISSING",
+          "reason": "정적 호가 스냅샷만으로 취소와 체결을 완전히 구분할 수 없음",
+          "data_source": "Actual HTS next day"
+        },
+        {
+          "id": "R_PLAN",
+          "name": "분할·무효화 계획",
+          "role": "required",
+          "value": {
+            "supports": [
+              {
+                "name": "20일선",
+                "price": 1079150
+              },
+              {
+                "name": "120일선",
+                "price": 1072592
+              }
+            ],
+            "invalidation": 1072592,
+            "distance": 0.055
+          },
+          "threshold": "패턴별 지지선 정의",
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 4.92%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "PASS",
+          "original_reason": "초기 VERY_SMALL · 무효화 1,072,592원"
+        }
+      ],
+      "quality_score": 76.5,
+      "final_status": "EXCLUDE",
+      "orderbook": {
+        "spread_bps": 8.81,
+        "buy_total": 44441.0,
+        "sell_total": 6757.0,
+        "levels": [
+          {
+            "level": 1,
+            "ask": 1136000.0,
+            "bid": 1135000.0,
+            "ask_qty": 31.0,
+            "bid_qty": 3452.0
+          },
+          {
+            "level": 2,
+            "ask": 1137000.0,
+            "bid": 1134000.0,
+            "ask_qty": 3.0,
+            "bid_qty": 4076.0
+          },
+          {
+            "level": 3,
+            "ask": 1138000.0,
+            "bid": 1133000.0,
+            "ask_qty": 2.0,
+            "bid_qty": 4457.0
+          },
+          {
+            "level": 4,
+            "ask": 1139000.0,
+            "bid": 1132000.0,
+            "ask_qty": 2.0,
+            "bid_qty": 4276.0
+          },
+          {
+            "level": 5,
+            "ask": 1140000.0,
+            "bid": 1131000.0,
+            "ask_qty": 95.0,
+            "bid_qty": 6334.0
+          }
+        ]
+      },
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
+      "market_status": "CLOSE",
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7481,19 +7493,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 842.3,
+          "hours": 842.8,
           "at": "2026-08-06T15:50:59+09:00",
           "title": "(주)원익아이피에스 연결재무제표 기준 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 842.3시간이 지났습니다."
+          "reason": "재료 발표 후 842.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7507,13 +7519,7 @@
             "source": "notice"
           }
         ],
-        "after_signal_items": [
-          {
-            "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
-            "at": "2026-09-10T18:09:00+09:00",
-            "source": "news"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -7551,7 +7557,7 @@
           "리노공업(주) 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
           "리노공업(주) 공매도 과열종목 연장(공매도 거래 금지 연장)",
           "리노공업(주) 공매도 과열종목 지정(공매도 거래 금지 적용)",
-          "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수"
+          "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -8017,34 +8023,28 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.9,
-          "at": "2026-09-10T17:13:00+09:00",
-          "title": "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
+          "hours": 0.5,
+          "at": "2026-09-10T18:09:00+09:00",
+          "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
           "source": "news",
-          "reason": "재료 발표 후 0.9시간이 지났습니다."
+          "reason": "재료 발표 후 0.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
-          {
-            "title": "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
-            "at": "2026-09-10T17:13:00+09:00",
-            "source": "news"
-          }
-        ],
-        "after_signal_items": [
           {
             "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
             "at": "2026-09-10T18:09:00+09:00",
             "source": "news"
           }
         ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -8556,19 +8556,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 74.3,
+          "hours": 74.8,
           "at": "2026-09-07T15:51:40+09:00",
           "title": "주식회사 에이치피에스피 (정정)자기주식 처분 결정",
           "source": "notice",
-          "reason": "재료 발표 후 74.3시간이 지났습니다."
+          "reason": "재료 발표 후 74.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9077,11 +9077,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9626,11 +9626,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10160,11 +10160,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10209,10 +10209,10 @@
           "(주)이오테크닉스 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
           "(주)이오테크닉스 주식선물 3단계 가격제한폭 확대요건 도달(상승)",
           "(주)이오테크닉스 주식선물 2단계 가격제한폭 확대요건 도달(하락)",
+          "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
           "‘네 마녀의 날’ 코스피 출렁…반도체 낙폭 만회로 7000선 사수",
-          "‘네 마녀의 심술’에도 잘 버틴 코스피…7000선 턱걸이 마감",
-          "'네 마녀의 날' 출렁인 코스피…외인 2.5조 매도에도 7000 사수[시황종..."
+          "‘네 마녀의 심술’에도 잘 버틴 코스피…7000선 턱걸이 마감"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -10689,21 +10689,26 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.0,
-          "at": "2026-09-10T18:09:00+09:00",
-          "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
+          "hours": 0.3,
+          "at": "2026-09-10T18:21:00+09:00",
+          "title": "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
           "source": "news",
-          "reason": "재료 발표 후 0.0시간이 지났습니다."
+          "reason": "재료 발표 후 0.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
+          {
+            "title": "네 마녀의 날·반도체 리밸런싱에도 7천피 지켰다",
+            "at": "2026-09-10T18:21:00+09:00",
+            "source": "news"
+          },
           {
             "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
             "at": "2026-09-10T18:09:00+09:00",
@@ -10718,20 +10723,9 @@
             "title": "‘네 마녀의 심술’에도 잘 버틴 코스피…7000선 턱걸이 마감",
             "at": "2026-09-10T16:33:00+09:00",
             "source": "news"
-          },
-          {
-            "title": "'네 마녀의 날' 출렁인 코스피…외인 2.5조 매도에도 7000 사수[시황종...",
-            "at": "2026-09-10T16:24:00+09:00",
-            "source": "news"
           }
         ],
-        "after_signal_items": [
-          {
-            "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
-            "at": "2026-09-10T18:09:00+09:00",
-            "source": "news"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -11242,11 +11236,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11763,11 +11757,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12294,11 +12288,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12821,11 +12815,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12835,13 +12829,7 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [
-          {
-            "title": "1조원대 매물 우려에도… 삼전·닉스 리밸런싱 충격 없었다",
-            "at": "2026-09-10T18:09:00+09:00",
-            "source": "news"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -13358,11 +13346,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-10T18:07:53.004537+09:00",
+      "updated_at": "2026-09-10T18:38:10.476933+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-10T18:07:53.004537+09:00",
+        "enriched_at": "2026-09-10T18:38:10.476933+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13379,13 +13367,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-03T19:03:39.091771+09:00",
-    "last": "2026-09-10T18:07:53.004537+09:00"
+    "first": "2026-09-03T19:09:54.507701+09:00",
+    "last": "2026-09-10T18:38:10.476933+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-10T18:07:53.004537+09:00",
+    "source_at": "2026-09-10T18:38:10.476933+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
