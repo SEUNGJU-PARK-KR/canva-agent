@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-11T13:13:34.288412+09:00",
+  "generated_at": "2026-09-11T19:01:57.344698+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -1845,6 +1845,155 @@
       "date": "2026-09-10",
       "stage": "15:18",
       "at": "2026-09-10T20:16:49.601812+09:00",
+      "source_at": "2026-09-10T19:05:52.281626+09:00",
+      "themes": {
+        "556": {
+          "name": "뉴로모픽 반도체",
+          "code": "556",
+          "rising": 6,
+          "total": 7,
+          "breadth": 0.8571428571428571,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "598": {
+          "name": "콩/대두",
+          "code": "598",
+          "rising": 5,
+          "total": 5,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "307": {
+          "name": "시스템반도체",
+          "code": "307",
+          "rising": 43,
+          "total": 58,
+          "breadth": 0.7413793103448276,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "557": {
+          "name": "유리 기판",
+          "code": "557",
+          "rising": 16,
+          "total": 20,
+          "breadth": 0.8,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "177": {
+          "name": "LPG(액화석유가스)",
+          "code": "177",
+          "rising": 6,
+          "total": 9,
+          "breadth": 0.6666666666666666,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "269": {
+          "name": "LED장비",
+          "code": "269",
+          "rising": 8,
+          "total": 11,
+          "breadth": 0.7272727272727273,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "402": {
+          "name": "아스콘(아스팔트 콘크리트)",
+          "code": "402",
+          "rising": 6,
+          "total": 9,
+          "breadth": 0.6666666666666666,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "12": {
+          "name": "반도체 장비",
+          "code": "12",
+          "rising": 63,
+          "total": 95,
+          "breadth": 0.6631578947368421,
+          "leader_rank": 4,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "36": {
+          "name": "해운",
+          "code": "36",
+          "rising": 3,
+          "total": 4,
+          "breadth": 0.75,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "520": {
+          "name": "피팅(관이음쇠)/밸브",
+          "code": "520",
+          "rising": 5,
+          "total": 9,
+          "breadth": 0.5555555555555556,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-11",
+      "stage": "14:53",
+      "at": "2026-09-11T19:01:57.344698+09:00",
       "source_at": "2026-09-10T19:05:52.281626+09:00",
       "themes": {
         "556": {
@@ -141840,12 +141989,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-11T19:01:57.344698+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 10개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-11T13:13:34.288412+09:00",
+    "generated_at": "2026-09-11T19:01:57.344698+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
