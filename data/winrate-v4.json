@@ -1,12 +1,12 @@
 {
   "version": "largo-winrate-v4.1",
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-11T18:08:51.236920+09:00",
-  "source_at": "2026-09-11T18:05:59.897524+09:00",
+  "generated_at": "2026-09-11T18:38:01.225840+09:00",
+  "source_at": "2026-09-11T18:35:25.394825+09:00",
   "phase": {
     "id": "FINAL_CLOSE",
     "title": "종가 확정 검증",
-    "label": "2026-09-11 18:05 · 종가 확정 검증",
+    "label": "2026-09-11 18:35 · 종가 확정 검증",
     "action": "신규 진입이 아니라 결과를 기록합니다."
   },
   "counts": {
@@ -50,11 +50,11 @@
       },
       "freshness": {
         "status": "RECENT",
-        "hours": 26.3,
+        "hours": 26.7,
         "at": "2026-09-10T15:50:28+09:00",
         "title": "에이치디현대중공업(주) 신규시설투자등(자율공시)",
         "source": "notice",
-        "reason": "재료 발표 후 26.3시간이 지났습니다."
+        "reason": "재료 발표 후 26.7시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -205,12 +205,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -266,7 +266,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -354,7 +354,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -421,7 +421,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -570,11 +570,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 3.5,
+        "hours": 4.0,
         "at": "2026-09-11T14:35:00+09:00",
         "title": "LS증권 “HD현대중공업, AI 데이터센터 수혜 확대”",
         "source": "news",
-        "reason": "재료 발표 후 3.5시간이 지났습니다."
+        "reason": "재료 발표 후 4.0시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -725,12 +725,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -786,7 +786,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -874,7 +874,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -941,7 +941,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -1088,11 +1088,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.4,
+        "hours": 0.9,
         "at": "2026-09-11T17:42:00+09:00",
         "title": "증시 떠나는 개인투자자, ‘삼전닉스’ 9조3000억 순매도… 외국인도...",
         "source": "news",
-        "reason": "재료 발표 후 0.4시간이 지났습니다."
+        "reason": "재료 발표 후 0.9시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -1243,12 +1243,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -1304,7 +1304,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -1392,7 +1392,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -1459,7 +1459,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -1589,11 +1589,11 @@
       "quality": 91.2,
       "catalyst": {
         "grade": "A",
-        "reason": "마이크론, 대만 직원에 최대 68개월치 월급 지급… 파업 압박에 보상...",
+        "reason": "삼전닉스만큼 달라는 마이크론 노조…최대 68개월치 지급",
         "positive_titles": [
-          "마이크론, 대만 직원에 최대 68개월치 월급 지급… 파업 압박에 보상...",
-          "마이크론, 대만 직원에 월급 최대 '68개월치' 보상",
-          "삼전닉스 의식했나…마이크론 대만 직원들 최대 68개월치 보너스"
+          "삼전닉스만큼 달라는 마이크론 노조…최대 68개월치 지급",
+          "中 CXMT, 2분기 영업이익률 82%… 범용 D램 가격 급등 수혜",
+          "마이크론, 대만 직원에 최대 68개월치 월급 지급… 파업 압박에 보상..."
         ],
         "titles": [
           "조회공시답변",
@@ -1609,8 +1609,8 @@
       "freshness": {
         "status": "FRESH",
         "hours": 0.3,
-        "at": "2026-09-11T17:50:00+09:00",
-        "title": "마이크론, 대만 직원에 최대 68개월치 월급 지급… 파업 압박에 보상...",
+        "at": "2026-09-11T18:17:00+09:00",
+        "title": "삼전닉스만큼 달라는 마이크론 노조…최대 68개월치 지급",
         "source": "news",
         "reason": "재료 발표 후 0.3시간이 지났습니다."
       },
@@ -1763,12 +1763,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -1824,7 +1824,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -1912,7 +1912,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -1979,7 +1979,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -2109,11 +2109,10 @@
       "quality": 79.4,
       "catalyst": {
         "grade": "A",
-        "reason": "작년 물관리 실적 알린 삼성전자…\"서울 시민이 두달간 쓸 물 재이용...",
+        "reason": "삼전닉스만큼 달라는 마이크론 노조…최대 68개월치 지급",
         "positive_titles": [
-          "작년 물관리 실적 알린 삼성전자…\"서울 시민이 두달간 쓸 물 재이용...",
-          "마이크론, 대만 직원에 최대 68개월치 월급 지급… 파업 압박에 보상...",
-          "마이크론, 대만 직원에 월급 최대 '68개월치' 보상"
+          "삼전닉스만큼 달라는 마이크론 노조…최대 68개월치 지급",
+          "中 CXMT, 2분기 영업이익률 82%… 범용 D램 가격 급등 수혜"
         ],
         "titles": [
           "파생상품시장",
@@ -2128,11 +2127,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.2,
-        "at": "2026-09-11T17:51:00+09:00",
-        "title": "작년 물관리 실적 알린 삼성전자…\"서울 시민이 두달간 쓸 물 재이용...",
+        "hours": 0.3,
+        "at": "2026-09-11T18:17:00+09:00",
+        "title": "삼전닉스만큼 달라는 마이크론 노조…최대 68개월치 지급",
         "source": "news",
-        "reason": "재료 발표 후 0.2시간이 지났습니다."
+        "reason": "재료 발표 후 0.3시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -2283,12 +2282,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -2344,7 +2343,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -2412,7 +2411,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -2479,7 +2478,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -2628,11 +2627,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.4,
+        "hours": 0.9,
         "at": "2026-09-11T17:42:00+09:00",
         "title": "증시 떠나는 개인투자자, ‘삼전닉스’ 9조3000억 순매도… 외국인도...",
         "source": "news",
-        "reason": "재료 발표 후 0.4시간이 지났습니다."
+        "reason": "재료 발표 후 0.9시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -2783,12 +2782,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -2844,7 +2843,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -2912,7 +2911,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -2979,7 +2978,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -3114,23 +3113,23 @@
           "증시 떠나는 개인투자자, ‘삼전닉스’ 9조3000억 순매도… 외국인도..."
         ],
         "titles": [
+          "코스피, 이틀 만에 다시 7000선 내줘… 반도체주 급락",
           "증시 떠나는 개인투자자, ‘삼전닉스’ 9조3000억 순매도… 외국인도...",
           "유가·금리 급등에 삼전닉스 ‘뚝’… 코스피 7000선 내줬다",
           "“유가·금리 급등에 외국인·기관 3.5조 매도”…코스피 1.8%↓, 6900선...",
           "고유가·고금리에 7000선 내준 코스피…자사주 매입에 낙폭 축소[시황...",
           "코스피, 외인-기관 쌍끌이 매도에 하락마감...6900선[fn마감시황]",
           "고유가·고금리 공포 덮친 코스피, 7000선 밑으로 [시황]",
-          "‘국제유가·美국채금리 급등’ 충격…코스피 6900선 턱걸이 마감",
-          "자사주 매입에도 코스피 6800대 등락…외인 2.1조 '팔자'[장중시황]"
+          "‘국제유가·美국채금리 급등’ 충격…코스피 6900선 턱걸이 마감"
         ]
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.4,
+        "hours": 0.9,
         "at": "2026-09-11T17:42:00+09:00",
         "title": "증시 떠나는 개인투자자, ‘삼전닉스’ 9조3000억 순매도… 외국인도...",
         "source": "news",
-        "reason": "재료 발표 후 0.4시간이 지났습니다."
+        "reason": "재료 발표 후 0.9시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -3281,12 +3280,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -3342,7 +3341,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -3410,7 +3409,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -3477,7 +3476,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -3626,11 +3625,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.4,
+        "hours": 0.9,
         "at": "2026-09-11T17:42:00+09:00",
         "title": "증시 떠나는 개인투자자, ‘삼전닉스’ 9조3000억 순매도… 외국인도...",
         "source": "news",
-        "reason": "재료 발표 후 0.4시간이 지났습니다."
+        "reason": "재료 발표 후 0.9시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -3781,12 +3780,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -3842,7 +3841,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -3910,7 +3909,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -3977,7 +3976,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -4119,11 +4118,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 7.1,
+        "hours": 7.6,
         "at": "2026-09-11T11:02:00+09:00",
         "title": "이병환 스카이랩스 대표 \"오츠카와 美 파트너 논의…내년 FDA 승인 목...",
         "source": "news",
-        "reason": "재료 발표 후 7.1시간이 지났습니다."
+        "reason": "재료 발표 후 7.6시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -4274,12 +4273,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -4335,7 +4334,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -4403,7 +4402,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -4470,7 +4469,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -4615,11 +4614,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.4,
+        "hours": 0.9,
         "at": "2026-09-11T17:39:00+09:00",
         "title": "불붙은 중동에 긴축 가속 … 6500~7000 '박스피' 갇힌 코스피",
         "source": "news",
-        "reason": "재료 발표 후 0.4시간이 지났습니다."
+        "reason": "재료 발표 후 0.9시간이 지났습니다."
       },
       "features": {
         "grade": "B",
@@ -4770,12 +4769,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -4831,7 +4830,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -4899,7 +4898,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -4966,7 +4965,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -5114,11 +5113,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 198.1,
+        "hours": 198.6,
         "at": "2026-09-03T12:01:00+09:00",
         "title": "[인터뷰] 공개매수 갈등에 등판한 김홍국 가비아 대표…\"얼라인, 투자...",
         "source": "news",
-        "reason": "재료 발표 후 198.1시간이 지났습니다."
+        "reason": "재료 발표 후 198.6시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -5278,12 +5277,12 @@
         }
       ],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -5339,7 +5338,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -5427,7 +5426,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -5494,7 +5493,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -5797,12 +5796,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -5858,7 +5857,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -5946,7 +5945,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -6013,7 +6012,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -6162,11 +6161,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 242.2,
+        "hours": 242.7,
         "at": "2026-09-01T15:52:37+09:00",
         "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
         "source": "notice",
-        "reason": "재료 발표 후 242.2시간이 지났습니다."
+        "reason": "재료 발표 후 242.7시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -6317,12 +6316,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -6378,7 +6377,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -6466,7 +6465,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -6533,7 +6532,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -6845,12 +6844,12 @@
         }
       ],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -6906,7 +6905,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -6994,7 +6993,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -7061,7 +7060,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -7364,12 +7363,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -7425,7 +7424,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -7493,7 +7492,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -7560,7 +7559,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -7863,12 +7862,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -7924,7 +7923,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -8012,7 +8011,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -8079,7 +8078,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -8382,12 +8381,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -8443,7 +8442,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -8531,7 +8530,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -8598,7 +8597,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -8910,12 +8909,12 @@
         }
       ],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -8971,7 +8970,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -9059,7 +9058,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -9126,7 +9125,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -9429,12 +9428,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -9490,7 +9489,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -9578,7 +9577,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -9645,7 +9644,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -9948,12 +9947,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -10009,7 +10008,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -10077,7 +10076,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -10144,7 +10143,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -10446,12 +10445,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -10507,7 +10506,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -10575,7 +10574,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -10642,7 +10641,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -10790,11 +10789,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 199.8,
+        "hours": 200.3,
         "at": "2026-09-03T10:17:00+09:00",
         "title": "철강주, 알래스카 LNG 프로젝트 수혜 기대감에 급등…금강철강 20%대↑",
         "source": "news",
-        "reason": "재료 발표 후 199.8시간이 지났습니다."
+        "reason": "재료 발표 후 200.3시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -10945,12 +10944,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -11006,7 +11005,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -11074,7 +11073,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -11141,7 +11140,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -11283,7 +11282,7 @@
           "삼성물산(주) (정정)단일판매ㆍ공급계약체결",
           "삼성물산(주) (정정)타법인 주식 및 출자증권 취득결정(종속회사의 주요경영사항)",
           "삼성물산(주) 유상증자결정(종속회사의 주요경영사항)",
-          "살까 팔까 버틸까…기로에 선 부동산 투자, 여기 답있다"
+          "코스피, 이틀 만에 다시 7000선 내줘… 반도체주 급락"
         ]
       },
       "freshness": {
@@ -11442,12 +11441,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -11503,7 +11502,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -11571,7 +11570,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -11638,7 +11637,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -11941,12 +11940,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "18:05",
+        "last_seen": "18:05"
       },
       "close_rules": [
         {
@@ -12002,7 +12001,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -12070,7 +12069,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -12137,7 +12136,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
