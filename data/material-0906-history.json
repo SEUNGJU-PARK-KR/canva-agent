@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-14T13:30:37.002617+09:00",
+  "generated_at": "2026-09-14T19:59:36.110578+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -2143,6 +2143,127 @@
       "date": "2026-09-11",
       "stage": "15:18",
       "at": "2026-09-11T20:18:07.364794+09:00",
+      "source_at": "2026-09-11T19:04:01.950233+09:00",
+      "themes": {
+        "30": {
+          "name": "조선",
+          "code": "30",
+          "rising": 5,
+          "total": 6,
+          "breadth": 0.8333333333333334,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "187": {
+          "name": "핵융합에너지",
+          "code": "187",
+          "rising": 4,
+          "total": 8,
+          "breadth": 0.5,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "566": {
+          "name": "딥페이크(deepfake)",
+          "code": "566",
+          "rising": 8,
+          "total": 14,
+          "breadth": 0.5714285714285714,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "18": {
+          "name": "전자파",
+          "code": "18",
+          "rising": 2,
+          "total": 8,
+          "breadth": 0.25,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "405": {
+          "name": "MLCC(적층세라믹콘덴서)",
+          "code": "405",
+          "rising": 8,
+          "total": 10,
+          "breadth": 0.8,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "426": {
+          "name": "양자암호/양자컴퓨팅",
+          "code": "426",
+          "rising": 21,
+          "total": 25,
+          "breadth": 0.84,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "348": {
+          "name": "삼성페이",
+          "code": "348",
+          "rising": 10,
+          "total": 24,
+          "breadth": 0.4166666666666667,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "79": {
+          "name": "자원개발",
+          "code": "79",
+          "rising": 6,
+          "total": 12,
+          "breadth": 0.5,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-14",
+      "stage": "14:53",
+      "at": "2026-09-14T19:59:36.110578+09:00",
       "source_at": "2026-09-11T19:04:01.950233+09:00",
       "themes": {
         "30": {
@@ -146500,12 +146621,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-14T19:59:36.110578+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 8개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-14T13:30:37.002617+09:00",
+    "generated_at": "2026-09-14T19:59:36.110578+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
