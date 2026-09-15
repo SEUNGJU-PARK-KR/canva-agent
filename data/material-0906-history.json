@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-15T13:31:02.263020+09:00",
+  "generated_at": "2026-09-15T19:29:20.390677+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -2477,6 +2477,155 @@
           "rising": 21,
           "total": 34,
           "breadth": 0.6176470588235294,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-15",
+      "stage": "14:53",
+      "at": "2026-09-15T19:29:20.390677+09:00",
+      "source_at": "2026-09-15T19:24:08.447311+09:00",
+      "themes": {
+        "505": {
+          "name": "로봇(산업용/협동로봇 등)",
+          "code": "505",
+          "rising": 56,
+          "total": 70,
+          "breadth": 0.8,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "506": {
+          "name": "탈모 치료",
+          "code": "506",
+          "rising": 19,
+          "total": 25,
+          "breadth": 0.76,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "492": {
+          "name": "NFT(대체불가토큰)",
+          "code": "492",
+          "rising": 10,
+          "total": 19,
+          "breadth": 0.5263157894736842,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "55": {
+          "name": "보안주(정보)",
+          "code": "55",
+          "rising": 32,
+          "total": 52,
+          "breadth": 0.6153846153846154,
+          "leader_rank": 4,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "533": {
+          "name": "전력반도체",
+          "code": "533",
+          "rising": 14,
+          "total": 19,
+          "breadth": 0.7368421052631579,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "559": {
+          "name": "고체산화물 연료전지(SOFC)",
+          "code": "559",
+          "rising": 10,
+          "total": 13,
+          "breadth": 0.7692307692307693,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "472": {
+          "name": "2차전지(전고체)",
+          "code": "472",
+          "rising": 23,
+          "total": 28,
+          "breadth": 0.8214285714285714,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "106": {
+          "name": "바이오인식(생체인식)",
+          "code": "106",
+          "rising": 13,
+          "total": 19,
+          "breadth": 0.6842105263157895,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "270": {
+          "name": "모바일콘텐츠(스마트폰/태블릿PC)",
+          "code": "270",
+          "rising": 16,
+          "total": 31,
+          "breadth": 0.5161290322580645,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "426": {
+          "name": "양자암호/양자컴퓨팅",
+          "code": "426",
+          "rising": 14,
+          "total": 26,
+          "breadth": 0.5384615384615384,
           "leader_rank": 3,
           "follower_strong_count": null,
           "follower_turnover": null,
@@ -151186,12 +151335,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-15T19:29:20.390677+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 10개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-15T13:31:02.263020+09:00",
+    "generated_at": "2026-09-15T19:29:20.390677+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
