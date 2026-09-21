@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-21T13:33:26.924549+09:00",
+  "generated_at": "2026-09-21T20:08:49.438984+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -3740,6 +3740,141 @@
           "total": 35,
           "breadth": 0.8,
           "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-21",
+      "stage": "14:53",
+      "at": "2026-09-21T20:08:49.438984+09:00",
+      "source_at": "2026-09-21T20:04:05.146883+09:00",
+      "themes": {
+        "614": {
+          "name": "S7(삼성전자/SK하이닉스 등)",
+          "code": "614",
+          "rising": 7,
+          "total": 7,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "307": {
+          "name": "시스템반도체",
+          "code": "307",
+          "rising": 49,
+          "total": 58,
+          "breadth": 0.8448275862068966,
+          "leader_rank": 7,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "536": {
+          "name": "HBM(고대역폭메모리)",
+          "code": "536",
+          "rising": 30,
+          "total": 34,
+          "breadth": 0.8823529411764706,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "615": {
+          "name": "2026 하반기 신규상장",
+          "code": "615",
+          "rising": 9,
+          "total": 13,
+          "breadth": 0.6923076923076923,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "531": {
+          "name": "STO(토큰증권 발행)",
+          "code": "531",
+          "rising": 23,
+          "total": 25,
+          "breadth": 0.92,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "12": {
+          "name": "반도체 장비",
+          "code": "12",
+          "rising": 72,
+          "total": 95,
+          "breadth": 0.7578947368421053,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "14": {
+          "name": "반도체 재료/부품",
+          "code": "14",
+          "rising": 59,
+          "total": 71,
+          "breadth": 0.8309859154929577,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "173": {
+          "name": "IT 대표주",
+          "code": "173",
+          "rising": 5,
+          "total": 6,
+          "breadth": 0.8333333333333334,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "543": {
+          "name": "의료AI",
+          "code": "543",
+          "rising": 16,
+          "total": 27,
+          "breadth": 0.5925925925925926,
+          "leader_rank": 1,
           "follower_strong_count": null,
           "follower_turnover": null,
           "follower_turnover_ratio": null,
@@ -196765,12 +196900,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-21T20:08:49.438984+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 9개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-21T13:33:26.924549+09:00",
+    "generated_at": "2026-09-21T20:08:49.438984+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
