@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-22T13:29:03.442973+09:00",
+  "generated_at": "2026-09-22T19:22:42.997297+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -4009,6 +4009,155 @@
           "rising": 16,
           "total": 27,
           "breadth": 0.5925925925925926,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-22",
+      "stage": "14:53",
+      "at": "2026-09-22T19:22:42.997297+09:00",
+      "source_at": "2026-09-22T19:17:12.476276+09:00",
+      "themes": {
+        "166": {
+          "name": "항공/저가 항공사(LCC)",
+          "code": "166",
+          "rising": 9,
+          "total": 9,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "545": {
+          "name": "온디바이스 AI",
+          "code": "545",
+          "rising": 17,
+          "total": 24,
+          "breadth": 0.7083333333333334,
+          "leader_rank": 6,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "378": {
+          "name": "건설기계",
+          "code": "378",
+          "rising": 14,
+          "total": 16,
+          "breadth": 0.875,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "599": {
+          "name": "소캠(SOCAMM)",
+          "code": "599",
+          "rising": 9,
+          "total": 11,
+          "breadth": 0.8181818181818182,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "18": {
+          "name": "전자파",
+          "code": "18",
+          "rising": 7,
+          "total": 9,
+          "breadth": 0.7777777777777778,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "401": {
+          "name": "원자력발전소 해체",
+          "code": "401",
+          "rising": 12,
+          "total": 15,
+          "breadth": 0.8,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "608": {
+          "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+          "code": "608",
+          "rising": 14,
+          "total": 14,
+          "breadth": 1.0,
+          "leader_rank": 4,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "178": {
+          "name": "전선",
+          "code": "178",
+          "rising": 7,
+          "total": 8,
+          "breadth": 0.875,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "321": {
+          "name": "무선충전기술",
+          "code": "321",
+          "rising": 9,
+          "total": 12,
+          "breadth": 0.75,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "63": {
+          "name": "제지",
+          "code": "63",
+          "rising": 8,
+          "total": 14,
+          "breadth": 0.5714285714285714,
           "leader_rank": 1,
           "follower_strong_count": null,
           "follower_turnover": null,
@@ -201937,12 +202086,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-22T19:22:42.997297+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 10개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-22T13:29:03.442973+09:00",
+    "generated_at": "2026-09-22T19:22:42.997297+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
