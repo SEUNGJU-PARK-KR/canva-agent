@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-24T13:22:46.578014+09:00",
+  "generated_at": "2026-09-24T19:32:13.206956+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -4592,6 +4592,127 @@
       "date": "2026-09-23",
       "stage": "15:18",
       "at": "2026-09-23T20:32:36.791526+09:00",
+      "source_at": "2026-09-23T19:18:52.593904+09:00",
+      "themes": {
+        "614": {
+          "name": "S7(삼성전자/SK하이닉스 등)",
+          "code": "614",
+          "rising": 7,
+          "total": 7,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "12": {
+          "name": "반도체 장비",
+          "code": "12",
+          "rising": 76,
+          "total": 92,
+          "breadth": 0.8260869565217391,
+          "leader_rank": 6,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "615": {
+          "name": "2026 하반기 신규상장",
+          "code": "615",
+          "rising": 9,
+          "total": 16,
+          "breadth": 0.5625,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "536": {
+          "name": "HBM(고대역폭메모리)",
+          "code": "536",
+          "rising": 31,
+          "total": 34,
+          "breadth": 0.9117647058823529,
+          "leader_rank": 7,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "426": {
+          "name": "양자암호/양자컴퓨팅",
+          "code": "426",
+          "rising": 21,
+          "total": 26,
+          "breadth": 0.8076923076923077,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "92": {
+          "name": "통신장비",
+          "code": "92",
+          "rising": 30,
+          "total": 44,
+          "breadth": 0.6818181818181818,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "14": {
+          "name": "반도체 재료/부품",
+          "code": "14",
+          "rising": 57,
+          "total": 70,
+          "breadth": 0.8142857142857143,
+          "leader_rank": 5,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "376": {
+          "name": "유전자 치료제/분석",
+          "code": "376",
+          "rising": 30,
+          "total": 41,
+          "breadth": 0.7317073170731707,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-24",
+      "stage": "14:53",
+      "at": "2026-09-24T19:32:13.206956+09:00",
       "source_at": "2026-09-23T19:18:52.593904+09:00",
       "themes": {
         "614": {
@@ -226888,12 +227009,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-24T19:32:13.206956+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 8개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-24T13:22:46.578014+09:00",
+    "generated_at": "2026-09-24T19:32:13.206956+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
