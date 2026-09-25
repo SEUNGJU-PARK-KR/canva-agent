@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-24T19:33:12.383585+09:00",
-  "market_date": "2026-09-24",
+  "generated_at": "2026-09-25T19:31:34.061913+09:00",
+  "market_date": "2026-09-25",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
     "base": "https://stock.naver.com",
@@ -650,7 +650,7 @@
           "오씨아이홀딩스 주식회사 자기주식취득 신탁계약 해지 결정(자회사의 주요경영사항)",
           "오씨아이홀딩스 주식회사 자기주식취득 신탁계약 해지 결정",
           "오씨아이홀딩스 주식회사 주식선물 3단계 가격제한폭 확대요건 도달(상승)",
-          "'전강후약' 반복 코스피⋯7000선 턱걸이 마감"
+          "[분양 스케치] '청약미달' 시티오씨엘 9단지 DCRE 자금회수 시험대"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -1133,7 +1133,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1180,15 +1180,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "RECENT",
-          "hours": 27.2,
+          "hours": 51.1,
           "at": "2026-09-23T16:24:00+09:00",
           "title": "OCI홀딩스·한화솔루션 쑥…美 태양광 재편 수혜",
           "source": "news",
-          "reason": "재료 발표 후 27.2시간이 지났습니다."
+          "reason": "재료 발표 후 51.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1235,7 +1235,11 @@
       "catalyst": {
         "grade": "S",
         "reason": "S7(삼성전자/SK하이닉스 등) 관련주 7/7 상승",
-        "positive_titles": [],
+        "positive_titles": [
+          "SK는 '넓은 부지'·삼성은 '속도전'…구체화하는 '호남 반도체 투자'",
+          "SK는 부지·삼성은 속도 각기 다른 전략… 호남 반도체 투자 구체화",
+          "SK는 '넓게'·삼성은 '빠르게'…호남 반도체 투자의지"
+        ],
         "titles": [
           "파생상품시장",
           "삼성전자(주) 주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)",
@@ -1735,7 +1739,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1791,41 +1795,31 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "STALE",
-          "hours": 819.7,
-          "at": "2026-08-21T15:52:22+09:00",
-          "title": "삼성전자(주) 기타 경영사항(자율공시)",
-          "source": "notice",
-          "reason": "재료 발표 후 819.7시간이 지났습니다."
+          "status": "FRESH",
+          "hours": 0.3,
+          "at": "2026-09-25T19:16:00+09:00",
+          "title": "SK는 '넓은 부지'·삼성은 '속도전'…구체화하는 '호남 반도체 투자'",
+          "source": "news",
+          "reason": "재료 발표 후 0.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "삼성전자(주) 기타 경영사항(자율공시)",
-            "at": "2026-08-21T15:52:22+09:00",
-            "source": "notice"
+            "title": "SK는 '넓은 부지'·삼성은 '속도전'…구체화하는 '호남 반도체 투자'",
+            "at": "2026-09-25T19:16:00+09:00",
+            "source": "news"
           },
           {
-            "title": "삼성전자(주) 자기주식 취득 결정",
-            "at": "2026-08-21T15:52:17+09:00",
-            "source": "notice"
+            "title": "SK는 부지·삼성은 속도 각기 다른 전략… 호남 반도체 투자 구체화",
+            "at": "2026-09-25T16:15:00+09:00",
+            "source": "news"
           },
           {
-            "title": "삼성전자(주) 수시공시의무관련사항(공정공시)",
-            "at": "2026-08-21T15:52:07+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "삼성전자(주) 기타 경영사항(자율공시)",
-            "at": "2026-07-30T15:52:45+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "삼성전자(주) 기타 경영사항(자율공시)",
-            "at": "2026-07-30T15:52:44+09:00",
-            "source": "notice"
+            "title": "SK는 '넓게'·삼성은 '빠르게'…호남 반도체 투자의지",
+            "at": "2026-09-25T08:54:00+09:00",
+            "source": "news"
           }
         ],
         "after_signal_items": [],
@@ -2346,7 +2340,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -2393,15 +2387,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1395.7,
+          "hours": 1419.7,
           "at": "2026-07-28T15:50:38+09:00",
           "title": "(주)세아메카닉스 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 1395.7시간이 지났습니다."
+          "reason": "재료 발표 후 1419.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2937,7 +2931,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -2984,15 +2978,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 370.1,
+          "hours": 394.1,
           "at": "2026-09-09T09:26:00+09:00",
           "title": "삼기에너지솔루션즈, 광주에 방산사업 거점 마련…군용 배터리팩 사업...",
           "source": "news",
-          "reason": "재료 발표 후 370.1시간이 지났습니다."
+          "reason": "재료 발표 후 394.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3074,7 +3068,11 @@
       "catalyst": {
         "grade": "S",
         "reason": "S7(삼성전자/SK하이닉스 등) 관련주 7/7 상승",
-        "positive_titles": [],
+        "positive_titles": [
+          "AI 투자축 GPU서 CPU·메모리로 확장…판 뒤집힌다 “삼전닉스 가치 재...",
+          "SK는 '넓은 부지'·삼성은 '속도전'…구체화하는 '호남 반도체 투자'",
+          "SK는 부지·삼성은 속도 각기 다른 전략… 호남 반도체 투자 구체화"
+        ],
         "titles": [
           "조회공시답변",
           "에스케이하이닉스(주) 조회공시 요구(풍문 또는 보도)에 대한 답변(미확정)",
@@ -3574,7 +3572,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3630,26 +3628,31 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
-          "status": "STALE",
-          "hours": 483.7,
-          "at": "2026-09-04T15:52:03+09:00",
-          "title": "에스케이하이닉스(주) 풍문 또는 보도에 대한 해명(미확정)",
-          "source": "notice",
-          "reason": "재료 발표 후 483.7시간이 지났습니다."
+          "status": "FRESH",
+          "hours": 0.3,
+          "at": "2026-09-25T19:16:00+09:00",
+          "title": "AI 투자축 GPU서 CPU·메모리로 확장…판 뒤집힌다 “삼전닉스 가치 재...",
+          "source": "news",
+          "reason": "재료 발표 후 0.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "에스케이하이닉스(주) 풍문 또는 보도에 대한 해명(미확정)",
-            "at": "2026-09-04T15:52:03+09:00",
-            "source": "notice"
+            "title": "AI 투자축 GPU서 CPU·메모리로 확장…판 뒤집힌다 “삼전닉스 가치 재...",
+            "at": "2026-09-25T19:16:00+09:00",
+            "source": "news"
           },
           {
-            "title": "에스케이하이닉스(주) 풍문 또는 보도에 대한 해명(미확정)",
-            "at": "2026-08-05T15:52:32+09:00",
-            "source": "notice"
+            "title": "SK는 '넓은 부지'·삼성은 '속도전'…구체화하는 '호남 반도체 투자'",
+            "at": "2026-09-25T19:16:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "SK는 부지·삼성은 속도 각기 다른 전략… 호남 반도체 투자 구체화",
+            "at": "2026-09-25T16:15:00+09:00",
+            "source": "news"
           }
         ],
         "after_signal_items": [],
@@ -3682,14 +3685,14 @@
         "reason": "S7(삼성전자/SK하이닉스 등) 관련주 7/7 상승",
         "positive_titles": [],
         "titles": [
+          "삼성전자우, 본주 두 배 속도로 뛴다…배당·소각 기대",
+          "10월 중순 조기 종료되는 삼전닉스 자사주 매입… 외국인 복귀가 증시...",
+          "“1000주면 460만원”…삼성전자, 28일 배당 막차 타볼까[김미정의 머...",
           "“추석 용돈 굴린다면 반도체·배당에”…5대 운용사 ETF 추천",
           "\"1000주 사면 무려\"…28일까지 사야 '막차 탄다' 개미들 놀랄 전망",
           "삼성전자우 15% 뛸 때 본주는 9%…배당·소각 기대에 수익률 ‘쑥’",
           "'30조 배당 예고' 삼성전자, 추석 전 13% 급등… 연휴 후 더 갈까?",
-          "\"28일까진 삼전 들고 있어야\" 역대급 배당 앞둬…현금 규모만 30조원 ...",
-          "\"1000주 사면 460만원 받는다\"…역대급 배당에 두근두근",
-          "외국인, ‘30조 배당 예고’ 삼성전자 2.9조 순매수",
-          "'전강후약' 반복 코스피⋯7000선 턱걸이 마감"
+          "\"28일까진 삼전 들고 있어야\" 역대급 배당 앞둬…현금 규모만 30조원 ..."
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -4182,7 +4185,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4238,17 +4241,32 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 9.5,
-          "at": "2026-09-24T10:01:00+09:00",
-          "title": "“추석 용돈 굴린다면 반도체·배당에”…5대 운용사 ETF 추천",
+          "hours": 11.5,
+          "at": "2026-09-25T08:02:00+09:00",
+          "title": "삼성전자우, 본주 두 배 속도로 뛴다…배당·소각 기대",
           "source": "news",
-          "reason": "재료 발표 후 9.5시간이 지났습니다."
+          "reason": "재료 발표 후 11.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
+          {
+            "title": "삼성전자우, 본주 두 배 속도로 뛴다…배당·소각 기대",
+            "at": "2026-09-25T08:02:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "10월 중순 조기 종료되는 삼전닉스 자사주 매입… 외국인 복귀가 증시...",
+            "at": "2026-09-25T07:01:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "“1000주면 460만원”…삼성전자, 28일 배당 막차 타볼까[김미정의 머...",
+            "at": "2026-09-25T05:50:00+09:00",
+            "source": "news"
+          },
           {
             "title": "“추석 용돈 굴린다면 반도체·배당에”…5대 운용사 ETF 추천",
             "at": "2026-09-24T10:01:00+09:00",
@@ -4272,21 +4290,6 @@
           {
             "title": "\"28일까진 삼전 들고 있어야\" 역대급 배당 앞둬…현금 규모만 30조원 ...",
             "at": "2026-09-23T14:47:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "\"1000주 사면 460만원 받는다\"…역대급 배당에 두근두근",
-            "at": "2026-09-23T06:01:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "외국인, ‘30조 배당 예고’ 삼성전자 2.9조 순매수",
-            "at": "2026-09-23T17:21:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "'전강후약' 반복 코스피⋯7000선 턱걸이 마감",
-            "at": "2026-09-23T16:51:00+09:00",
             "source": "news"
           }
         ],
@@ -4815,7 +4818,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4862,7 +4865,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -5402,7 +5405,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5458,15 +5461,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1155.7,
+          "hours": 1179.7,
           "at": "2026-08-07T15:50:08+09:00",
           "title": "네이버(주) 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 1155.7시간이 지났습니다."
+          "reason": "재료 발표 후 1179.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5478,604 +5481,6 @@
             "title": "네이버(주) 연결재무제표기준영업(잠정)실적(공정공시)",
             "at": "2026-08-07T15:50:07+09:00",
             "source": "notice"
-          }
-        ],
-        "after_signal_items": [],
-        "source_errors": []
-      }
-    },
-    {
-      "code": "003490",
-      "name": "대한항공",
-      "market": "2",
-      "price": 31500,
-      "change_rate": 0.32,
-      "trade_value": 130982000000,
-      "market_cap": 11598949000000,
-      "volume": 4154511,
-      "sources": {
-        "trading_value": 25,
-        "high52": 11
-      },
-      "source_rank_score": 439.0,
-      "theme": null,
-      "catalyst": {
-        "grade": "A",
-        "reason": "추석 공항 역대 최대 '인산인해' 예고…덜 기다리고 출국하는 법",
-        "positive_titles": [
-          "추석 공항 역대 최대 '인산인해' 예고…덜 기다리고 출국하는 법",
-          "추석 특수 누릴 수혜주는…이마트·롯데쇼핑 유통주 주목"
-        ],
-        "titles": [
-          "신규/추가/변경/재상장",
-          "(주)대한항공 변경상장(주식소각)",
-          "(주)대한항공 소송등의제기ㆍ신청(자율공시:일정금액미만의청구)",
-          "타법인출자/처분",
-          "(주)대한항공 (정정)타법인주식및출자증권취득결정",
-          "(주)대한항공 소송등의판결ㆍ결정(자율공시:일정금액미만의청구)",
-          "기타주요경영사항",
-          "(주)대한항공 기타 경영사항(자율공시)"
-        ]
-      },
-      "limit_up_pattern": "NO_LIMIT",
-      "pattern": {
-        "id": "C6",
-        "name": "양음양 저항 돌파",
-        "score": 55,
-        "components": [
-          {
-            "name": "양음양",
-            "pass": false,
-            "weight": 30
-          },
-          {
-            "name": "저항 돌파",
-            "pass": true,
-            "weight": 25
-          },
-          {
-            "name": "거래대금",
-            "pass": true,
-            "weight": 20
-          },
-          {
-            "name": "앞선 매집 대리변수",
-            "pass": false,
-            "weight": 15
-          },
-          {
-            "name": "재료 A/S",
-            "pass": true,
-            "weight": 10
-          }
-        ],
-        "initial": "NORMAL",
-        "supports": [
-          "돌파 저항선",
-          "단기·장기 이평 지지"
-        ]
-      },
-      "pattern_candidates": [
-        {
-          "id": "C6",
-          "name": "양음양 저항 돌파",
-          "score": 55,
-          "components": [
-            {
-              "name": "양음양",
-              "pass": false,
-              "weight": 30
-            },
-            {
-              "name": "저항 돌파",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "거래대금",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "앞선 매집 대리변수",
-              "pass": false,
-              "weight": 15
-            },
-            {
-              "name": "재료 A/S",
-              "pass": true,
-              "weight": 10
-            }
-          ],
-          "initial": "NORMAL",
-          "supports": [
-            "돌파 저항선",
-            "단기·장기 이평 지지"
-          ]
-        },
-        {
-          "id": "C1",
-          "name": "이평 수렴 돌파",
-          "score": 50,
-          "components": [
-            {
-              "name": "거래대금 500억",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "장대양봉",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "작은 윗꼬리",
-              "pass": false,
-              "weight": 15
-            },
-            {
-              "name": "이평 수렴",
-              "pass": false,
-              "weight": 15
-            },
-            {
-              "name": "저항 돌파",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "재료 A/S",
-              "pass": true,
-              "weight": 10
-            }
-          ],
-          "initial": "NORMAL",
-          "supports": [
-            "돌파선",
-            "5·10·20일선 수렴부"
-          ]
-        },
-        {
-          "id": "C4",
-          "name": "신규상장 매집",
-          "score": 40,
-          "components": [
-            {
-              "name": "상장 1년 이내",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "상장일 고가 돌파",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "최근 상한가/강봉",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "장대양봉",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "거래대금",
-              "pass": true,
-              "weight": 15
-            }
-          ],
-          "initial": "SMALL",
-          "supports": [
-            "5·11일선",
-            "상장일 고가·박스 상단"
-          ]
-        }
-      ],
-      "metrics": {
-        "close_location": 0.4,
-        "upper_wick": 0.6,
-        "body_ratio": 0.0,
-        "volume_ratio": 0,
-        "ma5": 0,
-        "ma10": 0,
-        "ma20": 0,
-        "ma60": 0,
-        "ma120": 0,
-        "prev20_high": 32100,
-        "prev60_high": 32100,
-        "digest_ratio": 1.0,
-        "spread_bps": 15.89,
-        "sequence": {
-          "available": true,
-          "low_after_1430": 31350.0,
-          "high_after_1500": 31500.0,
-          "recovery_from_1430_low": 0.15,
-          "high_retention_after_1500": 1.0,
-          "late_volume_share": 0.0122,
-          "late_return_from_1510": 0.0032,
-          "late_spike_without_volume": false,
-          "records": 100
-        }
-      },
-      "plan": {
-        "initial_size": "NORMAL",
-        "supports": [],
-        "invalidation": 31100,
-        "stop_distance": 0.0127,
-        "next_day": [
-          "갭상승 추격 금지, 첫 눌림 지지 확인",
-          "보합 출발 시 전일 종가·돌파선 유지 확인",
-          "갭하락 후 무효화선 회복 실패 시 제외",
-          "실제 호가·체결이 좋을 때 첫 상승파동 청산"
-        ]
-      },
-      "checks": [
-        {
-          "id": "X_MARKET_CAP",
-          "name": "시가총액 500억",
-          "role": "required",
-          "value": 11598949000000,
-          "threshold": ">= 500억원",
-          "status": "PASS",
-          "reason": "시총 115,989억원",
-          "data_source": "Naver detail.marketSum"
-        },
-        {
-          "id": "X_TRADE_VALUE",
-          "name": "거래대금 500억",
-          "role": "required",
-          "value": 130982000000,
-          "threshold": ">= 500억원",
-          "status": "PASS",
-          "reason": "거래대금 1,310억원",
-          "data_source": "Naver price.tradeAmount"
-        },
-        {
-          "id": "X_RISK",
-          "name": "관리·거래 위험",
-          "role": "required",
-          "value": true,
-          "threshold": "정상",
-          "status": "PASS",
-          "reason": "위험 목록 또는 종목 상태 필드 확인",
-          "data_source": "Naver rankings/detail"
-        },
-        {
-          "id": "X_TYPE",
-          "name": "보통주",
-          "role": "required",
-          "value": true,
-          "threshold": "type=ST",
-          "status": "PASS",
-          "reason": "type=ST",
-          "data_source": "Naver price.type"
-        },
-        {
-          "id": "X_IPO",
-          "name": "당일 상장 제외",
-          "role": "required",
-          "value": null,
-          "threshold": "상장 1일 이상",
-          "status": "PASS",
-          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
-          "data_source": "Naver listedDate",
-          "original_status": "WARN",
-          "original_reason": "상장 경과 미확인일"
-        },
-        {
-          "id": "X_POLITICAL",
-          "name": "정치테마 제외",
-          "role": "required",
-          "value": true,
-          "threshold": "비정치",
-          "status": "PASS",
-          "reason": "테마·뉴스 제목 규칙",
-          "data_source": "Naver theme/news"
-        },
-        {
-          "id": "X_PENNY",
-          "name": "동전주 제외",
-          "role": "required",
-          "value": 31500.0,
-          "threshold": ">= 1,000원",
-          "status": "PASS",
-          "reason": "현재가 31,500원",
-          "data_source": "Naver nowPrice"
-        },
-        {
-          "id": "S_CATALYST",
-          "name": "재료 S/A",
-          "role": "required",
-          "value": "A",
-          "threshold": "S 또는 A",
-          "status": "PASS",
-          "reason": "추석 공항 역대 최대 '인산인해' 예고…덜 기다리고 출국하는 법",
-          "data_source": "Naver theme/news/notice"
-        },
-        {
-          "id": "S_LEADER",
-          "name": "현재 대장·2등주",
-          "role": "required",
-          "value": null,
-          "threshold": "테마 1~2위 또는 강한 개별재료",
-          "status": "PASS",
-          "reason": "개별재료 · 순위 -",
-          "data_source": "Naver theme stocklist"
-        },
-        {
-          "id": "L_LIMIT_PATTERN",
-          "name": "상한가 분봉 패턴",
-          "role": "supporting",
-          "value": "NO_LIMIT",
-          "threshold": "LOCKED/RELOCKED 우수",
-          "status": "PASS",
-          "reason": "NO_LIMIT",
-          "data_source": "Naver 1분 siseTick"
-        },
-        {
-          "id": "D_PATTERN",
-          "name": "종가 패턴 식별",
-          "role": "required",
-          "value": 55,
-          "threshold": "70점 이상",
-          "status": "WARN",
-          "reason": "C6 양음양 저항 돌파 55점",
-          "data_source": "Naver 일봉 + OpenBot 규칙"
-        },
-        {
-          "id": "C_LOCATION",
-          "name": "고가권 종가",
-          "role": "required",
-          "value": 0.4,
-          "threshold": ">=0.70 (엄격 0.75)",
-          "status": "FAIL",
-          "reason": "당일 범위 위치 0.40",
-          "data_source": "Naver OHLC"
-        },
-        {
-          "id": "C_WICK",
-          "name": "작은 윗꼬리 장대양봉",
-          "role": "required",
-          "value": 0.6,
-          "threshold": "0.02~0.30, 0.45 초과 제외",
-          "status": "FAIL",
-          "reason": "윗꼬리 0.60 · 몸통 0.00",
-          "data_source": "Naver OHLC"
-        },
-        {
-          "id": "C_SEQUENCE",
-          "name": "마감 과정",
-          "role": "required",
-          "value": {
-            "available": true,
-            "low_after_1430": 31350.0,
-            "high_after_1500": 31500.0,
-            "recovery_from_1430_low": 0.15,
-            "high_retention_after_1500": 1.0,
-            "late_volume_share": 0.0122,
-            "late_return_from_1510": 0.0032,
-            "late_spike_without_volume": false,
-            "records": 100
-          },
-          "threshold": "장막판 회복·거래 동반",
-          "status": "PASS",
-          "reason": "거래 없는 막판 수직 급등 배제",
-          "data_source": "Naver siseTick"
-        },
-        {
-          "id": "A_DIGESTION",
-          "name": "과거 매물 소화",
-          "role": "required",
-          "value": 1.0,
-          "threshold": "전고점 돌파+과거대금 0.60 이상 또는 박스형",
-          "status": "PASS",
-          "reason": "현재/과거 최대 거래대금 1.00 · 전고점 돌파",
-          "data_source": "Naver daily turnover proxy"
-        },
-        {
-          "id": "H_LIQUIDITY",
-          "name": "호가 유동성",
-          "role": "supporting",
-          "value": 15.89,
-          "threshold": "스프레드 40bp 이하",
-          "status": "PASS",
-          "reason": "스프레드 15.89bp",
-          "data_source": "Naver hoga snapshot"
-        },
-        {
-          "id": "H_ABSORPTION",
-          "name": "실제 물량 소화",
-          "role": "manual",
-          "value": null,
-          "threshold": "익일 실제 호가·체결 확인",
-          "status": "MISSING",
-          "reason": "정적 호가 스냅샷만으로 취소와 체결을 완전히 구분할 수 없음",
-          "data_source": "Actual HTS next day"
-        },
-        {
-          "id": "R_PLAN",
-          "name": "분할·무효화 계획",
-          "role": "required",
-          "value": {
-            "supports": [],
-            "invalidation": 31100,
-            "distance": 0.0127
-          },
-          "threshold": "패턴별 지지선 정의",
-          "status": "PASS",
-          "reason": "구조 손절 위험거리 1.27%",
-          "data_source": "OpenBot pattern rule + Naver MA",
-          "original_status": "FAIL",
-          "original_reason": "초기 NORMAL · 무효화 31,100원"
-        },
-        {
-          "id": "BEST_BID_HOLD_AUTO",
-          "name": "최우선 매수호가 유지·상향",
-          "role": "web_direct",
-          "status": "WARN",
-          "raw_status": "NOT_ELIGIBLE",
-          "value": {
-            "first_bid": null,
-            "last_bid": null,
-            "hold_ratio": null,
-            "up_count": null,
-            "down_count": null,
-            "replenishment_quantity": null
-          },
-          "rule": "반복 스냅샷에서 하향 이동이 없어야 함"
-        },
-        {
-          "id": "ENTRY_STOP_AUTO",
-          "name": "진입가·구조 손절 자동기록",
-          "role": "required",
-          "status": "PASS",
-          "value": {
-            "entry_price": 31500,
-            "stop_price": 31100,
-            "risk_rate": 0.012698,
-            "one_r_price": 31900
-          },
-          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
-          "original_status": "PASS",
-          "original_reason": null,
-          "reason": "진입가와 구조 손절선이 계산되었습니다."
-        },
-        {
-          "id": "NEXT_DAY_PLAN_AUTO",
-          "name": "익일 갭별 대응계획",
-          "role": "required",
-          "status": "PASS",
-          "value": {
-            "gap_up_from": 31815,
-            "flat_low": 31185,
-            "flat_high": 31815,
-            "gap_down_below": 31185
-          },
-          "rule": "갭상승·보합·갭하락 계획 모두 생성"
-        }
-      ],
-      "quality_score": 76.5,
-      "final_status": "EXCLUDE",
-      "orderbook": {
-        "spread_bps": 15.89,
-        "buy_total": 45627.0,
-        "sell_total": 48616.0,
-        "levels": [
-          {
-            "level": 1,
-            "ask": 31500.0,
-            "bid": 31450.0,
-            "ask_qty": 13996.0,
-            "bid_qty": 2807.0
-          },
-          {
-            "level": 2,
-            "ask": 31550.0,
-            "bid": 31400.0,
-            "ask_qty": 1687.0,
-            "bid_qty": 3139.0
-          },
-          {
-            "level": 3,
-            "ask": 31600.0,
-            "bid": 31350.0,
-            "ask_qty": 2486.0,
-            "bid_qty": 4291.0
-          },
-          {
-            "level": 4,
-            "ask": 31650.0,
-            "bid": 31300.0,
-            "ask_qty": 1067.0,
-            "bid_qty": 5253.0
-          },
-          {
-            "level": 5,
-            "ask": 31700.0,
-            "bid": 31250.0,
-            "ask_qty": 4419.0,
-            "bid_qty": 8853.0
-          }
-        ]
-      },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
-      "market_status": "CLOSE",
-      "automation_356": {
-        "version": "automation-356-v2",
-        "status": "NOT_ELIGIBLE",
-        "best_bid": {
-          "status": "NOT_ELIGIBLE",
-          "exact": true,
-          "snapshot_count": 0,
-          "reason": "원래 스크리너 상태가 자동 호가 확인 대상이 아닙니다.",
-          "snapshots": []
-        },
-        "risk_plan": {
-          "status": "PASS",
-          "exact": true,
-          "entry_price": 31500,
-          "entry_source": "현재·확정 종가",
-          "stop_price": 31100,
-          "stop_source": "계획 무효화선",
-          "risk_per_share": 400,
-          "risk_rate": 0.012698,
-          "one_r_price": 31900,
-          "two_r_price": 32300,
-          "max_risk_rate": 0.06,
-          "valid": true,
-          "support_candidates": [
-            {
-              "name": "계획 무효화선",
-              "price": 31100,
-              "priority": 20
-            }
-          ],
-          "reason": "계획 무효화선 31,100원을 구조 손절선으로 기록했습니다. 위험거리는 1.27%입니다."
-        },
-        "next_day_plan": {
-          "status": "PASS",
-          "exact": true,
-          "gap_thresholds": {
-            "gap_up_from": 31815,
-            "flat_low": 31185,
-            "flat_high": 31815,
-            "gap_down_below": 31185
-          },
-          "gap_up": "시초가가 31,815원 이상이면 추격하지 않고 첫 눌림이 전일 종가 31,500원과 계획 무효화선 31,100원을 지키는지 확인합니다. 1R 31,900원에서 분할 청산합니다.",
-          "flat": "시초가가 31,185~31,815원이면 전일 종가 31,500원 재지지와 최우선 매수호가 유지가 함께 나올 때만 보유합니다. 31,100원 이탈 시 종료합니다.",
-          "gap_down": "시초가가 31,185원 아래면 첫 3~5분 안에 전일 종가 31,500원을 회복하는지 확인합니다. 회복 실패 또는 31,100원 이탈 시 정리합니다.",
-          "reason": "진입가·구조 손절선·1R을 기준으로 갭상승·보합·갭하락 대응계획을 생성했습니다."
-        },
-        "limitations": [
-          "최우선 매수호가는 네이버 공개 호가의 반복 스냅샷으로 계산합니다.",
-          "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
-          "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
-        ]
-      },
-      "winrate_v4": {
-        "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
-        "prior_history_confirmed": true,
-        "catalyst_freshness": {
-          "status": "FRESH",
-          "hours": 12.6,
-          "at": "2026-09-24T07:00:00+09:00",
-          "title": "추석 공항 역대 최대 '인산인해' 예고…덜 기다리고 출국하는 법",
-          "source": "news",
-          "reason": "재료 발표 후 12.6시간이 지났습니다."
-        },
-        "matched_catalyst_items": [
-          {
-            "title": "추석 공항 역대 최대 '인산인해' 예고…덜 기다리고 출국하는 법",
-            "at": "2026-09-24T07:00:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "추석 특수 누릴 수혜주는…이마트·롯데쇼핑 유통주 주목",
-            "at": "2026-09-24T06:00:00+09:00",
-            "source": "news"
           }
         ],
         "after_signal_items": [],
@@ -6603,7 +6008,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6659,15 +6064,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 555.7,
+          "hours": 579.6,
           "at": "2026-09-01T15:52:37+09:00",
           "title": "두산에너빌리티(주) (정정)단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 555.7시간이 지났습니다."
+          "reason": "재료 발표 후 579.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7215,7 +6620,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7262,7 +6667,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7807,7 +7212,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7854,15 +7259,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 340.1,
+          "hours": 364.0,
           "at": "2026-09-10T15:29:00+09:00",
           "title": "'제우스' 흥행 업은 컴투스…3분기 실적 반등 기대",
           "source": "news",
-          "reason": "재료 발표 후 340.1시간이 지났습니다."
+          "reason": "재료 발표 후 364.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -8418,7 +7823,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8474,15 +7879,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "RECENT",
-          "hours": 26.4,
+          "hours": 50.3,
           "at": "2026-09-23T17:12:00+09:00",
           "title": "추석 용돈 재테크…“반도체·배당 ETF 장기 투자해 볼만”",
           "source": "news",
-          "reason": "재료 발표 후 26.4시간이 지났습니다."
+          "reason": "재료 발표 후 50.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9032,7 +8437,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9088,15 +8493,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1179.7,
+          "hours": 1203.7,
           "at": "2026-08-06T15:50:59+09:00",
           "title": "(주)원익아이피에스 연결재무제표 기준 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 1179.7시간이 지났습니다."
+          "reason": "재료 발표 후 1203.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9631,7 +9036,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9678,7 +9083,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10217,7 +9622,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10264,7 +9669,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10808,7 +10213,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10864,7 +10269,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11398,7 +10803,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11445,7 +10850,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11988,7 +11393,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12044,7 +11449,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12587,7 +11992,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12643,7 +12048,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12653,6 +12058,631 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
+      }
+    },
+    {
+      "code": "003490",
+      "name": "대한항공",
+      "market": "2",
+      "price": 31500,
+      "change_rate": 0.32,
+      "trade_value": 130982000000,
+      "market_cap": 11598949000000,
+      "volume": 4154511,
+      "sources": {
+        "trading_value": 25,
+        "high52": 11
+      },
+      "source_rank_score": 439.0,
+      "theme": null,
+      "catalyst": {
+        "grade": "B",
+        "reason": "관련주 확산 또는 강한 직접 재료를 확인하지 못함",
+        "positive_titles": [],
+        "titles": [
+          "신규/추가/변경/재상장",
+          "(주)대한항공 변경상장(주식소각)",
+          "(주)대한항공 소송등의제기ㆍ신청(자율공시:일정금액미만의청구)",
+          "타법인출자/처분",
+          "(주)대한항공 (정정)타법인주식및출자증권취득결정",
+          "(주)대한항공 소송등의판결ㆍ결정(자율공시:일정금액미만의청구)",
+          "기타주요경영사항",
+          "(주)대한항공 기타 경영사항(자율공시)"
+        ]
+      },
+      "limit_up_pattern": "NO_LIMIT",
+      "pattern": {
+        "id": "C6",
+        "name": "양음양 저항 돌파",
+        "score": 45,
+        "components": [
+          {
+            "name": "양음양",
+            "pass": false,
+            "weight": 30
+          },
+          {
+            "name": "저항 돌파",
+            "pass": true,
+            "weight": 25
+          },
+          {
+            "name": "거래대금",
+            "pass": true,
+            "weight": 20
+          },
+          {
+            "name": "앞선 매집 대리변수",
+            "pass": false,
+            "weight": 15
+          },
+          {
+            "name": "재료 A/S",
+            "pass": false,
+            "weight": 10
+          }
+        ],
+        "initial": "NORMAL",
+        "supports": [
+          "돌파 저항선",
+          "단기·장기 이평 지지"
+        ]
+      },
+      "pattern_candidates": [
+        {
+          "id": "C6",
+          "name": "양음양 저항 돌파",
+          "score": 45,
+          "components": [
+            {
+              "name": "양음양",
+              "pass": false,
+              "weight": 30
+            },
+            {
+              "name": "저항 돌파",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "거래대금",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "앞선 매집 대리변수",
+              "pass": false,
+              "weight": 15
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 10
+            }
+          ],
+          "initial": "NORMAL",
+          "supports": [
+            "돌파 저항선",
+            "단기·장기 이평 지지"
+          ]
+        },
+        {
+          "id": "C1",
+          "name": "이평 수렴 돌파",
+          "score": 40,
+          "components": [
+            {
+              "name": "거래대금 500억",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "장대양봉",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "작은 윗꼬리",
+              "pass": false,
+              "weight": 15
+            },
+            {
+              "name": "이평 수렴",
+              "pass": false,
+              "weight": 15
+            },
+            {
+              "name": "저항 돌파",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 10
+            }
+          ],
+          "initial": "NORMAL",
+          "supports": [
+            "돌파선",
+            "5·10·20일선 수렴부"
+          ]
+        },
+        {
+          "id": "C4",
+          "name": "신규상장 매집",
+          "score": 40,
+          "components": [
+            {
+              "name": "상장 1년 이내",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "상장일 고가 돌파",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "최근 상한가/강봉",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "장대양봉",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "거래대금",
+              "pass": true,
+              "weight": 15
+            }
+          ],
+          "initial": "SMALL",
+          "supports": [
+            "5·11일선",
+            "상장일 고가·박스 상단"
+          ]
+        }
+      ],
+      "metrics": {
+        "close_location": 0.4,
+        "upper_wick": 0.6,
+        "body_ratio": 0.0,
+        "volume_ratio": 0,
+        "ma5": 0,
+        "ma10": 0,
+        "ma20": 0,
+        "ma60": 0,
+        "ma120": 0,
+        "prev20_high": 32100,
+        "prev60_high": 32100,
+        "digest_ratio": 1.0,
+        "spread_bps": 15.89,
+        "sequence": {
+          "available": true,
+          "low_after_1430": 31350.0,
+          "high_after_1500": 31500.0,
+          "recovery_from_1430_low": 0.15,
+          "high_retention_after_1500": 1.0,
+          "late_volume_share": 0.0122,
+          "late_return_from_1510": 0.0032,
+          "late_spike_without_volume": false,
+          "records": 100
+        }
+      },
+      "plan": {
+        "initial_size": "NORMAL",
+        "supports": [],
+        "invalidation": 31100,
+        "stop_distance": 0.0127,
+        "next_day": [
+          "갭상승 추격 금지, 첫 눌림 지지 확인",
+          "보합 출발 시 전일 종가·돌파선 유지 확인",
+          "갭하락 후 무효화선 회복 실패 시 제외",
+          "실제 호가·체결이 좋을 때 첫 상승파동 청산"
+        ]
+      },
+      "checks": [
+        {
+          "id": "X_MARKET_CAP",
+          "name": "시가총액 500억",
+          "role": "required",
+          "value": 11598949000000,
+          "threshold": ">= 500억원",
+          "status": "PASS",
+          "reason": "시총 115,989억원",
+          "data_source": "Naver detail.marketSum"
+        },
+        {
+          "id": "X_TRADE_VALUE",
+          "name": "거래대금 500억",
+          "role": "required",
+          "value": 130982000000,
+          "threshold": ">= 500억원",
+          "status": "PASS",
+          "reason": "거래대금 1,310억원",
+          "data_source": "Naver price.tradeAmount"
+        },
+        {
+          "id": "X_RISK",
+          "name": "관리·거래 위험",
+          "role": "required",
+          "value": true,
+          "threshold": "정상",
+          "status": "PASS",
+          "reason": "위험 목록 또는 종목 상태 필드 확인",
+          "data_source": "Naver rankings/detail"
+        },
+        {
+          "id": "X_TYPE",
+          "name": "보통주",
+          "role": "required",
+          "value": true,
+          "threshold": "type=ST",
+          "status": "PASS",
+          "reason": "type=ST",
+          "data_source": "Naver price.type"
+        },
+        {
+          "id": "X_IPO",
+          "name": "당일 상장 제외",
+          "role": "required",
+          "value": null,
+          "threshold": "상장 1일 이상",
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
+        },
+        {
+          "id": "X_POLITICAL",
+          "name": "정치테마 제외",
+          "role": "required",
+          "value": true,
+          "threshold": "비정치",
+          "status": "PASS",
+          "reason": "테마·뉴스 제목 규칙",
+          "data_source": "Naver theme/news"
+        },
+        {
+          "id": "X_PENNY",
+          "name": "동전주 제외",
+          "role": "required",
+          "value": 31500.0,
+          "threshold": ">= 1,000원",
+          "status": "PASS",
+          "reason": "현재가 31,500원",
+          "data_source": "Naver nowPrice"
+        },
+        {
+          "id": "S_CATALYST",
+          "name": "재료 S/A",
+          "role": "required",
+          "value": "B",
+          "threshold": "S 또는 A",
+          "status": "FAIL",
+          "reason": "관련주 확산 또는 강한 직접 재료를 확인하지 못함",
+          "data_source": "Naver theme/news/notice"
+        },
+        {
+          "id": "S_LEADER",
+          "name": "현재 대장·2등주",
+          "role": "required",
+          "value": null,
+          "threshold": "테마 1~2위 또는 강한 개별재료",
+          "status": "FAIL",
+          "reason": "개별재료 · 순위 -",
+          "data_source": "Naver theme stocklist"
+        },
+        {
+          "id": "L_LIMIT_PATTERN",
+          "name": "상한가 분봉 패턴",
+          "role": "supporting",
+          "value": "NO_LIMIT",
+          "threshold": "LOCKED/RELOCKED 우수",
+          "status": "PASS",
+          "reason": "NO_LIMIT",
+          "data_source": "Naver 1분 siseTick"
+        },
+        {
+          "id": "D_PATTERN",
+          "name": "종가 패턴 식별",
+          "role": "required",
+          "value": 45,
+          "threshold": "70점 이상",
+          "status": "FAIL",
+          "reason": "C6 양음양 저항 돌파 45점",
+          "data_source": "Naver 일봉 + OpenBot 규칙"
+        },
+        {
+          "id": "C_LOCATION",
+          "name": "고가권 종가",
+          "role": "required",
+          "value": 0.4,
+          "threshold": ">=0.70 (엄격 0.75)",
+          "status": "FAIL",
+          "reason": "당일 범위 위치 0.40",
+          "data_source": "Naver OHLC"
+        },
+        {
+          "id": "C_WICK",
+          "name": "작은 윗꼬리 장대양봉",
+          "role": "required",
+          "value": 0.6,
+          "threshold": "0.02~0.30, 0.45 초과 제외",
+          "status": "FAIL",
+          "reason": "윗꼬리 0.60 · 몸통 0.00",
+          "data_source": "Naver OHLC"
+        },
+        {
+          "id": "C_SEQUENCE",
+          "name": "마감 과정",
+          "role": "required",
+          "value": {
+            "available": true,
+            "low_after_1430": 31350.0,
+            "high_after_1500": 31500.0,
+            "recovery_from_1430_low": 0.15,
+            "high_retention_after_1500": 1.0,
+            "late_volume_share": 0.0122,
+            "late_return_from_1510": 0.0032,
+            "late_spike_without_volume": false,
+            "records": 100
+          },
+          "threshold": "장막판 회복·거래 동반",
+          "status": "PASS",
+          "reason": "거래 없는 막판 수직 급등 배제",
+          "data_source": "Naver siseTick"
+        },
+        {
+          "id": "A_DIGESTION",
+          "name": "과거 매물 소화",
+          "role": "required",
+          "value": 1.0,
+          "threshold": "전고점 돌파+과거대금 0.60 이상 또는 박스형",
+          "status": "PASS",
+          "reason": "현재/과거 최대 거래대금 1.00 · 전고점 돌파",
+          "data_source": "Naver daily turnover proxy"
+        },
+        {
+          "id": "H_LIQUIDITY",
+          "name": "호가 유동성",
+          "role": "supporting",
+          "value": 15.89,
+          "threshold": "스프레드 40bp 이하",
+          "status": "PASS",
+          "reason": "스프레드 15.89bp",
+          "data_source": "Naver hoga snapshot"
+        },
+        {
+          "id": "H_ABSORPTION",
+          "name": "실제 물량 소화",
+          "role": "manual",
+          "value": null,
+          "threshold": "익일 실제 호가·체결 확인",
+          "status": "MISSING",
+          "reason": "정적 호가 스냅샷만으로 취소와 체결을 완전히 구분할 수 없음",
+          "data_source": "Actual HTS next day"
+        },
+        {
+          "id": "R_PLAN",
+          "name": "분할·무효화 계획",
+          "role": "required",
+          "value": {
+            "supports": [],
+            "invalidation": 31100,
+            "distance": 0.0127
+          },
+          "threshold": "패턴별 지지선 정의",
+          "status": "PASS",
+          "reason": "구조 손절 위험거리 1.27%",
+          "data_source": "OpenBot pattern rule + Naver MA",
+          "original_status": "FAIL",
+          "original_reason": "초기 NORMAL · 무효화 31,100원"
+        },
+        {
+          "id": "BEST_BID_HOLD_AUTO",
+          "name": "최우선 매수호가 유지·상향",
+          "role": "web_direct",
+          "status": "WARN",
+          "raw_status": "NOT_ELIGIBLE",
+          "value": {
+            "first_bid": null,
+            "last_bid": null,
+            "hold_ratio": null,
+            "up_count": null,
+            "down_count": null,
+            "replenishment_quantity": null
+          },
+          "rule": "반복 스냅샷에서 하향 이동이 없어야 함"
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "role": "required",
+          "status": "PASS",
+          "value": {
+            "entry_price": 31500,
+            "stop_price": 31100,
+            "risk_rate": 0.012698,
+            "one_r_price": 31900
+          },
+          "rule": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "original_status": "PASS",
+          "original_reason": null,
+          "reason": "진입가와 구조 손절선이 계산되었습니다."
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "role": "required",
+          "status": "PASS",
+          "value": {
+            "gap_up_from": 31815,
+            "flat_low": 31185,
+            "flat_high": 31815,
+            "gap_down_below": 31185
+          },
+          "rule": "갭상승·보합·갭하락 계획 모두 생성"
+        }
+      ],
+      "quality_score": 61.8,
+      "final_status": "EXCLUDE",
+      "orderbook": {
+        "spread_bps": 15.89,
+        "buy_total": 45627.0,
+        "sell_total": 48616.0,
+        "levels": [
+          {
+            "level": 1,
+            "ask": 31500.0,
+            "bid": 31450.0,
+            "ask_qty": 13996.0,
+            "bid_qty": 2807.0
+          },
+          {
+            "level": 2,
+            "ask": 31550.0,
+            "bid": 31400.0,
+            "ask_qty": 1687.0,
+            "bid_qty": 3139.0
+          },
+          {
+            "level": 3,
+            "ask": 31600.0,
+            "bid": 31350.0,
+            "ask_qty": 2486.0,
+            "bid_qty": 4291.0
+          },
+          {
+            "level": 4,
+            "ask": 31650.0,
+            "bid": 31300.0,
+            "ask_qty": 1067.0,
+            "bid_qty": 5253.0
+          },
+          {
+            "level": 5,
+            "ask": 31700.0,
+            "bid": 31250.0,
+            "ask_qty": 4419.0,
+            "bid_qty": 8853.0
+          }
+        ]
+      },
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
+      "market_status": "CLOSE",
+      "automation_356": {
+        "version": "automation-356-v2",
+        "status": "NOT_ELIGIBLE",
+        "best_bid": {
+          "status": "NOT_ELIGIBLE",
+          "exact": true,
+          "snapshot_count": 0,
+          "reason": "원래 스크리너 상태가 자동 호가 확인 대상이 아닙니다.",
+          "snapshots": []
+        },
+        "risk_plan": {
+          "status": "PASS",
+          "exact": true,
+          "entry_price": 31500,
+          "entry_source": "현재·확정 종가",
+          "stop_price": 31100,
+          "stop_source": "계획 무효화선",
+          "risk_per_share": 400,
+          "risk_rate": 0.012698,
+          "one_r_price": 31900,
+          "two_r_price": 32300,
+          "max_risk_rate": 0.06,
+          "valid": true,
+          "support_candidates": [
+            {
+              "name": "계획 무효화선",
+              "price": 31100,
+              "priority": 20
+            }
+          ],
+          "reason": "계획 무효화선 31,100원을 구조 손절선으로 기록했습니다. 위험거리는 1.27%입니다."
+        },
+        "next_day_plan": {
+          "status": "PASS",
+          "exact": true,
+          "gap_thresholds": {
+            "gap_up_from": 31815,
+            "flat_low": 31185,
+            "flat_high": 31815,
+            "gap_down_below": 31185
+          },
+          "gap_up": "시초가가 31,815원 이상이면 추격하지 않고 첫 눌림이 전일 종가 31,500원과 계획 무효화선 31,100원을 지키는지 확인합니다. 1R 31,900원에서 분할 청산합니다.",
+          "flat": "시초가가 31,185~31,815원이면 전일 종가 31,500원 재지지와 최우선 매수호가 유지가 함께 나올 때만 보유합니다. 31,100원 이탈 시 종료합니다.",
+          "gap_down": "시초가가 31,185원 아래면 첫 3~5분 안에 전일 종가 31,500원을 회복하는지 확인합니다. 회복 실패 또는 31,100원 이탈 시 정리합니다.",
+          "reason": "진입가·구조 손절선·1R을 기준으로 갭상승·보합·갭하락 대응계획을 생성했습니다."
+        },
+        "limitations": [
+          "최우선 매수호가는 네이버 공개 호가의 반복 스냅샷으로 계산합니다.",
+          "진입가는 실제 체결가가 아니라 웹 진입 기준가입니다.",
+          "다음 날 계획은 주문 실행이 아니라 사전 대응 시나리오입니다."
+        ]
+      },
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "STALE",
+          "hours": 363.7,
+          "at": "2026-09-10T15:51:25+09:00",
+          "title": "(주)대한항공 변경상장(주식소각)",
+          "source": "notice",
+          "reason": "재료 발표 후 363.7시간이 지났습니다."
+        },
+        "matched_catalyst_items": [
+          {
+            "title": "(주)대한항공 변경상장(주식소각)",
+            "at": "2026-09-10T15:51:25+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 소송등의제기ㆍ신청(자율공시:일정금액미만의청구)",
+            "at": "2026-09-03T15:52:34+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 (정정)타법인주식및출자증권취득결정",
+            "at": "2026-08-28T15:52:27+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 소송등의판결ㆍ결정(자율공시:일정금액미만의청구)",
+            "at": "2026-08-21T15:53:05+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 기타 경영사항(자율공시)",
+            "at": "2026-08-21T15:52:06+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 기타 경영사항(자율공시)",
+            "at": "2026-08-12T15:50:59+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 (정정)타법인주식및출자증권취득결정",
+            "at": "2026-07-30T15:52:15+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "(주)대한항공 (정정)타법인주식및출자증권취득결정",
+            "at": "2026-05-29T15:52:47+09:00",
+            "source": "notice"
+          }
+        ],
         "after_signal_items": [],
         "source_errors": []
       }
@@ -13185,7 +13215,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13241,7 +13271,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13767,7 +13797,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13814,7 +13844,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -14353,7 +14383,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14400,7 +14430,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -14947,7 +14977,7 @@
           }
         ]
       },
-      "updated_at": "2026-09-24T19:33:12.383585+09:00",
+      "updated_at": "2026-09-25T19:31:34.061913+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -15003,7 +15033,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-24T19:33:12.383585+09:00",
+        "enriched_at": "2026-09-25T19:31:34.061913+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -15020,13 +15050,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-18T19:58:01.312843+09:00",
-    "last": "2026-09-24T19:33:12.383585+09:00"
+    "first": "2026-09-21T20:09:47.186985+09:00",
+    "last": "2026-09-25T19:31:34.061913+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "automation_356": {
     "version": "automation-356-v2",
-    "generated_at": "2026-09-24T19:35:24.091744+09:00",
+    "generated_at": "2026-09-25T19:34:30.037567+09:00",
     "automated_steps": [
       3,
       5,
@@ -15043,7 +15073,7 @@
   },
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-24T19:33:12.383585+09:00",
+    "source_at": "2026-09-25T19:31:34.061913+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
