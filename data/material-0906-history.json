@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-25T13:34:03.726344+09:00",
+  "generated_at": "2026-09-25T19:35:41.546232+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -4835,6 +4835,127 @@
       "stage": "15:18",
       "at": "2026-09-24T20:42:38.601583+09:00",
       "source_at": "2026-09-24T19:33:12.383585+09:00",
+      "themes": {
+        "614": {
+          "name": "S7(삼성전자/SK하이닉스 등)",
+          "code": "614",
+          "rising": 7,
+          "total": 7,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "12": {
+          "name": "반도체 장비",
+          "code": "12",
+          "rising": 79,
+          "total": 95,
+          "breadth": 0.8315789473684211,
+          "leader_rank": 6,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "615": {
+          "name": "2026 하반기 신규상장",
+          "code": "615",
+          "rising": 10,
+          "total": 16,
+          "breadth": 0.625,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "536": {
+          "name": "HBM(고대역폭메모리)",
+          "code": "536",
+          "rising": 31,
+          "total": 34,
+          "breadth": 0.9117647058823529,
+          "leader_rank": 7,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "426": {
+          "name": "양자암호/양자컴퓨팅",
+          "code": "426",
+          "rising": 20,
+          "total": 26,
+          "breadth": 0.7692307692307693,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "92": {
+          "name": "통신장비",
+          "code": "92",
+          "rising": 31,
+          "total": 45,
+          "breadth": 0.6888888888888889,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "14": {
+          "name": "반도체 재료/부품",
+          "code": "14",
+          "rising": 58,
+          "total": 70,
+          "breadth": 0.8285714285714286,
+          "leader_rank": 5,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "376": {
+          "name": "유전자 치료제/분석",
+          "code": "376",
+          "rising": 31,
+          "total": 41,
+          "breadth": 0.7560975609756098,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-25",
+      "stage": "14:53",
+      "at": "2026-09-25T19:35:41.546232+09:00",
+      "source_at": "2026-09-25T19:31:34.061913+09:00",
       "themes": {
         "614": {
           "name": "S7(삼성전자/SK하이닉스 등)",
@@ -231336,12 +231457,6 @@
   ],
   "events": [
     {
-      "at": "2026-09-01T13:39:20.324208+09:00",
-      "stage": "bootstrap",
-      "status": "BOOTSTRAP",
-      "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
-    },
-    {
       "at": "2026-09-01T16:49:48.769276+09:00",
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
@@ -232054,12 +232169,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-25T19:35:41.546232+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 8개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-25T13:34:03.726344+09:00",
+    "generated_at": "2026-09-25T19:35:41.546232+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
