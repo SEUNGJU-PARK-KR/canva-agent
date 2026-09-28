@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-28T13:59:15.881571+09:00",
+  "generated_at": "2026-09-28T21:02:07.363637+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -5303,6 +5303,141 @@
           "rising": 31,
           "total": 41,
           "breadth": 0.7560975609756098,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-28",
+      "stage": "14:53",
+      "at": "2026-09-28T21:02:07.363637+09:00",
+      "source_at": "2026-09-28T20:57:48.654907+09:00",
+      "themes": {
+        "180": {
+          "name": "석유화학",
+          "code": "180",
+          "rising": 16,
+          "total": 18,
+          "breadth": 0.8888888888888888,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "185": {
+          "name": "정유",
+          "code": "185",
+          "rising": 3,
+          "total": 3,
+          "breadth": 1.0,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "540": {
+          "name": "비만치료제",
+          "code": "540",
+          "rising": 28,
+          "total": 36,
+          "breadth": 0.7777777777777778,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "175": {
+          "name": "의료기기",
+          "code": "175",
+          "rising": 60,
+          "total": 90,
+          "breadth": 0.6666666666666666,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "311": {
+          "name": "고령화 사회(노인복지)",
+          "code": "311",
+          "rising": 26,
+          "total": 35,
+          "breadth": 0.7428571428571429,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "449": {
+          "name": "2차전지(생산)",
+          "code": "449",
+          "rising": 3,
+          "total": 3,
+          "breadth": 1.0,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "566": {
+          "name": "딥페이크(deepfake)",
+          "code": "566",
+          "rising": 10,
+          "total": 14,
+          "breadth": 0.7142857142857143,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "543": {
+          "name": "의료AI",
+          "code": "543",
+          "rising": 24,
+          "total": 29,
+          "breadth": 0.8275862068965517,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "389": {
+          "name": "면역항암제",
+          "code": "389",
+          "rising": 27,
+          "total": 35,
+          "breadth": 0.7714285714285715,
           "leader_rank": 1,
           "follower_strong_count": null,
           "follower_turnover": null,
@@ -251301,12 +251436,6 @@
   ],
   "events": [
     {
-      "at": "2026-09-02T19:35:41.205428+09:00",
-      "stage": "bootstrap",
-      "status": "BOOTSTRAP",
-      "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
-    },
-    {
       "at": "2026-09-02T20:10:17.160960+09:00",
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
@@ -252019,12 +252148,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-28T21:02:07.363637+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 9개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-28T13:59:15.881571+09:00",
+    "generated_at": "2026-09-28T21:02:07.363637+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
