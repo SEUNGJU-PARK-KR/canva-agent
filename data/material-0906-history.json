@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-28T21:02:07.363637+09:00",
+  "generated_at": "2026-09-28T21:02:33.236469+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -251436,12 +251436,6 @@
   ],
   "events": [
     {
-      "at": "2026-09-02T20:10:17.160960+09:00",
-      "stage": "bootstrap",
-      "status": "BOOTSTRAP",
-      "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
-    },
-    {
       "at": "2026-09-02T20:15:35.736405+09:00",
       "stage": "15:18",
       "status": "SIGNAL_CAPTURED",
@@ -252154,12 +252148,18 @@
       "stage": "14:53",
       "status": "SNAPSHOT_CAPTURED",
       "detail": "후보 24개, 테마 9개, 오류 0건"
+    },
+    {
+      "at": "2026-09-28T21:02:33.236469+09:00",
+      "stage": "bootstrap",
+      "status": "BOOTSTRAP",
+      "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-28T21:02:07.363637+09:00",
+    "generated_at": "2026-09-28T21:02:33.236469+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
