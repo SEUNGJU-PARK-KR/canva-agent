@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-28T20:38:24.538911+09:00",
+  "generated_at": "2026-09-28T22:30:50.785854+09:00",
   "market_date": "2026-09-28",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -646,7 +646,6 @@
         "reason": "석유화학 관련주 16/18 상승",
         "positive_titles": [
           "美 태양광 모듈값 40% 껑충…한화·OCI 실적 ‘훈풍’",
-          "美태양광 가격 상승에 수혜 기대감↑…한화솔루션 11% 급등",
           "연초 대비 20% 올랐는데 \"가격 더 오른다\"…증권가 '픽' 태양광 수혜 ..."
         ],
         "titles": [
@@ -1103,19 +1102,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.8,
+          "hours": 4.7,
           "at": "2026-09-28T17:48:00+09:00",
           "title": "美 태양광 모듈값 40% 껑충…한화·OCI 실적 ‘훈풍’",
           "source": "news",
-          "reason": "재료 발표 후 2.8시간이 지났습니다."
+          "reason": "재료 발표 후 4.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1124,49 +1123,14 @@
             "source": "news"
           },
           {
-            "title": "미국 태양광 가격 상승에 한화솔루션·OCI홀딩스 급등",
-            "at": "2026-09-28T14:02:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "美태양광 가격 상승에 수혜 기대감↑…한화솔루션 11% 급등",
-            "at": "2026-09-28T10:30:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "美 태양광 가격 상승에 한화솔루션 12%·OCI홀딩스 11%↑[핫종목]",
-            "at": "2026-09-28T10:00:00+09:00",
-            "source": "news"
-          },
-          {
             "title": "연초 대비 20% 올랐는데 \"가격 더 오른다\"…증권가 '픽' 태양광 수혜 ...",
             "at": "2026-09-28T09:43:00+09:00",
             "source": "news"
           },
           {
-            "title": "[특징주] 한화솔루션·OCI홀딩스, 美 태양광 가격 상승에 10%대 급등",
-            "at": "2026-09-28T09:31:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "\"美 태양광 가격 더 오른다\"…한화솔루션·OCI홀딩스 동반 강세",
-            "at": "2026-09-28T09:31:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "[특징주] “美 태양광 가격 급등 수혜” 평가에 …한화솔루션 12% 급등",
-            "at": "2026-09-28T09:28:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "美 태양광 가격 20% 고공질주…한화솔루션·OCI '볕든다'",
-            "at": "2026-09-28T08:26:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "[ET특징주]한화솔루션, 美 태양광 모듈 가격 상승에 오름세",
-            "at": "2026-09-28T13:24:00+09:00",
-            "source": "news"
+            "title": "한화솔루션(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-29T15:51:32+09:00",
+            "source": "notice"
           }
         ],
         "after_signal_items": [],
@@ -1193,8 +1157,8 @@
         "reason": "美 태양광 모듈값 40% 껑충…한화·OCI 실적 ‘훈풍’",
         "positive_titles": [
           "美 태양광 모듈값 40% 껑충…한화·OCI 실적 ‘훈풍’",
-          "美태양광 가격 상승에 수혜 기대감↑…한화솔루션 11% 급등",
-          "연초 대비 20% 올랐는데 \"가격 더 오른다\"…증권가 '픽' 태양광 수혜 ..."
+          "연초 대비 20% 올랐는데 \"가격 더 오른다\"…증권가 '픽' 태양광 수혜 ...",
+          "美태양광 가격 상승에 수혜 기대감↑…한화솔루션 11% 급등"
         ],
         "titles": [
           "파생상품시장",
@@ -1650,19 +1614,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.8,
+          "hours": 4.7,
           "at": "2026-09-28T17:48:00+09:00",
           "title": "美 태양광 모듈값 40% 껑충…한화·OCI 실적 ‘훈풍’",
           "source": "news",
-          "reason": "재료 발표 후 2.8시간이 지났습니다."
+          "reason": "재료 발표 후 4.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1673,11 +1637,6 @@
           {
             "title": "미국 태양광 가격 상승에 한화솔루션·OCI홀딩스 급등",
             "at": "2026-09-28T14:02:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "美태양광 가격 상승에 수혜 기대감↑…한화솔루션 11% 급등",
-            "at": "2026-09-28T10:30:00+09:00",
             "source": "news"
           },
           {
@@ -1693,6 +1652,11 @@
           {
             "title": "\"美 태양광 가격 더 오른다\"…한화솔루션·OCI홀딩스 동반 강세",
             "at": "2026-09-28T09:31:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "美태양광 가격 상승에 수혜 기대감↑…한화솔루션 11% 급등",
+            "at": "2026-09-28T10:30:00+09:00",
             "source": "news"
           },
           {
@@ -2193,19 +2157,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.6,
+          "hours": 6.5,
           "at": "2026-09-28T16:01:00+09:00",
           "title": "1.18GW 규모 '3차 ESS 수주전' 본격화…28일부터 사업자 등록",
           "source": "news",
-          "reason": "재료 발표 후 4.6시간이 지났습니다."
+          "reason": "재료 발표 후 6.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2713,19 +2677,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 6.7,
+          "hours": 8.6,
           "at": "2026-09-28T13:56:00+09:00",
           "title": "한국비엔씨 \"삼중작용 비만치료제 후보물질, 동물시험서 최대 30% 체중...",
           "source": "news",
-          "reason": "재료 발표 후 6.7시간이 지났습니다."
+          "reason": "재료 발표 후 8.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3230,11 +3194,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3728,19 +3692,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.3,
+          "hours": 3.2,
           "at": "2026-09-28T19:18:00+09:00",
           "title": "[PE는 지금]사모펀드, 설비투자에 인색하다고?…조단위 투자도 많다",
           "source": "news",
-          "reason": "재료 발표 후 1.3시간이 지났습니다."
+          "reason": "재료 발표 후 3.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3783,8 +3747,7 @@
         "grade": "S",
         "reason": "고령화 사회(노인복지) 관련주 26/35 상승",
         "positive_titles": [
-          "[PE는 지금]사모펀드, 설비투자에 인색하다고?…조단위 투자도 많다",
-          "삼성전기, 세종에 4.3조 투자…AI서버용 기판 수요 대응"
+          "[PE는 지금]사모펀드, 설비투자에 인색하다고?…조단위 투자도 많다"
         ],
         "titles": [
           "권리락/배당락",
@@ -4245,29 +4208,24 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.3,
+          "hours": 3.2,
           "at": "2026-09-28T19:18:00+09:00",
           "title": "[PE는 지금]사모펀드, 설비투자에 인색하다고?…조단위 투자도 많다",
           "source": "news",
-          "reason": "재료 발표 후 1.3시간이 지났습니다."
+          "reason": "재료 발표 후 3.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
             "title": "[PE는 지금]사모펀드, 설비투자에 인색하다고?…조단위 투자도 많다",
             "at": "2026-09-28T19:18:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "삼성전기, 세종에 4.3조 투자…AI서버용 기판 수요 대응",
-            "at": "2026-09-28T18:40:00+09:00",
             "source": "news"
           }
         ],
@@ -4765,19 +4723,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 172.8,
+          "hours": 174.7,
           "at": "2026-09-21T15:50:35+09:00",
           "title": "(주)대우건설 단일판매ㆍ공급계약체결",
           "source": "notice",
-          "reason": "재료 발표 후 172.8시간이 지났습니다."
+          "reason": "재료 발표 후 174.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5317,19 +5275,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.1,
+          "hours": 6.0,
           "at": "2026-09-28T16:30:00+09:00",
           "title": "美 국채 금리 발작에 '7000피' 반납…삼전닉스 '3분기 실적 호재' 효과...",
           "source": "news",
-          "reason": "재료 발표 후 4.1시간이 지났습니다."
+          "reason": "재료 발표 후 6.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5838,19 +5796,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 294.4,
+          "hours": 296.3,
           "at": "2026-09-16T14:12:00+09:00",
           "title": "인벤테라, '국내 유일' 근골격 조영제 독점 노린다 \"극심한 저평가\"",
           "source": "news",
-          "reason": "재료 발표 후 294.4시간이 지났습니다."
+          "reason": "재료 발표 후 296.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6356,11 +6314,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6850,19 +6808,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 3.1,
+          "hours": 4.9,
           "at": "2026-09-28T17:34:00+09:00",
           "title": "[단독] 삼성전기, AI 기판에 6.8조 '사상 최대 투자'",
           "source": "news",
-          "reason": "재료 발표 후 3.1시간이 지났습니다."
+          "reason": "재료 발표 후 4.9시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7368,19 +7326,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1156.8,
+          "hours": 1158.7,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 1156.8시간이 지났습니다."
+          "reason": "재료 발표 후 1158.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7880,11 +7838,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7917,14 +7875,14 @@
         "reason": "관련주 확산 또는 강한 직접 재료를 확인하지 못함",
         "positive_titles": [],
         "titles": [
+          "“30조 배당 잔치도 소용없네” 배당 막차 탔다가 5% 폭락…삼성전자...",
           "삼전 배당 막차 D-Day…오후 8시까지 보유해야 '30조' 배당금 받는다",
           "\"삼전 30조원 역대급 배당, 오늘이 막차?\" 계산 바빠진 개미들",
           "\"460만원 배당 받으려다 마이너스?\"…삼성전자, 오늘 사면 얼마 남나",
           "또 무너진 ‘칠천피’…외국인이 ‘삼전닉스’ 3조 폭풍 매도하자 5% ...",
           "삼성전자·SK하이닉스 5%대 하락… HLB는 상한가",
           "[서울데이터랩]개장 직후 인기 검색 종목 20選",
-          "코스피 2.70% 급락 6889… 외국인·기관 4조원 넘게 팔았다",
-          "“배당 더 늘어날 종목 담았다”…두 달 만에 600억 몰린 ETF"
+          "코스피 2.70% 급락 6889… 외국인·기관 4조원 넘게 팔았다"
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -8375,21 +8333,26 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.8,
-          "at": "2026-09-28T17:49:00+09:00",
-          "title": "삼전 배당 막차 D-Day…오후 8시까지 보유해야 '30조' 배당금 받는다",
+          "hours": 0.8,
+          "at": "2026-09-28T21:40:00+09:00",
+          "title": "“30조 배당 잔치도 소용없네” 배당 막차 탔다가 5% 폭락…삼성전자...",
           "source": "news",
-          "reason": "재료 발표 후 2.8시간이 지났습니다."
+          "reason": "재료 발표 후 0.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
+          {
+            "title": "“30조 배당 잔치도 소용없네” 배당 막차 탔다가 5% 폭락…삼성전자...",
+            "at": "2026-09-28T21:40:00+09:00",
+            "source": "news"
+          },
           {
             "title": "삼전 배당 막차 D-Day…오후 8시까지 보유해야 '30조' 배당금 받는다",
             "at": "2026-09-28T17:49:00+09:00",
@@ -8423,11 +8386,6 @@
           {
             "title": "코스피 2.70% 급락 6889… 외국인·기관 4조원 넘게 팔았다",
             "at": "2026-09-28T16:38:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "“배당 더 늘어날 종목 담았다”…두 달 만에 600억 몰린 ETF",
-            "at": "2026-09-28T16:37:00+09:00",
             "source": "news"
           }
         ],
@@ -8911,11 +8869,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9403,11 +9361,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9906,11 +9864,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10427,11 +10385,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10921,11 +10879,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11437,11 +11395,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11940,11 +11898,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12434,11 +12392,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12928,11 +12886,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-28T20:38:24.538911+09:00",
+      "updated_at": "2026-09-28T22:30:50.785854+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-28T20:38:24.538911+09:00",
+        "enriched_at": "2026-09-28T22:30:50.785854+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12949,13 +12907,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-22T19:17:12.476276+09:00",
-    "last": "2026-09-28T20:38:24.538911+09:00"
+    "first": "2026-09-23T18:30:16.767906+09:00",
+    "last": "2026-09-28T22:30:50.785854+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-28T20:38:24.538911+09:00",
+    "source_at": "2026-09-28T22:30:50.785854+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
