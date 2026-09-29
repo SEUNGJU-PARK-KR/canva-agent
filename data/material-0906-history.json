@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-09-29T14:24:37.655211+09:00",
+  "generated_at": "2026-09-29T20:36:20.055613+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -5574,6 +5574,183 @@
           "total": 35,
           "breadth": 0.7714285714285715,
           "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "date": "2026-09-29",
+      "stage": "14:53",
+      "at": "2026-09-29T20:36:20.055613+09:00",
+      "source_at": "2026-09-29T20:32:30.759205+09:00",
+      "themes": {
+        "269": {
+          "name": "LED장비",
+          "code": "269",
+          "rising": 9,
+          "total": 11,
+          "breadth": 0.8181818181818182,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "155": {
+          "name": "반도체 대표주(생산)",
+          "code": "155",
+          "rising": 3,
+          "total": 3,
+          "breadth": 1.0,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "405": {
+          "name": "MLCC(적층세라믹콘덴서)",
+          "code": "405",
+          "rising": 7,
+          "total": 10,
+          "breadth": 0.7,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "311": {
+          "name": "고령화 사회(노인복지)",
+          "code": "311",
+          "rising": 15,
+          "total": 35,
+          "breadth": 0.42857142857142855,
+          "leader_rank": 2,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "545": {
+          "name": "온디바이스 AI",
+          "code": "545",
+          "rising": 20,
+          "total": 24,
+          "breadth": 0.8333333333333334,
+          "leader_rank": 4,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "536": {
+          "name": "HBM(고대역폭메모리)",
+          "code": "536",
+          "rising": 31,
+          "total": 35,
+          "breadth": 0.8857142857142857,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "608": {
+          "name": "반도체 기판(FC-BGA/PCB/MLB 등)",
+          "code": "608",
+          "rising": 12,
+          "total": 14,
+          "breadth": 0.8571428571428571,
+          "leader_rank": 1,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "587": {
+          "name": "피지컬 AI/휴머노이드 로봇",
+          "code": "587",
+          "rising": 18,
+          "total": 46,
+          "breadth": 0.391304347826087,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "557": {
+          "name": "유리 기판",
+          "code": "557",
+          "rising": 17,
+          "total": 20,
+          "breadth": 0.85,
+          "leader_rank": 3,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "307": {
+          "name": "시스템반도체",
+          "code": "307",
+          "rising": 42,
+          "total": 59,
+          "breadth": 0.711864406779661,
+          "leader_rank": 5,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "599": {
+          "name": "소캠(SOCAMM)",
+          "code": "599",
+          "rising": 10,
+          "total": 11,
+          "breadth": 0.9090909090909091,
+          "leader_rank": 4,
+          "follower_strong_count": null,
+          "follower_turnover": null,
+          "follower_turnover_ratio": null,
+          "observed_breadth": true,
+          "observed_leadership": true,
+          "observed_followers": false
+        },
+        "332": {
+          "name": "스마트카(SMART CAR)",
+          "code": "332",
+          "rising": 7,
+          "total": 12,
+          "breadth": 0.5833333333333334,
+          "leader_rank": 4,
           "follower_strong_count": null,
           "follower_turnover": null,
           "follower_turnover_ratio": null,
@@ -256296,12 +256473,6 @@
   ],
   "events": [
     {
-      "at": "2026-09-03T20:06:02.199913+09:00",
-      "stage": "15:10",
-      "status": "SNAPSHOT_CAPTURED",
-      "detail": "후보 24개, 테마 9개, 오류 0건"
-    },
-    {
       "at": "2026-09-03T20:06:25.710552+09:00",
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
@@ -257014,12 +257185,18 @@
       "stage": "bootstrap",
       "status": "BOOTSTRAP",
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
+    },
+    {
+      "at": "2026-09-29T20:36:20.055613+09:00",
+      "stage": "14:53",
+      "status": "SNAPSHOT_CAPTURED",
+      "detail": "후보 24개, 테마 12개, 오류 0건"
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-09-29T14:24:37.655211+09:00",
+    "generated_at": "2026-09-29T20:36:20.055613+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
