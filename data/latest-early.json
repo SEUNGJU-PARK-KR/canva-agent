@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-09-29T20:19:31.268246+09:00",
+  "generated_at": "2026-09-29T21:32:58.071895+09:00",
   "market_date": "2026-09-29",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1101,19 +1101,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.6,
+          "hours": 3.8,
           "at": "2026-09-29T17:43:00+09:00",
           "title": "증시 주인공 된 자산운용사…주가 최대 변수됐다",
           "source": "news",
-          "reason": "재료 발표 후 2.6시간이 지났습니다."
+          "reason": "재료 발표 후 3.8시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1151,9 +1151,9 @@
         "grade": "A",
         "reason": "반도체 대표주(생산) 관련주 3/3 상승",
         "positive_titles": [
-          "삼성, 美헬릭스에 10억달러 투자… AI 데이터센터 사업 확장 승부수",
-          "삼성, KKR 손잡고…AI 인프라 기업 헬릭스에 1.4조 투자",
-          "'한미 협력' 젠슨 황 시상식 달려간 이재용·최태원…'깐부 동맹' 계속..."
+          "코스피, 美국채금리 급등에 약세…마이크론 실적 주목",
+          "李대통령 \"'광주 군공항 2028년 임시이전' 늦어…최대한 당겨야\"(종합...",
+          "李대통령 \"'광주 군공항 2028년 임시이전' 늦어…최대한 당겨야\""
         ],
         "titles": [
           "권리락/배당락",
@@ -1616,35 +1616,45 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.3,
-          "at": "2026-09-29T20:02:00+09:00",
-          "title": "삼성, 美헬릭스에 10억달러 투자… AI 데이터센터 사업 확장 승부수",
+          "hours": 0.6,
+          "at": "2026-09-29T20:58:00+09:00",
+          "title": "코스피, 美국채금리 급등에 약세…마이크론 실적 주목",
           "source": "news",
-          "reason": "재료 발표 후 0.3시간이 지났습니다."
+          "reason": "재료 발표 후 0.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "'한미 협력' 젠슨 황 시상식 달려간 이재용·최태원…'깐부 동맹' 계속...",
-            "at": "2026-09-29T20:01:00+09:00",
+            "title": "코스피, 美국채금리 급등에 약세…마이크론 실적 주목",
+            "at": "2026-09-29T20:58:00+09:00",
             "source": "news"
           },
           {
-            "title": "삼성, 美헬릭스에 10억달러 투자… AI 데이터센터 사업 확장 승부수",
-            "at": "2026-09-29T20:02:00+09:00",
+            "title": "李대통령 \"'광주 군공항 2028년 임시이전' 늦어…최대한 당겨야\"(종합...",
+            "at": "2026-09-29T20:22:00+09:00",
             "source": "news"
           },
           {
-            "title": "삼성, KKR 손잡고…AI 인프라 기업 헬릭스에 1.4조 투자",
-            "at": "2026-09-29T17:46:00+09:00",
+            "title": "李대통령 \"'광주 군공항 2028년 임시이전' 늦어…최대한 당겨야\"",
+            "at": "2026-09-29T18:33:00+09:00",
             "source": "news"
+          },
+          {
+            "title": "삼성전자(주) (정정)연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-30T15:50:28+09:00",
+            "source": "notice"
+          },
+          {
+            "title": "삼성전자(주) 연결재무제표기준영업(잠정)실적(공정공시)",
+            "at": "2026-07-30T15:50:12+09:00",
+            "source": "notice"
           }
         ],
         "after_signal_items": [],
@@ -2133,19 +2143,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1276.5,
+          "hours": 1277.7,
           "at": "2026-08-07T15:51:56+09:00",
           "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
           "source": "notice",
-          "reason": "재료 발표 후 1276.5시간이 지났습니다."
+          "reason": "재료 발표 후 1277.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2647,11 +2657,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -2690,9 +2700,7 @@
         "grade": "A",
         "reason": "반도체 대표주(생산) 관련주 3/3 상승",
         "positive_titles": [
-          "[기업] SK 하이닉스, 협력사 R&D 비용 최대 50% 선제 지원",
-          "SK 하이닉스, 협력사 R&D 비용 최대 50% 선제 지원",
-          "SK하이닉스, 협력사 R&D 초기 비용 최대 50% 지원"
+          "코스피, 美국채금리 급등에 약세…마이크론 실적 주목"
         ],
         "titles": [
           "조회공시답변",
@@ -3150,34 +3158,24 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.0,
-          "at": "2026-09-29T18:18:00+09:00",
-          "title": "[기업] SK 하이닉스, 협력사 R&D 비용 최대 50% 선제 지원",
+          "hours": 0.6,
+          "at": "2026-09-29T20:58:00+09:00",
+          "title": "코스피, 美국채금리 급등에 약세…마이크론 실적 주목",
           "source": "news",
-          "reason": "재료 발표 후 2.0시간이 지났습니다."
+          "reason": "재료 발표 후 0.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "[기업] SK 하이닉스, 협력사 R&D 비용 최대 50% 선제 지원",
-            "at": "2026-09-29T18:18:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "SK 하이닉스, 협력사 R&D 비용 최대 50% 선제 지원",
-            "at": "2026-09-29T16:45:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "SK하이닉스, 협력사 R&D 초기 비용 최대 50% 지원",
-            "at": "2026-09-29T16:21:00+09:00",
+            "title": "코스피, 美국채금리 급등에 약세…마이크론 실적 주목",
+            "at": "2026-09-29T20:58:00+09:00",
             "source": "news"
           }
         ],
@@ -3670,19 +3668,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1372.5,
+          "hours": 1373.7,
           "at": "2026-08-03T15:51:43+09:00",
           "title": "(주)현대바이오랜드 연결재무제표 기준 영업(잠정)실적(공정공시)",
           "source": "notice",
-          "reason": "재료 발표 후 1372.5시간이 지났습니다."
+          "reason": "재료 발표 후 1373.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4205,19 +4203,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 532.5,
+          "hours": 533.7,
           "at": "2026-09-07T15:51:40+09:00",
           "title": "주식회사 에이치피에스피 (정정)자기주식 처분 결정",
           "source": "notice",
-          "reason": "재료 발표 후 532.5시간이 지났습니다."
+          "reason": "재료 발표 후 533.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4231,13 +4229,7 @@
             "source": "notice"
           }
         ],
-        "after_signal_items": [
-          {
-            "title": "주식회사 에이치피에스피 주식선물 2단계 가격제한폭 확대요건 도달(상승)",
-            "at": "2026-09-29T20:42:38+09:00",
-            "source": "notice"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -4725,19 +4717,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.3,
+          "hours": 3.5,
           "at": "2026-09-29T18:01:21+09:00",
           "title": "한미반도체(주) 단일판매ㆍ공급계약 체결(자율공시)",
           "source": "notice",
-          "reason": "재료 발표 후 2.3시간이 지났습니다."
+          "reason": "재료 발표 후 3.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5238,11 +5230,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -5755,19 +5747,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.1,
+          "hours": 3.3,
           "at": "2026-09-29T18:15:00+09:00",
           "title": "자율주행 모드 켜자 숨는 운전대… 현대차·기아 '韓·美 특허'",
           "source": "news",
-          "reason": "재료 발표 후 2.1시간이 지났습니다."
+          "reason": "재료 발표 후 3.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6271,19 +6263,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1180.5,
+          "hours": 1181.7,
           "at": "2026-08-11T15:50:33+09:00",
           "title": "삼성SDI(주) 투자판단 관련 주요경영사항",
           "source": "notice",
-          "reason": "재료 발표 후 1180.5시간이 지났습니다."
+          "reason": "재료 발표 후 1181.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6785,11 +6777,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7024,7 +7016,7 @@
         "prev20_high": 19830,
         "prev60_high": 19830,
         "digest_ratio": 1.0,
-        "spread_bps": 5.3,
+        "spread_bps": 10.57,
         "sequence": {
           "available": true,
           "low_after_1430": 18730.0,
@@ -7216,10 +7208,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 5.3,
+          "value": 10.57,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 5.3bp",
+          "reason": "스프레드 10.57bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -7250,52 +7242,52 @@
       "quality_score": 76.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 5.3,
-        "buy_total": 15570.0,
-        "sell_total": 8102.0,
+        "spread_bps": 10.57,
+        "buy_total": 10919.0,
+        "sell_total": 20519.0,
         "levels": [
           {
             "level": 1,
-            "ask": 18880.0,
-            "bid": 18870.0,
-            "ask_qty": 599.0,
-            "bid_qty": 570.0
+            "ask": 18940.0,
+            "bid": 18920.0,
+            "ask_qty": 82.0,
+            "bid_qty": 29.0
           },
           {
             "level": 2,
-            "ask": 18890.0,
-            "bid": 18860.0,
-            "ask_qty": 994.0,
-            "bid_qty": 1206.0
+            "ask": 18950.0,
+            "bid": 18900.0,
+            "ask_qty": 1393.0,
+            "bid_qty": 2463.0
           },
           {
             "level": 3,
-            "ask": 18900.0,
-            "bid": 18850.0,
-            "ask_qty": 1134.0,
-            "bid_qty": 1203.0
+            "ask": 18960.0,
+            "bid": 18890.0,
+            "ask_qty": 713.0,
+            "bid_qty": 1247.0
           },
           {
             "level": 4,
-            "ask": 18910.0,
-            "bid": 18840.0,
-            "ask_qty": 516.0,
-            "bid_qty": 1018.0
+            "ask": 18970.0,
+            "bid": 18880.0,
+            "ask_qty": 1727.0,
+            "bid_qty": 351.0
           },
           {
             "level": 5,
-            "ask": 18920.0,
-            "bid": 18830.0,
-            "ask_qty": 276.0,
-            "bid_qty": 1474.0
+            "ask": 18980.0,
+            "bid": 18870.0,
+            "ask_qty": 2824.0,
+            "bid_qty": 2037.0
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7305,13 +7297,7 @@
           "reason": "재료 발표 시각을 확인하지 못했습니다."
         },
         "matched_catalyst_items": [],
-        "after_signal_items": [
-          {
-            "title": "(주)세미파이브 단일판매ㆍ공급계약체결",
-            "at": "2026-09-29T20:59:37+09:00",
-            "source": "notice"
-          }
-        ],
+        "after_signal_items": [],
         "source_errors": []
       }
     },
@@ -7799,11 +7785,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8312,11 +8298,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8814,11 +8800,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9304,19 +9290,19 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.1,
+          "hours": 3.3,
           "at": "2026-09-29T18:13:00+09:00",
           "title": "박스권 장세 속 연기금 ‘종목 선별’ 강화…반도체·車 팔고 AI인프라...",
           "source": "news",
-          "reason": "재료 발표 후 2.1시간이 지났습니다."
+          "reason": "재료 발표 후 3.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -9567,7 +9553,7 @@
         "prev20_high": 29750,
         "prev60_high": 29750,
         "digest_ratio": 1.0,
-        "spread_bps": 6.97,
+        "spread_bps": 20.7,
         "sequence": {
           "available": true,
           "low_after_1430": 14230.0,
@@ -9759,10 +9745,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 6.97,
+          "value": 20.7,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 6.97bp",
+          "reason": "스프레드 20.7bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -9795,52 +9781,52 @@
       "quality_score": 67.6,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 6.97,
-        "buy_total": 11242.0,
-        "sell_total": 5703.0,
+        "spread_bps": 20.7,
+        "buy_total": 18042.0,
+        "sell_total": 3420.0,
         "levels": [
           {
             "level": 1,
-            "ask": 14360.0,
-            "bid": 14350.0,
-            "ask_qty": 2.0,
-            "bid_qty": 44.0
+            "ask": 14510.0,
+            "bid": 14480.0,
+            "ask_qty": 911.0,
+            "bid_qty": 2.0
           },
           {
             "level": 2,
-            "ask": 14370.0,
-            "bid": 14340.0,
-            "ask_qty": 1128.0,
-            "bid_qty": 1085.0
+            "ask": 14520.0,
+            "bid": 14470.0,
+            "ask_qty": 223.0,
+            "bid_qty": 10.0
           },
           {
             "level": 3,
-            "ask": 14380.0,
-            "bid": 14330.0,
-            "ask_qty": 1068.0,
-            "bid_qty": 506.0
+            "ask": 14530.0,
+            "bid": 14460.0,
+            "ask_qty": 1.0,
+            "bid_qty": 757.0
           },
           {
             "level": 4,
-            "ask": 14390.0,
-            "bid": 14320.0,
-            "ask_qty": 1002.0,
-            "bid_qty": 617.0
+            "ask": 14540.0,
+            "bid": 14450.0,
+            "ask_qty": 298.0,
+            "bid_qty": 6286.0
           },
           {
             "level": 5,
-            "ask": 14400.0,
-            "bid": 14310.0,
-            "ask_qty": 1011.0,
-            "bid_qty": 3047.0
+            "ask": 14550.0,
+            "bid": 14440.0,
+            "ask_qty": 77.0,
+            "bid_qty": 2497.0
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10336,11 +10322,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10834,11 +10820,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11343,11 +11329,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11845,11 +11831,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12350,11 +12336,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12857,11 +12843,11 @@
           }
         ]
       },
-      "updated_at": "2026-09-29T20:19:31.268246+09:00",
+      "updated_at": "2026-09-29T21:32:58.071895+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-09-29T20:19:31.268246+09:00",
+        "enriched_at": "2026-09-29T21:32:58.071895+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12878,13 +12864,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-23T19:15:30.097034+09:00",
-    "last": "2026-09-29T20:19:31.268246+09:00"
+    "first": "2026-09-24T18:29:20.753439+09:00",
+    "last": "2026-09-29T21:32:58.071895+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-09-29T20:19:31.268246+09:00",
+    "source_at": "2026-09-29T21:32:58.071895+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
