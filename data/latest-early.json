@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-10-01T20:34:07.387346+09:00",
+  "generated_at": "2026-10-01T21:53:30.636210+09:00",
   "market_date": "2026-10-01",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1102,19 +1102,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.3,
+          "hours": 5.6,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 4.3시간이 지났습니다."
+          "reason": "재료 발표 후 5.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1619,19 +1619,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1372.7,
+          "hours": 1374.0,
           "at": "2026-08-05T15:52:27+09:00",
           "title": "삼천당제약(주) (정정)투자판단 관련 주요경영사항(임상시험 계획 승인 등 결정)(제1형 당뇨병 환자를 대상으로 정상혈당 클램프 조건 및 식이 섭취 후, 경구용 인슐린 SCD0503과 피하 투여 인슐린 간의 상대적 생체이용률, 상대적 생물학적 효력 및 음식 영향 평가를 위한 임상시험)",
           "source": "notice",
-          "reason": "재료 발표 후 1372.7시간이 지났습니다."
+          "reason": "재료 발표 후 1374.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1676,11 +1676,11 @@
       "theme": null,
       "catalyst": {
         "grade": "A",
-        "reason": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
+        "reason": "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등",
         "positive_titles": [
-          "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
-          "‘반도체 풍향계’ 마이크론, 역대 최대 분기 실적…AI 수요 급증 덕",
-          "‘AI 메모리 훈풍’에 사상 최대 실적 낸 마이크론"
+          "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등",
+          "[데일리안 오늘뉴스 종합] 국민의힘, 美 '알래스카 LNG 투자' 일방 발...",
+          "1년 2개월 만에 타결된 대미투자‥'터프한 협상가' 김정관 장관에게 ..."
         ],
         "titles": [
           "권리락/배당락",
@@ -1977,7 +1977,7 @@
           "value": "A",
           "threshold": "S 또는 A",
           "status": "PASS",
-          "reason": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
+          "reason": "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등",
           "data_source": "Naver theme/news/notice"
         },
         {
@@ -2143,45 +2143,35 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.2,
-          "at": "2026-10-01T20:21:00+09:00",
-          "title": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
+          "hours": 0.9,
+          "at": "2026-10-01T21:01:00+09:00",
+          "title": "[데일리안 오늘뉴스 종합] 국민의힘, 美 '알래스카 LNG 투자' 일방 발...",
           "source": "news",
-          "reason": "재료 발표 후 0.2시간이 지났습니다."
+          "reason": "재료 발표 후 0.9시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
-            "at": "2026-10-01T20:21:00+09:00",
+            "title": "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등",
+            "at": "2026-10-01T19:15:00+09:00",
             "source": "news"
           },
           {
-            "title": "‘반도체 풍향계’ 마이크론, 역대 최대 분기 실적…AI 수요 급증 덕",
-            "at": "2026-10-01T20:00:00+09:00",
+            "title": "[데일리안 오늘뉴스 종합] 국민의힘, 美 '알래스카 LNG 투자' 일방 발...",
+            "at": "2026-10-01T21:01:00+09:00",
             "source": "news"
           },
           {
-            "title": "‘AI 메모리 훈풍’에 사상 최대 실적 낸 마이크론",
-            "at": "2026-10-01T17:37:00+09:00",
+            "title": "1년 2개월 만에 타결된 대미투자‥'터프한 협상가' 김정관 장관에게 ...",
+            "at": "2026-10-01T20:42:00+09:00",
             "source": "news"
-          },
-          {
-            "title": "삼성전자(주) (정정)연결재무제표기준영업(잠정)실적(공정공시)",
-            "at": "2026-07-30T15:50:28+09:00",
-            "source": "notice"
-          },
-          {
-            "title": "삼성전자(주) 연결재무제표기준영업(잠정)실적(공정공시)",
-            "at": "2026-07-30T15:50:12+09:00",
-            "source": "notice"
           }
         ],
         "after_signal_items": [],
@@ -2670,19 +2660,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1324.7,
+          "hours": 1326.0,
           "at": "2026-08-07T15:51:56+09:00",
           "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
           "source": "notice",
-          "reason": "재료 발표 후 1324.7시간이 지났습니다."
+          "reason": "재료 발표 후 1326.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3186,19 +3176,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.3,
+          "hours": 5.6,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 4.3시간이 지났습니다."
+          "reason": "재료 발표 후 5.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3240,8 +3230,8 @@
           "[속보]코스피 2% 가까이 올라 6970선 마감…코스닥은 4.5% 상승",
           "코스피, 장중 하락 딛고 1.95% 상승…7000선 바짝[fn마감시황]",
           "외인·기관 9000억 쓸어 담았다…코스닥 4.5% 급등해 900선 눈앞",
-          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
-          "美 금리 진정·반도체 수출에 '칠천피' 코앞…코스닥 3%대 강세[장중시..."
+          "반도체가 끌어올렸다…코스피 6970선 상승 마감 [시황]",
+          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시..."
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -3692,19 +3682,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.3,
+          "hours": 5.6,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 4.3시간이 지났습니다."
+          "reason": "재료 발표 후 5.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4210,19 +4200,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.4,
+          "hours": 5.7,
           "at": "2026-10-01T16:09:00+09:00",
           "title": "반도체 수출·마이크론 호실적에 코스피 7000선 눈앞…코스닥 4%대 급...",
           "source": "news",
-          "reason": "재료 발표 후 4.4시간이 지났습니다."
+          "reason": "재료 발표 후 5.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4726,19 +4716,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.4,
+          "hours": 3.7,
           "at": "2026-10-01T18:12:24+09:00",
           "title": "(주)디아이 단일판매ㆍ공급계약 체결(자율공시)",
           "source": "notice",
-          "reason": "재료 발표 후 2.4시간이 지났습니다."
+          "reason": "재료 발표 후 3.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5264,19 +5254,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.3,
+          "hours": 5.6,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 4.3시간이 지났습니다."
+          "reason": "재료 발표 후 5.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5781,19 +5771,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 6.0,
+          "hours": 7.3,
           "at": "2026-10-01T14:36:00+09:00",
           "title": "HT로보틱스, 산업부 '2026 월드클래스 플러스' 선정… 최대 50억원 R&D ...",
           "source": "news",
-          "reason": "재료 발표 후 6.0시간이 지났습니다."
+          "reason": "재료 발표 후 7.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6298,11 +6288,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6792,11 +6782,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7288,11 +7278,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7786,11 +7776,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8281,11 +8271,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8785,11 +8775,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9282,11 +9272,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9790,11 +9780,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10286,11 +10276,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10793,11 +10783,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11292,11 +11282,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11791,11 +11781,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12284,11 +12274,11 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12784,19 +12774,19 @@
           }
         ]
       },
-      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "updated_at": "2026-10-01T21:53:30.636210+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "enriched_at": "2026-10-01T21:53:30.636210+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.1,
+          "hours": 3.5,
           "at": "2026-10-01T18:26:00+09:00",
           "title": "대미투자 수혜…제강·원전주 들썩",
           "source": "news",
-          "reason": "재료 발표 후 2.1시간이 지났습니다."
+          "reason": "재료 발표 후 3.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -12822,13 +12812,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-25T19:08:54.404456+09:00",
-    "last": "2026-10-01T20:34:07.387346+09:00"
+    "first": "2026-09-25T20:35:19.480633+09:00",
+    "last": "2026-10-01T21:53:30.636210+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-10-01T20:34:07.387346+09:00",
+    "source_at": "2026-10-01T21:53:30.636210+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
