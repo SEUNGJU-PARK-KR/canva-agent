@@ -1,12 +1,12 @@
 {
   "version": "largo-winrate-v4.1",
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-10-01T20:12:35.444588+09:00",
-  "source_at": "2026-10-01T20:08:53.839778+09:00",
+  "generated_at": "2026-10-01T20:37:48.088371+09:00",
+  "source_at": "2026-10-01T20:34:07.387346+09:00",
   "phase": {
     "id": "FINAL_CLOSE",
     "title": "종가 확정 검증",
-    "label": "2026-10-01 20:08 · 종가 확정 검증",
+    "label": "2026-10-01 20:34 · 종가 확정 검증",
     "action": "신규 진입이 아니라 결과를 기록합니다."
   },
   "counts": {
@@ -31,11 +31,11 @@
       "quality": 88.2,
       "catalyst": {
         "grade": "A",
-        "reason": "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
+        "reason": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
         "positive_titles": [
-          "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
-          "삼성중 협력업체 대표들 “구조적 손실 해결” 시위",
-          "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등"
+          "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
+          "‘반도체 풍향계’ 마이크론, 역대 최대 분기 실적…AI 수요 급증 덕",
+          "‘AI 메모리 훈풍’에 사상 최대 실적 낸 마이크론"
         ],
         "titles": [
           "권리락/배당락",
@@ -50,11 +50,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.1,
-        "at": "2026-10-01T20:00:00+09:00",
-        "title": "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
+        "hours": 0.2,
+        "at": "2026-10-01T20:21:00+09:00",
+        "title": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
         "source": "news",
-        "reason": "재료 발표 후 0.1시간이 지났습니다."
+        "reason": "재료 발표 후 0.2시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -205,12 +205,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -266,7 +266,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -354,7 +354,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -421,7 +421,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -569,11 +569,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 1324.3,
+        "hours": 1324.7,
         "at": "2026-08-07T15:51:56+09:00",
         "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
         "source": "notice",
-        "reason": "재료 발표 후 1324.3시간이 지났습니다."
+        "reason": "재료 발표 후 1324.7시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -724,12 +724,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -785,7 +785,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -853,7 +853,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -920,7 +920,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -1063,17 +1063,17 @@
           "[속보]코스피 2% 가까이 올라 6970선 마감…코스닥은 4.5% 상승",
           "코스피, 장중 하락 딛고 1.95% 상승…7000선 바짝[fn마감시황]",
           "외인·기관 9000억 쓸어 담았다…코스닥 4.5% 급등해 900선 눈앞",
-          "반도체가 끌어올렸다…코스피 6970선 상승 마감 [시황]",
-          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시..."
+          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
+          "美 금리 진정·반도체 수출에 '칠천피' 코앞…코스닥 3%대 강세[장중시..."
         ]
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 3.8,
+        "hours": 4.3,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 3.8시간이 지났습니다."
+        "reason": "재료 발표 후 4.3시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -1224,12 +1224,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -1285,7 +1285,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -1373,7 +1373,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -1440,7 +1440,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -1570,7 +1570,7 @@
       "quality": 67.6,
       "catalyst": {
         "grade": "A",
-        "reason": "2026 하반기 신규상장 관련주 8/20 상승",
+        "reason": "2026 하반기 신규상장 관련주 10/20 상승",
         "positive_titles": [],
         "titles": []
       },
@@ -1594,7 +1594,7 @@
         "volume_ratio": 0.0,
         "change_rate": -7.62,
         "trade_value": 275716400000.0,
-        "theme_breadth": 0.4
+        "theme_breadth": 0.5
       },
       "risk": {
         "status": "PASS",
@@ -1730,12 +1730,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -1786,12 +1786,12 @@
         {
           "name": "살아 있는 재료",
           "pass": false,
-          "detail": "신선도 UNKNOWN · 테마 확산 40%"
+          "detail": "신선도 UNKNOWN · 테마 확산 50%"
         },
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "주도주 3위 이내",
@@ -1854,12 +1854,12 @@
           {
             "name": "살아 있는 재료",
             "pass": false,
-            "detail": "신선도 UNKNOWN · 테마 확산 40%"
+            "detail": "신선도 UNKNOWN · 테마 확산 50%"
           },
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -1921,17 +1921,17 @@
           {
             "name": "살아 있는 재료",
             "pass": false,
-            "detail": "신선도 UNKNOWN · 테마 확산 40%"
+            "detail": "신선도 UNKNOWN · 테마 확산 50%"
           },
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
             "pass": false,
-            "detail": "상승 비율 40%"
+            "detail": "상승 비율 50%"
           },
           {
             "name": "현재 2위 이내",
@@ -2074,11 +2074,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 3.8,
+        "hours": 4.3,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 3.8시간이 지났습니다."
+        "reason": "재료 발표 후 4.3시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -2229,12 +2229,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -2290,7 +2290,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -2378,7 +2378,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -2445,7 +2445,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -2594,11 +2594,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 4.0,
+        "hours": 4.4,
         "at": "2026-10-01T16:09:00+09:00",
         "title": "반도체 수출·마이크론 호실적에 코스피 7000선 눈앞…코스닥 4%대 급...",
         "source": "news",
-        "reason": "재료 발표 후 4.0시간이 지났습니다."
+        "reason": "재료 발표 후 4.4시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -2749,12 +2749,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -2810,7 +2810,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -2898,7 +2898,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -2965,7 +2965,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -3113,11 +3113,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 3.8,
+        "hours": 4.3,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 3.8시간이 지났습니다."
+        "reason": "재료 발표 후 4.3시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -3268,12 +3268,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -3329,7 +3329,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -3417,7 +3417,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -3484,7 +3484,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -3614,7 +3614,7 @@
       "quality": 88.2,
       "catalyst": {
         "grade": "S",
-        "reason": "바이오시밀러(복제 바이오의약품) 관련주 20/21 상승",
+        "reason": "바이오시밀러(복제 바이오의약품) 관련주 21/21 상승",
         "positive_titles": [
           "삼천당제약(주) (정정)투자판단 관련 주요경영사항(황반변성치료제(아일리아/주성분 : Aflibercept) 바이오시밀러 SCD411(Vial&PFS)의 캐나다 독점판매권 공급계약 체결 및 중동 6개 국가 추가 계약 체결)",
           "삼천당제약(주) (정정)투자판단 관련 주요경영사항(임상시험 계획 승인 등 결정)(제1형 당뇨병 환자를 대상으로 정상혈당 클램프 조건 및 식이 섭취 후, 경구용 인슐린 SCD0503과 피하 투여 인슐린 간의 상대적 생체이용률, 상대적 생물학적 효력 및 음식 영향 평가를 위한 임상시험)",
@@ -3633,11 +3633,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 1372.3,
+        "hours": 1372.7,
         "at": "2026-08-05T15:52:27+09:00",
         "title": "삼천당제약(주) (정정)투자판단 관련 주요경영사항(임상시험 계획 승인 등 결정)(제1형 당뇨병 환자를 대상으로 정상혈당 클램프 조건 및 식이 섭취 후, 경구용 인슐린 SCD0503과 피하 투여 인슐린 간의 상대적 생체이용률, 상대적 생물학적 효력 및 음식 영향 평가를 위한 임상시험)",
         "source": "notice",
-        "reason": "재료 발표 후 1372.3시간이 지났습니다."
+        "reason": "재료 발표 후 1372.7시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -3652,7 +3652,7 @@
         "volume_ratio": 0.0,
         "change_rate": 15.39,
         "trade_value": 91291388000.0,
-        "theme_breadth": 0.9523809523809523
+        "theme_breadth": 1.0
       },
       "risk": {
         "status": "FAIL",
@@ -3788,12 +3788,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -3844,17 +3844,17 @@
         {
           "name": "살아 있는 재료",
           "pass": true,
-          "detail": "신선도 STALE · 테마 확산 95%"
+          "detail": "신선도 STALE · 테마 확산 100%"
         },
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
           "pass": true,
-          "detail": "상승 비율 95%"
+          "detail": "상승 비율 100%"
         },
         {
           "name": "현재 2위 이내",
@@ -3932,12 +3932,12 @@
           {
             "name": "살아 있는 재료",
             "pass": true,
-            "detail": "신선도 STALE · 테마 확산 95%"
+            "detail": "신선도 STALE · 테마 확산 100%"
           },
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -3999,17 +3999,17 @@
           {
             "name": "살아 있는 재료",
             "pass": true,
-            "detail": "신선도 STALE · 테마 확산 95%"
+            "detail": "신선도 STALE · 테마 확산 100%"
           },
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
             "pass": true,
-            "detail": "상승 비율 95%"
+            "detail": "상승 비율 100%"
           },
           {
             "name": "현재 2위 이내",
@@ -4153,11 +4153,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 1.9,
+        "hours": 2.4,
         "at": "2026-10-01T18:12:24+09:00",
         "title": "(주)디아이 단일판매ㆍ공급계약 체결(자율공시)",
         "source": "notice",
-        "reason": "재료 발표 후 1.9시간이 지났습니다."
+        "reason": "재료 발표 후 2.4시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -4308,12 +4308,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -4369,7 +4369,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -4457,7 +4457,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -4524,7 +4524,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -4671,11 +4671,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 3.8,
+        "hours": 4.3,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 3.8시간이 지났습니다."
+        "reason": "재료 발표 후 4.3시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -4826,12 +4826,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -4887,7 +4887,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -4975,7 +4975,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -5042,7 +5042,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -5345,12 +5345,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -5406,7 +5406,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -5494,7 +5494,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -5561,7 +5561,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -5864,12 +5864,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -5925,7 +5925,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -6013,7 +6013,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -6080,7 +6080,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -6229,11 +6229,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 1.7,
+        "hours": 2.1,
         "at": "2026-10-01T18:26:00+09:00",
         "title": "대미투자 수혜…제강·원전주 들썩",
         "source": "news",
-        "reason": "재료 발표 후 1.7시간이 지났습니다."
+        "reason": "재료 발표 후 2.1시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -6393,12 +6393,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -6454,7 +6454,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -6542,7 +6542,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -6609,7 +6609,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -6910,12 +6910,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -6971,7 +6971,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -7059,7 +7059,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -7126,7 +7126,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -7429,12 +7429,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -7490,7 +7490,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -7578,7 +7578,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -7645,7 +7645,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -7957,12 +7957,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -8018,7 +8018,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -8106,7 +8106,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -8173,7 +8173,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -8322,11 +8322,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 5.5,
+        "hours": 6.0,
         "at": "2026-10-01T14:36:00+09:00",
         "title": "HT로보틱스, 산업부 '2026 월드클래스 플러스' 선정… 최대 50억원 R&D ...",
         "source": "news",
-        "reason": "재료 발표 후 5.5시간이 지났습니다."
+        "reason": "재료 발표 후 6.0시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -8477,12 +8477,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -8538,7 +8538,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -8626,7 +8626,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -8693,7 +8693,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -8798,6 +8798,533 @@
           "reclaim_trigger": 6080.0,
           "target1": 6140.8,
           "target2": 6201.6,
+          "target1_size": 0.5,
+          "target2_size": 0.3,
+          "runner_size": 0.2,
+          "no_chase_gap_pct": 3.0,
+          "confirm_times": [
+            "09:05",
+            "09:15"
+          ],
+          "rule": "다음 날 갭이 3% 이상이면 추격하지 않고, 전일 종가 회복과 09:05·09:15 유지 확인 뒤 검토"
+        }
+      }
+    },
+    {
+      "version": "largo-winrate-v4.1",
+      "code": "456160",
+      "name": "지투지바이오",
+      "lane": "EXCLUDE",
+      "close_variant": null,
+      "price": 42800.0,
+      "change_rate": 21.07,
+      "trade_value": 27649473000.0,
+      "market_cap": 711739000000.0,
+      "quality": 73.5,
+      "catalyst": {
+        "grade": "REJECT",
+        "reason": "투자주의종목",
+        "positive_titles": [
+          "투자주의종목",
+          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
+        ],
+        "titles": [
+          "주식관련사채",
+          "(주)지투지바이오 전환가액의조정(제6회차)",
+          "(주)지투지바이오 전환주식의 전환가액 조정(전환우선주)",
+          "(주)지투지바이오 전환가액의조정(제5회차)",
+          "기타주요경영사항",
+          "(주)지투지바이오 투자판단 관련 주요경영사항(임상시험 결과)",
+          "투자주의종목",
+          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
+        ]
+      },
+      "freshness": {
+        "status": "UNKNOWN",
+        "hours": null,
+        "at": null,
+        "title": null,
+        "reason": "재료 발표 시각을 확인하지 못했습니다."
+      },
+      "features": {
+        "grade": "REJECT",
+        "rank": 2,
+        "pattern_id": "C1",
+        "pattern_name": "이평 수렴 돌파",
+        "pattern_score": 55.0,
+        "close_location": 0.7762,
+        "upper_wick": 0.2238,
+        "body_ratio": 0.719,
+        "digest_ratio": 1.0,
+        "volume_ratio": 0.0,
+        "change_rate": 21.07,
+        "trade_value": 27649473000.0,
+        "theme_breadth": null
+      },
+      "risk": {
+        "status": "FAIL",
+        "entry": 42800.0,
+        "stop": 34650.0,
+        "stop_source": "무효화선",
+        "rate": 0.19042056074766356,
+        "one_r": 50950.0,
+        "reason": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+      },
+      "checks": [
+        {
+          "id": "X_MARKET_CAP",
+          "name": "시가총액 500억",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "시총 7,117억원",
+          "active": true
+        },
+        {
+          "id": "X_TRADE_VALUE",
+          "name": "거래대금 500억",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "거래대금 276억원",
+          "active": true
+        },
+        {
+          "id": "X_RISK",
+          "name": "관리·거래 위험",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "위험 목록 또는 종목 상태 필드 확인",
+          "active": true
+        },
+        {
+          "id": "X_TYPE",
+          "name": "보통주",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "type=ST",
+          "active": true
+        },
+        {
+          "id": "X_IPO",
+          "name": "당일 상장 제외",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "active": true
+        },
+        {
+          "id": "X_POLITICAL",
+          "name": "정치테마 제외",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "테마·뉴스 제목 규칙",
+          "active": true
+        },
+        {
+          "id": "X_PENNY",
+          "name": "동전주 제외",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "현재가 42,800원",
+          "active": true
+        },
+        {
+          "id": "S_CATALYST",
+          "name": "재료 S/A",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "투자주의종목",
+          "active": true
+        },
+        {
+          "id": "S_LEADER",
+          "name": "현재 대장·2등주",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "치매 · 순위 2",
+          "active": true
+        },
+        {
+          "id": "D_PATTERN",
+          "name": "종가 패턴 식별",
+          "status": "WARN",
+          "original_status": "WARN",
+          "reason": "C1 이평 수렴 돌파 55점",
+          "active": true
+        },
+        {
+          "id": "C_LOCATION",
+          "name": "고가권 종가",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "당일 범위 위치 0.78",
+          "active": true
+        },
+        {
+          "id": "C_WICK",
+          "name": "작은 윗꼬리 장대양봉",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "윗꼬리 0.22 · 몸통 0.72",
+          "active": true
+        },
+        {
+          "id": "C_SEQUENCE",
+          "name": "마감 과정",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "거래 없는 막판 수직 급등 배제",
+          "active": true
+        },
+        {
+          "id": "A_DIGESTION",
+          "name": "과거 매물 소화",
+          "status": "WARN",
+          "original_status": "WARN",
+          "reason": "현재/과거 최대 거래대금 1.00 · 전고점 미돌파",
+          "active": true
+        },
+        {
+          "id": "R_PLAN",
+          "name": "분할·무효화 계획",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "초기 NORMAL · 무효화 34,650원",
+          "active": true
+        }
+      ],
+      "hard_failures": [
+        {
+          "id": "X_TRADE_VALUE",
+          "name": "거래대금 500억",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "거래대금 276억원",
+          "active": true
+        }
+      ],
+      "hard_unresolved": [],
+      "persistence": {
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
+      },
+      "close_rules": [
+        {
+          "name": "재료 S/A",
+          "pass": false,
+          "detail": "등급 REJECT"
+        },
+        {
+          "name": "주도주 5위 이내",
+          "pass": true,
+          "detail": "순위 2"
+        },
+        {
+          "name": "강한 종가 패턴",
+          "pass": false,
+          "detail": "C1 55점"
+        },
+        {
+          "name": "고가권 종가",
+          "pass": true,
+          "detail": "위치 0.7762"
+        },
+        {
+          "name": "작은 윗꼬리",
+          "pass": false,
+          "detail": "윗꼬리 0.2238"
+        },
+        {
+          "name": "충분한 양봉 몸통",
+          "pass": true,
+          "detail": "몸통 0.719"
+        },
+        {
+          "name": "강한 당일 모멘텀",
+          "pass": false,
+          "detail": "등락 21.07%"
+        },
+        {
+          "name": "구조 위험 6% 이내",
+          "pass": false,
+          "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+        },
+        {
+          "name": "최소 매물 소화",
+          "pass": true,
+          "detail": "현재/과거 1.0"
+        },
+        {
+          "name": "살아 있는 재료",
+          "pass": false,
+          "detail": "신선도 UNKNOWN"
+        },
+        {
+          "name": "반복 유지",
+          "pass": false,
+          "detail": "연속 1회"
+        },
+        {
+          "name": "초강한 테마 확산",
+          "pass": false,
+          "detail": "확인 불가"
+        },
+        {
+          "name": "현재 2위 이내",
+          "pass": true,
+          "detail": "순위 2"
+        },
+        {
+          "name": "종가 최상단",
+          "pass": false,
+          "detail": "위치 0.7762"
+        },
+        {
+          "name": "윗꼬리 0.05 이하",
+          "pass": false,
+          "detail": "윗꼬리 0.2238"
+        },
+        {
+          "name": "몸통 0.55 이상",
+          "pass": true,
+          "detail": "몸통 0.719"
+        },
+        {
+          "name": "매물 소화 0.30 이상",
+          "pass": true,
+          "detail": "현재/과거 1.0"
+        }
+      ],
+      "close_routes": {
+        "core": [
+          {
+            "name": "재료 S/A",
+            "pass": false,
+            "detail": "등급 REJECT"
+          },
+          {
+            "name": "주도주 5위 이내",
+            "pass": true,
+            "detail": "순위 2"
+          },
+          {
+            "name": "강한 종가 패턴",
+            "pass": false,
+            "detail": "C1 55점"
+          },
+          {
+            "name": "고가권 종가",
+            "pass": true,
+            "detail": "위치 0.7762"
+          },
+          {
+            "name": "작은 윗꼬리",
+            "pass": false,
+            "detail": "윗꼬리 0.2238"
+          },
+          {
+            "name": "충분한 양봉 몸통",
+            "pass": true,
+            "detail": "몸통 0.719"
+          },
+          {
+            "name": "강한 당일 모멘텀",
+            "pass": false,
+            "detail": "등락 21.07%"
+          },
+          {
+            "name": "구조 위험 6% 이내",
+            "pass": false,
+            "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+          },
+          {
+            "name": "최소 매물 소화",
+            "pass": true,
+            "detail": "현재/과거 1.0"
+          },
+          {
+            "name": "살아 있는 재료",
+            "pass": false,
+            "detail": "신선도 UNKNOWN"
+          },
+          {
+            "name": "반복 유지",
+            "pass": false,
+            "detail": "연속 1회"
+          },
+          {
+            "name": "주도주 3위 이내",
+            "pass": true,
+            "detail": "순위 2"
+          },
+          {
+            "name": "매물 소화 0.45 이상",
+            "pass": true,
+            "detail": "현재/과거 1.0"
+          }
+        ],
+        "elite": [
+          {
+            "name": "재료 S/A",
+            "pass": false,
+            "detail": "등급 REJECT"
+          },
+          {
+            "name": "주도주 5위 이내",
+            "pass": true,
+            "detail": "순위 2"
+          },
+          {
+            "name": "강한 종가 패턴",
+            "pass": false,
+            "detail": "C1 55점"
+          },
+          {
+            "name": "고가권 종가",
+            "pass": true,
+            "detail": "위치 0.7762"
+          },
+          {
+            "name": "작은 윗꼬리",
+            "pass": false,
+            "detail": "윗꼬리 0.2238"
+          },
+          {
+            "name": "충분한 양봉 몸통",
+            "pass": true,
+            "detail": "몸통 0.719"
+          },
+          {
+            "name": "강한 당일 모멘텀",
+            "pass": false,
+            "detail": "등락 21.07%"
+          },
+          {
+            "name": "구조 위험 6% 이내",
+            "pass": false,
+            "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+          },
+          {
+            "name": "최소 매물 소화",
+            "pass": true,
+            "detail": "현재/과거 1.0"
+          },
+          {
+            "name": "살아 있는 재료",
+            "pass": false,
+            "detail": "신선도 UNKNOWN"
+          },
+          {
+            "name": "반복 유지",
+            "pass": false,
+            "detail": "연속 1회"
+          },
+          {
+            "name": "초강한 테마 확산",
+            "pass": false,
+            "detail": "확인 불가"
+          },
+          {
+            "name": "현재 2위 이내",
+            "pass": true,
+            "detail": "순위 2"
+          },
+          {
+            "name": "종가 최상단",
+            "pass": false,
+            "detail": "위치 0.7762"
+          },
+          {
+            "name": "윗꼬리 0.05 이하",
+            "pass": false,
+            "detail": "윗꼬리 0.2238"
+          },
+          {
+            "name": "몸통 0.55 이상",
+            "pass": true,
+            "detail": "몸통 0.719"
+          },
+          {
+            "name": "매물 소화 0.30 이상",
+            "pass": true,
+            "detail": "현재/과거 1.0"
+          }
+        ]
+      },
+      "confirm_rules": [
+        {
+          "name": "재료 S/A",
+          "pass": false,
+          "detail": "등급 REJECT"
+        },
+        {
+          "name": "주도주 5위 이내",
+          "pass": true,
+          "detail": "순위 2"
+        },
+        {
+          "name": "강한 종가 패턴",
+          "pass": false,
+          "detail": "C1 55점"
+        },
+        {
+          "name": "고가권 종가",
+          "pass": true,
+          "detail": "위치 0.7762"
+        },
+        {
+          "name": "작은 윗꼬리",
+          "pass": false,
+          "detail": "윗꼬리 0.2238"
+        },
+        {
+          "name": "충분한 양봉 몸통",
+          "pass": true,
+          "detail": "몸통 0.719"
+        },
+        {
+          "name": "강한 당일 모멘텀",
+          "pass": false,
+          "detail": "등락 21.07%"
+        },
+        {
+          "name": "구조 위험 6% 이내",
+          "pass": false,
+          "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+        },
+        {
+          "name": "최소 매물 소화",
+          "pass": true,
+          "detail": "현재/과거 1.0"
+        }
+      ],
+      "close_rule_count": 17,
+      "close_rule_passes": 7,
+      "confirm_rule_count": 9,
+      "confirm_rule_passes": 4,
+      "close_fit": false,
+      "confirm_fit": false,
+      "plans": {
+        "close_entry": {
+          "entry": 42800.0,
+          "stop": 34650.0,
+          "target1": 43228.0,
+          "target2": 43656.0,
+          "target1_size": 0.5,
+          "target2_size": 0.3,
+          "runner_size": 0.2,
+          "time_exit": "10:30까지 +1% 미도달이고 전일 종가 아래면 잔여 물량 정리",
+          "rule": "15:18 이후 핵심형 또는 초강한 마감형과 반복 유지가 모두 통과한 경우에만 검토"
+        },
+        "next_day_confirm": {
+          "reference_close": 42800.0,
+          "cancel_below": 34650.0,
+          "reclaim_trigger": 42800.0,
+          "target1": 43228.0,
+          "target2": 43656.0,
           "target1_size": 0.5,
           "target2_size": 0.3,
           "runner_size": 0.2,
@@ -8989,12 +9516,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -9050,7 +9577,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -9138,7 +9665,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -9205,7 +9732,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -9507,12 +10034,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -9568,7 +10095,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -9656,7 +10183,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -9723,7 +10250,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -10035,12 +10562,12 @@
         }
       ],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -10096,7 +10623,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -10184,7 +10711,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -10251,7 +10778,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -10562,12 +11089,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -10623,7 +11150,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -10711,7 +11238,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -10778,7 +11305,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -11081,12 +11608,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -11142,7 +11669,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -11230,7 +11757,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -11297,7 +11824,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",
@@ -11402,533 +11929,6 @@
           "reclaim_trigger": 158900.0,
           "target1": 160489.0,
           "target2": 162078.0,
-          "target1_size": 0.5,
-          "target2_size": 0.3,
-          "runner_size": 0.2,
-          "no_chase_gap_pct": 3.0,
-          "confirm_times": [
-            "09:05",
-            "09:15"
-          ],
-          "rule": "다음 날 갭이 3% 이상이면 추격하지 않고, 전일 종가 회복과 09:05·09:15 유지 확인 뒤 검토"
-        }
-      }
-    },
-    {
-      "version": "largo-winrate-v4.1",
-      "code": "456160",
-      "name": "지투지바이오",
-      "lane": "EXCLUDE",
-      "close_variant": null,
-      "price": 42800.0,
-      "change_rate": 21.07,
-      "trade_value": 27649473000.0,
-      "market_cap": 711739000000.0,
-      "quality": 67.6,
-      "catalyst": {
-        "grade": "REJECT",
-        "reason": "투자주의종목",
-        "positive_titles": [
-          "투자주의종목",
-          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
-        ],
-        "titles": [
-          "주식관련사채",
-          "(주)지투지바이오 전환가액의조정(제6회차)",
-          "(주)지투지바이오 전환주식의 전환가액 조정(전환우선주)",
-          "(주)지투지바이오 전환가액의조정(제5회차)",
-          "기타주요경영사항",
-          "(주)지투지바이오 투자판단 관련 주요경영사항(임상시험 결과)",
-          "투자주의종목",
-          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
-        ]
-      },
-      "freshness": {
-        "status": "UNKNOWN",
-        "hours": null,
-        "at": null,
-        "title": null,
-        "reason": "재료 발표 시각을 확인하지 못했습니다."
-      },
-      "features": {
-        "grade": "REJECT",
-        "rank": 6,
-        "pattern_id": "C1",
-        "pattern_name": "이평 수렴 돌파",
-        "pattern_score": 55.0,
-        "close_location": 0.7762,
-        "upper_wick": 0.2238,
-        "body_ratio": 0.719,
-        "digest_ratio": 1.0,
-        "volume_ratio": 0.0,
-        "change_rate": 21.07,
-        "trade_value": 27649473000.0,
-        "theme_breadth": null
-      },
-      "risk": {
-        "status": "FAIL",
-        "entry": 42800.0,
-        "stop": 34650.0,
-        "stop_source": "무효화선",
-        "rate": 0.19042056074766356,
-        "one_r": 50950.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
-      },
-      "checks": [
-        {
-          "id": "X_MARKET_CAP",
-          "name": "시가총액 500억",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "시총 7,117억원",
-          "active": true
-        },
-        {
-          "id": "X_TRADE_VALUE",
-          "name": "거래대금 500억",
-          "status": "FAIL",
-          "original_status": "FAIL",
-          "reason": "거래대금 276억원",
-          "active": true
-        },
-        {
-          "id": "X_RISK",
-          "name": "관리·거래 위험",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "위험 목록 또는 종목 상태 필드 확인",
-          "active": true
-        },
-        {
-          "id": "X_TYPE",
-          "name": "보통주",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "type=ST",
-          "active": true
-        },
-        {
-          "id": "X_IPO",
-          "name": "당일 상장 제외",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
-          "active": true
-        },
-        {
-          "id": "X_POLITICAL",
-          "name": "정치테마 제외",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "테마·뉴스 제목 규칙",
-          "active": true
-        },
-        {
-          "id": "X_PENNY",
-          "name": "동전주 제외",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "현재가 42,800원",
-          "active": true
-        },
-        {
-          "id": "S_CATALYST",
-          "name": "재료 S/A",
-          "status": "FAIL",
-          "original_status": "FAIL",
-          "reason": "투자주의종목",
-          "active": true
-        },
-        {
-          "id": "S_LEADER",
-          "name": "현재 대장·2등주",
-          "status": "FAIL",
-          "original_status": "FAIL",
-          "reason": "비만치료제 · 순위 6",
-          "active": true
-        },
-        {
-          "id": "D_PATTERN",
-          "name": "종가 패턴 식별",
-          "status": "WARN",
-          "original_status": "WARN",
-          "reason": "C1 이평 수렴 돌파 55점",
-          "active": true
-        },
-        {
-          "id": "C_LOCATION",
-          "name": "고가권 종가",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "당일 범위 위치 0.78",
-          "active": true
-        },
-        {
-          "id": "C_WICK",
-          "name": "작은 윗꼬리 장대양봉",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "윗꼬리 0.22 · 몸통 0.72",
-          "active": true
-        },
-        {
-          "id": "C_SEQUENCE",
-          "name": "마감 과정",
-          "status": "PASS",
-          "original_status": "PASS",
-          "reason": "거래 없는 막판 수직 급등 배제",
-          "active": true
-        },
-        {
-          "id": "A_DIGESTION",
-          "name": "과거 매물 소화",
-          "status": "WARN",
-          "original_status": "WARN",
-          "reason": "현재/과거 최대 거래대금 1.00 · 전고점 미돌파",
-          "active": true
-        },
-        {
-          "id": "R_PLAN",
-          "name": "분할·무효화 계획",
-          "status": "FAIL",
-          "original_status": "FAIL",
-          "reason": "초기 NORMAL · 무효화 34,650원",
-          "active": true
-        }
-      ],
-      "hard_failures": [
-        {
-          "id": "X_TRADE_VALUE",
-          "name": "거래대금 500억",
-          "status": "FAIL",
-          "original_status": "FAIL",
-          "reason": "거래대금 276억원",
-          "active": true
-        }
-      ],
-      "hard_unresolved": [],
-      "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
-      },
-      "close_rules": [
-        {
-          "name": "재료 S/A",
-          "pass": false,
-          "detail": "등급 REJECT"
-        },
-        {
-          "name": "주도주 5위 이내",
-          "pass": false,
-          "detail": "순위 6"
-        },
-        {
-          "name": "강한 종가 패턴",
-          "pass": false,
-          "detail": "C1 55점"
-        },
-        {
-          "name": "고가권 종가",
-          "pass": true,
-          "detail": "위치 0.7762"
-        },
-        {
-          "name": "작은 윗꼬리",
-          "pass": false,
-          "detail": "윗꼬리 0.2238"
-        },
-        {
-          "name": "충분한 양봉 몸통",
-          "pass": true,
-          "detail": "몸통 0.719"
-        },
-        {
-          "name": "강한 당일 모멘텀",
-          "pass": false,
-          "detail": "등락 21.07%"
-        },
-        {
-          "name": "구조 위험 6% 이내",
-          "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
-        },
-        {
-          "name": "최소 매물 소화",
-          "pass": true,
-          "detail": "현재/과거 1.0"
-        },
-        {
-          "name": "살아 있는 재료",
-          "pass": false,
-          "detail": "신선도 UNKNOWN"
-        },
-        {
-          "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 0회"
-        },
-        {
-          "name": "초강한 테마 확산",
-          "pass": false,
-          "detail": "확인 불가"
-        },
-        {
-          "name": "현재 2위 이내",
-          "pass": false,
-          "detail": "순위 6"
-        },
-        {
-          "name": "종가 최상단",
-          "pass": false,
-          "detail": "위치 0.7762"
-        },
-        {
-          "name": "윗꼬리 0.05 이하",
-          "pass": false,
-          "detail": "윗꼬리 0.2238"
-        },
-        {
-          "name": "몸통 0.55 이상",
-          "pass": true,
-          "detail": "몸통 0.719"
-        },
-        {
-          "name": "매물 소화 0.30 이상",
-          "pass": true,
-          "detail": "현재/과거 1.0"
-        }
-      ],
-      "close_routes": {
-        "core": [
-          {
-            "name": "재료 S/A",
-            "pass": false,
-            "detail": "등급 REJECT"
-          },
-          {
-            "name": "주도주 5위 이내",
-            "pass": false,
-            "detail": "순위 6"
-          },
-          {
-            "name": "강한 종가 패턴",
-            "pass": false,
-            "detail": "C1 55점"
-          },
-          {
-            "name": "고가권 종가",
-            "pass": true,
-            "detail": "위치 0.7762"
-          },
-          {
-            "name": "작은 윗꼬리",
-            "pass": false,
-            "detail": "윗꼬리 0.2238"
-          },
-          {
-            "name": "충분한 양봉 몸통",
-            "pass": true,
-            "detail": "몸통 0.719"
-          },
-          {
-            "name": "강한 당일 모멘텀",
-            "pass": false,
-            "detail": "등락 21.07%"
-          },
-          {
-            "name": "구조 위험 6% 이내",
-            "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
-          },
-          {
-            "name": "최소 매물 소화",
-            "pass": true,
-            "detail": "현재/과거 1.0"
-          },
-          {
-            "name": "살아 있는 재료",
-            "pass": false,
-            "detail": "신선도 UNKNOWN"
-          },
-          {
-            "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 0회"
-          },
-          {
-            "name": "주도주 3위 이내",
-            "pass": false,
-            "detail": "순위 6"
-          },
-          {
-            "name": "매물 소화 0.45 이상",
-            "pass": true,
-            "detail": "현재/과거 1.0"
-          }
-        ],
-        "elite": [
-          {
-            "name": "재료 S/A",
-            "pass": false,
-            "detail": "등급 REJECT"
-          },
-          {
-            "name": "주도주 5위 이내",
-            "pass": false,
-            "detail": "순위 6"
-          },
-          {
-            "name": "강한 종가 패턴",
-            "pass": false,
-            "detail": "C1 55점"
-          },
-          {
-            "name": "고가권 종가",
-            "pass": true,
-            "detail": "위치 0.7762"
-          },
-          {
-            "name": "작은 윗꼬리",
-            "pass": false,
-            "detail": "윗꼬리 0.2238"
-          },
-          {
-            "name": "충분한 양봉 몸통",
-            "pass": true,
-            "detail": "몸통 0.719"
-          },
-          {
-            "name": "강한 당일 모멘텀",
-            "pass": false,
-            "detail": "등락 21.07%"
-          },
-          {
-            "name": "구조 위험 6% 이내",
-            "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
-          },
-          {
-            "name": "최소 매물 소화",
-            "pass": true,
-            "detail": "현재/과거 1.0"
-          },
-          {
-            "name": "살아 있는 재료",
-            "pass": false,
-            "detail": "신선도 UNKNOWN"
-          },
-          {
-            "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 0회"
-          },
-          {
-            "name": "초강한 테마 확산",
-            "pass": false,
-            "detail": "확인 불가"
-          },
-          {
-            "name": "현재 2위 이내",
-            "pass": false,
-            "detail": "순위 6"
-          },
-          {
-            "name": "종가 최상단",
-            "pass": false,
-            "detail": "위치 0.7762"
-          },
-          {
-            "name": "윗꼬리 0.05 이하",
-            "pass": false,
-            "detail": "윗꼬리 0.2238"
-          },
-          {
-            "name": "몸통 0.55 이상",
-            "pass": true,
-            "detail": "몸통 0.719"
-          },
-          {
-            "name": "매물 소화 0.30 이상",
-            "pass": true,
-            "detail": "현재/과거 1.0"
-          }
-        ]
-      },
-      "confirm_rules": [
-        {
-          "name": "재료 S/A",
-          "pass": false,
-          "detail": "등급 REJECT"
-        },
-        {
-          "name": "주도주 5위 이내",
-          "pass": false,
-          "detail": "순위 6"
-        },
-        {
-          "name": "강한 종가 패턴",
-          "pass": false,
-          "detail": "C1 55점"
-        },
-        {
-          "name": "고가권 종가",
-          "pass": true,
-          "detail": "위치 0.7762"
-        },
-        {
-          "name": "작은 윗꼬리",
-          "pass": false,
-          "detail": "윗꼬리 0.2238"
-        },
-        {
-          "name": "충분한 양봉 몸통",
-          "pass": true,
-          "detail": "몸통 0.719"
-        },
-        {
-          "name": "강한 당일 모멘텀",
-          "pass": false,
-          "detail": "등락 21.07%"
-        },
-        {
-          "name": "구조 위험 6% 이내",
-          "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
-        },
-        {
-          "name": "최소 매물 소화",
-          "pass": true,
-          "detail": "현재/과거 1.0"
-        }
-      ],
-      "close_rule_count": 17,
-      "close_rule_passes": 5,
-      "confirm_rule_count": 9,
-      "confirm_rule_passes": 3,
-      "close_fit": false,
-      "confirm_fit": false,
-      "plans": {
-        "close_entry": {
-          "entry": 42800.0,
-          "stop": 34650.0,
-          "target1": 43228.0,
-          "target2": 43656.0,
-          "target1_size": 0.5,
-          "target2_size": 0.3,
-          "runner_size": 0.2,
-          "time_exit": "10:30까지 +1% 미도달이고 전일 종가 아래면 잔여 물량 정리",
-          "rule": "15:18 이후 핵심형 또는 초강한 마감형과 반복 유지가 모두 통과한 경우에만 검토"
-        },
-        "next_day_confirm": {
-          "reference_close": 42800.0,
-          "cancel_below": 34650.0,
-          "reclaim_trigger": 42800.0,
-          "target1": 43228.0,
-          "target2": 43656.0,
           "target1_size": 0.5,
           "target2_size": 0.3,
           "runner_size": 0.2,
@@ -12127,12 +12127,12 @@
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 0,
-        "appearance_count": 0,
-        "consecutive_count": 0,
-        "pattern_match_count": 0,
-        "first_seen": null,
-        "last_seen": null
+        "snapshot_count": 1,
+        "appearance_count": 1,
+        "consecutive_count": 1,
+        "pattern_match_count": 1,
+        "first_seen": "20:08",
+        "last_seen": "20:08"
       },
       "close_rules": [
         {
@@ -12188,7 +12188,7 @@
         {
           "name": "반복 유지",
           "pass": false,
-          "detail": "연속 0회"
+          "detail": "연속 1회"
         },
         {
           "name": "초강한 테마 확산",
@@ -12276,7 +12276,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "주도주 3위 이내",
@@ -12343,7 +12343,7 @@
           {
             "name": "반복 유지",
             "pass": false,
-            "detail": "연속 0회"
+            "detail": "연속 1회"
           },
           {
             "name": "초강한 테마 확산",

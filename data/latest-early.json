@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-10-01T20:08:53.839778+09:00",
+  "generated_at": "2026-10-01T20:34:07.387346+09:00",
   "market_date": "2026-10-01",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -636,7 +636,7 @@
       "theme": {
         "name": "반도체 장비",
         "code": "12",
-        "change_rate": 6.19,
+        "change_rate": 6.7,
         "rising": 93.0,
         "falling": 2.0,
         "leader_rank": 2
@@ -833,7 +833,7 @@
         "prev20_high": 69800,
         "prev60_high": 69800,
         "digest_ratio": 1.0,
-        "spread_bps": 14.44,
+        "spread_bps": 14.38,
         "sequence": {
           "available": true,
           "low_after_1430": 68800.0,
@@ -1027,10 +1027,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 14.44,
+          "value": 14.38,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 14.44bp",
+          "reason": "스프레드 14.38bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -1061,60 +1061,60 @@
       "quality_score": 91.2,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 14.44,
-        "buy_total": 23373.0,
-        "sell_total": 96421.0,
+        "spread_bps": 14.38,
+        "buy_total": 18455.0,
+        "sell_total": 77890.0,
         "levels": [
           {
             "level": 1,
-            "ask": 69300.0,
-            "bid": 69200.0,
-            "ask_qty": 5995.0,
-            "bid_qty": 1563.0
+            "ask": 69600.0,
+            "bid": 69500.0,
+            "ask_qty": 8597.0,
+            "bid_qty": 1112.0
           },
           {
             "level": 2,
-            "ask": 69400.0,
-            "bid": 69100.0,
-            "ask_qty": 9405.0,
-            "bid_qty": 2320.0
+            "ask": 69700.0,
+            "bid": 69400.0,
+            "ask_qty": 9475.0,
+            "bid_qty": 1904.0
           },
           {
             "level": 3,
-            "ask": 69500.0,
-            "bid": 69000.0,
-            "ask_qty": 9124.0,
-            "bid_qty": 3882.0
+            "ask": 69800.0,
+            "bid": 69300.0,
+            "ask_qty": 9833.0,
+            "bid_qty": 2312.0
           },
           {
             "level": 4,
-            "ask": 69600.0,
-            "bid": 68900.0,
-            "ask_qty": 7872.0,
-            "bid_qty": 2781.0
+            "ask": 69900.0,
+            "bid": 69200.0,
+            "ask_qty": 8086.0,
+            "bid_qty": 1052.0
           },
           {
             "level": 5,
-            "ask": 69700.0,
-            "bid": 68800.0,
-            "ask_qty": 9509.0,
-            "bid_qty": 3181.0
+            "ask": 70000.0,
+            "bid": 69100.0,
+            "ask_qty": 17502.0,
+            "bid_qty": 648.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 3.8,
+          "hours": 4.3,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 3.8시간이 지났습니다."
+          "reason": "재료 발표 후 4.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1149,14 +1149,14 @@
       "theme": {
         "name": "바이오시밀러(복제 바이오의약품)",
         "code": "241",
-        "change_rate": 3.66,
-        "rising": 20.0,
-        "falling": 1.0,
+        "change_rate": 3.83,
+        "rising": 21.0,
+        "falling": 0.0,
         "leader_rank": 2
       },
       "catalyst": {
         "grade": "S",
-        "reason": "바이오시밀러(복제 바이오의약품) 관련주 20/21 상승",
+        "reason": "바이오시밀러(복제 바이오의약품) 관련주 21/21 상승",
         "positive_titles": [
           "삼천당제약(주) (정정)투자판단 관련 주요경영사항(황반변성치료제(아일리아/주성분 : Aflibercept) 바이오시밀러 SCD411(Vial&PFS)의 캐나다 독점판매권 공급계약 체결 및 중동 6개 국가 추가 계약 체결)",
           "삼천당제약(주) (정정)투자판단 관련 주요경영사항(임상시험 계획 승인 등 결정)(제1형 당뇨병 환자를 대상으로 정상혈당 클램프 조건 및 식이 섭취 후, 경구용 인슐린 SCD0503과 피하 투여 인슐린 간의 상대적 생체이용률, 상대적 생물학적 효력 및 음식 영향 평가를 위한 임상시험)",
@@ -1352,7 +1352,7 @@
         "prev20_high": 208000,
         "prev60_high": 208000,
         "digest_ratio": 1.0,
-        "spread_bps": 5.03,
+        "spread_bps": 5.01,
         "sequence": {
           "available": true,
           "low_after_1430": 198000.0,
@@ -1457,7 +1457,7 @@
           "value": "S",
           "threshold": "S 또는 A",
           "status": "PASS",
-          "reason": "바이오시밀러(복제 바이오의약품) 관련주 20/21 상승",
+          "reason": "바이오시밀러(복제 바이오의약품) 관련주 21/21 상승",
           "data_source": "Naver theme/news/notice"
         },
         {
@@ -1544,10 +1544,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 5.03,
+          "value": 5.01,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 5.03bp",
+          "reason": "스프레드 5.01bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -1578,60 +1578,60 @@
       "quality_score": 88.2,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 5.03,
-        "buy_total": 590.0,
-        "sell_total": 220.0,
+        "spread_bps": 5.01,
+        "buy_total": 421.0,
+        "sell_total": 1156.0,
         "levels": [
           {
             "level": 1,
-            "ask": 198700.0,
-            "bid": 198600.0,
-            "ask_qty": 2.0,
-            "bid_qty": 1.0
+            "ask": 199500.0,
+            "bid": 199400.0,
+            "ask_qty": 48.0,
+            "bid_qty": 77.0
           },
           {
             "level": 2,
-            "ask": 198800.0,
-            "bid": 198500.0,
-            "ask_qty": 46.0,
-            "bid_qty": 101.0
+            "ask": 199600.0,
+            "bid": 199300.0,
+            "ask_qty": 11.0,
+            "bid_qty": 10.0
           },
           {
             "level": 3,
-            "ask": 198900.0,
-            "bid": 198300.0,
-            "ask_qty": 6.0,
-            "bid_qty": 41.0
+            "ask": 199700.0,
+            "bid": 199200.0,
+            "ask_qty": 18.0,
+            "bid_qty": 29.0
           },
           {
             "level": 4,
-            "ask": 199000.0,
-            "bid": 198200.0,
-            "ask_qty": 11.0,
-            "bid_qty": 55.0
+            "ask": 199800.0,
+            "bid": 199100.0,
+            "ask_qty": 91.0,
+            "bid_qty": 139.0
           },
           {
             "level": 5,
-            "ask": 199100.0,
-            "bid": 198100.0,
-            "ask_qty": 7.0,
-            "bid_qty": 36.0
+            "ask": 199900.0,
+            "bid": 199000.0,
+            "ask_qty": 11.0,
+            "bid_qty": 7.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1372.3,
+          "hours": 1372.7,
           "at": "2026-08-05T15:52:27+09:00",
           "title": "삼천당제약(주) (정정)투자판단 관련 주요경영사항(임상시험 계획 승인 등 결정)(제1형 당뇨병 환자를 대상으로 정상혈당 클램프 조건 및 식이 섭취 후, 경구용 인슐린 SCD0503과 피하 투여 인슐린 간의 상대적 생체이용률, 상대적 생물학적 효력 및 음식 영향 평가를 위한 임상시험)",
           "source": "notice",
-          "reason": "재료 발표 후 1372.3시간이 지났습니다."
+          "reason": "재료 발표 후 1372.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1676,11 +1676,11 @@
       "theme": null,
       "catalyst": {
         "grade": "A",
-        "reason": "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
+        "reason": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
         "positive_titles": [
-          "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
-          "삼성중 협력업체 대표들 “구조적 손실 해결” 시위",
-          "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등"
+          "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
+          "‘반도체 풍향계’ 마이크론, 역대 최대 분기 실적…AI 수요 급증 덕",
+          "‘AI 메모리 훈풍’에 사상 최대 실적 낸 마이크론"
         ],
         "titles": [
           "권리락/배당락",
@@ -1872,7 +1872,7 @@
         "prev20_high": 276000,
         "prev60_high": 276000,
         "digest_ratio": 1.0,
-        "spread_bps": 18.26,
+        "spread_bps": 18.23,
         "sequence": {
           "available": true,
           "low_after_1430": 272000.0,
@@ -1977,7 +1977,7 @@
           "value": "A",
           "threshold": "S 또는 A",
           "status": "PASS",
-          "reason": "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
+          "reason": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
           "data_source": "Naver theme/news/notice"
         },
         {
@@ -2066,10 +2066,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 18.26,
+          "value": 18.23,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 18.26bp",
+          "reason": "스프레드 18.23bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -2102,75 +2102,75 @@
       "quality_score": 88.2,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 18.26,
-        "buy_total": 277806.0,
-        "sell_total": 375024.0,
+        "spread_bps": 18.23,
+        "buy_total": 228895.0,
+        "sell_total": 329052.0,
         "levels": [
           {
             "level": 1,
-            "ask": 274000.0,
-            "bid": 273500.0,
-            "ask_qty": 35907.0,
-            "bid_qty": 23136.0
+            "ask": 274500.0,
+            "bid": 274000.0,
+            "ask_qty": 42815.0,
+            "bid_qty": 7165.0
           },
           {
             "level": 2,
-            "ask": 274500.0,
-            "bid": 273000.0,
-            "ask_qty": 61395.0,
-            "bid_qty": 21620.0
+            "ask": 275000.0,
+            "bid": 273500.0,
+            "ask_qty": 49255.0,
+            "bid_qty": 20335.0
           },
           {
             "level": 3,
-            "ask": 275000.0,
-            "bid": 272500.0,
-            "ask_qty": 47949.0,
-            "bid_qty": 38763.0
+            "ask": 275500.0,
+            "bid": 273000.0,
+            "ask_qty": 42576.0,
+            "bid_qty": 15731.0
           },
           {
             "level": 4,
-            "ask": 275500.0,
-            "bid": 272000.0,
-            "ask_qty": 48749.0,
-            "bid_qty": 27885.0
+            "ask": 276000.0,
+            "bid": 272500.0,
+            "ask_qty": 97401.0,
+            "bid_qty": 19992.0
           },
           {
             "level": 5,
-            "ask": 276000.0,
-            "bid": 271500.0,
-            "ask_qty": 85182.0,
-            "bid_qty": 35514.0
+            "ask": 276500.0,
+            "bid": 272000.0,
+            "ask_qty": 18728.0,
+            "bid_qty": 30487.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 0.1,
-          "at": "2026-10-01T20:00:00+09:00",
-          "title": "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
+          "hours": 0.2,
+          "at": "2026-10-01T20:21:00+09:00",
+          "title": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
           "source": "news",
-          "reason": "재료 발표 후 0.1시간이 지났습니다."
+          "reason": "재료 발표 후 0.2시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
-            "title": "‘칩 풍향계’ 마이크론 역대 최대 분기 실적",
+            "title": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
+            "at": "2026-10-01T20:21:00+09:00",
+            "source": "news"
+          },
+          {
+            "title": "‘반도체 풍향계’ 마이크론, 역대 최대 분기 실적…AI 수요 급증 덕",
             "at": "2026-10-01T20:00:00+09:00",
             "source": "news"
           },
           {
-            "title": "삼성중 협력업체 대표들 “구조적 손실 해결” 시위",
-            "at": "2026-10-01T19:25:00+09:00",
-            "source": "news"
-          },
-          {
-            "title": "마이크론 호실적에 '칠천피' 목전…코스닥 4% 급등",
-            "at": "2026-10-01T19:15:00+09:00",
+            "title": "‘AI 메모리 훈풍’에 사상 최대 실적 낸 마이크론",
+            "at": "2026-10-01T17:37:00+09:00",
             "source": "news"
           },
           {
@@ -2630,59 +2630,59 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 8.7,
-        "buy_total": 1981.0,
-        "sell_total": 2704.0,
+        "buy_total": 1364.0,
+        "sell_total": 2307.0,
         "levels": [
           {
             "level": 1,
             "ask": 1150000.0,
             "bid": 1149000.0,
-            "ask_qty": 453.0,
-            "bid_qty": 400.0
+            "ask_qty": 231.0,
+            "bid_qty": 212.0
           },
           {
             "level": 2,
             "ask": 1151000.0,
             "bid": 1148000.0,
-            "ask_qty": 161.0,
-            "bid_qty": 188.0
+            "ask_qty": 260.0,
+            "bid_qty": 120.0
           },
           {
             "level": 3,
             "ask": 1152000.0,
             "bid": 1147000.0,
-            "ask_qty": 393.0,
-            "bid_qty": 197.0
+            "ask_qty": 368.0,
+            "bid_qty": 72.0
           },
           {
             "level": 4,
             "ask": 1153000.0,
             "bid": 1146000.0,
-            "ask_qty": 352.0,
-            "bid_qty": 132.0
+            "ask_qty": 335.0,
+            "bid_qty": 84.0
           },
           {
             "level": 5,
             "ask": 1154000.0,
             "bid": 1145000.0,
-            "ask_qty": 190.0,
-            "bid_qty": 149.0
+            "ask_qty": 181.0,
+            "bid_qty": 74.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 1324.3,
+          "hours": 1324.7,
           "at": "2026-08-07T15:51:56+09:00",
           "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
           "source": "notice",
-          "reason": "재료 발표 후 1324.3시간이 지났습니다."
+          "reason": "재료 발표 후 1324.7시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -2716,7 +2716,7 @@
       "theme": {
         "name": "LED장비",
         "code": "269",
-        "change_rate": 4.04,
+        "change_rate": 4.39,
         "rising": 11.0,
         "falling": 0.0,
         "leader_rank": 1
@@ -2917,7 +2917,7 @@
         "prev20_high": 244500,
         "prev60_high": 244500,
         "digest_ratio": 1.0,
-        "spread_bps": 20.77,
+        "spread_bps": 20.81,
         "sequence": {
           "available": true,
           "low_after_1430": 239000.0,
@@ -3111,10 +3111,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 20.77,
+          "value": 20.81,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 20.77bp",
+          "reason": "스프레드 20.81bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -3145,60 +3145,60 @@
       "quality_score": 88.2,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 20.77,
-        "buy_total": 11446.0,
-        "sell_total": 27245.0,
+        "spread_bps": 20.81,
+        "buy_total": 10104.0,
+        "sell_total": 22866.0,
         "levels": [
           {
             "level": 1,
-            "ask": 241000.0,
-            "bid": 240500.0,
-            "ask_qty": 6918.0,
-            "bid_qty": 708.0
+            "ask": 240500.0,
+            "bid": 240000.0,
+            "ask_qty": 597.0,
+            "bid_qty": 158.0
           },
           {
             "level": 2,
-            "ask": 241500.0,
-            "bid": 240000.0,
-            "ask_qty": 3446.0,
-            "bid_qty": 1442.0
+            "ask": 241000.0,
+            "bid": 239500.0,
+            "ask_qty": 4363.0,
+            "bid_qty": 744.0
           },
           {
             "level": 3,
-            "ask": 242000.0,
-            "bid": 239500.0,
-            "ask_qty": 2612.0,
-            "bid_qty": 653.0
+            "ask": 241500.0,
+            "bid": 239000.0,
+            "ask_qty": 2683.0,
+            "bid_qty": 1294.0
           },
           {
             "level": 4,
-            "ask": 242500.0,
-            "bid": 239000.0,
-            "ask_qty": 1807.0,
-            "bid_qty": 1251.0
+            "ask": 242000.0,
+            "bid": 238500.0,
+            "ask_qty": 2290.0,
+            "bid_qty": 1829.0
           },
           {
             "level": 5,
-            "ask": 243000.0,
-            "bid": 238500.0,
-            "ask_qty": 2527.0,
-            "bid_qty": 1725.0
+            "ask": 242500.0,
+            "bid": 238000.0,
+            "ask_qty": 1708.0,
+            "bid_qty": 627.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 3.8,
+          "hours": 4.3,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 3.8시간이 지났습니다."
+          "reason": "재료 발표 후 4.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3240,8 +3240,8 @@
           "[속보]코스피 2% 가까이 올라 6970선 마감…코스닥은 4.5% 상승",
           "코스피, 장중 하락 딛고 1.95% 상승…7000선 바짝[fn마감시황]",
           "외인·기관 9000억 쓸어 담았다…코스닥 4.5% 급등해 900선 눈앞",
-          "반도체가 끌어올렸다…코스피 6970선 상승 마감 [시황]",
-          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시..."
+          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
+          "美 금리 진정·반도체 수출에 '칠천피' 코앞…코스닥 3%대 강세[장중시..."
         ]
       },
       "limit_up_pattern": "NO_LIMIT",
@@ -3652,59 +3652,59 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 24.72,
-        "buy_total": 43084.0,
-        "sell_total": 72013.0,
+        "buy_total": 37930.0,
+        "sell_total": 69383.0,
         "levels": [
           {
             "level": 1,
             "ask": 202500.0,
             "bid": 202000.0,
-            "ask_qty": 3009.0,
-            "bid_qty": 768.0
+            "ask_qty": 4123.0,
+            "bid_qty": 898.0
           },
           {
             "level": 2,
             "ask": 203000.0,
             "bid": 201500.0,
-            "ask_qty": 5676.0,
-            "bid_qty": 2164.0
+            "ask_qty": 6146.0,
+            "bid_qty": 2688.0
           },
           {
             "level": 3,
             "ask": 203500.0,
             "bid": 201000.0,
-            "ask_qty": 5618.0,
-            "bid_qty": 7689.0
+            "ask_qty": 4642.0,
+            "bid_qty": 4900.0
           },
           {
             "level": 4,
             "ask": 204000.0,
             "bid": 200500.0,
-            "ask_qty": 7563.0,
-            "bid_qty": 7361.0
+            "ask_qty": 6717.0,
+            "bid_qty": 6562.0
           },
           {
             "level": 5,
             "ask": 204500.0,
             "bid": 200000.0,
-            "ask_qty": 10301.0,
-            "bid_qty": 16762.0
+            "ask_qty": 8781.0,
+            "bid_qty": 15254.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 3.8,
+          "hours": 4.3,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 3.8시간이 지났습니다."
+          "reason": "재료 발표 후 4.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -3743,7 +3743,7 @@
       "theme": {
         "name": "반도체 장비",
         "code": "12",
-        "change_rate": 6.19,
+        "change_rate": 6.7,
         "rising": 93.0,
         "falling": 2.0,
         "leader_rank": 3
@@ -3941,7 +3941,7 @@
         "prev20_high": 144100,
         "prev60_high": 144100,
         "digest_ratio": 1.0,
-        "spread_bps": 7.02,
+        "spread_bps": 6.99,
         "sequence": {
           "available": true,
           "low_after_1430": 141900.0,
@@ -4135,10 +4135,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 7.02,
+          "value": 6.99,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 7.02bp",
+          "reason": "스프레드 6.99bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -4169,60 +4169,60 @@
       "quality_score": 85.3,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 7.02,
-        "buy_total": 6485.0,
-        "sell_total": 4344.0,
+        "spread_bps": 6.99,
+        "buy_total": 4005.0,
+        "sell_total": 4961.0,
         "levels": [
           {
             "level": 1,
-            "ask": 142500.0,
-            "bid": 142400.0,
-            "ask_qty": 582.0,
-            "bid_qty": 1801.0
+            "ask": 143100.0,
+            "bid": 143000.0,
+            "ask_qty": 526.0,
+            "bid_qty": 739.0
           },
           {
             "level": 2,
-            "ask": 142600.0,
-            "bid": 142300.0,
-            "ask_qty": 306.0,
-            "bid_qty": 407.0
+            "ask": 143200.0,
+            "bid": 142900.0,
+            "ask_qty": 118.0,
+            "bid_qty": 169.0
           },
           {
             "level": 3,
-            "ask": 142700.0,
-            "bid": 142200.0,
-            "ask_qty": 384.0,
-            "bid_qty": 310.0
+            "ask": 143300.0,
+            "bid": 142800.0,
+            "ask_qty": 199.0,
+            "bid_qty": 1108.0
           },
           {
             "level": 4,
-            "ask": 142800.0,
-            "bid": 142100.0,
-            "ask_qty": 461.0,
-            "bid_qty": 356.0
+            "ask": 143400.0,
+            "bid": 142700.0,
+            "ask_qty": 107.0,
+            "bid_qty": 414.0
           },
           {
             "level": 5,
-            "ask": 142900.0,
-            "bid": 142000.0,
-            "ask_qty": 648.0,
-            "bid_qty": 487.0
+            "ask": 143500.0,
+            "bid": 142600.0,
+            "ask_qty": 764.0,
+            "bid_qty": 100.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 4.0,
+          "hours": 4.4,
           "at": "2026-10-01T16:09:00+09:00",
           "title": "반도체 수출·마이크론 호실적에 코스피 7000선 눈앞…코스닥 4%대 급...",
           "source": "news",
-          "reason": "재료 발표 후 4.0시간이 지났습니다."
+          "reason": "재료 발표 후 4.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4259,7 +4259,7 @@
       "theme": {
         "name": "반도체 장비",
         "code": "12",
-        "change_rate": 6.19,
+        "change_rate": 6.7,
         "rising": 93.0,
         "falling": 2.0,
         "leader_rank": 8
@@ -4686,59 +4686,59 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 11.77,
-        "buy_total": 8776.0,
-        "sell_total": 17976.0,
+        "buy_total": 11408.0,
+        "sell_total": 15385.0,
         "levels": [
           {
             "level": 1,
             "ask": 42500.0,
             "bid": 42450.0,
-            "ask_qty": 8741.0,
-            "bid_qty": 64.0
+            "ask_qty": 6597.0,
+            "bid_qty": 661.0
           },
           {
             "level": 2,
             "ask": 42550.0,
             "bid": 42400.0,
-            "ask_qty": 1700.0,
-            "bid_qty": 858.0
+            "ask_qty": 1298.0,
+            "bid_qty": 2101.0
           },
           {
             "level": 3,
             "ask": 42600.0,
             "bid": 42350.0,
-            "ask_qty": 815.0,
-            "bid_qty": 385.0
+            "ask_qty": 1090.0,
+            "bid_qty": 1470.0
           },
           {
             "level": 4,
             "ask": 42650.0,
             "bid": 42300.0,
-            "ask_qty": 509.0,
-            "bid_qty": 435.0
+            "ask_qty": 1227.0,
+            "bid_qty": 1560.0
           },
           {
             "level": 5,
             "ask": 42700.0,
             "bid": 42250.0,
-            "ask_qty": 1426.0,
-            "bid_qty": 849.0
+            "ask_qty": 1938.0,
+            "bid_qty": 825.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.9,
+          "hours": 2.4,
           "at": "2026-10-01T18:12:24+09:00",
           "title": "(주)디아이 단일판매ㆍ공급계약 체결(자율공시)",
           "source": "notice",
-          "reason": "재료 발표 후 1.9시간이 지났습니다."
+          "reason": "재료 발표 후 2.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -4798,7 +4798,7 @@
       "theme": {
         "name": "반도체 장비",
         "code": "12",
-        "change_rate": 6.19,
+        "change_rate": 6.7,
         "rising": 93.0,
         "falling": 2.0,
         "leader_rank": 7
@@ -4995,7 +4995,7 @@
         "prev20_high": 81900,
         "prev60_high": 81900,
         "digest_ratio": 1.0,
-        "spread_bps": 12.23,
+        "spread_bps": 12.22,
         "sequence": {
           "available": true,
           "low_after_1430": 81100.0,
@@ -5189,10 +5189,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 12.23,
+          "value": 12.22,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 12.23bp",
+          "reason": "스프레드 12.22bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -5223,60 +5223,60 @@
       "quality_score": 82.4,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 12.23,
-        "buy_total": 7333.0,
-        "sell_total": 13613.0,
+        "spread_bps": 12.22,
+        "buy_total": 5944.0,
+        "sell_total": 10519.0,
         "levels": [
           {
             "level": 1,
-            "ask": 81800.0,
-            "bid": 81700.0,
-            "ask_qty": 1892.0,
-            "bid_qty": 739.0
+            "ask": 81900.0,
+            "bid": 81800.0,
+            "ask_qty": 3081.0,
+            "bid_qty": 35.0
           },
           {
             "level": 2,
-            "ask": 81900.0,
-            "bid": 81600.0,
-            "ask_qty": 3158.0,
-            "bid_qty": 599.0
+            "ask": 82000.0,
+            "bid": 81700.0,
+            "ask_qty": 4051.0,
+            "bid_qty": 985.0
           },
           {
             "level": 3,
-            "ask": 82000.0,
-            "bid": 81500.0,
-            "ask_qty": 4378.0,
-            "bid_qty": 541.0
+            "ask": 82100.0,
+            "bid": 81600.0,
+            "ask_qty": 540.0,
+            "bid_qty": 517.0
           },
           {
             "level": 4,
-            "ask": 82100.0,
-            "bid": 81400.0,
-            "ask_qty": 684.0,
-            "bid_qty": 777.0
+            "ask": 82200.0,
+            "bid": 81500.0,
+            "ask_qty": 844.0,
+            "bid_qty": 388.0
           },
           {
             "level": 5,
-            "ask": 82200.0,
-            "bid": 81300.0,
-            "ask_qty": 1275.0,
-            "bid_qty": 521.0
+            "ask": 82300.0,
+            "bid": 81400.0,
+            "ask_qty": 229.0,
+            "bid_qty": 499.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 3.8,
+          "hours": 4.3,
           "at": "2026-10-01T16:19:00+09:00",
           "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
           "source": "news",
-          "reason": "재료 발표 후 3.8시간이 지났습니다."
+          "reason": "재료 발표 후 4.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5514,7 +5514,7 @@
         "prev20_high": 6430,
         "prev60_high": 6430,
         "digest_ratio": 1.0,
-        "spread_bps": 16.33,
+        "spread_bps": 32.84,
         "sequence": {
           "available": true,
           "low_after_1430": 5980.0,
@@ -5706,10 +5706,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 16.33,
+          "value": 32.84,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 16.33bp",
+          "reason": "스프레드 32.84bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -5740,60 +5740,60 @@
       "quality_score": 79.4,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 16.33,
-        "buy_total": 21810.0,
-        "sell_total": 52342.0,
+        "spread_bps": 32.84,
+        "buy_total": 25508.0,
+        "sell_total": 46611.0,
         "levels": [
           {
             "level": 1,
-            "ask": 6130.0,
-            "bid": 6120.0,
-            "ask_qty": 130.0,
-            "bid_qty": 2410.0
+            "ask": 6100.0,
+            "bid": 6080.0,
+            "ask_qty": 859.0,
+            "bid_qty": 703.0
           },
           {
             "level": 2,
-            "ask": 6140.0,
-            "bid": 6110.0,
-            "ask_qty": 8809.0,
-            "bid_qty": 2501.0
+            "ask": 6110.0,
+            "bid": 6070.0,
+            "ask_qty": 1591.0,
+            "bid_qty": 1129.0
           },
           {
             "level": 3,
-            "ask": 6150.0,
-            "bid": 6100.0,
-            "ask_qty": 9848.0,
-            "bid_qty": 2901.0
+            "ask": 6120.0,
+            "bid": 6060.0,
+            "ask_qty": 2789.0,
+            "bid_qty": 2212.0
           },
           {
             "level": 4,
-            "ask": 6160.0,
-            "bid": 6090.0,
-            "ask_qty": 4694.0,
-            "bid_qty": 1305.0
+            "ask": 6130.0,
+            "bid": 6050.0,
+            "ask_qty": 1351.0,
+            "bid_qty": 2966.0
           },
           {
             "level": 5,
-            "ask": 6170.0,
-            "bid": 6080.0,
-            "ask_qty": 4469.0,
-            "bid_qty": 2428.0
+            "ask": 6140.0,
+            "bid": 6040.0,
+            "ask_qty": 6771.0,
+            "bid_qty": 2195.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 5.5,
+          "hours": 6.0,
           "at": "2026-10-01T14:36:00+09:00",
           "title": "HT로보틱스, 산업부 '2026 월드클래스 플러스' 선정… 최대 50억원 R&D ...",
           "source": "news",
-          "reason": "재료 발표 후 5.5시간이 지났습니다."
+          "reason": "재료 발표 후 6.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6029,7 +6029,7 @@
         "prev20_high": 151400,
         "prev60_high": 151400,
         "digest_ratio": 1.0,
-        "spread_bps": 6.73,
+        "spread_bps": 6.75,
         "sequence": {
           "available": true,
           "low_after_1430": 147400.0,
@@ -6223,10 +6223,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 6.73,
+          "value": 6.75,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 6.73bp",
+          "reason": "스프레드 6.75bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -6257,52 +6257,52 @@
       "quality_score": 76.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 6.73,
-        "buy_total": 3786.0,
-        "sell_total": 3887.0,
+        "spread_bps": 6.75,
+        "buy_total": 3187.0,
+        "sell_total": 3013.0,
         "levels": [
           {
             "level": 1,
-            "ask": 148700.0,
-            "bid": 148600.0,
-            "ask_qty": 514.0,
-            "bid_qty": 523.0
+            "ask": 148100.0,
+            "bid": 148000.0,
+            "ask_qty": 26.0,
+            "bid_qty": 532.0
           },
           {
             "level": 2,
-            "ask": 148800.0,
-            "bid": 148500.0,
-            "ask_qty": 723.0,
-            "bid_qty": 662.0
+            "ask": 148200.0,
+            "bid": 147900.0,
+            "ask_qty": 331.0,
+            "bid_qty": 380.0
           },
           {
             "level": 3,
-            "ask": 148900.0,
-            "bid": 148400.0,
-            "ask_qty": 850.0,
-            "bid_qty": 441.0
+            "ask": 148300.0,
+            "bid": 147800.0,
+            "ask_qty": 497.0,
+            "bid_qty": 130.0
           },
           {
             "level": 4,
-            "ask": 149000.0,
-            "bid": 148300.0,
-            "ask_qty": 362.0,
-            "bid_qty": 279.0
+            "ask": 148400.0,
+            "bid": 147700.0,
+            "ask_qty": 152.0,
+            "bid_qty": 433.0
           },
           {
             "level": 5,
-            "ask": 149100.0,
-            "bid": 148200.0,
-            "ask_qty": 82.0,
-            "bid_qty": 726.0
+            "ask": 148500.0,
+            "bid": 147600.0,
+            "ask_qty": 109.0,
+            "bid_qty": 152.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -6521,7 +6521,7 @@
         "prev20_high": 1833000,
         "prev60_high": 1833000,
         "digest_ratio": 1.0,
-        "spread_bps": 5.48,
+        "spread_bps": 5.47,
         "sequence": {
           "available": true,
           "low_after_1430": 1811000.0,
@@ -6715,10 +6715,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 5.48,
+          "value": 5.47,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 5.48bp",
+          "reason": "스프레드 5.47bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -6751,52 +6751,52 @@
       "quality_score": 76.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 5.48,
-        "buy_total": 5006.0,
-        "sell_total": 15662.0,
+        "spread_bps": 5.47,
+        "buy_total": 4004.0,
+        "sell_total": 15994.0,
         "levels": [
           {
             "level": 1,
-            "ask": 1826000.0,
-            "bid": 1825000.0,
-            "ask_qty": 1311.0,
-            "bid_qty": 908.0
+            "ask": 1829000.0,
+            "bid": 1828000.0,
+            "ask_qty": 1548.0,
+            "bid_qty": 943.0
           },
           {
             "level": 2,
-            "ask": 1827000.0,
-            "bid": 1824000.0,
-            "ask_qty": 1558.0,
-            "bid_qty": 793.0
+            "ask": 1830000.0,
+            "bid": 1827000.0,
+            "ask_qty": 4749.0,
+            "bid_qty": 358.0
           },
           {
             "level": 3,
-            "ask": 1828000.0,
-            "bid": 1823000.0,
-            "ask_qty": 1069.0,
-            "bid_qty": 452.0
+            "ask": 1831000.0,
+            "bid": 1826000.0,
+            "ask_qty": 2170.0,
+            "bid_qty": 473.0
           },
           {
             "level": 4,
-            "ask": 1829000.0,
-            "bid": 1822000.0,
-            "ask_qty": 1735.0,
-            "bid_qty": 401.0
+            "ask": 1832000.0,
+            "bid": 1825000.0,
+            "ask_qty": 1839.0,
+            "bid_qty": 378.0
           },
           {
             "level": 5,
-            "ask": 1830000.0,
-            "bid": 1821000.0,
-            "ask_qty": 3076.0,
-            "bid_qty": 276.0
+            "ask": 1833000.0,
+            "bid": 1824000.0,
+            "ask_qty": 2787.0,
+            "bid_qty": 345.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7248,51 +7248,51 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 6.44,
-        "buy_total": 2871.0,
-        "sell_total": 4883.0,
+        "buy_total": 2364.0,
+        "sell_total": 4568.0,
         "levels": [
           {
             "level": 1,
-            "ask": 1553000.0,
-            "bid": 1552000.0,
-            "ask_qty": 500.0,
-            "bid_qty": 289.0
+            "ask": 1554000.0,
+            "bid": 1553000.0,
+            "ask_qty": 155.0,
+            "bid_qty": 390.0
           },
           {
             "level": 2,
-            "ask": 1554000.0,
-            "bid": 1551000.0,
-            "ask_qty": 522.0,
-            "bid_qty": 347.0
+            "ask": 1555000.0,
+            "bid": 1552000.0,
+            "ask_qty": 623.0,
+            "bid_qty": 656.0
           },
           {
             "level": 3,
-            "ask": 1555000.0,
-            "bid": 1550000.0,
-            "ask_qty": 567.0,
-            "bid_qty": 363.0
+            "ask": 1556000.0,
+            "bid": 1551000.0,
+            "ask_qty": 377.0,
+            "bid_qty": 340.0
           },
           {
             "level": 4,
-            "ask": 1556000.0,
-            "bid": 1549000.0,
-            "ask_qty": 245.0,
-            "bid_qty": 547.0
+            "ask": 1557000.0,
+            "bid": 1550000.0,
+            "ask_qty": 366.0,
+            "bid_qty": 186.0
           },
           {
             "level": 5,
-            "ask": 1557000.0,
-            "bid": 1548000.0,
-            "ask_qty": 486.0,
-            "bid_qty": 414.0
+            "ask": 1558000.0,
+            "bid": 1549000.0,
+            "ask_qty": 363.0,
+            "bid_qty": 70.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7519,7 +7519,7 @@
         "prev20_high": 9440,
         "prev60_high": 9440,
         "digest_ratio": 1.0,
-        "spread_bps": 11.66,
+        "spread_bps": 11.58,
         "sequence": {
           "available": true,
           "low_after_1430": 8520.0,
@@ -7711,10 +7711,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 11.66,
+          "value": 11.58,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 11.66bp",
+          "reason": "스프레드 11.58bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -7745,52 +7745,52 @@
       "quality_score": 73.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 11.66,
-        "buy_total": 32583.0,
-        "sell_total": 27857.0,
+        "spread_bps": 11.58,
+        "buy_total": 18150.0,
+        "sell_total": 16615.0,
         "levels": [
           {
             "level": 1,
-            "ask": 8580.0,
-            "bid": 8570.0,
-            "ask_qty": 2454.0,
-            "bid_qty": 2029.0
+            "ask": 8640.0,
+            "bid": 8630.0,
+            "ask_qty": 1013.0,
+            "bid_qty": 411.0
           },
           {
             "level": 2,
-            "ask": 8590.0,
-            "bid": 8560.0,
-            "ask_qty": 1604.0,
-            "bid_qty": 4004.0
+            "ask": 8650.0,
+            "bid": 8620.0,
+            "ask_qty": 1611.0,
+            "bid_qty": 1437.0
           },
           {
             "level": 3,
-            "ask": 8600.0,
-            "bid": 8550.0,
-            "ask_qty": 6121.0,
-            "bid_qty": 1746.0
+            "ask": 8660.0,
+            "bid": 8610.0,
+            "ask_qty": 3207.0,
+            "bid_qty": 7615.0
           },
           {
             "level": 4,
-            "ask": 8610.0,
-            "bid": 8540.0,
-            "ask_qty": 1000.0,
-            "bid_qty": 5389.0
+            "ask": 8670.0,
+            "bid": 8600.0,
+            "ask_qty": 1071.0,
+            "bid_qty": 677.0
           },
           {
             "level": 5,
-            "ask": 8620.0,
-            "bid": 8530.0,
-            "ask_qty": 4798.0,
-            "bid_qty": 2324.0
+            "ask": 8680.0,
+            "bid": 8590.0,
+            "ask_qty": 1734.0,
+            "bid_qty": 76.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8012,7 +8012,7 @@
         "prev20_high": 89500,
         "prev60_high": 89500,
         "digest_ratio": 1.0,
-        "spread_bps": 11.22,
+        "spread_bps": 11.19,
         "sequence": {
           "available": true,
           "low_after_1430": 87300.0,
@@ -8206,10 +8206,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 11.22,
+          "value": 11.19,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 11.22bp",
+          "reason": "스프레드 11.19bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -8240,52 +8240,556 @@
       "quality_score": 73.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 11.22,
-        "buy_total": 29723.0,
-        "sell_total": 38388.0,
+        "spread_bps": 11.19,
+        "buy_total": 22094.0,
+        "sell_total": 37771.0,
         "levels": [
           {
             "level": 1,
-            "ask": 89200.0,
-            "bid": 89100.0,
-            "ask_qty": 4222.0,
-            "bid_qty": 4078.0
+            "ask": 89400.0,
+            "bid": 89300.0,
+            "ask_qty": 5569.0,
+            "bid_qty": 1217.0
           },
           {
             "level": 2,
-            "ask": 89300.0,
-            "bid": 89000.0,
-            "ask_qty": 1574.0,
-            "bid_qty": 3880.0
+            "ask": 89500.0,
+            "bid": 89200.0,
+            "ask_qty": 4214.0,
+            "bid_qty": 4296.0
           },
           {
             "level": 3,
-            "ask": 89400.0,
-            "bid": 88900.0,
-            "ask_qty": 1629.0,
-            "bid_qty": 8052.0
+            "ask": 89600.0,
+            "bid": 89100.0,
+            "ask_qty": 867.0,
+            "bid_qty": 1301.0
           },
           {
             "level": 4,
-            "ask": 89500.0,
-            "bid": 88800.0,
-            "ask_qty": 2974.0,
-            "bid_qty": 2826.0
+            "ask": 89700.0,
+            "bid": 89000.0,
+            "ask_qty": 1333.0,
+            "bid_qty": 4578.0
           },
           {
             "level": 5,
-            "ask": 89600.0,
-            "bid": 88700.0,
-            "ask_qty": 1403.0,
-            "bid_qty": 2279.0
+            "ask": 89800.0,
+            "bid": 88900.0,
+            "ask_qty": 4522.0,
+            "bid_qty": 1019.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
+        "prior_history_confirmed": true,
+        "catalyst_freshness": {
+          "status": "UNKNOWN",
+          "hours": null,
+          "at": null,
+          "title": null,
+          "reason": "재료 발표 시각을 확인하지 못했습니다."
+        },
+        "matched_catalyst_items": [],
+        "after_signal_items": [],
+        "source_errors": []
+      }
+    },
+    {
+      "code": "456160",
+      "name": "지투지바이오",
+      "market": "2",
+      "price": 42800,
+      "change_rate": 21.07,
+      "trade_value": 27649473000,
+      "market_cap": 711739000000,
+      "volume": 672572,
+      "sources": {
+        "rise": 8,
+        "volume_surge": 58
+      },
+      "source_rank_score": 365,
+      "theme": {
+        "name": "치매",
+        "code": "377",
+        "change_rate": 6.03,
+        "rising": 44.0,
+        "falling": 4.0,
+        "leader_rank": 2
+      },
+      "catalyst": {
+        "grade": "REJECT",
+        "reason": "투자주의종목",
+        "positive_titles": [
+          "투자주의종목",
+          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
+        ],
+        "titles": [
+          "주식관련사채",
+          "(주)지투지바이오 전환가액의조정(제6회차)",
+          "(주)지투지바이오 전환주식의 전환가액 조정(전환우선주)",
+          "(주)지투지바이오 전환가액의조정(제5회차)",
+          "기타주요경영사항",
+          "(주)지투지바이오 투자판단 관련 주요경영사항(임상시험 결과)",
+          "투자주의종목",
+          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
+        ]
+      },
+      "limit_up_pattern": "NO_LIMIT",
+      "pattern": {
+        "id": "C1",
+        "name": "이평 수렴 돌파",
+        "score": 55,
+        "components": [
+          {
+            "name": "거래대금 500억",
+            "pass": false,
+            "weight": 20
+          },
+          {
+            "name": "장대양봉",
+            "pass": true,
+            "weight": 20
+          },
+          {
+            "name": "작은 윗꼬리",
+            "pass": true,
+            "weight": 15
+          },
+          {
+            "name": "이평 수렴",
+            "pass": false,
+            "weight": 15
+          },
+          {
+            "name": "저항 돌파",
+            "pass": true,
+            "weight": 20
+          },
+          {
+            "name": "재료 A/S",
+            "pass": false,
+            "weight": 10
+          }
+        ],
+        "initial": "NORMAL",
+        "supports": [
+          "돌파선",
+          "5·10·20일선 수렴부"
+        ]
+      },
+      "pattern_candidates": [
+        {
+          "id": "C1",
+          "name": "이평 수렴 돌파",
+          "score": 55,
+          "components": [
+            {
+              "name": "거래대금 500억",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "장대양봉",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "작은 윗꼬리",
+              "pass": true,
+              "weight": 15
+            },
+            {
+              "name": "이평 수렴",
+              "pass": false,
+              "weight": 15
+            },
+            {
+              "name": "저항 돌파",
+              "pass": true,
+              "weight": 20
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 10
+            }
+          ],
+          "initial": "NORMAL",
+          "supports": [
+            "돌파선",
+            "5·10·20일선 수렴부"
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "매집 완료·신고가",
+          "score": 35,
+          "components": [
+            {
+              "name": "최근 상한가/강봉",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "신고가 근접",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "5·11일선 유지",
+              "pass": false,
+              "weight": 15
+            },
+            {
+              "name": "거래량 재유입",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 10
+            },
+            {
+              "name": "고가권",
+              "pass": true,
+              "weight": 10
+            }
+          ],
+          "initial": "NORMAL",
+          "supports": [
+            "5·11일선",
+            "박스 상단"
+          ]
+        },
+        {
+          "id": "C6",
+          "name": "양음양 저항 돌파",
+          "score": 25,
+          "components": [
+            {
+              "name": "양음양",
+              "pass": false,
+              "weight": 30
+            },
+            {
+              "name": "저항 돌파",
+              "pass": true,
+              "weight": 25
+            },
+            {
+              "name": "거래대금",
+              "pass": false,
+              "weight": 20
+            },
+            {
+              "name": "앞선 매집 대리변수",
+              "pass": false,
+              "weight": 15
+            },
+            {
+              "name": "재료 A/S",
+              "pass": false,
+              "weight": 10
+            }
+          ],
+          "initial": "NORMAL",
+          "supports": [
+            "돌파 저항선",
+            "단기·장기 이평 지지"
+          ]
+        }
+      ],
+      "metrics": {
+        "close_location": 0.7762,
+        "upper_wick": 0.2238,
+        "body_ratio": 0.719,
+        "volume_ratio": 0,
+        "ma5": 0,
+        "ma10": 0,
+        "ma20": 0,
+        "ma60": 0,
+        "ma120": 0,
+        "prev20_high": 45150,
+        "prev60_high": 45150,
+        "digest_ratio": 1.0,
+        "spread_bps": 11.69,
+        "sequence": {
+          "available": true,
+          "low_after_1430": 42650.0,
+          "high_after_1500": 42900.0,
+          "recovery_from_1430_low": 0.0143,
+          "high_retention_after_1500": 0.9905,
+          "late_volume_share": 0.0188,
+          "late_return_from_1510": 0.0035,
+          "late_spike_without_volume": false,
+          "records": 100
+        }
+      },
+      "plan": {
+        "initial_size": "NORMAL",
+        "supports": [],
+        "invalidation": 34650,
+        "stop_distance": 0.1904,
+        "next_day": [
+          "갭상승 추격 금지, 첫 눌림 지지 확인",
+          "보합 출발 시 전일 종가·돌파선 유지 확인",
+          "갭하락 후 무효화선 회복 실패 시 제외",
+          "실제 호가·체결이 좋을 때 첫 상승파동 청산"
+        ]
+      },
+      "checks": [
+        {
+          "id": "X_MARKET_CAP",
+          "name": "시가총액 500억",
+          "role": "required",
+          "value": 711739000000,
+          "threshold": ">= 500억원",
+          "status": "PASS",
+          "reason": "시총 7,117억원",
+          "data_source": "Naver detail.marketSum"
+        },
+        {
+          "id": "X_TRADE_VALUE",
+          "name": "거래대금 500억",
+          "role": "required",
+          "value": 27649473000,
+          "threshold": ">= 500억원",
+          "status": "FAIL",
+          "reason": "거래대금 276억원",
+          "data_source": "Naver price.tradeAmount"
+        },
+        {
+          "id": "X_RISK",
+          "name": "관리·거래 위험",
+          "role": "required",
+          "value": true,
+          "threshold": "정상",
+          "status": "PASS",
+          "reason": "위험 목록 또는 종목 상태 필드 확인",
+          "data_source": "Naver rankings/detail"
+        },
+        {
+          "id": "X_TYPE",
+          "name": "보통주",
+          "role": "required",
+          "value": true,
+          "threshold": "type=ST",
+          "status": "PASS",
+          "reason": "type=ST",
+          "data_source": "Naver price.type"
+        },
+        {
+          "id": "X_IPO",
+          "name": "당일 상장 제외",
+          "role": "required",
+          "value": null,
+          "threshold": "상장 1일 이상",
+          "status": "PASS",
+          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
+          "data_source": "Naver listedDate",
+          "original_status": "WARN",
+          "original_reason": "상장 경과 미확인일"
+        },
+        {
+          "id": "X_POLITICAL",
+          "name": "정치테마 제외",
+          "role": "required",
+          "value": true,
+          "threshold": "비정치",
+          "status": "PASS",
+          "reason": "테마·뉴스 제목 규칙",
+          "data_source": "Naver theme/news"
+        },
+        {
+          "id": "X_PENNY",
+          "name": "동전주 제외",
+          "role": "required",
+          "value": 42800.0,
+          "threshold": ">= 1,000원",
+          "status": "PASS",
+          "reason": "현재가 42,800원",
+          "data_source": "Naver nowPrice"
+        },
+        {
+          "id": "S_CATALYST",
+          "name": "재료 S/A",
+          "role": "required",
+          "value": "REJECT",
+          "threshold": "S 또는 A",
+          "status": "FAIL",
+          "reason": "투자주의종목",
+          "data_source": "Naver theme/news/notice"
+        },
+        {
+          "id": "S_LEADER",
+          "name": "현재 대장·2등주",
+          "role": "required",
+          "value": 2,
+          "threshold": "테마 1~2위 또는 강한 개별재료",
+          "status": "PASS",
+          "reason": "치매 · 순위 2",
+          "data_source": "Naver theme stocklist"
+        },
+        {
+          "id": "L_LIMIT_PATTERN",
+          "name": "상한가 분봉 패턴",
+          "role": "supporting",
+          "value": "NO_LIMIT",
+          "threshold": "LOCKED/RELOCKED 우수",
+          "status": "PASS",
+          "reason": "NO_LIMIT",
+          "data_source": "Naver 1분 siseTick"
+        },
+        {
+          "id": "D_PATTERN",
+          "name": "종가 패턴 식별",
+          "role": "required",
+          "value": 55,
+          "threshold": "70점 이상",
+          "status": "WARN",
+          "reason": "C1 이평 수렴 돌파 55점",
+          "data_source": "Naver 일봉 + OpenBot 규칙"
+        },
+        {
+          "id": "C_LOCATION",
+          "name": "고가권 종가",
+          "role": "required",
+          "value": 0.7762,
+          "threshold": ">=0.70 (엄격 0.75)",
+          "status": "PASS",
+          "reason": "당일 범위 위치 0.78",
+          "data_source": "Naver OHLC"
+        },
+        {
+          "id": "C_WICK",
+          "name": "작은 윗꼬리 장대양봉",
+          "role": "required",
+          "value": 0.2238,
+          "threshold": "0.02~0.30, 0.45 초과 제외",
+          "status": "PASS",
+          "reason": "윗꼬리 0.22 · 몸통 0.72",
+          "data_source": "Naver OHLC"
+        },
+        {
+          "id": "C_SEQUENCE",
+          "name": "마감 과정",
+          "role": "required",
+          "value": {
+            "available": true,
+            "low_after_1430": 42650.0,
+            "high_after_1500": 42900.0,
+            "recovery_from_1430_low": 0.0143,
+            "high_retention_after_1500": 0.9905,
+            "late_volume_share": 0.0188,
+            "late_return_from_1510": 0.0035,
+            "late_spike_without_volume": false,
+            "records": 100
+          },
+          "threshold": "장막판 회복·거래 동반",
+          "status": "PASS",
+          "reason": "거래 없는 막판 수직 급등 배제",
+          "data_source": "Naver siseTick"
+        },
+        {
+          "id": "A_DIGESTION",
+          "name": "과거 매물 소화",
+          "role": "required",
+          "value": 1.0,
+          "threshold": "전고점 돌파+과거대금 0.60 이상 또는 박스형",
+          "status": "WARN",
+          "reason": "현재/과거 최대 거래대금 1.00 · 전고점 미돌파",
+          "data_source": "Naver daily turnover proxy"
+        },
+        {
+          "id": "H_LIQUIDITY",
+          "name": "호가 유동성",
+          "role": "supporting",
+          "value": 11.69,
+          "threshold": "스프레드 40bp 이하",
+          "status": "PASS",
+          "reason": "스프레드 11.69bp",
+          "data_source": "Naver hoga snapshot"
+        },
+        {
+          "id": "H_ABSORPTION",
+          "name": "실제 물량 소화",
+          "role": "manual",
+          "value": null,
+          "threshold": "익일 실제 호가·체결 확인",
+          "status": "MISSING",
+          "reason": "정적 호가 스냅샷만으로 취소와 체결을 완전히 구분할 수 없음",
+          "data_source": "Actual HTS next day"
+        },
+        {
+          "id": "R_PLAN",
+          "name": "분할·무효화 계획",
+          "role": "required",
+          "value": {
+            "supports": [],
+            "invalidation": 34650,
+            "distance": 0.1904
+          },
+          "threshold": "패턴별 지지선 정의",
+          "status": "FAIL",
+          "reason": "초기 NORMAL · 무효화 34,650원",
+          "data_source": "OpenBot pattern rule + Naver MA"
+        }
+      ],
+      "quality_score": 73.5,
+      "final_status": "EXCLUDE",
+      "orderbook": {
+        "spread_bps": 11.69,
+        "buy_total": 797.0,
+        "sell_total": 1819.0,
+        "levels": [
+          {
+            "level": 1,
+            "ask": 42800.0,
+            "bid": 42750.0,
+            "ask_qty": 671.0,
+            "bid_qty": 39.0
+          },
+          {
+            "level": 2,
+            "ask": 42850.0,
+            "bid": 42700.0,
+            "ask_qty": 30.0,
+            "bid_qty": 149.0
+          },
+          {
+            "level": 3,
+            "ask": 42900.0,
+            "bid": 42650.0,
+            "ask_qty": 139.0,
+            "bid_qty": 16.0
+          },
+          {
+            "level": 4,
+            "ask": 42950.0,
+            "bid": 42600.0,
+            "ask_qty": 22.0,
+            "bid_qty": 222.0
+          },
+          {
+            "level": 5,
+            "ask": 43000.0,
+            "bid": 42550.0,
+            "ask_qty": 446.0,
+            "bid_qty": 111.0
+          }
+        ]
+      },
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
+      "market_status": "CLOSE",
+      "winrate_v4": {
+        "version": "largo-winrate-v4.1",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8511,7 +9015,7 @@
         "prev20_high": 163500,
         "prev60_high": 163500,
         "digest_ratio": 1.0,
-        "spread_bps": 6.29,
+        "spread_bps": 6.3,
         "sequence": {
           "available": true,
           "low_after_1430": 158100.0,
@@ -8703,10 +9207,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 6.29,
+          "value": 6.3,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 6.29bp",
+          "reason": "스프레드 6.3bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -8737,52 +9241,52 @@
       "quality_score": 73.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 6.29,
-        "buy_total": 4149.0,
-        "sell_total": 3171.0,
+        "spread_bps": 6.3,
+        "buy_total": 3892.0,
+        "sell_total": 1605.0,
         "levels": [
           {
             "level": 1,
-            "ask": 159000.0,
-            "bid": 158900.0,
-            "ask_qty": 292.0,
-            "bid_qty": 1102.0
+            "ask": 158900.0,
+            "bid": 158800.0,
+            "ask_qty": 249.0,
+            "bid_qty": 327.0
           },
           {
             "level": 2,
-            "ask": 159100.0,
-            "bid": 158800.0,
-            "ask_qty": 483.0,
-            "bid_qty": 234.0
+            "ask": 159000.0,
+            "bid": 158700.0,
+            "ask_qty": 330.0,
+            "bid_qty": 149.0
           },
           {
             "level": 3,
-            "ask": 159200.0,
-            "bid": 158700.0,
-            "ask_qty": 736.0,
-            "bid_qty": 307.0
+            "ask": 159100.0,
+            "bid": 158600.0,
+            "ask_qty": 66.0,
+            "bid_qty": 1271.0
           },
           {
             "level": 4,
-            "ask": 159300.0,
-            "bid": 158600.0,
-            "ask_qty": 433.0,
-            "bid_qty": 256.0
+            "ask": 159200.0,
+            "bid": 158500.0,
+            "ask_qty": 144.0,
+            "bid_qty": 177.0
           },
           {
             "level": 5,
-            "ask": 159400.0,
-            "bid": 158500.0,
-            "ask_qty": 244.0,
-            "bid_qty": 162.0
+            "ask": 159300.0,
+            "bid": 158400.0,
+            "ask_qty": 286.0,
+            "bid_qty": 160.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8814,8 +9318,8 @@
       "theme": {
         "name": "반도체 재료/부품",
         "code": "14",
-        "change_rate": 3.82,
-        "rising": 66.0,
+        "change_rate": 4.31,
+        "rising": 67.0,
         "falling": 4.0,
         "leader_rank": 8
       },
@@ -9246,51 +9750,51 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 10.98,
-        "buy_total": 6882.0,
-        "sell_total": 20479.0,
+        "buy_total": 5889.0,
+        "sell_total": 18160.0,
         "levels": [
           {
             "level": 1,
             "ask": 9110.0,
             "bid": 9100.0,
-            "ask_qty": 2172.0,
-            "bid_qty": 166.0
+            "ask_qty": 641.0,
+            "bid_qty": 29.0
           },
           {
             "level": 2,
             "ask": 9120.0,
             "bid": 9090.0,
-            "ask_qty": 3544.0,
-            "bid_qty": 857.0
+            "ask_qty": 3631.0,
+            "bid_qty": 63.0
           },
           {
             "level": 3,
             "ask": 9130.0,
             "bid": 9080.0,
-            "ask_qty": 3276.0,
-            "bid_qty": 896.0
+            "ask_qty": 2371.0,
+            "bid_qty": 2566.0
           },
           {
             "level": 4,
             "ask": 9140.0,
             "bid": 9070.0,
-            "ask_qty": 3268.0,
-            "bid_qty": 2917.0
+            "ask_qty": 3310.0,
+            "bid_qty": 1140.0
           },
           {
             "level": 5,
             "ask": 9150.0,
             "bid": 9060.0,
-            "ask_qty": 4185.0,
-            "bid_qty": 200.0
+            "ask_qty": 4262.0,
+            "bid_qty": 199.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9322,9 +9826,9 @@
       "theme": {
         "name": "2026 하반기 신규상장",
         "code": "615",
-        "change_rate": 4.61,
-        "rising": 8.0,
-        "falling": 12.0,
+        "change_rate": 4.92,
+        "rising": 10.0,
+        "falling": 10.0,
         "leader_rank": 1
       },
       "catalyst": {
@@ -9513,7 +10017,7 @@
         "prev20_high": 62100,
         "prev60_high": 62100,
         "digest_ratio": 1.0,
-        "spread_bps": 16.22,
+        "spread_bps": 16.09,
         "sequence": {
           "available": true,
           "low_after_1430": 30700.0,
@@ -9705,10 +10209,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 16.22,
+          "value": 16.09,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 16.22bp",
+          "reason": "스프레드 16.09bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -9741,52 +10245,52 @@
       "quality_score": 67.6,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 16.22,
-        "buy_total": 34885.0,
-        "sell_total": 11252.0,
+        "spread_bps": 16.09,
+        "buy_total": 31830.0,
+        "sell_total": 19043.0,
         "levels": [
           {
             "level": 1,
-            "ask": 30850.0,
-            "bid": 30800.0,
-            "ask_qty": 316.0,
-            "bid_qty": 4.0
+            "ask": 31100.0,
+            "bid": 31050.0,
+            "ask_qty": 1138.0,
+            "bid_qty": 1453.0
           },
           {
             "level": 2,
-            "ask": 30900.0,
-            "bid": 30750.0,
-            "ask_qty": 628.0,
-            "bid_qty": 2171.0
+            "ask": 31150.0,
+            "bid": 31000.0,
+            "ask_qty": 2137.0,
+            "bid_qty": 6816.0
           },
           {
             "level": 3,
-            "ask": 30950.0,
-            "bid": 30700.0,
-            "ask_qty": 1104.0,
-            "bid_qty": 4605.0
+            "ask": 31200.0,
+            "bid": 30950.0,
+            "ask_qty": 3453.0,
+            "bid_qty": 1378.0
           },
           {
             "level": 4,
-            "ask": 31000.0,
-            "bid": 30650.0,
-            "ask_qty": 1075.0,
-            "bid_qty": 3437.0
+            "ask": 31250.0,
+            "bid": 30900.0,
+            "ask_qty": 1105.0,
+            "bid_qty": 2088.0
           },
           {
             "level": 5,
-            "ask": 31050.0,
-            "bid": 30600.0,
-            "ask_qty": 808.0,
-            "bid_qty": 5558.0
+            "ask": 31300.0,
+            "bid": 30850.0,
+            "ask_qty": 2268.0,
+            "bid_qty": 2263.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10020,7 +10524,7 @@
         "prev20_high": 3945,
         "prev60_high": 3945,
         "digest_ratio": 1.0,
-        "spread_bps": 12.86,
+        "spread_bps": 13.05,
         "sequence": {
           "available": true,
           "low_after_1430": 3800.0,
@@ -10214,10 +10718,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 12.86,
+          "value": 13.05,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 12.86bp",
+          "reason": "스프레드 13.05bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -10248,52 +10752,52 @@
       "quality_score": 67.6,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 12.86,
-        "buy_total": 3193.0,
-        "sell_total": 7478.0,
+        "spread_bps": 13.05,
+        "buy_total": 25309.0,
+        "sell_total": 4105.0,
         "levels": [
           {
             "level": 1,
-            "ask": 3890.0,
-            "bid": 3885.0,
-            "ask_qty": 235.0,
-            "bid_qty": 21.0
+            "ask": 3835.0,
+            "bid": 3830.0,
+            "ask_qty": 798.0,
+            "bid_qty": 1100.0
           },
           {
             "level": 2,
-            "ask": 3895.0,
-            "bid": 3880.0,
-            "ask_qty": 28.0,
-            "bid_qty": 257.0
+            "ask": 3850.0,
+            "bid": 3825.0,
+            "ask_qty": 60.0,
+            "bid_qty": 772.0
           },
           {
             "level": 3,
-            "ask": 3900.0,
-            "bid": 3870.0,
-            "ask_qty": 82.0,
-            "bid_qty": 560.0
+            "ask": 3860.0,
+            "bid": 3820.0,
+            "ask_qty": 490.0,
+            "bid_qty": 1397.0
           },
           {
             "level": 4,
-            "ask": 3905.0,
-            "bid": 3865.0,
-            "ask_qty": 64.0,
-            "bid_qty": 605.0
+            "ask": 3865.0,
+            "bid": 3815.0,
+            "ask_qty": 838.0,
+            "bid_qty": 3721.0
           },
           {
             "level": 5,
-            "ask": 3910.0,
-            "bid": 3860.0,
-            "ask_qty": 136.0,
-            "bid_qty": 411.0
+            "ask": 3870.0,
+            "bid": 3810.0,
+            "ask_qty": 970.0,
+            "bid_qty": 10475.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10519,7 +11023,7 @@
         "prev20_high": 37850,
         "prev60_high": 37850,
         "digest_ratio": 1.0,
-        "spread_bps": 13.61,
+        "spread_bps": 13.6,
         "sequence": {
           "available": true,
           "low_after_1430": 36500.0,
@@ -10713,10 +11217,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 13.61,
+          "value": 13.6,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 13.61bp",
+          "reason": "스프레드 13.6bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -10747,52 +11251,52 @@
       "quality_score": 67.6,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 13.61,
-        "buy_total": 2970.0,
-        "sell_total": 1640.0,
+        "spread_bps": 13.6,
+        "buy_total": 1070.0,
+        "sell_total": 1049.0,
         "levels": [
           {
             "level": 1,
-            "ask": 36750.0,
-            "bid": 36700.0,
-            "ask_qty": 686.0,
-            "bid_qty": 36.0
+            "ask": 36800.0,
+            "bid": 36750.0,
+            "ask_qty": 111.0,
+            "bid_qty": 54.0
           },
           {
             "level": 2,
-            "ask": 36800.0,
-            "bid": 36650.0,
-            "ask_qty": 268.0,
-            "bid_qty": 413.0
+            "ask": 36850.0,
+            "bid": 36700.0,
+            "ask_qty": 144.0,
+            "bid_qty": 127.0
           },
           {
             "level": 3,
-            "ask": 36850.0,
-            "bid": 36600.0,
-            "ask_qty": 80.0,
-            "bid_qty": 174.0
+            "ask": 36900.0,
+            "bid": 36650.0,
+            "ask_qty": 141.0,
+            "bid_qty": 51.0
           },
           {
             "level": 4,
-            "ask": 36900.0,
-            "bid": 36550.0,
-            "ask_qty": 146.0,
-            "bid_qty": 97.0
+            "ask": 36950.0,
+            "bid": 36600.0,
+            "ask_qty": 209.0,
+            "bid_qty": 53.0
           },
           {
             "level": 5,
-            "ask": 36950.0,
-            "bid": 36500.0,
-            "ask_qty": 216.0,
-            "bid_qty": 1254.0
+            "ask": 37000.0,
+            "bid": 36550.0,
+            "ask_qty": 54.0,
+            "bid_qty": 79.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10818,510 +11322,6 @@
       }
     },
     {
-      "code": "456160",
-      "name": "지투지바이오",
-      "market": "2",
-      "price": 42800,
-      "change_rate": 21.07,
-      "trade_value": 27649473000,
-      "market_cap": 711739000000,
-      "volume": 672572,
-      "sources": {
-        "rise": 8,
-        "volume_surge": 58
-      },
-      "source_rank_score": 365,
-      "theme": {
-        "name": "비만치료제",
-        "code": "540",
-        "change_rate": 4.26,
-        "rising": 32.0,
-        "falling": 5.0,
-        "leader_rank": 6
-      },
-      "catalyst": {
-        "grade": "REJECT",
-        "reason": "투자주의종목",
-        "positive_titles": [
-          "투자주의종목",
-          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
-        ],
-        "titles": [
-          "주식관련사채",
-          "(주)지투지바이오 전환가액의조정(제6회차)",
-          "(주)지투지바이오 전환주식의 전환가액 조정(전환우선주)",
-          "(주)지투지바이오 전환가액의조정(제5회차)",
-          "기타주요경영사항",
-          "(주)지투지바이오 투자판단 관련 주요경영사항(임상시험 결과)",
-          "투자주의종목",
-          "(주)지투지바이오 [투자주의]투자경고종목 지정예고"
-        ]
-      },
-      "limit_up_pattern": "NO_LIMIT",
-      "pattern": {
-        "id": "C1",
-        "name": "이평 수렴 돌파",
-        "score": 55,
-        "components": [
-          {
-            "name": "거래대금 500억",
-            "pass": false,
-            "weight": 20
-          },
-          {
-            "name": "장대양봉",
-            "pass": true,
-            "weight": 20
-          },
-          {
-            "name": "작은 윗꼬리",
-            "pass": true,
-            "weight": 15
-          },
-          {
-            "name": "이평 수렴",
-            "pass": false,
-            "weight": 15
-          },
-          {
-            "name": "저항 돌파",
-            "pass": true,
-            "weight": 20
-          },
-          {
-            "name": "재료 A/S",
-            "pass": false,
-            "weight": 10
-          }
-        ],
-        "initial": "NORMAL",
-        "supports": [
-          "돌파선",
-          "5·10·20일선 수렴부"
-        ]
-      },
-      "pattern_candidates": [
-        {
-          "id": "C1",
-          "name": "이평 수렴 돌파",
-          "score": 55,
-          "components": [
-            {
-              "name": "거래대금 500억",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "장대양봉",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "작은 윗꼬리",
-              "pass": true,
-              "weight": 15
-            },
-            {
-              "name": "이평 수렴",
-              "pass": false,
-              "weight": 15
-            },
-            {
-              "name": "저항 돌파",
-              "pass": true,
-              "weight": 20
-            },
-            {
-              "name": "재료 A/S",
-              "pass": false,
-              "weight": 10
-            }
-          ],
-          "initial": "NORMAL",
-          "supports": [
-            "돌파선",
-            "5·10·20일선 수렴부"
-          ]
-        },
-        {
-          "id": "C2",
-          "name": "매집 완료·신고가",
-          "score": 35,
-          "components": [
-            {
-              "name": "최근 상한가/강봉",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "신고가 근접",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "5·11일선 유지",
-              "pass": false,
-              "weight": 15
-            },
-            {
-              "name": "거래량 재유입",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "재료 A/S",
-              "pass": false,
-              "weight": 10
-            },
-            {
-              "name": "고가권",
-              "pass": true,
-              "weight": 10
-            }
-          ],
-          "initial": "NORMAL",
-          "supports": [
-            "5·11일선",
-            "박스 상단"
-          ]
-        },
-        {
-          "id": "C6",
-          "name": "양음양 저항 돌파",
-          "score": 25,
-          "components": [
-            {
-              "name": "양음양",
-              "pass": false,
-              "weight": 30
-            },
-            {
-              "name": "저항 돌파",
-              "pass": true,
-              "weight": 25
-            },
-            {
-              "name": "거래대금",
-              "pass": false,
-              "weight": 20
-            },
-            {
-              "name": "앞선 매집 대리변수",
-              "pass": false,
-              "weight": 15
-            },
-            {
-              "name": "재료 A/S",
-              "pass": false,
-              "weight": 10
-            }
-          ],
-          "initial": "NORMAL",
-          "supports": [
-            "돌파 저항선",
-            "단기·장기 이평 지지"
-          ]
-        }
-      ],
-      "metrics": {
-        "close_location": 0.7762,
-        "upper_wick": 0.2238,
-        "body_ratio": 0.719,
-        "volume_ratio": 0,
-        "ma5": 0,
-        "ma10": 0,
-        "ma20": 0,
-        "ma60": 0,
-        "ma120": 0,
-        "prev20_high": 45150,
-        "prev60_high": 45150,
-        "digest_ratio": 1.0,
-        "spread_bps": 11.69,
-        "sequence": {
-          "available": true,
-          "low_after_1430": 42650.0,
-          "high_after_1500": 42900.0,
-          "recovery_from_1430_low": 0.0143,
-          "high_retention_after_1500": 0.9905,
-          "late_volume_share": 0.0188,
-          "late_return_from_1510": 0.0035,
-          "late_spike_without_volume": false,
-          "records": 100
-        }
-      },
-      "plan": {
-        "initial_size": "NORMAL",
-        "supports": [],
-        "invalidation": 34650,
-        "stop_distance": 0.1904,
-        "next_day": [
-          "갭상승 추격 금지, 첫 눌림 지지 확인",
-          "보합 출발 시 전일 종가·돌파선 유지 확인",
-          "갭하락 후 무효화선 회복 실패 시 제외",
-          "실제 호가·체결이 좋을 때 첫 상승파동 청산"
-        ]
-      },
-      "checks": [
-        {
-          "id": "X_MARKET_CAP",
-          "name": "시가총액 500억",
-          "role": "required",
-          "value": 711739000000,
-          "threshold": ">= 500억원",
-          "status": "PASS",
-          "reason": "시총 7,117억원",
-          "data_source": "Naver detail.marketSum"
-        },
-        {
-          "id": "X_TRADE_VALUE",
-          "name": "거래대금 500억",
-          "role": "required",
-          "value": 27649473000,
-          "threshold": ">= 500억원",
-          "status": "FAIL",
-          "reason": "거래대금 276억원",
-          "data_source": "Naver price.tradeAmount"
-        },
-        {
-          "id": "X_RISK",
-          "name": "관리·거래 위험",
-          "role": "required",
-          "value": true,
-          "threshold": "정상",
-          "status": "PASS",
-          "reason": "위험 목록 또는 종목 상태 필드 확인",
-          "data_source": "Naver rankings/detail"
-        },
-        {
-          "id": "X_TYPE",
-          "name": "보통주",
-          "role": "required",
-          "value": true,
-          "threshold": "type=ST",
-          "status": "PASS",
-          "reason": "type=ST",
-          "data_source": "Naver price.type"
-        },
-        {
-          "id": "X_IPO",
-          "name": "당일 상장 제외",
-          "role": "required",
-          "value": null,
-          "threshold": "상장 1일 이상",
-          "status": "PASS",
-          "reason": "과거 일봉과 이동평균이 있어 당일 신규 상장이 아닙니다.",
-          "data_source": "Naver listedDate",
-          "original_status": "WARN",
-          "original_reason": "상장 경과 미확인일"
-        },
-        {
-          "id": "X_POLITICAL",
-          "name": "정치테마 제외",
-          "role": "required",
-          "value": true,
-          "threshold": "비정치",
-          "status": "PASS",
-          "reason": "테마·뉴스 제목 규칙",
-          "data_source": "Naver theme/news"
-        },
-        {
-          "id": "X_PENNY",
-          "name": "동전주 제외",
-          "role": "required",
-          "value": 42800.0,
-          "threshold": ">= 1,000원",
-          "status": "PASS",
-          "reason": "현재가 42,800원",
-          "data_source": "Naver nowPrice"
-        },
-        {
-          "id": "S_CATALYST",
-          "name": "재료 S/A",
-          "role": "required",
-          "value": "REJECT",
-          "threshold": "S 또는 A",
-          "status": "FAIL",
-          "reason": "투자주의종목",
-          "data_source": "Naver theme/news/notice"
-        },
-        {
-          "id": "S_LEADER",
-          "name": "현재 대장·2등주",
-          "role": "required",
-          "value": 6,
-          "threshold": "테마 1~2위 또는 강한 개별재료",
-          "status": "FAIL",
-          "reason": "비만치료제 · 순위 6",
-          "data_source": "Naver theme stocklist"
-        },
-        {
-          "id": "L_LIMIT_PATTERN",
-          "name": "상한가 분봉 패턴",
-          "role": "supporting",
-          "value": "NO_LIMIT",
-          "threshold": "LOCKED/RELOCKED 우수",
-          "status": "PASS",
-          "reason": "NO_LIMIT",
-          "data_source": "Naver 1분 siseTick"
-        },
-        {
-          "id": "D_PATTERN",
-          "name": "종가 패턴 식별",
-          "role": "required",
-          "value": 55,
-          "threshold": "70점 이상",
-          "status": "WARN",
-          "reason": "C1 이평 수렴 돌파 55점",
-          "data_source": "Naver 일봉 + OpenBot 규칙"
-        },
-        {
-          "id": "C_LOCATION",
-          "name": "고가권 종가",
-          "role": "required",
-          "value": 0.7762,
-          "threshold": ">=0.70 (엄격 0.75)",
-          "status": "PASS",
-          "reason": "당일 범위 위치 0.78",
-          "data_source": "Naver OHLC"
-        },
-        {
-          "id": "C_WICK",
-          "name": "작은 윗꼬리 장대양봉",
-          "role": "required",
-          "value": 0.2238,
-          "threshold": "0.02~0.30, 0.45 초과 제외",
-          "status": "PASS",
-          "reason": "윗꼬리 0.22 · 몸통 0.72",
-          "data_source": "Naver OHLC"
-        },
-        {
-          "id": "C_SEQUENCE",
-          "name": "마감 과정",
-          "role": "required",
-          "value": {
-            "available": true,
-            "low_after_1430": 42650.0,
-            "high_after_1500": 42900.0,
-            "recovery_from_1430_low": 0.0143,
-            "high_retention_after_1500": 0.9905,
-            "late_volume_share": 0.0188,
-            "late_return_from_1510": 0.0035,
-            "late_spike_without_volume": false,
-            "records": 100
-          },
-          "threshold": "장막판 회복·거래 동반",
-          "status": "PASS",
-          "reason": "거래 없는 막판 수직 급등 배제",
-          "data_source": "Naver siseTick"
-        },
-        {
-          "id": "A_DIGESTION",
-          "name": "과거 매물 소화",
-          "role": "required",
-          "value": 1.0,
-          "threshold": "전고점 돌파+과거대금 0.60 이상 또는 박스형",
-          "status": "WARN",
-          "reason": "현재/과거 최대 거래대금 1.00 · 전고점 미돌파",
-          "data_source": "Naver daily turnover proxy"
-        },
-        {
-          "id": "H_LIQUIDITY",
-          "name": "호가 유동성",
-          "role": "supporting",
-          "value": 11.69,
-          "threshold": "스프레드 40bp 이하",
-          "status": "PASS",
-          "reason": "스프레드 11.69bp",
-          "data_source": "Naver hoga snapshot"
-        },
-        {
-          "id": "H_ABSORPTION",
-          "name": "실제 물량 소화",
-          "role": "manual",
-          "value": null,
-          "threshold": "익일 실제 호가·체결 확인",
-          "status": "MISSING",
-          "reason": "정적 호가 스냅샷만으로 취소와 체결을 완전히 구분할 수 없음",
-          "data_source": "Actual HTS next day"
-        },
-        {
-          "id": "R_PLAN",
-          "name": "분할·무효화 계획",
-          "role": "required",
-          "value": {
-            "supports": [],
-            "invalidation": 34650,
-            "distance": 0.1904
-          },
-          "threshold": "패턴별 지지선 정의",
-          "status": "FAIL",
-          "reason": "초기 NORMAL · 무효화 34,650원",
-          "data_source": "OpenBot pattern rule + Naver MA"
-        }
-      ],
-      "quality_score": 67.6,
-      "final_status": "EXCLUDE",
-      "orderbook": {
-        "spread_bps": 11.69,
-        "buy_total": 1057.0,
-        "sell_total": 2775.0,
-        "levels": [
-          {
-            "level": 1,
-            "ask": 42800.0,
-            "bid": 42750.0,
-            "ask_qty": 91.0,
-            "bid_qty": 160.0
-          },
-          {
-            "level": 2,
-            "ask": 42850.0,
-            "bid": 42700.0,
-            "ask_qty": 270.0,
-            "bid_qty": 257.0
-          },
-          {
-            "level": 3,
-            "ask": 42900.0,
-            "bid": 42650.0,
-            "ask_qty": 224.0,
-            "bid_qty": 85.0
-          },
-          {
-            "level": 4,
-            "ask": 42950.0,
-            "bid": 42600.0,
-            "ask_qty": 202.0,
-            "bid_qty": 48.0
-          },
-          {
-            "level": 5,
-            "ask": 43000.0,
-            "bid": 42550.0,
-            "ask_qty": 456.0,
-            "bid_qty": 107.0
-          }
-        ]
-      },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
-      "market_status": "CLOSE",
-      "winrate_v4": {
-        "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
-        "prior_history_confirmed": true,
-        "catalyst_freshness": {
-          "status": "UNKNOWN",
-          "hours": null,
-          "at": null,
-          "title": null,
-          "reason": "재료 발표 시각을 확인하지 못했습니다."
-        },
-        "matched_catalyst_items": [],
-        "after_signal_items": [],
-        "source_errors": []
-      }
-    },
-    {
       "code": "266690",
       "name": "덕산넵코어스",
       "market": "2",
@@ -11337,14 +11337,14 @@
       "theme": {
         "name": "2026 하반기 신규상장",
         "code": "615",
-        "change_rate": 4.61,
-        "rising": 8.0,
-        "falling": 12.0,
+        "change_rate": 4.92,
+        "rising": 10.0,
+        "falling": 10.0,
         "leader_rank": 3
       },
       "catalyst": {
         "grade": "A",
-        "reason": "2026 하반기 신규상장 관련주 8/20 상승",
+        "reason": "2026 하반기 신규상장 관련주 10/20 상승",
         "positive_titles": [],
         "titles": []
       },
@@ -11522,7 +11522,7 @@
         "prev20_high": 19900,
         "prev60_high": 19900,
         "digest_ratio": 1.0,
-        "spread_bps": 5.99,
+        "spread_bps": 12.04,
         "sequence": {
           "available": true,
           "low_after_1430": 16600.0,
@@ -11627,7 +11627,7 @@
           "value": "A",
           "threshold": "S 또는 A",
           "status": "PASS",
-          "reason": "2026 하반기 신규상장 관련주 8/20 상승",
+          "reason": "2026 하반기 신규상장 관련주 10/20 상승",
           "data_source": "Naver theme/news/notice"
         },
         {
@@ -11714,10 +11714,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 5.99,
+          "value": 12.04,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 5.99bp",
+          "reason": "스프레드 12.04bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -11750,52 +11750,52 @@
       "quality_score": 67.6,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 5.99,
-        "buy_total": 26864.0,
-        "sell_total": 6562.0,
+        "spread_bps": 12.04,
+        "buy_total": 10776.0,
+        "sell_total": 6936.0,
         "levels": [
           {
             "level": 1,
-            "ask": 16700.0,
-            "bid": 16690.0,
-            "ask_qty": 792.0,
-            "bid_qty": 750.0
+            "ask": 16620.0,
+            "bid": 16600.0,
+            "ask_qty": 332.0,
+            "bid_qty": 1661.0
           },
           {
             "level": 2,
-            "ask": 16710.0,
-            "bid": 16680.0,
-            "ask_qty": 467.0,
-            "bid_qty": 4526.0
+            "ask": 16630.0,
+            "bid": 16590.0,
+            "ask_qty": 1930.0,
+            "bid_qty": 718.0
           },
           {
             "level": 3,
-            "ask": 16720.0,
-            "bid": 16670.0,
-            "ask_qty": 283.0,
-            "bid_qty": 11443.0
+            "ask": 16650.0,
+            "bid": 16580.0,
+            "ask_qty": 530.0,
+            "bid_qty": 1065.0
           },
           {
             "level": 4,
-            "ask": 16730.0,
-            "bid": 16660.0,
-            "ask_qty": 324.0,
-            "bid_qty": 1671.0
+            "ask": 16670.0,
+            "bid": 16570.0,
+            "ask_qty": 1942.0,
+            "bid_qty": 2007.0
           },
           {
             "level": 5,
-            "ask": 16740.0,
-            "bid": 16650.0,
-            "ask_qty": 211.0,
-            "bid_qty": 1414.0
+            "ask": 16680.0,
+            "bid": 16560.0,
+            "ask_qty": 160.0,
+            "bid_qty": 1407.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12244,51 +12244,51 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 24.48,
-        "buy_total": 44443.0,
-        "sell_total": 54073.0,
+        "buy_total": 40867.0,
+        "sell_total": 47755.0,
         "levels": [
           {
             "level": 1,
             "ask": 20450.0,
             "bid": 20400.0,
-            "ask_qty": 1025.0,
-            "bid_qty": 3630.0
+            "ask_qty": 1327.0,
+            "bid_qty": 2556.0
           },
           {
             "level": 2,
             "ask": 20500.0,
             "bid": 20350.0,
-            "ask_qty": 5958.0,
-            "bid_qty": 2605.0
+            "ask_qty": 3675.0,
+            "bid_qty": 2975.0
           },
           {
             "level": 3,
             "ask": 20550.0,
             "bid": 20300.0,
-            "ask_qty": 9063.0,
-            "bid_qty": 2071.0
+            "ask_qty": 6769.0,
+            "bid_qty": 2928.0
           },
           {
             "level": 4,
             "ask": 20600.0,
             "bid": 20250.0,
-            "ask_qty": 4087.0,
-            "bid_qty": 3602.0
+            "ask_qty": 3923.0,
+            "bid_qty": 3605.0
           },
           {
             "level": 5,
             "ask": 20650.0,
             "bid": 20200.0,
-            "ask_qty": 7979.0,
-            "bid_qty": 4835.0
+            "ask_qty": 6597.0,
+            "bid_qty": 3052.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -12515,7 +12515,7 @@
         "prev20_high": 10120,
         "prev60_high": 10120,
         "digest_ratio": 1.0,
-        "spread_bps": 44.89,
+        "spread_bps": 44.94,
         "sequence": {
           "available": true,
           "low_after_1430": 8880.0,
@@ -12707,10 +12707,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 44.89,
+          "value": 44.94,
           "threshold": "스프레드 40bp 이하",
           "status": "WARN",
-          "reason": "스프레드 44.89bp",
+          "reason": "스프레드 44.94bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -12743,60 +12743,60 @@
       "quality_score": 64.7,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 44.89,
-        "buy_total": 3846.0,
-        "sell_total": 2979.0,
+        "spread_bps": 44.94,
+        "buy_total": 2140.0,
+        "sell_total": 1035.0,
         "levels": [
           {
             "level": 1,
-            "ask": 8930.0,
-            "bid": 8890.0,
-            "ask_qty": 548.0,
-            "bid_qty": 285.0
+            "ask": 8920.0,
+            "bid": 8880.0,
+            "ask_qty": 30.0,
+            "bid_qty": 17.0
           },
           {
             "level": 2,
-            "ask": 8940.0,
-            "bid": 8880.0,
-            "ask_qty": 161.0,
-            "bid_qty": 506.0
+            "ask": 8930.0,
+            "bid": 8870.0,
+            "ask_qty": 81.0,
+            "bid_qty": 213.0
           },
           {
             "level": 3,
-            "ask": 8970.0,
-            "bid": 8870.0,
-            "ask_qty": 13.0,
-            "bid_qty": 348.0
+            "ask": 8940.0,
+            "bid": 8860.0,
+            "ask_qty": 75.0,
+            "bid_qty": 406.0
           },
           {
             "level": 4,
-            "ask": 8980.0,
-            "bid": 8860.0,
-            "ask_qty": 55.0,
-            "bid_qty": 1442.0
+            "ask": 8950.0,
+            "bid": 8850.0,
+            "ask_qty": 80.0,
+            "bid_qty": 340.0
           },
           {
             "level": 5,
-            "ask": 8990.0,
-            "bid": 8850.0,
-            "ask_qty": 1175.0,
-            "bid_qty": 424.0
+            "ask": 8960.0,
+            "bid": 8840.0,
+            "ask_qty": 50.0,
+            "bid_qty": 204.0
           }
         ]
       },
-      "updated_at": "2026-10-01T20:08:53.839778+09:00",
+      "updated_at": "2026-10-01T20:34:07.387346+09:00",
       "market_status": "CLOSE",
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-01T20:08:53.839778+09:00",
+        "enriched_at": "2026-10-01T20:34:07.387346+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.7,
+          "hours": 2.1,
           "at": "2026-10-01T18:26:00+09:00",
           "title": "대미투자 수혜…제강·원전주 들썩",
           "source": "news",
-          "reason": "재료 발표 후 1.7시간이 지났습니다."
+          "reason": "재료 발표 후 2.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -12822,13 +12822,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-25T18:45:58.448179+09:00",
-    "last": "2026-10-01T20:08:53.839778+09:00"
+    "first": "2026-09-25T19:08:54.404456+09:00",
+    "last": "2026-10-01T20:34:07.387346+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-10-01T20:08:53.839778+09:00",
+    "source_at": "2026-10-01T20:34:07.387346+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
