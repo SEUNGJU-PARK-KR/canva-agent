@@ -1,6 +1,6 @@
 {
   "version": "largo-material-0906-v1",
-  "generated_at": "2026-10-01T20:51:00.841863+09:00",
+  "generated_at": "2026-10-01T20:51:23.982065+09:00",
   "theme_snapshots": [
     {
       "date": "2026-09-02",
@@ -6253,99 +6253,6 @@
           "rising": 5,
           "total": 8,
           "breadth": 0.625,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        }
-      },
-      "errors": []
-    },
-    {
-      "date": "2026-10-01",
-      "stage": "14:53",
-      "at": "2026-10-01T20:51:00.841863+09:00",
-      "source_at": "2026-10-01T20:47:12.434845+09:00",
-      "themes": {
-        "12": {
-          "name": "반도체 장비",
-          "code": "12",
-          "rising": 93,
-          "total": 95,
-          "breadth": 0.9789473684210527,
-          "leader_rank": 2,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "241": {
-          "name": "바이오시밀러(복제 바이오의약품)",
-          "code": "241",
-          "rising": 21,
-          "total": 21,
-          "breadth": 1.0,
-          "leader_rank": 2,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "269": {
-          "name": "LED장비",
-          "code": "269",
-          "rising": 11,
-          "total": 11,
-          "breadth": 1.0,
-          "leader_rank": 1,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "377": {
-          "name": "치매",
-          "code": "377",
-          "rising": 44,
-          "total": 48,
-          "breadth": 0.9166666666666666,
-          "leader_rank": 2,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "14": {
-          "name": "반도체 재료/부품",
-          "code": "14",
-          "rising": 67,
-          "total": 71,
-          "breadth": 0.9436619718309859,
-          "leader_rank": 8,
-          "follower_strong_count": null,
-          "follower_turnover": null,
-          "follower_turnover_ratio": null,
-          "observed_breadth": true,
-          "observed_leadership": true,
-          "observed_followers": false
-        },
-        "615": {
-          "name": "2026 하반기 신규상장",
-          "code": "615",
-          "rising": 10,
-          "total": 20,
-          "breadth": 0.5,
           "leader_rank": 1,
           "follower_strong_count": null,
           "follower_turnover": null,
@@ -267346,16 +267253,16 @@
       "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
     },
     {
-      "at": "2026-10-01T20:51:00.841863+09:00",
-      "stage": "14:53",
-      "status": "SNAPSHOT_CAPTURED",
-      "detail": "후보 24개, 테마 6개, 오류 0건"
+      "at": "2026-10-01T20:51:23.982065+09:00",
+      "stage": "bootstrap",
+      "status": "BOOTSTRAP",
+      "detail": "과거 대리 검증 자료로 보고서를 초기화했습니다."
     }
   ],
   "summary": {
     "version": "largo-material-0906-v1",
     "target3_version": "largo-close-v5",
-    "generated_at": "2026-10-01T20:51:00.841863+09:00",
+    "generated_at": "2026-10-01T20:51:23.982065+09:00",
     "definition": {
       "signal": "15:18 best ask with an observed best bid",
       "outcome_window": "09:00 <= time < 09:06 on the next observed trading session",
