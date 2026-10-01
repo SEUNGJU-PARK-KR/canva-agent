@@ -1,12 +1,12 @@
 {
   "version": "largo-winrate-v4.1",
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-10-01T20:37:48.088371+09:00",
-  "source_at": "2026-10-01T20:34:07.387346+09:00",
+  "generated_at": "2026-10-01T20:50:31.460677+09:00",
+  "source_at": "2026-10-01T20:47:12.434845+09:00",
   "phase": {
     "id": "FINAL_CLOSE",
     "title": "종가 확정 검증",
-    "label": "2026-10-01 20:34 · 종가 확정 검증",
+    "label": "2026-10-01 20:47 · 종가 확정 검증",
     "action": "신규 진입이 아니라 결과를 기록합니다."
   },
   "counts": {
@@ -50,11 +50,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 0.2,
+        "hours": 0.4,
         "at": "2026-10-01T20:21:00+09:00",
         "title": "삼성 갤럭시 S26 출고가 최대 27만원↑…메모리값 급등에 '폰플레이션...",
         "source": "news",
-        "reason": "재료 발표 후 0.2시간이 지났습니다."
+        "reason": "재료 발표 후 0.4시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -75,10 +75,10 @@
         "status": "PASS",
         "entry": 274500.0,
         "stop": 264500.0,
-        "stop_source": "무효화선",
-        "rate": 0.03642987249544627,
+        "stop_source": "계획 무효화선",
+        "rate": 0.03643,
         "one_r": 284500.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 3.64%입니다."
+        "reason": "계획 무효화선 264,500원을 구조 손절선으로 기록했습니다. 위험거리는 3.64%입니다."
       },
       "checks": [
         {
@@ -200,17 +200,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 3.64%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -251,7 +267,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 3.64%입니다."
+          "detail": "계획 무효화선 264,500원을 구조 손절선으로 기록했습니다. 위험거리는 3.64%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -265,8 +281,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -339,7 +355,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 3.64%입니다."
+            "detail": "계획 무효화선 264,500원을 구조 손절선으로 기록했습니다. 위험거리는 3.64%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -353,8 +369,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -406,7 +422,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 3.64%입니다."
+            "detail": "계획 무효화선 264,500원을 구조 손절선으로 기록했습니다. 위험거리는 3.64%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -420,8 +436,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -494,7 +510,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 3.64%입니다."
+          "detail": "계획 무효화선 264,500원을 구조 손절선으로 기록했습니다. 위험거리는 3.64%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -503,7 +519,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 9,
+      "close_rule_passes": 10,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 6,
       "close_fit": false,
@@ -569,11 +585,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 1324.7,
+        "hours": 1324.9,
         "at": "2026-08-07T15:51:56+09:00",
         "title": "에스케이스퀘어 주식회사 신규시설투자등(자회사의 주요경영사항)",
         "source": "notice",
-        "reason": "재료 발표 후 1324.7시간이 지났습니다."
+        "reason": "재료 발표 후 1324.9시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -594,10 +610,10 @@
         "status": "PASS",
         "entry": 1150000.0,
         "stop": 1095000.0,
-        "stop_source": "무효화선",
-        "rate": 0.04782608695652174,
+        "stop_source": "계획 무효화선",
+        "rate": 0.047826,
         "one_r": 1205000.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 4.78%입니다."
+        "reason": "계획 무효화선 1,095,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.78%입니다."
       },
       "checks": [
         {
@@ -719,17 +735,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 4.78%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -770,7 +802,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 4.78%입니다."
+          "detail": "계획 무효화선 1,095,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.78%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -784,8 +816,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "주도주 3위 이내",
@@ -838,7 +870,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 4.78%입니다."
+            "detail": "계획 무효화선 1,095,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.78%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -852,8 +884,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -905,7 +937,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 4.78%입니다."
+            "detail": "계획 무효화선 1,095,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.78%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -919,8 +951,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -993,7 +1025,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 4.78%입니다."
+          "detail": "계획 무효화선 1,095,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.78%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -1002,7 +1034,7 @@
         }
       ],
       "close_rule_count": 13,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 6,
       "close_fit": false,
@@ -1063,17 +1095,17 @@
           "[속보]코스피 2% 가까이 올라 6970선 마감…코스닥은 4.5% 상승",
           "코스피, 장중 하락 딛고 1.95% 상승…7000선 바짝[fn마감시황]",
           "외인·기관 9000억 쓸어 담았다…코스닥 4.5% 급등해 900선 눈앞",
-          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
-          "美 금리 진정·반도체 수출에 '칠천피' 코앞…코스닥 3%대 강세[장중시..."
+          "반도체가 끌어올렸다…코스피 6970선 상승 마감 [시황]",
+          "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시..."
         ]
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 4.3,
+        "hours": 4.5,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 4.3시간이 지났습니다."
+        "reason": "재료 발표 후 4.5시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -1094,10 +1126,10 @@
         "status": "PASS",
         "entry": 202000.0,
         "stop": 193300.0,
-        "stop_source": "무효화선",
-        "rate": 0.043069306930693066,
+        "stop_source": "계획 무효화선",
+        "rate": 0.043069,
         "one_r": 210700.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 4.31%입니다."
+        "reason": "계획 무효화선 193,300원을 구조 손절선으로 기록했습니다. 위험거리는 4.31%입니다."
       },
       "checks": [
         {
@@ -1219,17 +1251,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 4.31%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -1270,7 +1318,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 4.31%입니다."
+          "detail": "계획 무효화선 193,300원을 구조 손절선으로 기록했습니다. 위험거리는 4.31%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -1284,8 +1332,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -1358,7 +1406,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 4.31%입니다."
+            "detail": "계획 무효화선 193,300원을 구조 손절선으로 기록했습니다. 위험거리는 4.31%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -1372,8 +1420,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -1425,7 +1473,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 4.31%입니다."
+            "detail": "계획 무효화선 193,300원을 구조 손절선으로 기록했습니다. 위험거리는 4.31%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -1439,8 +1487,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -1513,7 +1561,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 4.31%입니다."
+          "detail": "계획 무효화선 193,300원을 구조 손절선으로 기록했습니다. 위험거리는 4.31%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -1522,7 +1570,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -1600,10 +1648,10 @@
         "status": "PASS",
         "entry": 16610.0,
         "stop": 16340.0,
-        "stop_source": "무효화선",
-        "rate": 0.01625526791089705,
+        "stop_source": "계획 무효화선",
+        "rate": 0.016255,
         "one_r": 16880.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 1.63%입니다."
+        "reason": "계획 무효화선 16,340원을 구조 손절선으로 기록했습니다. 위험거리는 1.63%입니다."
       },
       "checks": [
         {
@@ -1725,17 +1773,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 1.63%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -1776,7 +1840,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 1.63%입니다."
+          "detail": "계획 무효화선 16,340원을 구조 손절선으로 기록했습니다. 위험거리는 1.63%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -1790,8 +1854,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "주도주 3위 이내",
@@ -1844,7 +1908,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 1.63%입니다."
+            "detail": "계획 무효화선 16,340원을 구조 손절선으로 기록했습니다. 위험거리는 1.63%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -1858,8 +1922,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -1911,7 +1975,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 1.63%입니다."
+            "detail": "계획 무효화선 16,340원을 구조 손절선으로 기록했습니다. 위험거리는 1.63%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -1925,8 +1989,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -1999,7 +2063,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 1.63%입니다."
+          "detail": "계획 무효화선 16,340원을 구조 손절선으로 기록했습니다. 위험거리는 1.63%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -2008,7 +2072,7 @@
         }
       ],
       "close_rule_count": 13,
-      "close_rule_passes": 6,
+      "close_rule_passes": 7,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -2074,11 +2138,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 4.3,
+        "hours": 4.5,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 4.3시간이 지났습니다."
+        "reason": "재료 발표 후 4.5시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -2099,10 +2163,10 @@
         "status": "FAIL",
         "entry": 69600.0,
         "stop": 63000.0,
-        "stop_source": "무효화선",
-        "rate": 0.09482758620689655,
+        "stop_source": "계획 무효화선",
+        "rate": 0.094828,
         "one_r": 76200.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 9.48%입니다."
+        "reason": "가장 가까운 구조선 63,000원까지 9.48%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -2224,17 +2288,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 63,000원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -2275,7 +2355,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 9.48%입니다."
+          "detail": "가장 가까운 구조선 63,000원까지 9.48%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -2289,8 +2369,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -2363,7 +2443,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 9.48%입니다."
+            "detail": "가장 가까운 구조선 63,000원까지 9.48%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -2377,8 +2457,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -2430,7 +2510,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 9.48%입니다."
+            "detail": "가장 가까운 구조선 63,000원까지 9.48%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -2444,8 +2524,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -2518,7 +2598,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 9.48%입니다."
+          "detail": "가장 가까운 구조선 63,000원까지 9.48%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -2527,7 +2607,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 15,
+      "close_rule_passes": 16,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 8,
       "close_fit": false,
@@ -2594,11 +2674,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 4.4,
+        "hours": 4.6,
         "at": "2026-10-01T16:09:00+09:00",
         "title": "반도체 수출·마이크론 호실적에 코스피 7000선 눈앞…코스닥 4%대 급...",
         "source": "news",
-        "reason": "재료 발표 후 4.4시간이 지났습니다."
+        "reason": "재료 발표 후 4.6시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -2619,10 +2699,10 @@
         "status": "FAIL",
         "entry": 143100.0,
         "stop": 131000.0,
-        "stop_source": "무효화선",
-        "rate": 0.08455625436757512,
+        "stop_source": "계획 무효화선",
+        "rate": 0.084556,
         "one_r": 155200.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 8.46%입니다."
+        "reason": "가장 가까운 구조선 131,000원까지 8.46%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -2744,17 +2824,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 131,000원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -2795,7 +2891,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 8.46%입니다."
+          "detail": "가장 가까운 구조선 131,000원까지 8.46%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -2809,8 +2905,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -2883,7 +2979,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 8.46%입니다."
+            "detail": "가장 가까운 구조선 131,000원까지 8.46%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -2897,8 +2993,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -2950,7 +3046,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 8.46%입니다."
+            "detail": "가장 가까운 구조선 131,000원까지 8.46%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -2964,8 +3060,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -3038,7 +3134,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 8.46%입니다."
+          "detail": "가장 가까운 구조선 131,000원까지 8.46%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -3047,7 +3143,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 12,
+      "close_rule_passes": 13,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 8,
       "close_fit": false,
@@ -3113,11 +3209,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 4.3,
+        "hours": 4.5,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 4.3시간이 지났습니다."
+        "reason": "재료 발표 후 4.5시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -3138,10 +3234,10 @@
         "status": "FAIL",
         "entry": 81900.0,
         "stop": 73100.0,
-        "stop_source": "무효화선",
-        "rate": 0.10744810744810745,
+        "stop_source": "계획 무효화선",
+        "rate": 0.107448,
         "one_r": 90700.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 10.74%입니다."
+        "reason": "가장 가까운 구조선 73,100원까지 10.74%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -3263,17 +3359,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 73,100원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -3314,7 +3426,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 10.74%입니다."
+          "detail": "가장 가까운 구조선 73,100원까지 10.74%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -3328,8 +3440,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -3402,7 +3514,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 10.74%입니다."
+            "detail": "가장 가까운 구조선 73,100원까지 10.74%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -3416,8 +3528,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -3469,7 +3581,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 10.74%입니다."
+            "detail": "가장 가까운 구조선 73,100원까지 10.74%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -3483,8 +3595,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -3557,7 +3669,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 10.74%입니다."
+          "detail": "가장 가까운 구조선 73,100원까지 10.74%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -3566,7 +3678,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 12,
+      "close_rule_passes": 13,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 6,
       "close_fit": false,
@@ -3633,11 +3745,11 @@
       },
       "freshness": {
         "status": "STALE",
-        "hours": 1372.7,
+        "hours": 1372.9,
         "at": "2026-08-05T15:52:27+09:00",
         "title": "삼천당제약(주) (정정)투자판단 관련 주요경영사항(임상시험 계획 승인 등 결정)(제1형 당뇨병 환자를 대상으로 정상혈당 클램프 조건 및 식이 섭취 후, 경구용 인슐린 SCD0503과 피하 투여 인슐린 간의 상대적 생체이용률, 상대적 생물학적 효력 및 음식 영향 평가를 위한 임상시험)",
         "source": "notice",
-        "reason": "재료 발표 후 1372.7시간이 지났습니다."
+        "reason": "재료 발표 후 1372.9시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -3658,10 +3770,10 @@
         "status": "FAIL",
         "entry": 199400.0,
         "stop": 170400.0,
-        "stop_source": "무효화선",
-        "rate": 0.14543630892678033,
+        "stop_source": "계획 무효화선",
+        "rate": 0.145436,
         "one_r": 228400.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 14.54%입니다."
+        "reason": "가장 가까운 구조선 170,400원까지 14.54%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -3783,17 +3895,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 170,400원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -3834,7 +3962,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 14.54%입니다."
+          "detail": "가장 가까운 구조선 170,400원까지 14.54%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -3848,8 +3976,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -3922,7 +4050,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 14.54%입니다."
+            "detail": "가장 가까운 구조선 170,400원까지 14.54%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -3936,8 +4064,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -3989,7 +4117,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 14.54%입니다."
+            "detail": "가장 가까운 구조선 170,400원까지 14.54%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -4003,8 +4131,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -4077,7 +4205,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 14.54%입니다."
+          "detail": "가장 가까운 구조선 170,400원까지 14.54%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -4086,7 +4214,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 11,
+      "close_rule_passes": 12,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 6,
       "close_fit": false,
@@ -4153,11 +4281,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 2.4,
+        "hours": 2.6,
         "at": "2026-10-01T18:12:24+09:00",
         "title": "(주)디아이 단일판매ㆍ공급계약 체결(자율공시)",
         "source": "notice",
-        "reason": "재료 발표 후 2.4시간이 지났습니다."
+        "reason": "재료 발표 후 2.6시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -4178,10 +4306,10 @@
         "status": "FAIL",
         "entry": 42500.0,
         "stop": 36750.0,
-        "stop_source": "무효화선",
-        "rate": 0.13529411764705881,
+        "stop_source": "계획 무효화선",
+        "rate": 0.135294,
         "one_r": 48250.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 13.53%입니다."
+        "reason": "가장 가까운 구조선 36,750원까지 13.53%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -4303,17 +4431,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 36,750원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -4354,7 +4498,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 13.53%입니다."
+          "detail": "가장 가까운 구조선 36,750원까지 13.53%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -4368,8 +4512,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -4442,7 +4586,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 13.53%입니다."
+            "detail": "가장 가까운 구조선 36,750원까지 13.53%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -4456,8 +4600,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -4509,7 +4653,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 13.53%입니다."
+            "detail": "가장 가까운 구조선 36,750원까지 13.53%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -4523,8 +4667,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -4597,7 +4741,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 13.53%입니다."
+          "detail": "가장 가까운 구조선 36,750원까지 13.53%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -4606,7 +4750,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 11,
+      "close_rule_passes": 12,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 5,
       "close_fit": false,
@@ -4671,11 +4815,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 4.3,
+        "hours": 4.5,
         "at": "2026-10-01T16:19:00+09:00",
         "title": "美금리 진정·반도체 수출 '최대'…코스닥 890선, 석달 만에 최고치[시...",
         "source": "news",
-        "reason": "재료 발표 후 4.3시간이 지났습니다."
+        "reason": "재료 발표 후 4.5시간이 지났습니다."
       },
       "features": {
         "grade": "S",
@@ -4696,10 +4840,10 @@
         "status": "FAIL",
         "entry": 240500.0,
         "stop": 224000.0,
-        "stop_source": "무효화선",
-        "rate": 0.06860706860706861,
+        "stop_source": "계획 무효화선",
+        "rate": 0.068607,
         "one_r": 257000.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 6.86%입니다."
+        "reason": "가장 가까운 구조선 224,000원까지 6.86%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -4821,17 +4965,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 224,000원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -4872,7 +5032,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 6.86%입니다."
+          "detail": "가장 가까운 구조선 224,000원까지 6.86%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -4886,8 +5046,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -4960,7 +5120,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 6.86%입니다."
+            "detail": "가장 가까운 구조선 224,000원까지 6.86%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -4974,8 +5134,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -5027,7 +5187,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 6.86%입니다."
+            "detail": "가장 가까운 구조선 224,000원까지 6.86%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -5041,8 +5201,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -5115,7 +5275,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 6.86%입니다."
+          "detail": "가장 가까운 구조선 224,000원까지 6.86%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -5124,7 +5284,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 10,
+      "close_rule_passes": 11,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 6,
       "close_fit": false,
@@ -5215,10 +5375,10 @@
         "status": "FAIL",
         "entry": 89400.0,
         "stop": 77200.0,
-        "stop_source": "무효화선",
-        "rate": 0.13646532438478748,
+        "stop_source": "계획 무효화선",
+        "rate": 0.136465,
         "one_r": 101600.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 13.65%입니다."
+        "reason": "가장 가까운 구조선 77,200원까지 13.65%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -5340,17 +5500,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 77,200원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -5391,7 +5567,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 13.65%입니다."
+          "detail": "가장 가까운 구조선 77,200원까지 13.65%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -5405,8 +5581,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -5479,7 +5655,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 13.65%입니다."
+            "detail": "가장 가까운 구조선 77,200원까지 13.65%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -5493,8 +5669,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -5546,7 +5722,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 13.65%입니다."
+            "detail": "가장 가까운 구조선 77,200원까지 13.65%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -5560,8 +5736,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -5634,7 +5810,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 13.65%입니다."
+          "detail": "가장 가까운 구조선 77,200원까지 13.65%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -5643,7 +5819,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 9,
+      "close_rule_passes": 10,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 5,
       "close_fit": false,
@@ -5734,10 +5910,10 @@
         "status": "FAIL",
         "entry": 148000.0,
         "stop": 129800.0,
-        "stop_source": "무효화선",
-        "rate": 0.12297297297297298,
+        "stop_source": "계획 무효화선",
+        "rate": 0.122973,
         "one_r": 166200.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 12.30%입니다."
+        "reason": "가장 가까운 구조선 129,800원까지 12.30%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -5859,17 +6035,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 129,800원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -5910,7 +6102,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 12.30%입니다."
+          "detail": "가장 가까운 구조선 129,800원까지 12.30%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -5924,8 +6116,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -5998,7 +6190,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 12.30%입니다."
+            "detail": "가장 가까운 구조선 129,800원까지 12.30%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -6012,8 +6204,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -6065,7 +6257,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 12.30%입니다."
+            "detail": "가장 가까운 구조선 129,800원까지 12.30%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -6079,8 +6271,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -6153,7 +6345,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 12.30%입니다."
+          "detail": "가장 가까운 구조선 129,800원까지 12.30%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -6162,7 +6354,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 8,
+      "close_rule_passes": 9,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 6,
       "close_fit": false,
@@ -6229,11 +6421,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 2.1,
+        "hours": 2.4,
         "at": "2026-10-01T18:26:00+09:00",
         "title": "대미투자 수혜…제강·원전주 들썩",
         "source": "news",
-        "reason": "재료 발표 후 2.1시간이 지났습니다."
+        "reason": "재료 발표 후 2.4시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -6254,10 +6446,10 @@
         "status": "PASS",
         "entry": 8900.0,
         "stop": 8840.0,
-        "stop_source": "무효화선",
-        "rate": 0.006741573033707865,
+        "stop_source": "계획 무효화선",
+        "rate": 0.006742,
         "one_r": 8960.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 0.67%입니다."
+        "reason": "계획 무효화선 8,840원을 구조 손절선으로 기록했습니다. 위험거리는 0.67%입니다."
       },
       "checks": [
         {
@@ -6379,6 +6571,22 @@
           "original_status": "PASS",
           "reason": "구조 손절 0.67%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [
@@ -6393,12 +6601,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -6439,7 +6647,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 0.67%입니다."
+          "detail": "계획 무효화선 8,840원을 구조 손절선으로 기록했습니다. 위험거리는 0.67%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -6453,8 +6661,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -6527,7 +6735,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 0.67%입니다."
+            "detail": "계획 무효화선 8,840원을 구조 손절선으로 기록했습니다. 위험거리는 0.67%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -6541,8 +6749,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -6594,7 +6802,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 0.67%입니다."
+            "detail": "계획 무효화선 8,840원을 구조 손절선으로 기록했습니다. 위험거리는 0.67%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -6608,8 +6816,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -6682,7 +6890,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 0.67%입니다."
+          "detail": "계획 무효화선 8,840원을 구조 손절선으로 기록했습니다. 위험거리는 0.67%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -6691,7 +6899,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 8,
+      "close_rule_passes": 9,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 5,
       "close_fit": false,
@@ -6780,10 +6988,10 @@
         "status": "PASS",
         "entry": 1828000.0,
         "stop": 1749000.0,
-        "stop_source": "무효화선",
-        "rate": 0.04321663019693654,
+        "stop_source": "계획 무효화선",
+        "rate": 0.043217,
         "one_r": 1907000.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 4.32%입니다."
+        "reason": "계획 무효화선 1,749,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.32%입니다."
       },
       "checks": [
         {
@@ -6905,17 +7113,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 4.32%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -6956,7 +7180,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 4.32%입니다."
+          "detail": "계획 무효화선 1,749,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.32%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -6970,8 +7194,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -7044,7 +7268,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 4.32%입니다."
+            "detail": "계획 무효화선 1,749,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.32%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -7058,8 +7282,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -7111,7 +7335,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 4.32%입니다."
+            "detail": "계획 무효화선 1,749,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.32%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -7125,8 +7349,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -7199,7 +7423,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 4.32%입니다."
+          "detail": "계획 무효화선 1,749,000원을 구조 손절선으로 기록했습니다. 위험거리는 4.32%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -7208,7 +7432,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 5,
       "close_fit": false,
@@ -7299,10 +7523,10 @@
         "status": "PASS",
         "entry": 1554000.0,
         "stop": 1462000.0,
-        "stop_source": "무효화선",
-        "rate": 0.059202059202059204,
+        "stop_source": "계획 무효화선",
+        "rate": 0.059202,
         "one_r": 1646000.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 5.92%입니다."
+        "reason": "계획 무효화선 1,462,000원을 구조 손절선으로 기록했습니다. 위험거리는 5.92%입니다."
       },
       "checks": [
         {
@@ -7424,17 +7648,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 5.92%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -7475,7 +7715,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 5.92%입니다."
+          "detail": "계획 무효화선 1,462,000원을 구조 손절선으로 기록했습니다. 위험거리는 5.92%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -7489,8 +7729,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -7563,7 +7803,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 5.92%입니다."
+            "detail": "계획 무효화선 1,462,000원을 구조 손절선으로 기록했습니다. 위험거리는 5.92%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -7577,8 +7817,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -7630,7 +7870,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 5.92%입니다."
+            "detail": "계획 무효화선 1,462,000원을 구조 손절선으로 기록했습니다. 위험거리는 5.92%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -7644,8 +7884,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -7718,7 +7958,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 5.92%입니다."
+          "detail": "계획 무효화선 1,462,000원을 구조 손절선으로 기록했습니다. 위험거리는 5.92%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -7727,7 +7967,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 5,
       "close_fit": false,
@@ -7818,10 +8058,10 @@
         "status": "FAIL",
         "entry": 9100.0,
         "stop": 7920.0,
-        "stop_source": "무효화선",
-        "rate": 0.12967032967032968,
+        "stop_source": "계획 무효화선",
+        "rate": 0.12967,
         "one_r": 10280.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 12.97%입니다."
+        "reason": "가장 가까운 구조선 7,920원까지 12.97%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -7943,6 +8183,22 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 7,920원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [
@@ -7957,12 +8213,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -8003,7 +8259,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 12.97%입니다."
+          "detail": "가장 가까운 구조선 7,920원까지 12.97%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -8017,8 +8273,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -8091,7 +8347,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 12.97%입니다."
+            "detail": "가장 가까운 구조선 7,920원까지 12.97%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -8105,8 +8361,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -8158,7 +8414,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 12.97%입니다."
+            "detail": "가장 가까운 구조선 7,920원까지 12.97%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -8172,8 +8428,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -8246,7 +8502,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 12.97%입니다."
+          "detail": "가장 가까운 구조선 7,920원까지 12.97%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -8255,7 +8511,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 5,
       "close_fit": false,
@@ -8322,11 +8578,11 @@
       },
       "freshness": {
         "status": "FRESH",
-        "hours": 6.0,
+        "hours": 6.2,
         "at": "2026-10-01T14:36:00+09:00",
         "title": "HT로보틱스, 산업부 '2026 월드클래스 플러스' 선정… 최대 50억원 R&D ...",
         "source": "news",
-        "reason": "재료 발표 후 6.0시간이 지났습니다."
+        "reason": "재료 발표 후 6.2시간이 지났습니다."
       },
       "features": {
         "grade": "A",
@@ -8347,10 +8603,10 @@
         "status": "FAIL",
         "entry": 6080.0,
         "stop": 5370.0,
-        "stop_source": "무효화선",
-        "rate": 0.11677631578947369,
+        "stop_source": "계획 무효화선",
+        "rate": 0.116776,
         "one_r": 6790.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 11.68%입니다."
+        "reason": "가장 가까운 구조선 5,370원까지 11.68%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -8472,17 +8728,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 5,370원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -8523,7 +8795,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 11.68%입니다."
+          "detail": "가장 가까운 구조선 5,370원까지 11.68%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -8537,8 +8809,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -8611,7 +8883,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 11.68%입니다."
+            "detail": "가장 가까운 구조선 5,370원까지 11.68%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -8625,8 +8897,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -8678,7 +8950,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 11.68%입니다."
+            "detail": "가장 가까운 구조선 5,370원까지 11.68%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -8692,8 +8964,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -8766,7 +9038,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 11.68%입니다."
+          "detail": "가장 가까운 구조선 5,370원까지 11.68%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -8775,7 +9047,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -8865,10 +9137,10 @@
         "status": "FAIL",
         "entry": 42800.0,
         "stop": 34650.0,
-        "stop_source": "무효화선",
-        "rate": 0.19042056074766356,
+        "stop_source": "계획 무효화선",
+        "rate": 0.190421,
         "one_r": 50950.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+        "reason": "가장 가까운 구조선 34,650원까지 19.04%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -8990,6 +9262,22 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 34,650원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [
@@ -9004,12 +9292,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -9050,7 +9338,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+          "detail": "가장 가까운 구조선 34,650원까지 19.04%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -9064,8 +9352,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -9138,7 +9426,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+            "detail": "가장 가까운 구조선 34,650원까지 19.04%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -9152,8 +9440,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -9205,7 +9493,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+            "detail": "가장 가까운 구조선 34,650원까지 19.04%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -9219,8 +9507,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -9293,7 +9581,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 19.04%입니다."
+          "detail": "가장 가까운 구조선 34,650원까지 19.04%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -9302,7 +9590,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -9386,10 +9674,10 @@
         "status": "PASS",
         "entry": 31100.0,
         "stop": 30050.0,
-        "stop_source": "무효화선",
-        "rate": 0.03376205787781351,
+        "stop_source": "계획 무효화선",
+        "rate": 0.033762,
         "one_r": 32150.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 3.38%입니다."
+        "reason": "계획 무효화선 30,050원을 구조 손절선으로 기록했습니다. 위험거리는 3.38%입니다."
       },
       "checks": [
         {
@@ -9511,17 +9799,33 @@
           "original_status": "PASS",
           "reason": "구조 손절 3.38%",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "진입가와 구조 손절선이 계산되었습니다.",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "PASS",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -9562,7 +9866,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 3.38%입니다."
+          "detail": "계획 무효화선 30,050원을 구조 손절선으로 기록했습니다. 위험거리는 3.38%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -9576,8 +9880,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -9650,7 +9954,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 3.38%입니다."
+            "detail": "계획 무효화선 30,050원을 구조 손절선으로 기록했습니다. 위험거리는 3.38%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -9664,8 +9968,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -9717,7 +10021,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": true,
-            "detail": "가장 가까운 구조선까지 위험거리는 3.38%입니다."
+            "detail": "계획 무효화선 30,050원을 구조 손절선으로 기록했습니다. 위험거리는 3.38%입니다."
           },
           {
             "name": "최소 매물 소화",
@@ -9731,8 +10035,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -9805,7 +10109,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": true,
-          "detail": "가장 가까운 구조선까지 위험거리는 3.38%입니다."
+          "detail": "계획 무효화선 30,050원을 구조 손절선으로 기록했습니다. 위험거리는 3.38%입니다."
         },
         {
           "name": "최소 매물 소화",
@@ -9814,7 +10118,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 7,
+      "close_rule_passes": 8,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -9904,10 +10208,10 @@
         "status": "FAIL",
         "entry": 8630.0,
         "stop": 6400.0,
-        "stop_source": "무효화선",
-        "rate": 0.25840092699884126,
+        "stop_source": "계획 무효화선",
+        "rate": 0.258401,
         "one_r": 10860.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 25.84%입니다."
+        "reason": "가장 가까운 구조선 6,400원까지 25.84%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -10029,17 +10333,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 6,400원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -10080,7 +10400,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 25.84%입니다."
+          "detail": "가장 가까운 구조선 6,400원까지 25.84%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -10094,8 +10414,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -10168,7 +10488,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 25.84%입니다."
+            "detail": "가장 가까운 구조선 6,400원까지 25.84%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -10182,8 +10502,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -10235,7 +10555,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 25.84%입니다."
+            "detail": "가장 가까운 구조선 6,400원까지 25.84%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -10249,8 +10569,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -10323,7 +10643,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 25.84%입니다."
+          "detail": "가장 가까운 구조선 6,400원까지 25.84%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -10332,7 +10652,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 6,
+      "close_rule_passes": 7,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -10423,10 +10743,10 @@
         "status": "FAIL",
         "entry": 3835.0,
         "stop": 2870.0,
-        "stop_source": "무효화선",
-        "rate": 0.2516297262059974,
+        "stop_source": "계획 무효화선",
+        "rate": 0.25163,
         "one_r": 4800.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 25.16%입니다."
+        "reason": "가장 가까운 구조선 2,870원까지 25.16%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -10548,6 +10868,22 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 2,870원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
@@ -10562,12 +10898,12 @@
         }
       ],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -10608,7 +10944,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 25.16%입니다."
+          "detail": "가장 가까운 구조선 2,870원까지 25.16%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -10622,8 +10958,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -10696,7 +11032,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 25.16%입니다."
+            "detail": "가장 가까운 구조선 2,870원까지 25.16%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -10710,8 +11046,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -10763,7 +11099,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 25.16%입니다."
+            "detail": "가장 가까운 구조선 2,870원까지 25.16%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -10777,8 +11113,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -10851,7 +11187,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 25.16%입니다."
+          "detail": "가장 가까운 구조선 2,870원까지 25.16%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -10860,7 +11196,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 6,
+      "close_rule_passes": 7,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -10950,10 +11286,10 @@
         "status": "FAIL",
         "entry": 36800.0,
         "stop": 30150.0,
-        "stop_source": "무효화선",
-        "rate": 0.18070652173913043,
+        "stop_source": "계획 무효화선",
+        "rate": 0.180707,
         "one_r": 43450.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 18.07%입니다."
+        "reason": "가장 가까운 구조선 30,150원까지 18.07%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -11075,6 +11411,22 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 30,150원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [
@@ -11089,12 +11441,12 @@
       ],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -11135,7 +11487,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 18.07%입니다."
+          "detail": "가장 가까운 구조선 30,150원까지 18.07%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -11149,8 +11501,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -11223,7 +11575,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 18.07%입니다."
+            "detail": "가장 가까운 구조선 30,150원까지 18.07%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -11237,8 +11589,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -11290,7 +11642,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 18.07%입니다."
+            "detail": "가장 가까운 구조선 30,150원까지 18.07%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -11304,8 +11656,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -11378,7 +11730,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 18.07%입니다."
+          "detail": "가장 가까운 구조선 30,150원까지 18.07%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -11387,7 +11739,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 6,
+      "close_rule_passes": 7,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 4,
       "close_fit": false,
@@ -11478,10 +11830,10 @@
         "status": "FAIL",
         "entry": 158900.0,
         "stop": 147300.0,
-        "stop_source": "무효화선",
-        "rate": 0.07300188797986155,
+        "stop_source": "계획 무효화선",
+        "rate": 0.073002,
         "one_r": 170500.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 7.30%입니다."
+        "reason": "가장 가까운 구조선 147,300원까지 7.30%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -11603,17 +11955,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 147,300원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -11654,7 +12022,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 7.30%입니다."
+          "detail": "가장 가까운 구조선 147,300원까지 7.30%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -11668,8 +12036,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -11742,7 +12110,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 7.30%입니다."
+            "detail": "가장 가까운 구조선 147,300원까지 7.30%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -11756,8 +12124,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -11809,7 +12177,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 7.30%입니다."
+            "detail": "가장 가까운 구조선 147,300원까지 7.30%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -11823,8 +12191,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -11897,7 +12265,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 7.30%입니다."
+          "detail": "가장 가까운 구조선 147,300원까지 7.30%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -11906,7 +12274,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 5,
+      "close_rule_passes": 6,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 3,
       "close_fit": false,
@@ -11997,10 +12365,10 @@
         "status": "FAIL",
         "entry": 20400.0,
         "stop": 18330.0,
-        "stop_source": "무효화선",
-        "rate": 0.10147058823529412,
+        "stop_source": "계획 무효화선",
+        "rate": 0.101471,
         "one_r": 22470.0,
-        "reason": "가장 가까운 구조선까지 위험거리는 10.15%입니다."
+        "reason": "가장 가까운 구조선 18,330원까지 10.15%로 허용 한도 6.00%를 넘습니다."
       },
       "checks": [
         {
@@ -12122,17 +12490,33 @@
           "original_status": "FAIL",
           "reason": "초기 NORMAL · 무효화 18,330원",
           "active": true
+        },
+        {
+          "id": "ENTRY_STOP_AUTO",
+          "name": "진입가·구조 손절 자동기록",
+          "status": "FAIL",
+          "original_status": "FAIL",
+          "reason": "기존 계획 지지선 중 진입가 아래 가장 가까운 선, 최대 위험 6%",
+          "active": true
+        },
+        {
+          "id": "NEXT_DAY_PLAN_AUTO",
+          "name": "익일 갭별 대응계획",
+          "status": "PASS",
+          "original_status": "FAIL",
+          "reason": "익일 갭별 계획이 생성되었습니다.",
+          "active": true
         }
       ],
       "hard_failures": [],
       "hard_unresolved": [],
       "persistence": {
-        "snapshot_count": 1,
-        "appearance_count": 1,
-        "consecutive_count": 1,
-        "pattern_match_count": 1,
+        "snapshot_count": 2,
+        "appearance_count": 2,
+        "consecutive_count": 2,
+        "pattern_match_count": 2,
         "first_seen": "20:08",
-        "last_seen": "20:08"
+        "last_seen": "20:34"
       },
       "close_rules": [
         {
@@ -12173,7 +12557,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 10.15%입니다."
+          "detail": "가장 가까운 구조선 18,330원까지 10.15%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -12187,8 +12571,8 @@
         },
         {
           "name": "반복 유지",
-          "pass": false,
-          "detail": "연속 1회"
+          "pass": true,
+          "detail": "연속 2회"
         },
         {
           "name": "초강한 테마 확산",
@@ -12261,7 +12645,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 10.15%입니다."
+            "detail": "가장 가까운 구조선 18,330원까지 10.15%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -12275,8 +12659,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "주도주 3위 이내",
@@ -12328,7 +12712,7 @@
           {
             "name": "구조 위험 6% 이내",
             "pass": false,
-            "detail": "가장 가까운 구조선까지 위험거리는 10.15%입니다."
+            "detail": "가장 가까운 구조선 18,330원까지 10.15%로 허용 한도 6.00%를 넘습니다."
           },
           {
             "name": "최소 매물 소화",
@@ -12342,8 +12726,8 @@
           },
           {
             "name": "반복 유지",
-            "pass": false,
-            "detail": "연속 1회"
+            "pass": true,
+            "detail": "연속 2회"
           },
           {
             "name": "초강한 테마 확산",
@@ -12416,7 +12800,7 @@
         {
           "name": "구조 위험 6% 이내",
           "pass": false,
-          "detail": "가장 가까운 구조선까지 위험거리는 10.15%입니다."
+          "detail": "가장 가까운 구조선 18,330원까지 10.15%로 허용 한도 6.00%를 넘습니다."
         },
         {
           "name": "최소 매물 소화",
@@ -12425,7 +12809,7 @@
         }
       ],
       "close_rule_count": 17,
-      "close_rule_passes": 5,
+      "close_rule_passes": 6,
       "confirm_rule_count": 9,
       "confirm_rule_passes": 3,
       "close_fit": false,
