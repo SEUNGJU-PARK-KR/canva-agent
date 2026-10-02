@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "strategy_version": "largo-close-openbot-v2",
-  "generated_at": "2026-10-02T20:19:20.719214+09:00",
+  "generated_at": "2026-10-02T20:24:22.743341+09:00",
   "market_date": "2026-10-02",
   "source": {
     "name": "Naver Stock public read-only internal JSON",
@@ -1143,7 +1143,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1190,15 +1190,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 2.4,
+          "hours": 2.5,
           "at": "2026-10-02T17:55:00+09:00",
           "title": "정유 빅4, 반사익 기대에도…정부 수출 규제에 실적개선 ‘제한’",
           "source": "news",
-          "reason": "재료 발표 후 2.4시간이 지났습니다."
+          "reason": "재료 발표 후 2.5시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -1719,47 +1719,47 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 19.59,
-        "buy_total": 4416.0,
-        "sell_total": 11679.0,
+        "buy_total": 3386.0,
+        "sell_total": 11315.0,
         "levels": [
           {
             "level": 1,
             "ask": 51100.0,
             "bid": 51000.0,
-            "ask_qty": 1652.0,
-            "bid_qty": 650.0
+            "ask_qty": 1311.0,
+            "bid_qty": 218.0
           },
           {
             "level": 2,
             "ask": 51200.0,
             "bid": 50900.0,
-            "ask_qty": 40.0,
-            "bid_qty": 985.0
+            "ask_qty": 35.0,
+            "bid_qty": 551.0
           },
           {
             "level": 3,
             "ask": 51300.0,
             "bid": 50800.0,
-            "ask_qty": 60.0,
-            "bid_qty": 1040.0
+            "ask_qty": 55.0,
+            "bid_qty": 1030.0
           },
           {
             "level": 4,
             "ask": 51400.0,
             "bid": 50700.0,
-            "ask_qty": 232.0,
-            "bid_qty": 368.0
+            "ask_qty": 229.0,
+            "bid_qty": 263.0
           },
           {
             "level": 5,
             "ask": 51500.0,
             "bid": 50600.0,
-            "ask_qty": 497.0,
-            "bid_qty": 176.0
+            "ask_qty": 487.0,
+            "bid_qty": 170.0
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -1806,7 +1806,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "RECENT",
@@ -2358,7 +2358,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -2405,7 +2405,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -2949,7 +2949,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3005,7 +3005,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -3239,7 +3239,7 @@
         "prev20_high": 18260,
         "prev60_high": 18260,
         "digest_ratio": 1.0,
-        "spread_bps": 11.74,
+        "spread_bps": 17.57,
         "sequence": {
           "available": true,
           "low_after_1430": 17000.0,
@@ -3431,10 +3431,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 11.74,
+          "value": 17.57,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 11.74bp",
+          "reason": "스프레드 17.57bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -3502,48 +3502,48 @@
       "quality_score": 79.4,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 11.74,
-        "buy_total": 10248.0,
-        "sell_total": 5485.0,
+        "spread_bps": 17.57,
+        "buy_total": 8434.0,
+        "sell_total": 3739.0,
         "levels": [
           {
             "level": 1,
-            "ask": 17050.0,
-            "bid": 17030.0,
-            "ask_qty": 29.0,
-            "bid_qty": 830.0
+            "ask": 17090.0,
+            "bid": 17060.0,
+            "ask_qty": 414.0,
+            "bid_qty": 1820.0
           },
           {
             "level": 2,
-            "ask": 17060.0,
-            "bid": 17020.0,
-            "ask_qty": 279.0,
-            "bid_qty": 60.0
+            "ask": 17100.0,
+            "bid": 17050.0,
+            "ask_qty": 1366.0,
+            "bid_qty": 290.0
           },
           {
             "level": 3,
-            "ask": 17070.0,
-            "bid": 17010.0,
-            "ask_qty": 1000.0,
-            "bid_qty": 2036.0
+            "ask": 17110.0,
+            "bid": 17040.0,
+            "ask_qty": 372.0,
+            "bid_qty": 127.0
           },
           {
             "level": 4,
-            "ask": 17090.0,
-            "bid": 17000.0,
-            "ask_qty": 1086.0,
-            "bid_qty": 1849.0
+            "ask": 17120.0,
+            "bid": 17030.0,
+            "ask_qty": 177.0,
+            "bid_qty": 366.0
           },
           {
             "level": 5,
-            "ask": 17100.0,
-            "bid": 16990.0,
-            "ask_qty": 854.0,
-            "bid_qty": 1173.0
+            "ask": 17130.0,
+            "bid": 17020.0,
+            "ask_qty": 196.0,
+            "bid_qty": 251.0
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -3590,7 +3590,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -4122,7 +4122,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4169,7 +4169,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -4703,7 +4703,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -4759,7 +4759,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
@@ -5310,7 +5310,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5366,15 +5366,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 8.2,
+          "hours": 8.3,
           "at": "2026-10-02T12:08:00+09:00",
           "title": "마이크론 매출 74조원 사상 최대…데이터센터 매출 1년 새 11배",
           "source": "news",
-          "reason": "재료 발표 후 8.2시간이 지났습니다."
+          "reason": "재료 발표 후 8.3시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -5606,7 +5606,7 @@
         "prev20_high": 4250,
         "prev60_high": 4250,
         "digest_ratio": 1.0,
-        "spread_bps": 12.59,
+        "spread_bps": 12.62,
         "sequence": {
           "available": true,
           "low_after_1430": 3945.0,
@@ -5798,10 +5798,10 @@
           "id": "H_LIQUIDITY",
           "name": "호가 유동성",
           "role": "supporting",
-          "value": 12.59,
+          "value": 12.62,
           "threshold": "스프레드 40bp 이하",
           "status": "PASS",
-          "reason": "스프레드 12.59bp",
+          "reason": "스프레드 12.62bp",
           "data_source": "Naver hoga snapshot"
         },
         {
@@ -5869,48 +5869,48 @@
       "quality_score": 76.5,
       "final_status": "EXCLUDE",
       "orderbook": {
-        "spread_bps": 12.59,
-        "buy_total": 16152.0,
-        "sell_total": 15467.0,
+        "spread_bps": 12.62,
+        "buy_total": 10586.0,
+        "sell_total": 11999.0,
         "levels": [
           {
             "level": 1,
-            "ask": 3975.0,
-            "bid": 3970.0,
-            "ask_qty": 418.0,
-            "bid_qty": 144.0
+            "ask": 3965.0,
+            "bid": 3960.0,
+            "ask_qty": 1105.0,
+            "bid_qty": 1625.0
           },
           {
             "level": 2,
-            "ask": 3985.0,
-            "bid": 3965.0,
-            "ask_qty": 1375.0,
-            "bid_qty": 2505.0
+            "ask": 3970.0,
+            "bid": 3955.0,
+            "ask_qty": 2442.0,
+            "bid_qty": 1668.0
           },
           {
             "level": 3,
-            "ask": 3990.0,
-            "bid": 3960.0,
-            "ask_qty": 2621.0,
-            "bid_qty": 4903.0
+            "ask": 3975.0,
+            "bid": 3950.0,
+            "ask_qty": 233.0,
+            "bid_qty": 1151.0
           },
           {
             "level": 4,
-            "ask": 3995.0,
-            "bid": 3955.0,
-            "ask_qty": 2230.0,
-            "bid_qty": 2455.0
+            "ask": 3980.0,
+            "bid": 3945.0,
+            "ask_qty": 777.0,
+            "bid_qty": 1261.0
           },
           {
             "level": 5,
-            "ask": 4000.0,
-            "bid": 3950.0,
-            "ask_qty": 3626.0,
-            "bid_qty": 1152.0
+            "ask": 3985.0,
+            "bid": 3940.0,
+            "ask_qty": 665.0,
+            "bid_qty": 1516.0
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -5957,15 +5957,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 438.0,
+          "hours": 438.1,
           "at": "2026-09-14T14:21:00+09:00",
           "title": "동국산업, 1300억 투자 결실…4분기 배터리용 니켈도금강판 공급",
           "source": "news",
-          "reason": "재료 발표 후 438.0시간이 지났습니다."
+          "reason": "재료 발표 후 438.1시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -6507,7 +6507,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -6563,15 +6563,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
-          "hours": 100.5,
+          "hours": 100.6,
           "at": "2026-09-28T15:51:03+09:00",
           "title": "삼성전자(주) 중간(분기)배당락 기준가격 안내(삼성전자우)",
           "source": "notice",
-          "reason": "재료 발표 후 100.5시간이 지났습니다."
+          "reason": "재료 발표 후 100.6시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -7094,47 +7094,47 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 12.0,
-        "buy_total": 25903.0,
-        "sell_total": 56675.0,
+        "buy_total": 22739.0,
+        "sell_total": 50435.0,
         "levels": [
           {
             "level": 1,
             "ask": 8340.0,
             "bid": 8330.0,
-            "ask_qty": 5939.0,
-            "bid_qty": 2750.0
+            "ask_qty": 349.0,
+            "bid_qty": 2214.0
           },
           {
             "level": 2,
             "ask": 8350.0,
             "bid": 8320.0,
-            "ask_qty": 20586.0,
-            "bid_qty": 2057.0
+            "ask_qty": 20225.0,
+            "bid_qty": 1198.0
           },
           {
             "level": 3,
             "ask": 8360.0,
             "bid": 8310.0,
             "ask_qty": 5507.0,
-            "bid_qty": 1313.0
+            "bid_qty": 628.0
           },
           {
             "level": 4,
             "ask": 8370.0,
             "bid": 8300.0,
-            "ask_qty": 4083.0,
-            "bid_qty": 3653.0
+            "ask_qty": 3983.0,
+            "bid_qty": 1539.0
           },
           {
             "level": 5,
             "ask": 8380.0,
             "bid": 8290.0,
-            "ask_qty": 3553.0,
-            "bid_qty": 4248.0
+            "ask_qty": 3363.0,
+            "bid_qty": 5238.0
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7181,7 +7181,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -7676,7 +7676,7 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": null,
-        "buy_total": 308737.0,
+        "buy_total": 309838.0,
         "sell_total": 0.0,
         "levels": [
           {
@@ -7684,7 +7684,7 @@
             "ask": 0.0,
             "bid": 18440.0,
             "ask_qty": 0.0,
-            "bid_qty": 307818.0
+            "bid_qty": 308919.0
           },
           {
             "level": 2,
@@ -7716,7 +7716,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -7763,7 +7763,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8256,47 +8256,47 @@
       "final_status": "EXCLUDE",
       "orderbook": {
         "spread_bps": 15.94,
-        "buy_total": 39487.0,
-        "sell_total": 93285.0,
+        "buy_total": 35098.0,
+        "sell_total": 88003.0,
         "levels": [
           {
             "level": 1,
             "ask": 31400.0,
             "bid": 31350.0,
-            "ask_qty": 4010.0,
-            "bid_qty": 7461.0
+            "ask_qty": 633.0,
+            "bid_qty": 3631.0
           },
           {
             "level": 2,
             "ask": 31450.0,
             "bid": 31300.0,
-            "ask_qty": 4705.0,
-            "bid_qty": 5676.0
+            "ask_qty": 4153.0,
+            "bid_qty": 5361.0
           },
           {
             "level": 3,
             "ask": 31500.0,
             "bid": 31250.0,
-            "ask_qty": 11896.0,
-            "bid_qty": 4641.0
+            "ask_qty": 10630.0,
+            "bid_qty": 4593.0
           },
           {
             "level": 4,
             "ask": 31550.0,
             "bid": 31200.0,
-            "ask_qty": 14919.0,
-            "bid_qty": 8034.0
+            "ask_qty": 14924.0,
+            "bid_qty": 7971.0
           },
           {
             "level": 5,
             "ask": 31600.0,
             "bid": 31150.0,
-            "ask_qty": 10700.0,
-            "bid_qty": 1134.0
+            "ask_qty": 10800.0,
+            "bid_qty": 1057.0
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8343,7 +8343,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -8885,7 +8885,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -8941,7 +8941,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -9482,7 +9482,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -9538,7 +9538,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
@@ -10122,7 +10122,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10169,7 +10169,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -10695,7 +10695,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -10751,7 +10751,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "STALE",
@@ -11298,7 +11298,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11354,7 +11354,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -11880,7 +11880,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -11936,15 +11936,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.9,
+          "hours": 2.0,
           "at": "2026-10-02T18:26:00+09:00",
           "title": "국제유가·금리 급등 탓? 외국인, ‘삼전닉스’ 8조 순매도",
           "source": "news",
-          "reason": "재료 발표 후 1.9시간이 지났습니다."
+          "reason": "재료 발표 후 2.0시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -12521,7 +12521,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -12577,7 +12577,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13112,7 +13112,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13159,7 +13159,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -13690,7 +13690,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -13746,15 +13746,15 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "FRESH",
-          "hours": 1.3,
+          "hours": 1.4,
           "at": "2026-10-02T19:00:00+09:00",
           "title": "\"삼전·하이닉스 16조 던졌는데\"…외국인들이 몰래 쓸어 담은 '이것'의...",
           "source": "news",
-          "reason": "재료 발표 후 1.3시간이 지났습니다."
+          "reason": "재료 발표 후 1.4시간이 지났습니다."
         },
         "matched_catalyst_items": [
           {
@@ -14299,7 +14299,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14355,7 +14355,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -14890,7 +14890,7 @@
           }
         ]
       },
-      "updated_at": "2026-10-02T20:19:20.719214+09:00",
+      "updated_at": "2026-10-02T20:24:22.743341+09:00",
       "market_status": "CLOSE",
       "automation_356": {
         "version": "automation-356-v2",
@@ -14937,7 +14937,7 @@
       },
       "winrate_v4": {
         "version": "largo-winrate-v4.1",
-        "enriched_at": "2026-10-02T20:19:20.719214+09:00",
+        "enriched_at": "2026-10-02T20:24:22.743341+09:00",
         "prior_history_confirmed": true,
         "catalyst_freshness": {
           "status": "UNKNOWN",
@@ -14954,13 +14954,13 @@
   ],
   "history_summary": {
     "snapshots": 20,
-    "first": "2026-09-28T20:57:48.654907+09:00",
-    "last": "2026-10-02T20:19:20.719214+09:00"
+    "first": "2026-09-28T21:03:21.363184+09:00",
+    "last": "2026-10-02T20:24:22.743341+09:00"
   },
   "disclaimer": "이 결과는 후보 선별입니다. 다음날 실제 HTS 호가·체결 확인 없이 매수하지 않습니다.",
   "automation_356": {
     "version": "automation-356-v2",
-    "generated_at": "2026-10-02T20:21:52.472463+09:00",
+    "generated_at": "2026-10-02T20:26:32.232407+09:00",
     "automated_steps": [
       3,
       5,
@@ -14977,7 +14977,7 @@
   },
   "winrate_v4": {
     "version": "largo-winrate-v4.1",
-    "source_at": "2026-10-02T20:19:20.719214+09:00",
+    "source_at": "2026-10-02T20:24:22.743341+09:00",
     "candidates": 24,
     "source_error_count": 0,
     "source_errors": [],
